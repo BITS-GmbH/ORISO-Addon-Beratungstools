@@ -51,7 +51,9 @@ const dayText = (value: unknown): string | null => {
 		return null;
 	}
 	if (value instanceof Date) {
-		return value.toISOString().slice(0, 10);
+		// The driver builds DATE values at local midnight; UTC would shift them by a day east of Greenwich.
+		const pad = (n: number) => String(n).padStart(2, '0');
+		return `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}`;
 	}
 	return String(value).slice(0, 10);
 };
