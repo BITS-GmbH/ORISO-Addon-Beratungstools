@@ -1,0 +1,32 @@
+import type { ComponentType, ReactNode } from 'react';
+import type { ClientTool, Entry, ToolOptions } from '../../../shared/api.ts';
+import type { ToolId } from '../../../shared/catalog.ts';
+import type { EntryStore } from '../core/entryStore.ts';
+
+export interface ClientViewProps {
+	tool: ClientTool;
+	/** The current entries; changes go through `store`, which saves them and updates this list. */
+	entries: Entry[];
+	store: EntryStore;
+	informal: boolean;
+	locale: string;
+	/** Back to "Meine Tools". */
+	onDone: () => void;
+}
+
+export interface CounsellorViewProps {
+	entries: Entry[];
+	options: ToolOptions;
+	/** Changed since the counsellor last looked (marked "neu"). */
+	isNew: (entry: Entry) => boolean;
+	locale: string;
+}
+
+/** The web side of a tool. Register it in `tools/index.ts`; the core never names a tool. */
+export interface WebTool {
+	id: ToolId;
+	/** Children of a 24×24 outline SVG (stroke, no fill) for the tiles. */
+	icon?: ReactNode;
+	ClientView: ComponentType<ClientViewProps>;
+	CounsellorView: ComponentType<CounsellorViewProps>;
+}

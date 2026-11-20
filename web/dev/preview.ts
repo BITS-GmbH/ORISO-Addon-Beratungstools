@@ -1,0 +1,124 @@
+// Local preview without ORISO: `npm run db:up`, then `npm run preview` and open the printed URL.
+// Runs the real API against the compose MariaDB with locally signed tokens and a host stand-in,
+// and serves the UI with Vite; React and a kit stand-in come from this page instead of the host.
+import { generateKeyPairSync, sign } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { createServer } from 'vite';
+import { buildApp } from '../../server/src/app.ts';
+import type { Claims } from '../../server/src/auth.ts';
+import { createVerifier } from '../../server/src/auth.ts';
+import { NAME } from '../../server/src/core/manifest.ts';
+import { migrate } from '../../server/src/db/migrate.ts';
+import { openPool } from '../../server/src/db/pool.ts';
+import type { Host, HostNotification } from '../../server/src/host.ts';
+import { Store } from '../../server/src/store.ts';
+import { TOOLS } from '../../server/src/tools/index.ts';
+
+const API_PORT = 8091;
+const UI_PORT = Number(process.env.PORT ?? 5179);
+const databaseUrl =
+	process.env.DATABASE_URL ?? 'mariadb://beratungstools:beratungstools@127.0.0.1:3307/beratungstools';
+
+const { privateKey, publicKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
+const jwks = { keys: [{ ...publicKey.export({ format: 'jwk' }), kid: 'preview', alg: 'RS256' }] };
+const b64 = (value: unknown) => Buffer.from(JSON.stringify(value)).toString('base64url');
+const token = (claims: Record<string, unknown>) => {
+	const head = b64({ alg: 'RS256', kid: 'preview', typ: 'JWT' });
+	const body = b64({
+		iss: 'oriso-addonservice',
+		aud: [NAME],
+		exp: Math.floor(Date.now() / 1000) + 3600,
+		tenantId: 1,
+		...claims
+	});
+	return `${head}.${body}.${sign('sha256', Buffer.from(`${head}.${body}`), privateKey).toString('base64url')}`;
+};
+
+const ROLES: Record<string, Record<string, unknown>> = {
+	asker: { sub: 'preview-asker', username: 'Testuser_Lorenz_02', roles: ['user'] },
+	counsellor: {
+		sub: 'preview-counsellor',
+		username: 'Beraterin',
+		roles: ['consultant'],
+		askerId: 'preview-asker',
+		sessionId: 4711,
+		agencyId: 1
+	}
+};
+
+const settings: Record<string, unknown> = {};
+const log: Array<{ at: string; kind: string; text: string }> = [];
+const record = (kind: string, text: string) => {
+	log.unshift({ at: new Date().toISOString(), kind, text });
+	log.length = Math.min(log.length, 30);
+};
+
+const host: Host = {
+	settings: async () => settings,
+	gates: async () => ({ dpa: { newCounsellingAllowed: true } }),
+	context: async () => ({ sessions: [{ id: 4711, consultantId: 'preview-counsellor' }] }),
+	notify: async (_claims: Claims, notification: HostNotification) => {
+		record(
+			`Benachrichtigung an ${notification.recipient}`,
+			`${notification.title.de}: ${notification.text.de}`
+		);
+		return true;
+	},
+	audit: async (_claims, entry) => {
+		record('Audit', entry.summary.de);
+		return true;
+	}
+};
+
+const pool = openPool(databaseUrl);
+await migrate(pool);
+const { app } = buildApp({
+	store: new Store(pool),
+	verify: createVerifier({
+		jwksUrl: 'preview',
+		issuer: 'oriso-addonservice',
+		audience: NAME,
+		fetchImpl: async () => new Response(JSON.stringify(jwks))
+	}),
+	host,
+	tools: TOOLS,
+	notifyWindowMs: 60_000
+});
+app.get('/dev/token', async (request) => ({
+	token: token(ROLES[(request.query as { as?: string }).as ?? 'asker'] ?? {})
+}));
+app.get('/dev/log', async () => log);
+app.put('/dev/settings', async (request) => Object.assign(settings, request.body));
+app.post('/dev/reset', async () => {
+	for (const table of [
+		'entries',
+		'shares',
+		'releases',
+		'seen',
+		'notification_outbox',
+		'notification_prefs'
+	]) {
+		await pool.query(`DELETE FROM ${table}`);
+	}
+	log.length = 0;
+	return { ok: true };
+});
+await app.listen({ port: API_PORT, host: '127.0.0.1' });
+
+const vite = await createServer({
+	configFile: false,
+	root: fileURLToPath(new URL('..', import.meta.url)),
+	resolve: { alias: { '@oriso/web-kit': fileURLToPath(new URL('./kit.tsx', import.meta.url)) } },
+	server: {
+		port: UI_PORT,
+		proxy: {
+			'/api': `http://127.0.0.1:${API_PORT}`,
+			'/dev/token': `http://127.0.0.1:${API_PORT}`,
+			'/dev/log': `http://127.0.0.1:${API_PORT}`,
+			'/dev/settings': `http://127.0.0.1:${API_PORT}`,
+			'/dev/reset': `http://127.0.0.1:${API_PORT}`
+		}
+	}
+});
+await vite.listen();
+console.log(`preview on http://localhost:${UI_PORT}/dev/preview.html`);

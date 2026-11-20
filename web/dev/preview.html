@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Beratungstools, lokale Vorschau</title>
+		<style>
+			:root {
+				--m3-primary: #225e65;
+				--m3-on-primary: #fff;
+				--m3-surface-container-lowest: #fff;
+				--m3-surface-container-low: #f3f5f6;
+				--m3-surface-container-high: #e5e9ea;
+				--m3-on-surface: #191c1d;
+				--m3-on-surface-variant: #3f484a;
+				--m3-outline: #6f797a;
+				--m3-outline-variant: #bfc8ca;
+				--m3-error: #ba1a1a;
+			}
+			body {
+				margin: 0;
+				font-family: Nunito, 'Segoe UI', system-ui, sans-serif;
+				background: #eef1f2;
+				color: #191c1d;
+			}
+			header {
+				display: flex;
+				gap: 16px;
+				align-items: center;
+				padding: 10px 20px;
+				background: #fff;
+				border-bottom: 1px solid #dde3e4;
+				flex-wrap: wrap;
+				font-size: 14px;
+			}
+			header b {
+				margin-right: auto;
+			}
+			main {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+				gap: 20px;
+				padding: 20px;
+				align-items: start;
+			}
+			@media (max-width: 1100px) {
+				main {
+					grid-template-columns: 1fr;
+				}
+			}
+			.pane > h1 {
+				font-size: 12px;
+				text-transform: uppercase;
+				letter-spacing: 0.06em;
+				color: #3f484a;
+				margin: 0 0 10px;
+			}
+			.pane {
+				background: #f8fafa;
+				border: 1px solid #dde3e4;
+				border-radius: 12px;
+				padding: 16px;
+			}
+			#profile {
+				max-width: 420px;
+			}
+			#log {
+				font-size: 13px;
+				color: #3f484a;
+				max-height: 220px;
+				overflow: auto;
+			}
+			#log div {
+				padding: 4px 0;
+				border-bottom: 1px solid #e5e9ea;
+			}
+			#toasts {
+				position: fixed;
+				right: 16px;
+				bottom: 16px;
+				display: grid;
+				gap: 8px;
+				z-index: 10;
+			}
+			.toast {
+				background: #2e3132;
+				color: #fff;
+				padding: 10px 16px;
+				border-radius: 8px;
+				font-size: 14px;
+				max-width: 360px;
+			}
+			.toast.error {
+				background: #ba1a1a;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<b>Beratungstools, lokale Vorschau</b>
+			<label><input type="checkbox" id="informal" /> Ratsuchende duzen</label>
+			<label><input type="checkbox" id="sharing" checked /> Teilen erlauben</label>
+			<label>
+				Waage
+				<select id="poles">
+					<option>CONTRA Veränderung / PRO Veränderung</option>
+					<option>keine Veränderung / Ich möchte etwas ändern!</option>
+					<option>gut so, wie es ist / es muss sich was ändern!</option>
+				</select>
+			</label>
+			<button id="reset" type="button">Alle Daten löschen</button>
+		</header>
+		<main>
+			<section class="pane">
+				<h1>Ratsuchende (asker.navigation)</h1>
+				<div id="asker"></div>
+			</section>
+			<section class="pane">
+				<h1>Beratende (consultant.session)</h1>
+				<div id="counsellor"></div>
+			</section>
+			<section class="pane">
+				<h1>Profil-Kachel (consultant.asker-profile)</h1>
+				<div id="profile"></div>
+			</section>
+			<section class="pane">
+				<h1>Benachrichtigungen und Audit (Host-Stand-in)</h1>
+				<div id="log"></div>
+			</section>
+		</main>
+		<div id="toasts"></div>
+		<script type="module" src="./preview.tsx"></script>
+	</body>
+</html>
