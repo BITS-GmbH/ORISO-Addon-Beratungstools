@@ -37,6 +37,8 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run test:integration
+        env:
+          TEST_DATABASE_URL: mariadb://beratungstools:beratungstools@127.0.0.1:3307/beratungstools
       - run: npm run build
 
   build-and-push:

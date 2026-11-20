@@ -1,4 +1,5 @@
-# Local MariaDB for development, the preview and the integration tests (npm run db:up).
+# Local MariaDB for development and the preview (database beratungstools) and the integration
+# tests (beratungstools_test, emptied by every test file): npm run db:up.
 # `docker compose --profile app up --build` also runs the add-on image against it.
 services:
   mariadb:
@@ -17,6 +18,8 @@ services:
       retries: 30
     tmpfs:
       - /var/lib/mysql
+    volumes:
+      - ./dev/mariadb-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   addon:
     profiles: [app]

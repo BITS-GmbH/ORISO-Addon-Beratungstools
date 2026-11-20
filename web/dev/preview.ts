@@ -103,6 +103,41 @@ app.post('/dev/reset', async () => {
 	log.length = 0;
 	return { ok: true };
 });
+app.post('/dev/sample', async () => {
+	const call = (as: string, method: 'POST' | 'PUT', url: string, payload?: object) =>
+		app.inject({
+			method,
+			url: `/api${url}`,
+			headers: { authorization: `Bearer ${token(ROLES[as] ?? {})}` },
+			...(payload ? { payload } : {})
+		});
+	await call('counsellor', 'POST', '/case/tools/goals/release');
+	await call('counsellor', 'POST', '/case/tools/balance/release');
+	await call('asker', 'PUT', '/me/tools/goals/keyed/answer/situation', {
+		data: { text: 'Seit dem Umzug trinke ich fast jeden Abend, meistens zwei bis drei Bier.' }
+	});
+	await call('asker', 'PUT', '/me/tools/goals/keyed/answer/goal', {
+		data: { text: 'Unter der Woche nichts trinken.' }
+	});
+	const args: Array<[string, string, number]> = [
+		['A', 'Ich kann wieder klar denken.', 3],
+		['A', 'Mehr Geld / weniger Schulden.', 2],
+		['B', 'Der Rausch wird mir fehlen.', 2],
+		['C', 'Beim Trinken habe ich meine Ruhe.', 1],
+		['D', 'Es geht gesundheitlich weiter bergab.', 3]
+	];
+	for (const [category, text, rating] of args) {
+		await call('asker', 'POST', '/me/tools/balance/entries', {
+			kind: 'argument',
+			data: { category, text, rating }
+		});
+	}
+	await call('asker', 'PUT', '/me/tools/balance/keyed/conclusion/main', {
+		data: { text: 'Die Vorteile überwiegen. Ich möchte es mit Unterstützung versuchen.' }
+	});
+	await call('asker', 'PUT', '/me/tools/balance/share', { shared: true });
+	return { ok: true };
+});
 await app.listen({ port: API_PORT, host: '127.0.0.1' });
 
 const vite = await createServer({
@@ -111,13 +146,12 @@ const vite = await createServer({
 	resolve: { alias: { '@oriso/web-kit': fileURLToPath(new URL('./kit.tsx', import.meta.url)) } },
 	server: {
 		port: UI_PORT,
-		proxy: {
-			'/api': `http://127.0.0.1:${API_PORT}`,
-			'/dev/token': `http://127.0.0.1:${API_PORT}`,
-			'/dev/log': `http://127.0.0.1:${API_PORT}`,
-			'/dev/settings': `http://127.0.0.1:${API_PORT}`,
-			'/dev/reset': `http://127.0.0.1:${API_PORT}`
-		}
+		proxy: Object.fromEntries(
+			['/api', '/dev/token', '/dev/log', '/dev/settings', '/dev/reset', '/dev/sample'].map((path) => [
+				path,
+				`http://127.0.0.1:${API_PORT}`
+			])
+		)
 	}
 });
 await vite.listen();

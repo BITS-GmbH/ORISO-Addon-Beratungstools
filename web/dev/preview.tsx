@@ -83,6 +83,10 @@ const saveSettings = async () => {
 element('informal').onchange = renderAll;
 element('sharing').onchange = saveSettings;
 element('poles').onchange = saveSettings;
+element('sample').onclick = async () => {
+	await fetch('/dev/sample', { method: 'POST' });
+	await renderAll();
+};
 element('reset').onclick = async () => {
 	await fetch('/dev/reset', { method: 'POST' });
 	await renderAll();

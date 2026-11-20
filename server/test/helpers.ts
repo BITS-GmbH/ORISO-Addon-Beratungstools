@@ -88,7 +88,8 @@ export class FakeHost implements Host {
 }
 
 export const TEST_DATABASE_URL =
-	process.env.TEST_DATABASE_URL ?? 'mariadb://beratungstools:beratungstools@127.0.0.1:3307/beratungstools';
+	process.env.TEST_DATABASE_URL ??
+	'mariadb://beratungstools:beratungstools@127.0.0.1:3307/beratungstools_test';
 
 /** An empty schema with all migrations applied. */
 export const freshDatabase = async (): Promise<Pool> => {
