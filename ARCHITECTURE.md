@@ -26,15 +26,16 @@ persistence of its entries, export) and `web/src/tools/<id>/` (client view, read
 view), plus `shared/tools/<id>.ts` for what both sides need (texts, calculations). A tool module
 registers itself in one list per side; the core never names a tool. See "Tool modules" below.
 
-Available so far: `goals`, `balance`, `emergency-kit`, `risk-situations`, `traffic-light` and
-`positive-perception`. The other three are in the catalogue
-(`shared/catalog.ts`, ids, titles, tile texts, audience, order) but have no module yet; the core
-offers only tools with a module, so they are neither offered for release nor shown, and have no
-settings or statistics until their module lands.
+Available: all nine. A tool without a module would stay in the catalogue (`shared/catalog.ts`,
+ids, titles, tile texts, audience, order); the core offers only tools with a module, so such a
+tool is neither offered for release nor shown, and has no settings or statistics.
 
 Links between tools go through the core, not through imports between tool modules:
 
-- `active` owns planned activities; both diaries read them (same records, no copies).
+- `active` owns planned activities; both diaries read them (same records, no copies, `reads`):
+  the client sees them in a diary only while "Aktiv sein" is released, counsellors only while it
+  is shared as well, as for every `reads` link. The shape of an activity and the expansion of
+  repetitions live in `shared/activities.ts`, so neither diary imports the tool module.
 - `emergency-kit` shows the entries of `risk-situations` when that tool is released (`reads`).
 - The consumption diary's topics can be preset from the registration (`registrationRef` of the
   `user.registered` event), once Los 2 delivers it.
@@ -221,7 +222,12 @@ and for the AddonService `/visibility`, `/stats`, `/events`, `/calendar`.
 ## Open points (from delphi's specification)
 
 - Feedback from counsellors to entries: channel not decided (comment in the tool or a chat
-  message).
+  message). The diaries' row "Rückmeldung vom Beratungsteam" is left out until it is.
+- Appointments with counsellors in the diaries come with the appointment service (Los 3); not
+  shown yet.
+- Consumption diary: topics preset from the registration (Los 2) and further topics activated
+  by counsellors are not implemented; clients choose alcohol, cannabis, gambling and media
+  themselves.
 - Notifications by mail in addition to the platform.
 - Export formats besides PDF; storing exports in the documentation (Los 4).
 - Responsive behaviour on narrow screens and for archived cases.

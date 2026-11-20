@@ -5,9 +5,10 @@ ADR-034), behind the [AddonService](https://github.com/OpenResilienceInitiative/
 It replaces the add-ons `digisucht-tools` and `motivationswaage`. Design and the tool module
 interface: [ARCHITECTURE.md](ARCHITECTURE.md). Description for admins: [docs/README.md](docs/README.md).
 
-Tools so far: Ausgangssituation und Ziele (`goals`), Motivationswaage (`balance`), Notfallkoffer
-(`emergency-kit`), Risikosituationen und Kontrollstrategien (`risk-situations`), Ampelmodell
-(`traffic-light`), Positives Wahrnehmen (`positive-perception`).
+Tools so far: Ausgangssituation und Ziele (`goals`), Konsumtagebuch (`consumption-diary`),
+Tagebuch für Angehörige (`relatives-diary`), Motivationswaage (`balance`), Notfallkoffer
+(`emergency-kit`), Aktiv sein (`active`), Risikosituationen und Kontrollstrategien
+(`risk-situations`), Ampelmodell (`traffic-light`), Positives Wahrnehmen (`positive-perception`).
 
 ## Layout
 
