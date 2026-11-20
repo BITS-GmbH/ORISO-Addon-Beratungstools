@@ -61,6 +61,7 @@ export interface CaseEntries {
 	entries: Entry[];
 	seenAt: string | null;
 	sharedSince: string | null;
+	exportRange: boolean;
 }
 
 export interface NotificationPrefs {

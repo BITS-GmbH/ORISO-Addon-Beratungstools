@@ -1,21 +1,30 @@
+import { z } from 'zod';
 import type { Argument } from '../../../shared/tools/balance.ts';
 import {
 	ARGUMENT_KIND,
-	argumentSchema,
 	calculate,
 	CATEGORIES,
 	CATEGORY_IDS,
 	CONCLUSION_KEY,
 	CONCLUSION_KIND,
-	conclusionSchema,
 	formatValue,
 	MAX_ARGUMENTS,
+	MAX_CONCLUSION_LENGTH,
+	MAX_TEXT_LENGTH,
 	POLE_VARIANTS,
 	polesOf,
 	ratingLabel,
 	tendency
 } from '../../../shared/tools/balance.ts';
 import type { ServerTool } from './types.ts';
+
+export const argumentSchema = z.object({
+	category: z.enum(['A', 'B', 'C', 'D']),
+	text: z.string().trim().min(1).max(MAX_TEXT_LENGTH),
+	rating: z.number().int().min(0).max(3)
+});
+
+export const conclusionSchema = z.object({ text: z.string().trim().min(1).max(MAX_CONCLUSION_LENGTH) });
 
 const PRO_COLOR = '#225e65';
 const CONTRA_COLOR = '#c25e22';

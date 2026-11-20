@@ -1,5 +1,3 @@
-import { z } from 'zod';
-
 export const MAX_TEXT_LENGTH = 500;
 export const MAX_CONCLUSION_LENGTH = 4000;
 export const MAX_ARGUMENTS = 200;
@@ -119,15 +117,11 @@ export const ARGUMENT_KIND = 'argument';
 export const CONCLUSION_KIND = 'conclusion';
 export const CONCLUSION_KEY = 'main';
 
-export const argumentSchema = z.object({
-	category: z.enum(['A', 'B', 'C', 'D']),
-	text: z.string().trim().min(1).max(MAX_TEXT_LENGTH),
-	rating: z.number().int().min(0).max(3)
-});
-
-export const conclusionSchema = z.object({ text: z.string().trim().min(1).max(MAX_CONCLUSION_LENGTH) });
-
-export type Argument = z.infer<typeof argumentSchema>;
+export interface Argument {
+	category: CategoryId;
+	text: string;
+	rating: number;
+}
 
 export interface BalanceResult {
 	pro: number;

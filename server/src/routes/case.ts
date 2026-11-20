@@ -159,7 +159,8 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 			options: optionsOf(settings, tool),
 			entries,
 			seenAt: seenAt?.toISOString() ?? null,
-			sharedSince: share?.sharedSince?.toISOString() ?? null
+			sharedSince: share?.sharedSince?.toISOString() ?? null,
+			exportRange: Boolean(tool.exportRange)
 		};
 	});
 

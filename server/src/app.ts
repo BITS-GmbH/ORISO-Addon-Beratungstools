@@ -105,6 +105,19 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 
 	app.decorateRequest('claims', undefined as unknown as Claims);
 
+	app.removeContentTypeParser('application/json');
+	app.addContentTypeParser('application/json', { parseAs: 'string' }, (_request, body, done) => {
+		if (!body) {
+			done(null, undefined);
+			return;
+		}
+		try {
+			done(null, JSON.parse(body as string));
+		} catch {
+			done(new HttpError(400, 'invalid json'), undefined);
+		}
+	});
+
 	app.setErrorHandler((error, request, reply) => {
 		if (error instanceof HttpError) {
 			return reply.code(error.status).send({ error: error.message });

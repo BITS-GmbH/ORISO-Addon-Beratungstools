@@ -1,4 +1,3 @@
-import { z } from 'zod';
 import { tx } from '../address.ts';
 
 export const MAX_ANSWER_LENGTH = 4000;
@@ -138,8 +137,8 @@ export const summaryMessage = (informal: boolean): string =>
 /** Each answer is one entry of kind `answer`, keyed by its step. */
 export const ANSWER_KIND = 'answer';
 
-export const answerSchema = z.object({ text: z.string().trim().min(1).max(MAX_ANSWER_LENGTH) });
-
-export type Answer = z.infer<typeof answerSchema>;
+export interface Answer {
+	text: string;
+}
 
 export const isStepId = (key: string): key is GoalsStep['id'] => (STEP_IDS as string[]).includes(key);
