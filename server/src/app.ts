@@ -118,6 +118,16 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 		}
 	});
 
+	// The AddonService gateway streams every POST body, so a bodyless request arrives as an empty
+	// chunked body without a content type.
+	app.addContentTypeParser('*', { parseAs: 'buffer' }, (_request, body, done) => {
+		if ((body as Buffer).length === 0) {
+			done(null, undefined);
+			return;
+		}
+		done(new HttpError(415, 'unsupported content type'), undefined);
+	});
+
 	app.setErrorHandler((error, request, reply) => {
 		if (error instanceof HttpError) {
 			return reply.code(error.status).send({ error: error.message });
