@@ -1,4 +1,4 @@
-import { Button, Card } from '@oriso/web-kit';
+import { Button } from '@oriso/web-kit';
 import { useState } from 'react';
 import type { Entry } from '../../../../shared/api.ts';
 import { relapsesOf, situationsOf, type RelapseItem } from '../../../../shared/tools/risk-situations.ts';
@@ -78,15 +78,13 @@ function Relapses({
 	}
 	return (
 		<>
-			<Card>
-				<div className="bt-stack bt-stack--tight">
-					<div className="bt-row bt-row--between">
-						<strong>Letzter Rückfall, analysiert am {formatDate(last.entry.createdAt, locale)}</strong>
-						{isNew(last.entry) && <Pill tone="new">Neu</Pill>}
-					</div>
-					<RelapseDetails relapse={last} />
+			<div className="bt-quote">
+				<div className="bt-row bt-row--between">
+					<strong>Letzter Rückfall, analysiert am {formatDate(last.entry.createdAt, locale)}</strong>
+					{isNew(last.entry) && <Pill tone="new">Neu</Pill>}
 				</div>
-			</Card>
+				<RelapseDetails relapse={last} />
+			</div>
 			{earlier.length > 0 && (
 				<div className="bt-stack bt-stack--tight">
 					<div>

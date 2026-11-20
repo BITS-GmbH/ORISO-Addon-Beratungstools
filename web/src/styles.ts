@@ -198,13 +198,11 @@ export const CSS = `
 .bt-done svg { width: 20px; height: 20px; fill: #2e7d32; flex: none; }
 
 /* Risikosituationen */
-.bt-risk { display: grid; gap: 8px 16px; grid-template-columns: 1fr auto; padding: 12px; border: 1px solid var(--bt-outline-soft); border-radius: 10px; background: var(--bt-surface); }
-.bt-risk__cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; grid-column: 1; }
-.bt-risk__actions { grid-column: 2; grid-row: 1; display: flex; }
+.bt-risk { display: grid; gap: 8px 16px; grid-template-columns: 1fr; padding: 12px; border: 1px solid var(--bt-outline-soft); border-radius: 10px; background: var(--bt-surface); }
+.bt-risk__cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.bt-risk__actions { display: flex; justify-content: flex-end; }
 @container (min-width: 760px) {
 	.bt-risk { grid-template-columns: minmax(0, 3fr) minmax(110px, 1fr) minmax(0, 3fr) minmax(150px, 1.4fr) auto; align-items: start; }
-	.bt-risk__cell { grid-column: auto; }
-	.bt-risk__actions { grid-column: auto; grid-row: auto; }
 }
 .bt-level { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; white-space: nowrap; }
 .bt-level__bars { display: inline-flex; gap: 2px; align-items: flex-end; }

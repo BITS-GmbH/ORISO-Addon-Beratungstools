@@ -336,14 +336,14 @@ function ListEditor({
 						onPick={addExample}
 					/>
 					<div className="bt-stack bt-stack--tight">
-						<h4 className="bt-title">{section.listLabel}</h4>
+						<h4 className="bt-title">{section.fieldLabel}</h4>
 						<ul className="bt-list">
 							{rows.map((row, index) => (
 								<li key={row.key} className="bt-kit-row">
 									<div className="bt-kit-row__fields">
 										<Textarea
 											id={`kit-${kind}-${row.key}`}
-											label={`${section.fieldLabel} (${index + 1})`}
+											label={`Eintrag ${index + 1}`}
 											value={row.text}
 											maxLength={MAX_TEXT_LENGTH}
 											minRows={2}
@@ -588,7 +588,7 @@ function TrustedEditor({
 								<div className="bt-kit-row__fields">
 									<TextField
 										id={`kit-trusted-${row.key}`}
-										label={`Name / Rolle Vertrauensperson (${index + 1})`}
+										label={`Name / Rolle Vertrauensperson ${index + 1}`}
 										placeholder="Name eintragen"
 										value={row.text}
 										maxLength={MAX_NAME_LENGTH}
