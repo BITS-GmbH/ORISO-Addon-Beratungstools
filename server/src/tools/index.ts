@@ -1,3 +1,4 @@
+import { active } from './active/index.ts';
 import { balance } from './balance/index.ts';
 import { emergencyKit } from './emergency-kit/index.ts';
 import { goals } from './goals/index.ts';
@@ -11,6 +12,7 @@ export const TOOLS: ServerTool[] = [
 	goals,
 	balance,
 	emergencyKit,
+	active,
 	riskSituations,
 	trafficLight,
 	positivePerception

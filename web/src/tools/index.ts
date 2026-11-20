@@ -1,3 +1,4 @@
+import { active } from './active/index.tsx';
 import { balance } from './balance/index.tsx';
 import { emergencyKit } from './emergency-kit/index.tsx';
 import { goals } from './goals/index.tsx';
@@ -11,6 +12,7 @@ export const WEB_TOOLS: WebTool[] = [
 	goals,
 	balance,
 	emergencyKit,
+	active,
 	riskSituations,
 	trafficLight,
 	positivePerception

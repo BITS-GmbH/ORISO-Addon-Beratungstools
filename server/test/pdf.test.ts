@@ -56,7 +56,17 @@ const SAMPLES: Record<string, Entry[]> = {
 		entry('activity', { text: 'Ein Computerspiel spielen', level: 3 }),
 		entry('activity', { text: 'E-Mails schreiben', level: 1 })
 	],
-	'positive-perception': [entry('behaviour', { text: 'Hat den Abwasch erledigt.' })]
+	'positive-perception': [entry('behaviour', { text: 'Hat den Abwasch erledigt.' })],
+	active: [
+		entry('activity', {
+			title: 'Joggen',
+			date: '2026-11-21',
+			time: '07:00',
+			repeat: 'weekly',
+			companion: 'Marie'
+		}),
+		entry('activity', { title: 'Lesen', repeat: 'none' })
+	]
 };
 
 describe('export', () => {
