@@ -21,6 +21,26 @@ export const Icon = ({ name, label }: { name: keyof typeof ICONS; label?: string
 	</svg>
 );
 
+export const IconButton = ({
+	icon,
+	label,
+	onClick
+}: {
+	icon: 'edit' | 'delete';
+	label: string;
+	onClick: () => void;
+}) => (
+	<button
+		type="button"
+		className="bt-iconbtn"
+		title={label.split(':')[0]}
+		aria-label={label}
+		onClick={onClick}
+	>
+		<Icon name={icon} />
+	</button>
+);
+
 export const BackButton = ({ onClick, children }: { onClick: () => void; children: ReactNode }) => (
 	<button type="button" className="bt-linkbtn" onClick={onClick}>
 		<Icon name="back" />

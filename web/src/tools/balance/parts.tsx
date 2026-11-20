@@ -13,7 +13,6 @@ import {
 	type Argument,
 	type CategoryId
 } from '../../../../shared/tools/balance.ts';
-import { Icon } from '../../ui.tsx';
 import { Scale } from './Scale.tsx';
 
 export type Item = Argument & { id: string; entry: Entry };
@@ -122,22 +121,4 @@ export function MiniResult({ items }: { items: Item[] }) {
 	);
 }
 
-export const IconButton = ({
-	icon,
-	label,
-	onClick
-}: {
-	icon: 'edit' | 'delete';
-	label: string;
-	onClick: () => void;
-}) => (
-	<button
-		type="button"
-		className="bt-iconbtn"
-		title={label.split(':')[0]}
-		aria-label={label}
-		onClick={onClick}
-	>
-		<Icon name={icon} />
-	</button>
-);
+export { IconButton } from '../../ui.tsx';

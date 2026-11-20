@@ -56,7 +56,10 @@ const record = (kind: string, text: string) => {
 const host: Host = {
 	settings: async () => settings,
 	gates: async () => ({ dpa: { newCounsellingAllowed: true } }),
-	context: async () => ({ sessions: [{ id: 4711, consultantId: 'preview-counsellor' }] }),
+	context: async () => ({
+		sessions: [{ id: 4711, agencyId: 1, consultantId: 'preview-counsellor' }],
+		consultants: [{ id: 'preview-counsellor', username: 'Beraterin', displayName: 'Maria Beispiel' }]
+	}),
 	notify: async (_claims: Claims, notification: HostNotification) => {
 		record(
 			`Benachrichtigung an ${notification.recipient}`,
@@ -162,6 +165,56 @@ app.post('/dev/sample', async () => {
 		});
 	}
 	await call('asker', 'PUT', '/me/tools/positive-perception/share', { shared: true });
+
+	await call('counsellor', 'POST', '/case/tools/risk-situations/release');
+	await call('counsellor', 'POST', '/case/tools/emergency-kit/release');
+	const situation = await call('asker', 'POST', '/me/tools/risk-situations/entries', {
+		kind: 'situation',
+		data: {
+			situation: 'Freitagabend nach der Arbeit, wenn die Kollegen noch etwas trinken gehen.',
+			difficulty: 'hard',
+			strategy: 'Ich sage vorher zu Hause Bescheid, dass ich um sechs da bin.'
+		}
+	});
+	await call('asker', 'POST', '/me/tools/risk-situations/entries', {
+		kind: 'relapse',
+		data: {
+			situationId: situation.json().id,
+			circumstances: 'Geburtstag eines Kollegen in der Kneipe gegenüber.',
+			feelings: 'Ich wollte nicht als Spielverderber dastehen.',
+			mainReason: 'Gruppendruck und keine Ausrede parat.',
+			alternatives: 'Kurz gratulieren und mit Verweis auf einen Termin gehen.',
+			previousStrategy: 'Ich gehe direkt nach Hause.',
+			newStrategy: 'Ich sage vorher zu Hause Bescheid, dass ich um sechs da bin.'
+		}
+	});
+	await call('asker', 'POST', '/me/tools/risk-situations/entries', {
+		kind: 'situation',
+		data: {
+			situation: 'Sonntags allein zu Hause, wenn mir langweilig ist.',
+			difficulty: 'medium',
+			strategy: 'Ich plane den Sonntag vorher und rufe jemanden an.'
+		}
+	});
+	for (const [kind, data] of [
+		['motivation', { text: 'Endlich wieder frei sein', importance: 1 }],
+		['motivation', { text: 'Meine Partnerin soll mir wieder vertrauen können', importance: 2 }],
+		['strategy', { text: 'Ich treibe regelmäßig Sport' }],
+		['trusted', { name: 'Anna (Schwester)' }],
+		['craving', { text: 'Ich sage mir: „STOP! Hau ab von hier! Sofort!“' }],
+		['relapse', { text: 'Ich gebe nicht auf!' }]
+	] as const) {
+		await call('asker', 'POST', '/me/tools/emergency-kit/entries', { kind, data });
+	}
+	await call('asker', 'PUT', '/me/tools/emergency-kit/keyed/request/self-help-group', {
+		data: { requested: true }
+	});
+	await call('asker', 'PUT', '/me/tools/risk-situations/share', { shared: true });
+	await call('asker', 'PUT', '/me/tools/emergency-kit/share', { shared: true });
+	Object.assign(settings, {
+		emergencyKitAgency:
+			'Suchtberatung Beispielstadt\nMusterstraße 1, 12345 Beispielstadt\nTelefon 0123 456789\nOffene Sprechstunde: Di 14 bis 16 Uhr'
+	});
 	return { ok: true };
 });
 await app.listen({ port: API_PORT, host: '127.0.0.1' });

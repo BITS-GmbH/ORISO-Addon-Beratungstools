@@ -20,7 +20,29 @@ const header = {
 	period: '20.11.2026'
 };
 
+const SITUATION_ID = '00000000-0000-4000-8000-000000000001';
+
 const SAMPLES: Record<string, Entry[]> = {
+	'risk-situations': [
+		{
+			...entry('situation', { situation: 'Freitagabend', difficulty: 'hard', strategy: 'Nach Hause gehen' }),
+			id: SITUATION_ID
+		},
+		entry('relapse', {
+			situationId: SITUATION_ID,
+			circumstances: 'Feier',
+			feelings: 'Druck',
+			mainReason: '',
+			alternatives: '',
+			previousStrategy: 'Nach Hause gehen',
+			newStrategy: 'Vorher Bescheid sagen'
+		})
+	],
+	'emergency-kit': [
+		entry('motivation', { text: 'Frei sein', importance: 1 }),
+		entry('trusted', { name: 'Anna' }),
+		entry('relapse', { text: 'Ich gebe nicht auf!' })
+	],
 	goals: [
 		entry('answer', { text: 'Ich trinke zu viel – und „zu oft“ 🙂' }, 'situation'),
 		entry('answer', { text: 'Weniger' }, 'goal')
