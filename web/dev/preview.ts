@@ -136,6 +136,21 @@ app.post('/dev/sample', async () => {
 		data: { text: 'Die Vorteile überwiegen. Ich möchte es mit Unterstützung versuchen.' }
 	});
 	await call('asker', 'PUT', '/me/tools/balance/share', { shared: true });
+	await call('counsellor', 'POST', '/case/tools/traffic-light/release');
+	const activities: Array<[string, number]> = [
+		['Ein Computerspiel spielen', 3],
+		['Nachts durch Kurzvideos scrollen', 3],
+		['Instagram', 2],
+		['E-Mails schreiben', 1],
+		['Online-Banking durchführen', 1]
+	];
+	for (const [text, level] of activities) {
+		await call('asker', 'POST', '/me/tools/traffic-light/entries', {
+			kind: 'activity',
+			data: { text, level }
+		});
+	}
+	await call('asker', 'PUT', '/me/tools/traffic-light/share', { shared: true });
 	return { ok: true };
 });
 await app.listen({ port: API_PORT, host: '127.0.0.1' });

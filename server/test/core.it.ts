@@ -107,7 +107,9 @@ describe('release', () => {
 	it('does not offer a tool the Träger switched off', async () => {
 		t.host.settingsValue = { balance: false };
 		const overview = (await t.call('GET', '/api/case/tools', counsellor)).body;
-		expect(overview.tools.map((tool: { id: string }) => tool.id)).toEqual(['goals']);
+		const ids = overview.tools.map((tool: { id: string }) => tool.id);
+		expect(ids).toContain('goals');
+		expect(ids).not.toContain('balance');
 		expect((await t.call('GET', '/api/me/tools/balance', asker)).status).toBe(404);
 		expect((await t.call('POST', '/api/case/tools/balance/release', counsellor)).status).toBe(404);
 		t.host.settingsValue = {};

@@ -123,6 +123,30 @@ export const CSS = `
 .bt-details { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 4px 0 0; font-size: 13px; }
 .bt-details dt { color: var(--bt-muted); }
 .bt-details dd { margin: 0; }
+/* Ampelmodell */
+.bt-ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 4px; }
+.bt-lamp { width: 16px; height: 16px; border-radius: 999px; flex: none; display: inline-block; box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .18); }
+.bt-lamp--red { background: #d32f2f; }
+.bt-lamp--yellow { background: #f6c000; }
+.bt-lamp--green { background: #2e7d32; }
+.bt-legend { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.bt-legend li { display: flex; gap: 8px; align-items: flex-start; }
+.bt-legend li .bt-lamp { margin-top: 3px; }
+.bt-light-wrap { display: grid; gap: 16px; grid-template-columns: 1fr; align-items: start; }
+@container (min-width: 620px) { .bt-light-wrap { grid-template-columns: 11em minmax(0, 1fr); } }
+.bt-light { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 22px; background: #33393c; max-width: 560px; width: 100%; }
+.bt-light__field { border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; border: 2px solid; }
+.bt-light__field--red { background: #fdecea; border-color: #d32f2f; }
+.bt-light__field--yellow { background: #fff6d6; border-color: #e0ad00; }
+.bt-light__field--green { background: #e6f3e7; border-color: #2e7d32; }
+.bt-light__head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 15px; font-weight: 700; color: #1a1c1e; }
+.bt-light__count { margin-left: auto; font-size: 12px; font-weight: 600; color: #4a5357; }
+.bt-light__field .bt-muted { color: #4a5357; }
+.bt-light__list { list-style: none; padding: 0 2px 0 0; margin: 0; display: flex; flex-direction: column; gap: 6px; max-height: 232px; overflow-y: auto; }
+.bt-activity { display: flex; gap: 8px; align-items: flex-start; width: 100%; text-align: left; font: inherit; color: #1a1c1e; background: #fff; border: 1px solid rgba(0, 0, 0, .14); border-radius: 10px; padding: 8px 10px; }
+.bt-activity--button { cursor: pointer; }
+.bt-activity--button:hover { border-color: #1a1c1e; }
+.bt-activity--new { border-color: #f77d28; }
 @media (prefers-reduced-motion: reduce) {
 	.bt-scale .bt-beam, .bt-scale .bt-pan, .bt-scale .bt-needle, .bt-mini__dot { transition: none; }
 }

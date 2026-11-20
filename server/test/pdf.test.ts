@@ -29,6 +29,10 @@ const SAMPLES: Record<string, Entry[]> = {
 		entry('argument', { category: 'A', text: 'Mehr Geld', rating: 3 }),
 		entry('argument', { category: 'C', text: 'Ruhe', rating: 1 }),
 		entry('conclusion', { text: 'Ich will es versuchen.' }, 'main')
+	],
+	'traffic-light': [
+		entry('activity', { text: 'Ein Computerspiel spielen', level: 3 }),
+		entry('activity', { text: 'E-Mails schreiben', level: 1 })
 	]
 };
 

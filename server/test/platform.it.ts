@@ -109,7 +109,10 @@ describe('statistics', () => {
 			'goals.shared': 0,
 			'balance.released': 2,
 			'balance.started': 1,
-			'balance.shared': 1
+			'balance.shared': 1,
+			'traffic-light.released': 0,
+			'traffic-light.started': 0,
+			'traffic-light.shared': 0
 		});
 	});
 });
