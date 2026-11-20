@@ -3,6 +3,7 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import type { ServerTool } from '../tools/types.ts';
 
 export const NAME = 'beratungstools';
+const DOCS = 'https://raw.githubusercontent.com/BITS-GmbH/ORISO-Addon-Beratungstools/main/docs';
 export const APP_ID = 'tools';
 
 export const SLOTS = {
@@ -18,7 +19,7 @@ export const manifest = (tools: ServerTool[]) => ({
 	version: packageJson.version,
 	contract: 'oriso-addon/v1',
 	react: '^19',
-	readme: 'https://raw.githubusercontent.com/BITS-GmbH/ORISO-Addon-Beratungstools/main/docs/README.md',
+	readme: `${DOCS}/README.md`,
 	ui: '/ui/entry.js',
 	settings: '/schema/settings.json',
 	calendar: '/calendar',
@@ -53,7 +54,27 @@ export const manifest = (tools: ServerTool[]) => ({
 			},
 			icon: '/ui/icons/tools.svg',
 			slots: Object.values(SLOTS),
-			visibility: 'dynamic'
+			visibility: 'dynamic',
+			screenshots: [
+				{
+					slot: SLOTS.consultantSession,
+					file: 'uebersicht.png',
+					de: 'Tool-Übersicht im Fall',
+					en: 'Tools of a case'
+				},
+				{
+					slot: SLOTS.consultantSession,
+					file: 'einsicht.png',
+					de: 'Geteilte Einträge, schreibgeschützt',
+					en: 'Shared entries, read only'
+				},
+				{
+					slot: SLOTS.askerNavigation,
+					file: 'motivationswaage.png',
+					de: 'Motivationswaage der ratsuchenden Person',
+					en: 'The client’s decisional balance'
+				}
+			].map(({ slot, file, de, en }) => ({ slot, url: `${DOCS}/img/${file}`, caption: { de, en } }))
 		}
 	],
 	health: '/health'
