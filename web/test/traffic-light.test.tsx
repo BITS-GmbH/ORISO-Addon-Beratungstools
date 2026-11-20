@@ -92,6 +92,7 @@ describe('Ampelmodell for counsellors', () => {
 				options={{}}
 				isNew={(e) => e.id === fresh.id}
 				locale="de"
+				linked={{}}
 			/>
 		);
 		expect(screen.getByRole('list', { name: 'Legende' }).textContent).toContain('Rot = große Gefahr');

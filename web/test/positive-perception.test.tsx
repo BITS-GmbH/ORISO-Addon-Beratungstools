@@ -31,6 +31,7 @@ describe('Positives Wahrnehmen', () => {
 				store={fakeStore() as never}
 				informal={true}
 				locale="de"
+				download={async () => undefined}
 				onDone={onDone}
 			/>
 		);
@@ -64,6 +65,7 @@ describe('Positives Wahrnehmen', () => {
 				store={store as never}
 				informal={false}
 				locale="de"
+				download={async () => undefined}
 				onDone={() => undefined}
 			/>
 		);
@@ -102,6 +104,7 @@ describe('Positives Wahrnehmen for counsellors', () => {
 				options={{}}
 				isNew={(e) => e === fresh}
 				locale="de"
+				linked={{}}
 			/>
 		);
 		expect(screen.getByText('Abwasch erledigt')).toBeTruthy();
