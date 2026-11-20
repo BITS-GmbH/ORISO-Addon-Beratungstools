@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Argument } from '../../../shared/tools/balance.ts';
+import type { Argument } from '../../../../shared/tools/balance.ts';
 import {
 	ARGUMENT_KIND,
 	calculate,
@@ -15,8 +15,8 @@ import {
 	polesOf,
 	ratingLabel,
 	tendency
-} from '../../../shared/tools/balance.ts';
-import type { ServerTool } from './types.ts';
+} from '../../../../shared/tools/balance.ts';
+import type { ServerTool } from '../types.ts';
 
 export const argumentSchema = z.object({
 	category: z.enum(['A', 'B', 'C', 'D']),

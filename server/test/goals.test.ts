@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { isStepId, STEP_IDS, STEPS, startMessage } from '../../shared/tools/goals.ts';
-import { answerSchema, goals } from '../src/tools/goals.ts';
+import { answerSchema, goals } from '../src/tools/goals/index.ts';
 
 describe('goals', () => {
 	it('has four questions, then the goal, as in the tool description', () => {

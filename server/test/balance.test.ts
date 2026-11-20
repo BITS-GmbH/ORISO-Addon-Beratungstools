@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { CategoryId } from '../../shared/tools/balance.ts';
 import { calculate, formatValue, polesOf, tendency } from '../../shared/tools/balance.ts';
-import { argumentSchema, conclusionSchema } from '../src/tools/balance.ts';
+import { argumentSchema, conclusionSchema } from '../src/tools/balance/index.ts';
 
 /** Arguments giving the wanted PRO and CONTRA sums (ratings of 3, then the rest). */
 const withSums = (pro: number, contra: number) => {

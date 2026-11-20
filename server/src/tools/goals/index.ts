@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import type { Answer } from '../../../shared/tools/goals.ts';
-import { ANSWER_KIND, isStepId, MAX_ANSWER_LENGTH, STEPS } from '../../../shared/tools/goals.ts';
-import type { ServerTool } from './types.ts';
+import type { Answer } from '../../../../shared/tools/goals.ts';
+import { ANSWER_KIND, isStepId, MAX_ANSWER_LENGTH, STEPS } from '../../../../shared/tools/goals.ts';
+import type { ServerTool } from '../types.ts';
 
 export const answerSchema = z.object({ text: z.string().trim().min(1).max(MAX_ANSWER_LENGTH) });
 
