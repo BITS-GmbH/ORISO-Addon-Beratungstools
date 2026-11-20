@@ -1,0 +1,9 @@
+.git
+.github
+node_modules
+dist
+docs
+server/test
+web/test
+*.md
+!tooling/**/*.md

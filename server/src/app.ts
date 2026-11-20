@@ -142,7 +142,10 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 	});
 
 	const authenticate = async (request: FastifyRequest) => {
-		const claims = await verify(request.headers.authorization);
+		const claims = await verify(request.headers.authorization).catch((error: Error) => {
+			request.log.warn(`token keys not available: ${error.message}`);
+			throw new HttpError(503, 'token keys not available');
+		});
 		if (!claims) {
 			throw new HttpError(401, 'invalid token');
 		}
