@@ -151,6 +151,17 @@ app.post('/dev/sample', async () => {
 		});
 	}
 	await call('asker', 'PUT', '/me/tools/traffic-light/share', { shared: true });
+	await call('counsellor', 'POST', '/case/tools/positive-perception/release');
+	for (const text of [
+		'Hat ohne Aufforderung den Abwasch erledigt.',
+		'War pünktlich zum Abendessen zu Hause.'
+	]) {
+		await call('asker', 'POST', '/me/tools/positive-perception/entries', {
+			kind: 'behaviour',
+			data: { text }
+		});
+	}
+	await call('asker', 'PUT', '/me/tools/positive-perception/share', { shared: true });
 	return { ok: true };
 });
 await app.listen({ port: API_PORT, host: '127.0.0.1' });

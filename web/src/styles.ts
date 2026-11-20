@@ -147,6 +147,23 @@ export const CSS = `
 .bt-activity--button { cursor: pointer; }
 .bt-activity--button:hover { border-color: #1a1c1e; }
 .bt-activity--new { border-color: #f77d28; }
+/* Positives Wahrnehmen */
+.bt-focus-target:focus { outline: none; }
+.bt-points { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.bt-scheme { display: grid; gap: 16px; grid-template-columns: 1fr; align-items: start; }
+@container (min-width: 620px) { .bt-scheme { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.bt-remark { display: flex; gap: 8px; align-items: flex-start; width: 100%; text-align: left; font: inherit; color: var(--bt-text); background: var(--bt-surface); border: 1px solid var(--bt-outline-soft); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+.bt-remark:hover { border-color: var(--bt-primary); }
+.bt-remark[aria-pressed='true'] { border: 2px solid var(--bt-primary); background: var(--bt-primary-soft); padding: 9px 11px; }
+.bt-remark__tone { font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; border-radius: 6px; padding: 1px 6px; flex: none; }
+.bt-remark--negative .bt-remark__tone { background: var(--bt-contra-soft); color: #8a3c06; }
+.bt-remark--positive .bt-remark__tone { background: var(--bt-primary-soft); color: var(--bt-primary); }
+.bt-reaction { border-radius: 12px; padding: 12px 14px; background: var(--bt-surface-low); min-height: 100%; }
+.bt-reaction__list { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.bt-reaction__list dt { font-size: 13px; color: var(--bt-muted); margin-top: 8px; }
+.bt-reaction__list dt:first-child { margin-top: 0; }
+.bt-reaction__list dd { margin: 0; font-weight: 700; }
+.bt-hint { border-left: 3px solid var(--bt-primary); padding: 4px 0 4px 12px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
 @media (prefers-reduced-motion: reduce) {
 	.bt-scale .bt-beam, .bt-scale .bt-pan, .bt-scale .bt-needle, .bt-mini__dot { transition: none; }
 }

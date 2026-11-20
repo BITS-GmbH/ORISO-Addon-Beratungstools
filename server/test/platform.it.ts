@@ -112,7 +112,10 @@ describe('statistics', () => {
 			'balance.shared': 1,
 			'traffic-light.released': 0,
 			'traffic-light.started': 0,
-			'traffic-light.shared': 0
+			'traffic-light.shared': 0,
+			'positive-perception.released': 0,
+			'positive-perception.started': 0,
+			'positive-perception.shared': 0
 		});
 	});
 });

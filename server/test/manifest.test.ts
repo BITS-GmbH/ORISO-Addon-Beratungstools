@@ -36,7 +36,10 @@ describe('manifest', () => {
 			'balance.shared',
 			'traffic-light.released',
 			'traffic-light.started',
-			'traffic-light.shared'
+			'traffic-light.shared',
+			'positive-perception.released',
+			'positive-perception.started',
+			'positive-perception.shared'
 		]);
 	});
 });
@@ -53,7 +56,9 @@ describe('settings', () => {
 			'balanceIntro',
 			'balancePoles',
 			'trafficLight',
-			'trafficLightIntro'
+			'trafficLightIntro',
+			'positivePerception',
+			'positivePerceptionIntro'
 		]);
 		for (const property of Object.values(schema.properties)) {
 			expect(['string', 'boolean', 'number', 'integer']).toContain(property.type);

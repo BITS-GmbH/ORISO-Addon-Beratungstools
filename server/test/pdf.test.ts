@@ -33,7 +33,8 @@ const SAMPLES: Record<string, Entry[]> = {
 	'traffic-light': [
 		entry('activity', { text: 'Ein Computerspiel spielen', level: 3 }),
 		entry('activity', { text: 'E-Mails schreiben', level: 1 })
-	]
+	],
+	'positive-perception': [entry('behaviour', { text: 'Hat den Abwasch erledigt.' })]
 };
 
 describe('export', () => {
