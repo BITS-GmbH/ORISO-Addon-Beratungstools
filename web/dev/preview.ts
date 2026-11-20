@@ -4,6 +4,7 @@
 import { generateKeyPairSync, sign } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
+import { addDays } from '../../shared/days.ts';
 import { buildApp } from '../../server/src/app.ts';
 import type { Claims } from '../../server/src/auth.ts';
 import { createVerifier } from '../../server/src/auth.ts';
@@ -215,6 +216,57 @@ app.post('/dev/sample', async () => {
 		emergencyKitAgency:
 			'Suchtberatung Beispielstadt\nMusterstraße 1, 12345 Beispielstadt\nTelefon 0123 456789\nOffene Sprechstunde: Di 14 bis 16 Uhr'
 	});
+	const today = new Date().toISOString().slice(0, 10);
+	for (const tool of ['consumption-diary', 'relatives-diary', 'active']) {
+		await call('counsellor', 'POST', `/case/tools/${tool}/release`);
+		await call('asker', 'PUT', `/me/tools/${tool}/share`, { shared: true });
+	}
+	await call('asker', 'POST', '/me/tools/active/entries', {
+		kind: 'activity',
+		data: {
+			title: 'Joggen im Park',
+			date: addDays(today, -2),
+			time: '07:30',
+			repeat: 'weekly',
+			companion: 'Marie'
+		}
+	});
+	await call('asker', 'POST', '/me/tools/active/entries', {
+		kind: 'activity',
+		data: { title: 'Ins Kino gehen', date: addDays(today, 2), time: '20:00', repeat: 'none' }
+	});
+	await call('asker', 'PUT', '/me/tools/consumption-diary/keyed/topics/main', {
+		data: { topics: ['alcohol', 'gambling'] }
+	});
+	const summary = (offset: number, topic: string, consumed: boolean, rating?: string) => {
+		const day = addDays(today, offset);
+		return call('asker', 'PUT', `/me/tools/consumption-diary/keyed/day-summary/${day}_${topic}`, {
+			day,
+			data: { topic, consumed, ...(rating ? { rating } : {}) }
+		});
+	};
+	await summary(-1, 'alcohol', true, 'Nach dem Streit mehr als geplant.');
+	await call('asker', 'POST', '/me/tools/consumption-diary/entries', {
+		kind: 'phase',
+		day: addDays(today, -1),
+		data: {
+			topic: 'alcohol',
+			start: '19:00',
+			end: '22:00',
+			items: [{ drink: 'beer', size: '0,5 l', count: 3 }],
+			context: 'Zu Hause',
+			trigger: 'Streit'
+		}
+	});
+	await summary(-1, 'gambling', false);
+	await summary(0, 'alcohol', false, 'Abends Sport statt Bier.');
+	for (const [offset, text, mood] of [
+		[-2, 'Ein ruhiger Tag, wir waren zusammen einkaufen.', 4],
+		[-1, 'Heute gab es wieder Streit wegen des Geldes. Ich habe versucht, ruhig zu bleiben.', 2]
+	] as const) {
+		const day = addDays(today, offset);
+		await call('asker', 'PUT', `/me/tools/relatives-diary/keyed/entry/${day}`, { day, data: { text, mood } });
+	}
 	return { ok: true };
 });
 await app.listen({ port: API_PORT, host: '127.0.0.1' });
