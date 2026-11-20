@@ -27,7 +27,7 @@ export function PlannedActivities({
 			) : (
 				<ul className="bt-list">
 					{occurrences.map(({ id, day, time, activity }) => (
-						<li key={id} className="bt-item">
+						<li key={id} className="bt-item" style={{ flexWrap: 'wrap' }}>
 							<span className="bt-planned__when">
 								{formatDayShort(day)}
 								{time ? `, ${time} Uhr` : ''}

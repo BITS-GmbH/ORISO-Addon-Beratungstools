@@ -57,6 +57,9 @@ const SAMPLES: Record<string, Entry[]> = {
 		entry('activity', { text: 'E-Mails schreiben', level: 1 })
 	],
 	'positive-perception': [entry('behaviour', { text: 'Hat den Abwasch erledigt.' })],
+	'relatives-diary': [
+		{ ...entry('entry', { text: 'Ein Tag – mit Umlauten äöü', mood: 3 }, '2026-11-20'), day: '2026-11-20' }
+	],
 	active: [
 		entry('activity', {
 			title: 'Joggen',

@@ -31,6 +31,9 @@ describe('manifest', () => {
 			'goals.released',
 			'goals.started',
 			'goals.shared',
+			'relatives-diary.released',
+			'relatives-diary.started',
+			'relatives-diary.shared',
 			'balance.released',
 			'balance.started',
 			'balance.shared',
@@ -61,6 +64,8 @@ describe('settings', () => {
 			'allowSharing',
 			'goals',
 			'goalsIntro',
+			'relativesDiary',
+			'relativesDiaryIntro',
 			'balance',
 			'balanceIntro',
 			'balancePoles',
@@ -86,7 +91,8 @@ describe('settings', () => {
 			balancePoles: 'keine Veränderung / Ich möchte etwas ändern!',
 			goalsIntro: 5
 		});
-		const [goals, balance] = TOOLS;
+		const goals = TOOLS.find((tool) => tool.id === 'goals');
+		const balance = TOOLS.find((tool) => tool.id === 'balance');
 		expect(optionsOf(settings, balance!)).toEqual({
 			intro: '',
 			poles: 'keine Veränderung / Ich möchte etwas ändern!'
