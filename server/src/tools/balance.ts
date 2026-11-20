@@ -20,6 +20,8 @@ import type { ServerTool } from './types.ts';
 const PRO_COLOR = '#225e65';
 const CONTRA_COLOR = '#c25e22';
 
+const withSide = (label: string, side: string) => (label.includes(side) ? label : `${label} (${side})`);
+
 export const balance: ServerTool = {
 	id: 'balance',
 	kinds: {
@@ -59,10 +61,10 @@ export const balance: ServerTool = {
 				.font('bold')
 				.fontSize(9)
 				.fillColor(PRO_COLOR)
-				.text(`PRO: ${poles.pro}`, x, y, { width: width / 2 });
+				.text(withSide(poles.pro, 'PRO'), x, y, { width: width / 2 });
 			doc
 				.fillColor(CONTRA_COLOR)
-				.text(`CONTRA: ${poles.contra}`, x + width / 2, y, { width: width / 2, align: 'right' });
+				.text(withSide(poles.contra, 'CONTRA'), x + width / 2, y, { width: width / 2, align: 'right' });
 			doc.font('regular').fontSize(8).fillColor('#545f63');
 			doc.text('+10', x, barY + 14, { width: 40 });
 			doc.text('0', x + width / 2 - 20, barY + 14, { width: 40, align: 'center' });
