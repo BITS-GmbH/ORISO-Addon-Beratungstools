@@ -60,6 +60,25 @@ const SAMPLES: Record<string, Entry[]> = {
 	'relatives-diary': [
 		{ ...entry('entry', { text: 'Ein Tag – mit Umlauten äöü', mood: 3 }, '2026-11-20'), day: '2026-11-20' }
 	],
+	'consumption-diary': [
+		entry('topics', { topics: ['alcohol', 'media'] }, 'main'),
+		{
+			...entry('day-summary', { topic: 'alcohol', consumed: true, rating: 'Geht so' }, '2026-11-20_alcohol'),
+			day: '2026-11-20'
+		},
+		{
+			...entry('phase', {
+				topic: 'alcohol',
+				start: '19:00',
+				items: [{ drink: 'beer', size: '0,5 l', count: 2 }]
+			}),
+			day: '2026-11-20'
+		},
+		{
+			...entry('phase', { topic: 'media', items: [{ activity: 'chat', minutes: 75 }], device: 'Smartphone' }),
+			day: '2026-11-21'
+		}
+	],
 	active: [
 		entry('activity', {
 			title: 'Joggen',
