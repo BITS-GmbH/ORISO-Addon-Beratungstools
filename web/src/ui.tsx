@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react';
 
 const ICONS = {
 	back: 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z',
@@ -6,7 +6,9 @@ const ICONS = {
 	edit: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
 	delete: 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
 	star: 'M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z',
-	expand: 'M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z'
+	expand: 'M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z',
+	previous: 'M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z',
+	next: 'M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'
 } as const;
 
 export const Icon = ({ name, label }: { name: keyof typeof ICONS; label?: string }) => (
@@ -164,3 +166,60 @@ export const useLoad = <T,>(load: () => Promise<T>): Loaded<T> => {
 	}, [reload]);
 	return { ...state, reload };
 };
+
+/** A time of day (`HH:MM` or `''`); the web kit has no time field. */
+export const TimeField = ({
+	label,
+	value,
+	onChange
+}: {
+	label: string;
+	value: string;
+	onChange: (value: string) => void;
+}) => {
+	const id = useId();
+	return (
+		<div className="bt-field">
+			<label htmlFor={id}>{label}</label>
+			<input id={id} type="time" value={value} onChange={(event) => onChange(event.target.value)} />
+		</div>
+	);
+};
+
+/** "Woche zurück / Woche vor" with the week's dates in between. */
+export const WeekNav = ({
+	label,
+	onPrevious,
+	onNext,
+	nextDisabled
+}: {
+	label: string;
+	onPrevious: () => void;
+	onNext: () => void;
+	nextDisabled?: boolean;
+}) => (
+	<div className="bt-weeknav">
+		<button
+			type="button"
+			className="bt-iconbtn"
+			aria-label="Woche zurück"
+			title="Woche zurück"
+			onClick={onPrevious}
+		>
+			<Icon name="previous" />
+		</button>
+		<span className="bt-title" aria-live="polite">
+			{label}
+		</span>
+		<button
+			type="button"
+			className="bt-iconbtn"
+			aria-label="Woche vor"
+			title="Woche vor"
+			disabled={nextDisabled}
+			onClick={onNext}
+		>
+			<Icon name="next" />
+		</button>
+	</div>
+);

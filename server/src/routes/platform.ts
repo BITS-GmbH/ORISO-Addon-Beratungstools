@@ -120,7 +120,9 @@ export const registerPlatformRoutes = (app: FastifyInstance, core: Core): void =
 			for (const entry of tool.calendar({
 				releasedAt: release.releasedAt.toISOString(),
 				shared: Boolean(shares.get(tool.id)?.shared),
-				entries: own
+				entries: own,
+				now: core.now(),
+				timeZone: core.timeZone
 			})) {
 				entries.push({ ...entry, appId: APP_ID, link: { slot: SLOTS.askerNavigation } });
 			}

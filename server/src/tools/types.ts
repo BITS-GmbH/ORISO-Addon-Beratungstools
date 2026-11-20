@@ -78,6 +78,9 @@ export interface CalendarInput {
 	releasedAt: string;
 	shared: boolean;
 	entries: Entry[];
+	now: Date;
+	/** For entries with a local time of day. */
+	timeZone: string;
 }
 
 /** The server side of a tool. Register it in `tools/index.ts`; the core never names a tool. */

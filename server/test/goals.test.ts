@@ -43,12 +43,18 @@ describe('goals', () => {
 		updatedAt: ''
 	});
 
+	const calendarBase = { now: new Date('2026-11-20T09:00:00Z'), timeZone: 'Europe/Berlin' };
+
 	it('reminds a released client a week after the release until shared or complete', () => {
 		const releasedAt = '2026-11-01T10:00:00.000Z';
-		expect(goals.calendar?.({ releasedAt, shared: false, entries: [entry('situation')] })).toEqual([
+		expect(
+			goals.calendar?.({ ...calendarBase, releasedAt, shared: false, entries: [entry('situation')] })
+		).toEqual([
 			expect.objectContaining({ kind: 'reminder', start: '2026-11-08T10:00:00.000Z', allDay: true })
 		]);
-		expect(goals.calendar?.({ releasedAt, shared: true, entries: [] })).toEqual([]);
-		expect(goals.calendar?.({ releasedAt, shared: false, entries: STEP_IDS.map(entry) })).toEqual([]);
+		expect(goals.calendar?.({ ...calendarBase, releasedAt, shared: true, entries: [] })).toEqual([]);
+		expect(
+			goals.calendar?.({ ...calendarBase, releasedAt, shared: false, entries: STEP_IDS.map(entry) })
+		).toEqual([]);
 	});
 });
