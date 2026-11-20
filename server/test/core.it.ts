@@ -40,7 +40,7 @@ describe('access', () => {
 	});
 
 	it('knows only registered tools', async () => {
-		expect((await t.call('GET', '/api/me/tools/active', asker)).status).toBe(404);
+		expect((await t.call('GET', '/api/me/tools/unknown', asker)).status).toBe(404);
 		expect((await t.call('POST', '/api/case/tools/unknown/release', counsellor)).status).toBe(404);
 	});
 });
