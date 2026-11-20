@@ -28,6 +28,8 @@ export interface HostGates {
 /** `GET /host/context`: the sessions of a person with their agency and counsellor. */
 export interface HostContext {
 	sessions?: Array<{ id?: number; agencyId?: number; consultantId?: string | null; status?: string }>;
+	agencyIds?: number[];
+	consultants?: Array<{ id?: string; username?: string; displayName?: string }>;
 }
 
 /** The AddonService host API (ADR-034, section 6), called with the token of the request being handled. */

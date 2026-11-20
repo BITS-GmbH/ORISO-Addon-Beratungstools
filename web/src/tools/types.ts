@@ -12,6 +12,8 @@ export interface ClientViewProps {
 	locale: string;
 	/** Back to "Meine Tools". */
 	onDone: () => void;
+	/** Makes one of the tool's client PDFs (`clientExports` on the server) and downloads it. */
+	download: (format: string, params?: Record<string, string>) => Promise<void>;
 }
 
 export interface CounsellorViewProps {
@@ -20,6 +22,8 @@ export interface CounsellorViewProps {
 	/** Changed since the counsellor last looked (marked "neu"). */
 	isNew: (entry: Entry) => boolean;
 	locale: string;
+	/** Entries of the tools this tool reads, present only while the client shares them too. */
+	linked: Partial<Record<ToolId, Entry[]>>;
 }
 
 /** The web side of a tool. Register it in `tools/index.ts`; the core never names a tool. */

@@ -2,6 +2,7 @@ import type { z } from 'zod';
 import type { Entry, ToolOptions } from '../../../shared/api.ts';
 import type { ToolId } from '../../../shared/catalog.ts';
 import type { PdfWriter } from '../core/pdf.ts';
+import type { Localized } from '../host.ts';
 
 /** One record type of a tool. The core stores, lists and checks it; the tool only describes it. */
 export interface EntryKind {
@@ -17,6 +18,11 @@ export interface EntryKind {
 	max?: number;
 	/** Dated kinds need `day` (YYYY-MM-DD), so diaries and calendars can ask for ranges. */
 	dated?: boolean;
+	/**
+	 * A request to the counsellors: creating an entry of this kind notifies them at once through the
+	 * host (not in demo mode), whether or not the tool is shared. The text must not carry tool content.
+	 */
+	announce?: (username: string) => { title: Localized; text: Localized };
 }
 
 /** A setting of the tool for ORISO-Admin, in the JSON Schema subset of ADR-034 section 5. */
@@ -35,6 +41,21 @@ export interface SettingProperty {
 export interface ExportInput {
 	entries: Entry[];
 	options: ToolOptions;
+	/** Entries of the tools in `reads` the reader may see right now; absent tools are not available. */
+	linked: LinkedEntries;
+	/** Display names of the client's counsellors, when the tool asks for them. */
+	counsellors: string[];
+}
+
+export type LinkedEntries = Partial<Record<ToolId, Entry[]>>;
+
+/** A PDF the client makes of their own entries, e.g. the Notfallkoffer as business cards. */
+export interface ClientExport {
+	/** Title on top of the PDF and part of the file name. */
+	title: string;
+	/** Without the common header, for formats with their own layout. */
+	bare?: boolean;
+	write(pdf: PdfWriter, input: ExportInput & { params: Record<string, string> }): void;
 }
 
 export interface SeedEntry {
@@ -69,6 +90,15 @@ export interface ServerTool {
 	exportRange?: boolean;
 	/** Writes the tool's part of the PDF below the common header. */
 	exportPdf(pdf: PdfWriter, input: ExportInput): void;
+	/** PDFs for the client, `GET /api/me/tools/<tool>/export/<format>`. */
+	clientExports?: Record<string, ClientExport>;
+	/**
+	 * Other tools whose entries this tool shows (read only): for the client while that tool is
+	 * released, for counsellors while it is shared. The core hands them over as `linked`.
+	 */
+	reads?: ToolId[];
+	/** The client's counsellors by name (from the host context), handed over as `counsellors`. */
+	counsellorNames?: boolean;
 	/** Example entries for the counsellor's demo, applied on first use and on reset. */
 	demo?(): SeedEntry[];
 	/** Dated reminders for the client's calendar (ADR-034, section 6). */

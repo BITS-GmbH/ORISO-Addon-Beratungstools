@@ -5,9 +5,11 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import { HttpError, type Core } from '../app.ts';
 import { isCounsellor, type Claims } from '../auth.ts';
 import { isActive, isReadable } from '../core/access.ts';
+import { counsellorNames, readLinked } from '../core/links.ts';
 import { APP_ID, SLOTS } from '../core/manifest.ts';
 import { renderPdf } from '../core/pdf.ts';
-import { isOffered, optionsOf } from '../core/settings.ts';
+import { isOffered, optionsOf, type Settings } from '../core/settings.ts';
+import type { ServerTool } from '../tools/types.ts';
 
 const prefsBody = z.object({ firstShare: z.boolean(), newEntry: z.boolean(), changedEntry: z.boolean() });
 const seenBody = z.object({ until: z.iso.datetime().optional() });
@@ -55,6 +57,22 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 		}
 		return { ...target, tool, settings, share };
 	};
+
+	/** Linked tools are shown to counsellors only while the client shares them as well. */
+	const linkedOf = (tenantId: number, askerId: string, tool: ServerTool, settings: Settings) =>
+		readLinked(
+			core.tools,
+			tool,
+			settings,
+			async (other) => {
+				const [release, share] = await Promise.all([
+					store.releaseOf(tenantId, askerId, other.id),
+					store.shareOf(tenantId, askerId, other.id)
+				]);
+				return isReadable(settings, other, release, share);
+			},
+			(other) => store.entries(tenantId, askerId, other.id)
+		);
 
 	const offeredTool = async (request: FastifyRequest) => {
 		const tool = core.tool((request.params as { tool: string }).tool);
@@ -150,9 +168,10 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 
 	app.get('/api/case/tools/:tool/entries', async (request): Promise<CaseEntries> => {
 		const { tenantId, askerId, counsellorId, tool, settings, share } = await readable(request);
-		const [entries, seenAt] = await Promise.all([
+		const [entries, seenAt, linked] = await Promise.all([
 			store.entries(tenantId, askerId, tool.id),
-			store.seenAt(tenantId, counsellorId, askerId, tool.id)
+			store.seenAt(tenantId, counsellorId, askerId, tool.id),
+			linkedOf(tenantId, askerId, tool, settings)
 		]);
 		return {
 			id: tool.id,
@@ -160,7 +179,8 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 			entries,
 			seenAt: seenAt?.toISOString() ?? null,
 			sharedSince: share?.sharedSince?.toISOString() ?? null,
-			exportRange: Boolean(tool.exportRange)
+			exportRange: Boolean(tool.exportRange),
+			linked
 		};
 	});
 
@@ -177,7 +197,11 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 		const { tenantId, askerId, tool, settings } = await readable(request);
 		const query = exportQuery.parse(request.query);
 		const range = tool.exportRange ? query : {};
-		const entries = await store.entries(tenantId, askerId, tool.id, range);
+		const [entries, linked, context] = await Promise.all([
+			store.entries(tenantId, askerId, tool.id, range),
+			linkedOf(tenantId, askerId, tool, settings),
+			tool.counsellorNames ? host.context(request.claims, 'asker') : null
+		]);
 		const title = toolInfo(tool.id)?.title ?? { de: tool.id, en: tool.id };
 		const days = entries.map((entry) => entry.day ?? entry.updatedAt.slice(0, 10)).sort();
 		const first = range.from ?? days[0];
@@ -198,7 +222,13 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 				period
 			},
 			core.timeZone,
-			(writer) => tool.exportPdf(writer, { entries, options: optionsOf(settings, tool) })
+			(writer) =>
+				tool.exportPdf(writer, {
+					entries,
+					options: optionsOf(settings, tool),
+					linked,
+					counsellors: counsellorNames(context, request.claims.agencyId)
+				})
 		);
 		await host.audit(request.claims, {
 			action: 'tool.exported',

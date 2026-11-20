@@ -5,7 +5,7 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import { ApiError, ownerApi } from '../api.ts';
 import { useHost, useTx } from '../host.ts';
 import { webTool } from '../tools/index.ts';
-import { BackButton, SaveStatus, Switch, useLoad } from '../ui.tsx';
+import { BackButton, downloadBlob, SaveStatus, Switch, useLoad } from '../ui.tsx';
 import { useEntryStore } from './entryStore.ts';
 
 interface Props {
@@ -78,6 +78,24 @@ function LoadedTool({
 	const { entries, store } = useEntryStore(api, tool.entries, onError);
 	const module = webTool(tool.id);
 
+	const download = useCallback(
+		async (format: string, params?: Record<string, string>) => {
+			try {
+				const { blob, fileName } = await api.exportPdf(format, params);
+				downloadBlob(blob, fileName);
+			} catch {
+				host.notify({
+					type: 'error',
+					text: tx(
+						'Das PDF konnte nicht erstellt werden. Bitte versuchen Sie es noch einmal.',
+						'Das PDF konnte nicht erstellt werden. Bitte versuch es noch einmal.'
+					)
+				});
+			}
+		},
+		[api, host, tx]
+	);
+
 	const changeShare = async (next: boolean) => {
 		setShared(next);
 		try {
@@ -136,6 +154,7 @@ function LoadedTool({
 					informal={host.informal}
 					locale={host.locale}
 					onDone={onBack}
+					download={download}
 				/>
 			) : (
 				<Notice type="info" title="Dieses Tool ist noch nicht verfügbar." />

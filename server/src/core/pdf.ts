@@ -24,16 +24,26 @@ export interface PdfWriter {
 	/** A list item with an optional note on the right, e.g. a rating. */
 	item(text: string, note?: string): void;
 	spacer(height?: number): void;
+	/** A table with a header row repeated on every page; column widths are relative. */
+	table(columns: Array<{ label: string; width: number }>, rows: string[][]): void;
 	/** Reserves `height` points and lets the tool draw into them with pdfkit. */
 	drawing(height: number, draw: (doc: PDFKit.PDFDocument, box: Box) => void): void;
 }
 
 export interface ExportHeader {
 	toolTitle: string;
-	caseLabel: string;
+	/** Exports for counsellors name the case and the period of the entries. */
+	caseLabel?: string;
 	createdAt: Date;
-	period: string;
+	period?: string;
+	/** Without title and header rows, for formats with their own layout. */
+	bare?: boolean;
+	/** Replaces the confidentiality note in the footer. */
+	footer?: string;
 }
+
+const CELL_PADDING = 4;
+const HEADER_FILL = '#eef2f3';
 
 const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 	const width = () => doc.page.width - 2 * MARGIN;
@@ -83,6 +93,58 @@ const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 			doc.y = top + height + 5;
 			doc.x = MARGIN;
 		},
+		table: (columns, rows) => {
+			const total = columns.reduce((sum, column) => sum + column.width, 0);
+			const widths = columns.map((column) => (column.width / total) * width());
+			const labels = columns.map((column) => column.label);
+			const heightOf = (cells: string[], font: string) => {
+				doc.font(font).fontSize(9);
+				return (
+					Math.max(
+						...cells.map((cell, index) =>
+							doc.heightOfString(cell || ' ', { width: (widths[index] ?? 0) - 2 * CELL_PADDING })
+						)
+					) +
+					2 * CELL_PADDING
+				);
+			};
+			const drawRow = (cells: string[], font: string, fill?: string) => {
+				const height = heightOf(cells, font);
+				const top = doc.y;
+				if (fill) {
+					doc.rect(MARGIN, top, width(), height).fill(fill);
+				}
+				let x = MARGIN;
+				cells.forEach((cell, index) => {
+					const cellWidth = widths[index] ?? 0;
+					doc
+						.font(font)
+						.fontSize(9)
+						.fillColor(COLORS.text)
+						.text(cell, x + CELL_PADDING, top + CELL_PADDING, { width: cellWidth - 2 * CELL_PADDING });
+					x += cellWidth;
+				});
+				doc
+					.moveTo(MARGIN, top + height)
+					.lineTo(MARGIN + width(), top + height)
+					.strokeColor(COLORS.rule)
+					.lineWidth(0.5)
+					.stroke();
+				doc.x = MARGIN;
+				doc.y = top + height;
+			};
+			ensureSpace(heightOf(labels, 'bold') + 40);
+			drawRow(labels, 'bold', HEADER_FILL);
+			for (const row of rows) {
+				if (doc.y + heightOf(row, 'regular') > doc.page.height - MARGIN - 30) {
+					doc.addPage();
+					drawRow(labels, 'bold', HEADER_FILL);
+				}
+				drawRow(row, 'regular');
+			}
+			doc.font('regular').fontSize(10).fillColor(COLORS.text);
+			doc.moveDown(0.6);
+		},
 		spacer: (height = 8) => {
 			doc.y += height;
 		},
@@ -102,6 +164,38 @@ const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 const formatDateTime = (date: Date, timeZone: string) =>
 	new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(date);
 
+const CONFIDENTIAL =
+	'Vertraulich. Von der ratsuchenden Person zur Einsicht freigegebene Inhalte, nur zur Verwendung im Beratungskontext.';
+
+const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: string) => {
+	doc.font('regular').fontSize(9).fillColor(COLORS.muted).text('Beratungstools', MARGIN, MARGIN);
+	doc.font('bold').fontSize(20).fillColor(COLORS.accent).text(header.toolTitle);
+	doc.moveDown(0.4);
+	const rows: Array<[string, string]> = [
+		...(header.caseLabel ? [['Fall', header.caseLabel] as [string, string]] : []),
+		['Export erstellt am', formatDateTime(header.createdAt, timeZone)],
+		...(header.period ? [['Zeitraum der Einträge', header.period] as [string, string]] : [])
+	];
+	for (const [label, value] of rows) {
+		const top = doc.y;
+		doc.font('bold').fontSize(9.5).fillColor(COLORS.muted).text(label, MARGIN, top, { width: 140 });
+		doc
+			.font('regular')
+			.fillColor(COLORS.text)
+			.text(value, MARGIN + 140, top, { width: doc.page.width - 2 * MARGIN - 140 });
+		doc.moveDown(0.15);
+	}
+	doc.moveDown(0.4);
+	doc
+		.moveTo(MARGIN, doc.y)
+		.lineTo(doc.page.width - MARGIN, doc.y)
+		.strokeColor(COLORS.rule)
+		.lineWidth(1)
+		.stroke();
+	doc.moveDown(0.6);
+	doc.x = MARGIN;
+};
+
 /**
  * The export of one tool as PDF: the common header (tool, case, creation date, period of the
  * entries) and the tool's content, with a confidentiality note in every page's footer.
@@ -116,7 +210,10 @@ export const renderPdf = (
 			size: 'A4',
 			margin: MARGIN,
 			bufferPages: true,
-			info: { Title: `${header.toolTitle} (${header.caseLabel})`, Creator: 'ORISO Beratungstools' }
+			info: {
+				Title: header.caseLabel ? `${header.toolTitle} (${header.caseLabel})` : header.toolTitle,
+				Creator: 'ORISO Beratungstools'
+			}
 		});
 		doc.registerFont('regular', FONT);
 		doc.registerFont('bold', FONT_BOLD);
@@ -125,32 +222,9 @@ export const renderPdf = (
 		doc.on('end', () => resolve(Buffer.concat(chunks)));
 		doc.on('error', reject);
 
-		doc.font('regular').fontSize(9).fillColor(COLORS.muted).text('Beratungstools', MARGIN, MARGIN);
-		doc.font('bold').fontSize(20).fillColor(COLORS.accent).text(header.toolTitle);
-		doc.moveDown(0.4);
-		const rows: Array<[string, string]> = [
-			['Fall', header.caseLabel],
-			['Export erstellt am', formatDateTime(header.createdAt, timeZone)],
-			['Zeitraum der Einträge', header.period]
-		];
-		for (const [label, value] of rows) {
-			const top = doc.y;
-			doc.font('bold').fontSize(9.5).fillColor(COLORS.muted).text(label, MARGIN, top, { width: 140 });
-			doc
-				.font('regular')
-				.fillColor(COLORS.text)
-				.text(value, MARGIN + 140, top, { width: doc.page.width - 2 * MARGIN - 140 });
-			doc.moveDown(0.15);
+		if (!header.bare) {
+			writeHeader(doc, header, timeZone);
 		}
-		doc.moveDown(0.4);
-		doc
-			.moveTo(MARGIN, doc.y)
-			.lineTo(doc.page.width - MARGIN, doc.y)
-			.strokeColor(COLORS.rule)
-			.lineWidth(1)
-			.stroke();
-		doc.moveDown(0.6);
-		doc.x = MARGIN;
 
 		try {
 			write(createWriter(doc));
@@ -168,12 +242,11 @@ export const renderPdf = (
 				.font('regular')
 				.fontSize(8)
 				.fillColor(COLORS.muted)
-				.text(
-					`Vertraulich. Von der ratsuchenden Person zur Einsicht freigegebene Inhalte, nur zur Verwendung im Beratungskontext. Seite ${index + 1} von ${range.count}`,
-					MARGIN,
-					bottom,
-					{ width: doc.page.width - 2 * MARGIN, align: 'center', lineBreak: false }
-				);
+				.text(`${header.footer ?? CONFIDENTIAL} Seite ${index + 1} von ${range.count}`, MARGIN, bottom, {
+					width: doc.page.width - 2 * MARGIN,
+					align: 'center',
+					lineBreak: false
+				});
 		}
 		doc.end();
 	});

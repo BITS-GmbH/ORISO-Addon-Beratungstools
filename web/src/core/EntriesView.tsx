@@ -5,19 +5,10 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import { ApiError, caseApi } from '../api.ts';
 import { useHost } from '../host.ts';
 import { webTool } from '../tools/index.ts';
-import { BackButton, formatDate, useLoad } from '../ui.tsx';
+import { BackButton, downloadBlob, formatDate, useLoad } from '../ui.tsx';
 
 const latest = (entries: Entry[]) =>
 	entries.reduce<string | undefined>((max, e) => (!max || e.updatedAt > max ? e.updatedAt : max), undefined);
-
-const download = (blob: Blob, fileName: string) => {
-	const url = URL.createObjectURL(blob);
-	const link = Object.assign(document.createElement('a'), { href: url, download: fileName });
-	document.body.appendChild(link);
-	link.click();
-	link.remove();
-	setTimeout(() => URL.revokeObjectURL(url), 10_000);
-};
 
 /** The shared entries of one tool, read only; the server checks the access on every request. */
 export function EntriesView({ toolId, onBack }: { toolId: string; onBack: () => void }) {
@@ -68,7 +59,7 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 		setExporting(true);
 		try {
 			const { blob, fileName } = await api.exportPdf(data.id, exportRange ? range : {});
-			download(blob, fileName);
+			downloadBlob(blob, fileName);
 		} catch (error) {
 			host.notify({
 				type: error instanceof ApiError && error.status === 403 ? 'warning' : 'error',
@@ -122,6 +113,7 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 					options={data.options}
 					locale={host.locale}
 					isNew={(entry) => isNewSince(entry.updatedAt, data.seenAt)}
+					linked={data.linked ?? {}}
 				/>
 			) : (
 				<Notice type="info" title="Für dieses Tool gibt es noch keine Ansicht." />

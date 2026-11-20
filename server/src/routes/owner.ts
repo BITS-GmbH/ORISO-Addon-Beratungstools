@@ -5,8 +5,10 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import { HttpError, type Core } from '../app.ts';
 import { isAsker, isCounsellor, type Claims } from '../auth.ts';
 import { isActive } from '../core/access.ts';
-import { APP_ID } from '../core/manifest.ts';
-import { allowsSharing, isOffered, optionsOf } from '../core/settings.ts';
+import { counsellorNames, readLinked } from '../core/links.ts';
+import { APP_ID, SLOTS } from '../core/manifest.ts';
+import { renderPdf } from '../core/pdf.ts';
+import { allowsSharing, isOffered, optionsOf, type Settings } from '../core/settings.ts';
 import type { EntryChange } from '../store.ts';
 import type { EntryKind, ServerTool } from '../tools/types.ts';
 
@@ -14,6 +16,7 @@ const DAY = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const createBody = z.object({ kind: z.string().min(1).max(40), day: DAY.nullish(), data: z.unknown() });
 const updateBody = z.object({ day: DAY.nullish(), data: z.unknown() });
 const shareBody = z.object({ shared: z.boolean() });
+const exportParams = z.record(z.string(), z.string().max(100));
 
 interface Owner {
 	tenantId: number;
@@ -75,9 +78,26 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 	};
 
 	/** New and changed entries in a shared tool notify the client's counsellors (bundled). */
-	const afterWrite = async (request: FastifyRequest, owner: Owner, tool: ServerTool, change: EntryChange) => {
+	const afterWrite = async (
+		request: FastifyRequest,
+		owner: Owner,
+		tool: ServerTool,
+		definition: EntryKind,
+		change: EntryChange
+	) => {
 		if (owner.demo || change === 'unchanged') {
 			return;
+		}
+		if (change === 'created' && definition.announce) {
+			const { title, text } = definition.announce(request.claims.username ?? '');
+			await core.host.notify(request.claims, {
+				recipient: 'counsellors',
+				appId: APP_ID,
+				important: true,
+				title,
+				text,
+				target: { slot: SLOTS.consultantSession }
+			});
 		}
 		const share = await store.shareOf(owner.tenantId, owner.ownerId, tool.id);
 		if (share?.shared) {
@@ -98,6 +118,35 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 			}
 		}
 		await store.setShare(owner.tenantId, owner.ownerId, tool.id, false, now);
+	};
+
+	/** The owner's entries; a counsellor's demo gets its example entries on first use. */
+	const entriesOf = async (owner: Owner, tool: ServerTool): Promise<Entry[]> => {
+		const entries = await store.entries(owner.tenantId, owner.ownerId, tool.id);
+		if (!owner.demo || entries.length > 0 || (await store.shareOf(owner.tenantId, owner.ownerId, tool.id))) {
+			return entries;
+		}
+		await seedDemo(owner, tool);
+		return store.entries(owner.tenantId, owner.ownerId, tool.id);
+	};
+
+	const linkedOf = (owner: Owner, tool: ServerTool, settings: Settings) =>
+		readLinked(
+			core.tools,
+			tool,
+			settings,
+			async (other) => owner.demo || isActive(await store.releaseOf(owner.tenantId, owner.ownerId, other.id)),
+			(other) => entriesOf(owner, other)
+		);
+
+	const counsellorsOf = async (request: FastifyRequest, owner: Owner, tool: ServerTool) => {
+		if (!tool.counsellorNames) {
+			return [];
+		}
+		if (owner.demo) {
+			return request.claims.username ? [request.claims.username] : [];
+		}
+		return counsellorNames(await core.host.context(request.claims, 'self'), request.claims.agencyId);
 	};
 
 	if (mode === 'client') {
@@ -132,13 +181,12 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 
 	app.get(`${prefix}/tools/:tool`, async (request): Promise<ClientTool> => {
 		const { owner, tool, settings } = await access(request);
-		let share = await store.shareOf(owner.tenantId, owner.ownerId, tool.id);
-		let entries: Entry[] = await store.entries(owner.tenantId, owner.ownerId, tool.id);
-		if (owner.demo && !share && entries.length === 0) {
-			await seedDemo(owner, tool);
-			share = await store.shareOf(owner.tenantId, owner.ownerId, tool.id);
-			entries = await store.entries(owner.tenantId, owner.ownerId, tool.id);
-		}
+		const entries = await entriesOf(owner, tool);
+		const [share, linked, counsellors] = await Promise.all([
+			store.shareOf(owner.tenantId, owner.ownerId, tool.id),
+			linkedOf(owner, tool, settings),
+			counsellorsOf(request, owner, tool)
+		]);
 		if (!owner.demo) {
 			await store.markOpened(owner.tenantId, owner.ownerId, tool.id, core.now());
 			core.notifier.flushInBackground(request.claims);
@@ -149,8 +197,42 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 			shared: allowsSharing(settings) && Boolean(share?.shared),
 			allowSharing: allowsSharing(settings),
 			options: optionsOf(settings, tool),
-			entries
+			entries,
+			linked,
+			counsellors
 		};
+	});
+
+	app.get(`${prefix}/tools/:tool/export/:format`, async (request, reply) => {
+		const { owner, tool, settings } = await access(request);
+		const name = (request.params as { format: string }).format;
+		const format = Object.hasOwn(tool.clientExports ?? {}, name) ? tool.clientExports?.[name] : undefined;
+		if (!format) {
+			throw new HttpError(404, 'unknown export');
+		}
+		const params = exportParams.parse(request.query ?? {});
+		const [entries, linked, counsellors] = await Promise.all([
+			entriesOf(owner, tool),
+			linkedOf(owner, tool, settings),
+			counsellorsOf(request, owner, tool)
+		]);
+		const createdAt = core.now();
+		const pdf = await renderPdf(
+			{
+				toolTitle: format.title,
+				createdAt,
+				bare: format.bare,
+				footer: 'Persönliche Unterlage aus den Beratungstools.'
+			},
+			core.timeZone,
+			(writer) =>
+				format.write(writer, { entries, options: optionsOf(settings, tool), linked, counsellors, params })
+		);
+		const fileName = `${tool.id}-${name}-${createdAt.toISOString().slice(0, 10)}.pdf`;
+		return reply
+			.header('Content-Type', 'application/pdf')
+			.header('Content-Disposition', `attachment; filename="${fileName}"`)
+			.send(pdf);
 	});
 
 	app.post(`${prefix}/tools/:tool/entries`, async (request, reply) => {
@@ -174,7 +256,7 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 			{ kind: body.kind, day: checkDay(definition, body.day), data },
 			core.now()
 		);
-		await afterWrite(request, owner, tool, 'created');
+		await afterWrite(request, owner, tool, definition, 'created');
 		return reply.code(201).send(entry);
 	});
 
@@ -199,7 +281,7 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 		if (!result) {
 			throw new HttpError(404, 'no such entry');
 		}
-		await afterWrite(request, owner, tool, result.change);
+		await afterWrite(request, owner, tool, definition, result.change);
 		return result.entry;
 	});
 
@@ -233,7 +315,7 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 			{ kind, key, day: checkDay(definition, body.day), data },
 			core.now()
 		);
-		await afterWrite(request, owner, tool, result.change);
+		await afterWrite(request, owner, tool, definition, result.change);
 		return result.entry;
 	});
 

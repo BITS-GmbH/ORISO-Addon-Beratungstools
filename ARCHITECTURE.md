@@ -34,7 +34,7 @@ settings or statistics until their module lands.
 Links between tools go through the core, not through imports between tool modules:
 
 - `active` owns planned activities; both diaries read them (same records, no copies).
-- `emergency-kit` shows the entries of `risk-situations` when that tool is released.
+- `emergency-kit` shows the entries of `risk-situations` when that tool is released (`reads`).
 - The consumption diary's topics can be preset from the registration (`registrationRef` of the
   `user.registered` event), once Los 2 delivers it.
 
@@ -156,13 +156,20 @@ both sides. No zod and nothing server-only, it is bundled into the UI.
 - `id`: the catalogue id.
 - `kinds`: record types with a zod `schema` for `data`; optional `keys(key)` for keyed kinds (one
   record per key, written with `PUT .../keyed/<kind>/<key>`), `max` per client, `dated` (needs
-  `day`).
+  `day`), `announce(username)` for requests to the counsellors (creating such an entry notifies
+  them at once, shared or not, never in demo mode; the text carries no tool content).
 - `options`: settings per Träger and agency (JSON Schema subset); the core prefixes the keys and
   hands the tool its values as `options` (client and counsellor views, export).
-- `exportPdf(pdf, { entries, options })`: the tool's part of the PDF below the common header,
-  through `PdfWriter` (`heading`, `subheading`, `paragraph`, `field`, `item`, `spacer`, and
-  `drawing` for pdfkit graphics). `exportRange: true` lets counsellors pick a period (diaries);
+- `exportPdf(pdf, { entries, options, linked, counsellors })`: the tool's part of the PDF below
+  the common header, through `PdfWriter` (`heading`, `subheading`, `paragraph`, `field`, `item`,
+  `table`, `spacer`, and `drawing` for pdfkit graphics). `exportRange: true` lets counsellors pick a period (diaries);
   dated entries are then filtered by `day`.
+- `clientExports`: PDFs the client makes of their own entries (`GET /me/tools/<tool>/export/<format>`,
+  query parameters as `params`), with the common header or `bare` for an own layout.
+- `reads`: other tools whose entries this tool shows. The core hands them over as `linked`: to the
+  client while that tool is released (in demo mode the counsellor's demo data), to counsellors
+  only while the client shares that tool as well. Tools never import each other.
+- `counsellorNames`: the names of the client's counsellors from the host context, as `counsellors`.
 - `demo()`: optional example entries for the counsellor's demo, applied on first use and reset.
 - `calendar({ releasedAt, shared, entries })`: optional reminders for the client's calendar.
 
@@ -172,11 +179,12 @@ storage and validation, notifications, seen markers, demo, audit, statistics, de
 **Web** (`WebTool` in `web/src/tools/types.ts`):
 
 - `id` and an optional `icon` (children of a 24×24 outline SVG).
-- `ClientView({ tool, entries, store, informal, locale, onDone })`: the client's view, also used
-  in demo mode. Changes go through `store` (`create`, `update`, `remove`, `putKeyed`,
+- `ClientView({ tool, entries, store, informal, locale, onDone, download })`: the client's view,
+  also used in demo mode; `tool.linked` and `tool.counsellors` as above, `download(format, params)`
+  fetches one of the tool's client PDFs. Changes go through `store` (`create`, `update`, `remove`, `putKeyed`,
   `removeKeyed`), which saves at once, updates `entries` and drives the core's autosave
   indicator. The core renders the header, the share switch and the demo banner.
-- `CounsellorView({ entries, options, isNew, locale })`: read only; `isNew(entry)` tells what the
+- `CounsellorView({ entries, options, isNew, locale, linked })`: read only; `isNew(entry)` tells what the
   counsellor has not seen yet. The core renders the header, the PDF export and marks the entries
   as seen.
 
@@ -189,6 +197,7 @@ Generic API used by the modules through the core (`/api` behind the AddonService
 | `POST /me/tools/<tool>/entries`, `PUT`/`DELETE .../entries/<id>` | client | unkeyed entries |
 | `PUT`/`DELETE /me/tools/<tool>/keyed/<kind>/<key>` | client | keyed entries |
 | `PUT /me/tools/<tool>/share` | client | share switch |
+| `GET /me/tools/<tool>/export/<format>` | client | the tool's own PDFs (`clientExports`) |
 | `/demo/...` (same as `/me/tools/<tool>...`) and `POST /demo/tools/<tool>/reset` | counsellor | demo data |
 | `GET /case/tools` | counsellor in a case | tiles: release, entries present, share, new count |
 | `POST`/`DELETE /case/tools/<tool>/release` | counsellor in a case | release, withdrawal |

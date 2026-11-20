@@ -34,6 +34,10 @@ export interface ClientTool {
 	allowSharing: boolean;
 	options: ToolOptions;
 	entries: Entry[];
+	/** Entries of other tools this tool shows, only for tools released to the client. */
+	linked: Partial<Record<ToolId, Entry[]>>;
+	/** Names of the client's counsellors, for tools that show them. */
+	counsellors: string[];
 }
 
 /** One tile of the counsellor's overview. Content-related fields only with an effective share. */
@@ -62,6 +66,8 @@ export interface CaseEntries {
 	seenAt: string | null;
 	sharedSince: string | null;
 	exportRange: boolean;
+	/** Entries of other tools this tool shows, only for tools the client shares as well. */
+	linked: Partial<Record<ToolId, Entry[]>>;
 }
 
 export interface NotificationPrefs {

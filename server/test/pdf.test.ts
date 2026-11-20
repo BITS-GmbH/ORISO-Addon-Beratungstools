@@ -38,7 +38,7 @@ describe('export', () => {
 		async (id, tool) => {
 			for (const entries of [SAMPLES[id] ?? [], []]) {
 				const pdf = await renderPdf(header, 'Europe/Berlin', (writer) =>
-					tool.exportPdf(writer, { entries, options: {} })
+					tool.exportPdf(writer, { entries, options: {}, linked: {}, counsellors: [] })
 				);
 				expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
 				expect(pdf.length).toBeGreaterThan(1000);
@@ -52,7 +52,7 @@ describe('export', () => {
 			entry('argument', { category: 'B', text: `Argument ${index} `.repeat(8), rating: 2 })
 		);
 		const pdf = await renderPdf(header, 'Europe/Berlin', (writer) =>
-			tool.exportPdf(writer, { entries: many, options: {} })
+			tool.exportPdf(writer, { entries: many, options: {}, linked: {}, counsellors: [] })
 		);
 		expect((pdf.toString('latin1').match(/\/Type \/Page\b/g) ?? []).length).toBeGreaterThan(3);
 	});

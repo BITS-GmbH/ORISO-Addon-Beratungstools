@@ -95,6 +95,15 @@ export const Switch = ({
 	</label>
 );
 
+export const downloadBlob = (blob: Blob, fileName: string): void => {
+	const url = URL.createObjectURL(blob);
+	const link = Object.assign(document.createElement('a'), { href: url, download: fileName });
+	document.body.appendChild(link);
+	link.click();
+	link.remove();
+	setTimeout(() => URL.revokeObjectURL(url), 10_000);
+};
+
 export const formatDate = (iso: string | null | undefined, locale = 'de', withTime = false): string =>
 	iso
 		? new Date(iso).toLocaleString(locale.split('@')[0] || 'de', {
