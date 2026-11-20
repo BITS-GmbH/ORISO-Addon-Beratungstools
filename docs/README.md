@@ -11,9 +11,12 @@ Verfügbar sind bisher:
 - **Ausgangssituation und Ziele:** Vier Fragen zur aktuellen Situation (Situation, was eine Veränderung schwierig macht, Gründe für eine Veränderung, persönliche Ressourcen), danach ein persönliches Ziel und eine Zusammenfassung, in der sich jede Angabe wieder bearbeiten lässt. Die Eingaben werden automatisch gespeichert.
 - **Motivationswaage:** Vor- und Nachteile einer Veränderung des Suchtverhaltens in vier Listen, jeweils von „gar nicht wichtig“ bis „sehr wichtig“ bewertet. Die Waage rechnet die gewichteten PRO- und CONTRA-Punkte auf eine Skala von −10 bis +10 um und zeigt so das Verhältnis, nicht die Zahl der Argumente. Dazu ein persönliches Fazit und Beispieltexte für den Einstieg.
 
+- **Ampelmodell:** Medienaktivitäten (zum Beispiel „Ein Computerspiel spielen“ oder „Instagram“) werden nach ihrer persönlichen Suchtgefahr in eine Ampel eingeordnet: Rot für große Gefahr, Gelb für mögliche Gefahr, Grün für keine Gefahr. Ein Klick auf eine Aktivität öffnet sie zum Ändern oder Löschen. Jedes Feld nennt seine Farbe und Gefahrenstufe auch als Text, eine Legende erklärt die Stufen. Die Beratung sieht dieselbe Ampel schreibgeschützt.
+- **Positives Wahrnehmen:** Für Eltern. Vier Seiten: eine Einführung zu negativer Aufmerksamkeit in der Familie, ein Schema, in dem ein Klick auf eine Bemerkung der Eltern zeigt, was sie im Kind auslösen kann (Selbstbild, Gefühl, mögliches Verhalten), eine kurze Erläuterung und zuletzt eine Liste von Verhaltensweisen des Kindes, die die Eltern loben möchten, mit Beispielen und einem Hinweis zum Loben. Die Tool-Beschreibung sieht keine Ansicht für die Beratung vor; wenn die Eltern teilen, sieht die Beratung die gespeicherten Verhaltensweisen als einfache Liste.
+
 ![Die Motivationswaage der ratsuchenden Person](img/motivationswaage.png)
 
-In Vorbereitung sind Konsumtagebuch, Tagebuch für Angehörige, Notfallkoffer, Aktiv sein, Risikosituationen und Kontrollstrategien, Ampelmodell und Positives Wahrnehmen. Sie erscheinen erst, wenn sie fertig sind.
+In Vorbereitung sind Konsumtagebuch, Tagebuch für Angehörige, Notfallkoffer, Aktiv sein und Risikosituationen und Kontrollstrategien. Sie erscheinen erst, wenn sie fertig sind.
 
 ## Ablauf
 
@@ -46,6 +49,8 @@ Je Träger und je Beratungsstelle:
 - **Je Tool ein Schalter, ob es angeboten wird.** Ein ausgeschaltetes Tool kann nicht freigeschaltet werden und ist für niemanden sichtbar.
 - **Ausgangssituation und Ziele:** eigener Einleitungstext.
 - **Motivationswaage:** eigener Einleitungstext und die Beschriftung der Waage: „CONTRA / PRO Veränderung“, „keine Veränderung / Ich möchte etwas ändern!“ oder „gut so, wie es ist / es muss sich was ändern!“.
+- **Ampelmodell:** eigener Einleitungstext.
+- **Positives Wahrnehmen:** eigener Einführungstext für die erste Seite.
 
 ## Statistik
 
