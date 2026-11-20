@@ -5,7 +5,8 @@ ADR-034), behind the [AddonService](https://github.com/OpenResilienceInitiative/
 It replaces the add-ons `digisucht-tools` and `motivationswaage`. Design and the tool module
 interface: [ARCHITECTURE.md](ARCHITECTURE.md). Description for admins: [docs/README.md](docs/README.md).
 
-Tools so far: Ausgangssituation und Ziele (`goals`), Motivationswaage (`balance`), Ampelmodell
+Tools so far: Ausgangssituation und Ziele (`goals`), Motivationswaage (`balance`), Notfallkoffer
+(`emergency-kit`), Risikosituationen und Kontrollstrategien (`risk-situations`), Ampelmodell
 (`traffic-light`), Positives Wahrnehmen (`positive-perception`).
 
 ## Layout
@@ -24,7 +25,7 @@ Tools so far: Ausgangssituation und Ziele (`goals`), Motivationswaage (`balance`
 ```sh
 npm install
 npm run db:up             # MariaDB on localhost:3307 (compose.yaml)
-npm run preview           # http://localhost:5179/dev/preview.html: client, counsellor and profile tile
+npm run preview           # http://localhost:5179/dev/preview.html: client, counsellor and profile tile (PORT, API_PORT)
 npm test                  # unit tests, server and web
 npm run test:integration  # against MariaDB (database beratungstools_test)
 npm run lint && npm run typecheck

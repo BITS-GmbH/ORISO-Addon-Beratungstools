@@ -14,7 +14,7 @@ import type { Host, HostNotification } from '../../server/src/host.ts';
 import { Store } from '../../server/src/store.ts';
 import { TOOLS } from '../../server/src/tools/index.ts';
 
-const API_PORT = 8091;
+const API_PORT = Number(process.env.API_PORT ?? 8091);
 const UI_PORT = Number(process.env.PORT ?? 5179);
 const databaseUrl =
 	process.env.DATABASE_URL ?? 'mariadb://beratungstools:beratungstools@127.0.0.1:3307/beratungstools';

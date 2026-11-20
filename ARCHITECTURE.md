@@ -26,7 +26,8 @@ persistence of its entries, export) and `web/src/tools/<id>/` (client view, read
 view), plus `shared/tools/<id>.ts` for what both sides need (texts, calculations). A tool module
 registers itself in one list per side; the core never names a tool. See "Tool modules" below.
 
-Available so far: `goals`, `balance`, `traffic-light` and `positive-perception`. The other five are in the catalogue
+Available so far: `goals`, `balance`, `emergency-kit`, `risk-situations`, `traffic-light` and
+`positive-perception`. The other three are in the catalogue
 (`shared/catalog.ts`, ids, titles, tile texts, audience, order) but have no module yet; the core
 offers only tools with a module, so they are neither offered for release nor shown, and have no
 settings or statistics until their module lands.
