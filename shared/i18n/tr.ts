@@ -1,1590 +1,1596 @@
 import type { Catalogue } from './types.ts';
 
-// TODO translate: still a copy of en.ts. Replace every English text with Turkish; keep the keys,
-// the {placeholders} and the length of lists, and add the plural forms the language needs.
-// `npm test` (server/test/i18n.test.ts) lists what is missing; missing texts show in English.
 export const tr: Catalogue = {
 	common: {
-		saving: 'Saving …',
-		saved: 'Saved automatically',
-		notSaved: 'Not saved',
-		weekBack: 'Previous week',
-		weekForward: 'Next week',
-		tryLater: 'Please try again later.',
-		tryAgain: 'That did not work. Please try again.',
-		cancel: 'Cancel'
+		saving: 'Kaydediliyor …',
+		saved: 'Otomatik olarak kaydedildi',
+		notSaved: 'Kaydedilmedi',
+		weekBack: 'Önceki hafta',
+		weekForward: 'Sonraki hafta',
+		tryLater: 'Lütfen daha sonra tekrar deneyin.',
+		tryAgain: 'Bu işlem başarısız oldu. Lütfen tekrar deneyin.',
+		cancel: 'İptal'
 	},
 	days: {
-		period: '{from} to {to}',
-		minutes: '{minutes} min',
-		hours: '{hours} h',
-		hoursMinutes: '{hours} h {minutes} min',
-		time: '{time}'
+		period: '{from} – {to}',
+		minutes: '{minutes} dk.',
+		hours: '{hours} sa.',
+		hoursMinutes: '{hours} sa. {minutes} dk.',
+		time: 'saat {time}'
 	},
 	catalog: {
 		goals: {
-			title: 'Starting point and goals',
-			summary: 'Describe the situation and set a goal for the counselling',
+			title: 'Başlangıç durumu ve hedefler',
+			summary: 'Durumu anlatın ve danışmanlık için bir hedef belirleyin',
 			description:
-				'This tool lets you describe the current situation in your own words and name a clear goal for the counselling. Naming a personal goal precisely helps people work on improving their situation. At the same time, it gives the counsellor more options and starting points to shape the counselling well. The personal goal can be adjusted during the counselling.'
+				'Bu araç, mevcut durumu kendi sözlerinizle anlatmanızı ve danışmanlık için somut bir hedef belirlemenizi sağlar. Kişisel hedefi açıkça adlandırmak, durumunu iyileştirmek için çalışan kişiye yardımcı olur. Aynı zamanda danışmana, danışmanlık sürecini uygun şekilde planlamak için daha fazla olanak ve başlangıç noktası sunar. Kişisel hedef, danışmanlık süresince değiştirilebilir.'
 		},
 		'consumption-diary': {
-			title: 'Consumption diary',
-			summary: 'Record use or gambling day by day',
+			title: 'Kullanım günlüğü',
+			summary: 'Madde kullanımını veya kumar oynamayı gün gün kaydedin',
 			description:
-				'In the consumption diary, people can record their substance use and/or gambling. This includes how often, how much and how long they use or gamble, but also the thoughts and feelings connected with the addictive behaviour. If they decide to share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'Kullanım günlüğünde kişiler madde kullanımlarını ve/veya kumar oynama davranışlarını kaydedebilir. Buna kullanımın veya kumar oynamanın sıklığı, miktarı ve süresi, ayrıca bağımlılık davranışıyla bağlantılı düşünce ve duygular da dahildir. Kişiler günlüğü danışmanlarıyla paylaşmak isterlerse, danışman kayıtlara geri bildirim verebilir.'
 		},
 		'relatives-diary': {
-			title: 'Diary for relatives',
-			summary: 'Reflect on the day with three questions and a mood',
+			title: 'Yakınlar için günlük',
+			summary: 'Günü üç soru ve bir ruh hâli ile değerlendirin',
 			description:
-				'With this diary, relatives can reflect on the events of the day with the help of three questions. The questions help them sort out and write down their own thoughts and feelings about their family member’s addictive behaviour. If relatives share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'Bu günlük, yakınlara günün yaşantılarını üç soru yardımıyla düşünme olanağı verir. Sorular, yakınlarının bağımlılık davranışıyla ilgili kendi düşünce ve duygularını anlamlandırmalarına ve yazmalarına yardımcı olur. Yakınlar günlüğü danışmanlarıyla paylaşırsa, danışman kayıtlara geri bildirim verebilir.'
 		},
 		balance: {
-			title: 'Decisional balance',
-			summary: 'Weigh up the pros and cons of a change',
+			title: 'Motivasyon terazisi',
+			summary: 'Bir değişikliğin artılarını ve eksilerini tartın',
 			description:
-				'The decisional balance helps people weigh up the pros and cons of overcoming their addictive behaviour. This can bring doubts and worries to light and make decisions clearer. If they want to, they can let their counsellor see their notes, so the counsellor can respond to their personal considerations.'
+				'Motivasyon terazisi, kişilerin bağımlılık davranışını bırakmanın artılarını ve eksilerini tartmalarına ve önem sırasına koymalarına yardımcı olur. Böylece belirsizlikler ve kaygılar ortaya çıkabilir ve kararlar daha net verilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman kişisel değerlendirmelere özel olarak değinebilir.'
 		},
 		'emergency-kit': {
-			title: 'Emergency kit',
-			summary: 'Strategies and contacts for difficult situations',
+			title: 'Acil durum çantası',
+			summary: 'Zor durumlar için stratejiler ve iletişim bilgileri',
 			description:
-				'With this tool, people can put together their personal emergency kit, which helps them avoid a relapse in especially difficult situations. The emergency kit can hold contact details of counsellors or family members as well as concrete steps to take and sayings to remember.'
+				'Bu araçla kişiler, özellikle zor durumlarda nüksü önlemeye yardımcı olan kişisel acil durum çantalarını hazırlayabilir. Acil durum çantasına danışmanların veya yakınların iletişim bilgileri, somut yapılacaklar ve akılda tutulacak cümleler eklenebilir.'
 		},
 		active: {
-			title: 'Being active',
-			summary: 'Plan pleasant activities, also regularly',
+			title: 'Aktif olmak',
+			summary: 'Hoş etkinlikler planlayın, düzenli olarak da',
 			description:
-				'This tool helps people make their everyday life more positive with pleasant activities, to improve their quality of life and reduce cravings. Activities can be entered freely or chosen from a list of suggestions, and planned once or on a regular basis.'
+				'Bu araç, kişilerin yaşam kalitesini artırmak ve yoğun madde isteğini (craving) azaltmak için günlük hayatlarını hoş etkinliklerle olumlu biçimde düzenlemelerine yardımcı olur. Etkinlikler serbestçe yazılabilir veya öneri listesinden seçilebilir; bir kez ya da düzenli olarak planlanabilir.'
 		},
 		'risk-situations': {
-			title: 'Risk situations and control strategies',
-			summary: 'Record risk situations, strategies and relapses',
+			title: 'Risk durumları ve kontrol stratejileri',
+			summary: 'Risk durumlarını, stratejileri ve nüksleri kaydedin',
 			description:
-				'With this tool, people can look closely at their personal risk situations and work out suitable control strategies. If relapses happen, they can be recorded and the strategies revised. If they want to, they can make their notes available to their counsellor, so the counsellor can respond to the risk situations and control strategies.'
+				'Bu araçla kişiler kendi risk durumlarını yakından inceleyebilir ve uygun kontrol stratejileri geliştirebilir. Nüks olursa bu kaydedilebilir ve stratejiler gözden geçirilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman risk durumlarına ve kontrol stratejilerine özel olarak değinebilir.'
 		},
 		'traffic-light': {
-			title: 'Traffic light model',
-			summary: 'Sort media activities by their risk',
+			title: 'Trafik ışığı modeli',
+			summary: 'Medya etkinliklerini risklerine göre sınıflandırın',
 			description:
-				'The traffic light model helps people assess the personal risk of individual media activities and strengthen their ability to use media in a healthy way. Like a traffic light, media activities can be sorted into “green” (safe), “yellow” (risky) and “red” (very risky) activities.'
+				'Trafik ışığı modeli, kişilerin tek tek medya etkinliklerinin kendileri için ne kadar riskli olduğunu değerlendirmelerine ve medyayı sağlıklı kullanma becerilerini güçlendirmelerine yardımcı olur. Medya etkinlikleri, bir trafik ışığında olduğu gibi “yeşil” (zararsız), “sarı” (riskli) ve “kırmızı” (çok riskli) olarak sınıflandırılabilir.'
 		},
 		'positive-perception': {
-			title: 'Seeing the positive',
-			summary: 'For parents: see the positive in the child’s behaviour',
+			title: 'Olumluyu fark etmek',
+			summary: 'Ebeveynler için: çocuğun davranışındaki olumlu yanları görmek',
 			description:
-				'This tool helps parents notice the positive sides of their child’s behaviour more consciously, to improve how they interact and talk with their child. It explains the risks of negative communication and how positive reinforcement affects the child’s feelings and behaviour. Parents can reflect on how they use praise and plan positive communication.'
+				'Bu araç, ebeveynlerin çocuklarıyla etkileşimlerini ve iletişimlerini iyileştirmek için çocuklarının davranışlarındaki olumlu yanları daha bilinçli fark etmelerine yardımcı olur. Olumsuz iletişimin risklerini ve olumlu pekiştireçlerin çocuğun duyguları ve davranışı üzerindeki etkisini anlatır. Ebeveynler övgüyü nasıl kullandıklarını düşünebilir ve olumlu iletişimi planlayabilir.'
 		}
 	},
 	client: {
-		myTools: 'My tools',
+		myTools: 'Araçlarım',
 		intro:
-			'Your counsellor has unlocked these exercises for you. Your counsellor only sees what you enter if you share it.',
-		loadError: 'Your tools could not be loaded.',
-		noneTitle: 'No tools unlocked yet',
-		noneText: 'Your counsellor can unlock tools for you. Feel free to ask them about it.',
-		new: 'New',
-		shared: 'Shared with your counsellor',
-		continue: 'Continue',
-		open: 'Open'
+			'Danışmanınız bu alıştırmaları sizin için kullanıma açtı. Yazdıklarınızı danışmanınız yalnızca siz paylaşırsanız görebilir.',
+		loadError: 'Araçlarınız yüklenemedi.',
+		noneTitle: 'Henüz kullanıma açılmış araç yok',
+		noneText:
+			'Danışmanınız sizin için araçları kullanıma açabilir. Bu konuyu danışmanınıza sormaktan çekinmeyin.',
+		new: 'Yeni',
+		shared: 'Danışmanınızla paylaşıldı',
+		continue: 'Devam et',
+		open: 'Aç'
 	},
 	toolPage: {
-		loadError: '“{title}” could not be loaded.',
-		notReleased: 'This tool is no longer unlocked.',
-		notReleasedNotSaved: 'This tool is no longer unlocked. Your input was not saved.',
-		saveFailed: 'Saving did not work. Please try again.',
-		pdfFailed: 'The PDF could not be created. Please try again.',
-		sharedNow: 'Your counsellor can now see this content.',
-		privateAgain: 'The content is now only visible to you again.',
-		shareOverline: 'Visible to your counsellor',
-		shareLabel: 'Share with my counsellor',
-		shareOn: 'Your counsellor can see your entries and is told about new entries.',
-		shareOff: 'Your entries are only visible to you.',
-		notAvailable: 'This tool is not available yet.'
+		loadError: '“{title}” yüklenemedi.',
+		notReleased: 'Bu araç artık kullanıma açık değil.',
+		notReleasedNotSaved: 'Bu araç artık kullanıma açık değil. Girdiğiniz bilgiler kaydedilmedi.',
+		saveFailed: 'Kaydetme başarısız oldu. Lütfen tekrar deneyin.',
+		pdfFailed: 'PDF oluşturulamadı. Lütfen tekrar deneyin.',
+		sharedNow: 'Danışmanınız artık bu içerikleri görebilir.',
+		privateAgain: 'İçerikler artık yine yalnızca sizin tarafınızdan görülebilir.',
+		shareOverline: 'Danışmanınız için görünürlük',
+		shareLabel: 'Danışmanımla paylaş',
+		shareOn: 'Danışmanınız kayıtlarınızı görebilir ve yeni kayıtlarınızdan haberdar edilir.',
+		shareOff: 'Kayıtlarınızı yalnızca siz görebilirsiniz.',
+		notAvailable: 'Bu araç henüz kullanılamıyor.'
 	},
 	counsellor: {
-		loadError: 'The tools of this case could not be loaded.',
-		openFromCase: 'Please open the tools from within a case.',
-		tools: 'Tools',
-		released: 'Unlocked',
-		releasedTools: 'Unlocked tools',
-		notReleasedYet: 'Not unlocked yet',
-		notReleasedTools: 'Tools not unlocked yet',
-		noTools: 'No tools are switched on for this counselling centre.',
-		shared: 'Shared with you',
-		entriesNotShared: 'Has entries, not shared',
-		noEntries: 'No entries yet',
-		newEntries: { one: '{count} new entry', other: '{count} new entries' },
-		dpa: 'Unlocking is not possible right now: the organisation has not yet confirmed the current data processing agreement.',
-		releasedOn: 'Unlocked on {date}',
-		lastChangedOn: 'last edited on {date}',
-		allTools: 'All tools',
-		notReleased: 'Not unlocked',
-		release: 'Unlock',
-		releasedNotice: '“{title}” is unlocked. The client will be notified.',
-		viewEntries: 'View entries',
-		preview: 'User preview',
-		withdraw: 'Lock again',
-		previewHint: 'The user preview shows the tool as the client sees it, with test data.',
+		loadError: 'Bu vakanın araçları yüklenemedi.',
+		openFromCase: 'Lütfen araçları bir vakanın içinden açın.',
+		tools: 'Araçlar',
+		released: 'Kullanıma açık',
+		releasedTools: 'Kullanıma açılmış araçlar',
+		notReleasedYet: 'Henüz kullanıma açılmadı',
+		notReleasedTools: 'Henüz kullanıma açılmamış araçlar',
+		noTools: 'Bu danışmanlık merkezi için hiçbir araç etkinleştirilmemiş.',
+		shared: 'Görüntüleme izni verildi',
+		entriesNotShared: 'Kayıt var, görüntüleme izni yok',
+		noEntries: 'Henüz kayıt yok',
+		newEntries: { one: '{count} yeni kayıt', other: '{count} yeni kayıt' },
+		dpa: 'Şu anda kullanıma açmak mümkün değil: Kurum, güncel veri işleme sözleşmesini henüz onaylamadı.',
+		releasedOn: 'Kullanıma açılma tarihi: {date}',
+		lastChangedOn: 'son düzenleme: {date}',
+		allTools: 'Tüm araçlar',
+		notReleased: 'Kullanıma açılmadı',
+		release: 'Kullanıma aç',
+		releasedNotice: '“{title}” kullanıma açıldı. Danışana bildirim gönderilecek.',
+		viewEntries: 'Kayıtları görüntüle',
+		preview: 'Kullanıcı önizlemesi',
+		withdraw: 'Kullanıma açmayı geri al',
+		previewHint: 'Kullanıcı önizlemesi, aracı danışanın gördüğü şekilde, test verileriyle gösterir.',
 		withdrawConfirm:
-			'Lock this tool again? The tool disappears for the client and you no longer see any content. The entries stay saved.',
-		withdrawButton: 'Lock',
-		withdrawn: 'The tool is locked again. The entries stay saved.'
+			'Kullanıma açma geri alınsın mı? Araç danışan için kaybolur ve siz artık hiçbir içerik göremezsiniz. Kayıtlar saklanmaya devam eder.',
+		withdrawButton: 'Geri al',
+		withdrawn: 'Kullanıma açma geri alındı. Kayıtlar saklanmaya devam ediyor.'
 	},
 	entries: {
-		back: 'Back to overview',
-		noAccess: 'Not shared',
-		loadError: 'The entries could not be loaded.',
-		revoked: 'The client has stopped sharing, or the tool is no longer unlocked.',
-		exportRevoked: 'The client has stopped sharing. Exporting is not possible.',
-		exportFailed: 'The export did not work. Please try again.',
-		readOnly: 'Entries, read only',
-		lastChangedOn: 'Last edited on {date}',
-		noEntries: 'No entries yet',
-		sharedSince: 'shared since {date}',
-		exporting: 'Creating export …',
-		createExport: 'Create export',
-		exportPdf: 'Export as PDF',
-		noView: 'There is no view for this tool yet.'
+		back: 'Genel bakışa dön',
+		noAccess: 'Görüntüleme izni yok',
+		loadError: 'Kayıtlar yüklenemedi.',
+		revoked: 'Danışan görüntüleme iznini geri aldı ya da araç artık kullanıma açık değil.',
+		exportRevoked: 'Danışan görüntüleme iznini geri aldı. Dışa aktarma mümkün değil.',
+		exportFailed: 'Dışa aktarma başarısız oldu. Lütfen tekrar deneyin.',
+		readOnly: 'Kayıtlar, salt okunur',
+		lastChangedOn: 'Son düzenleme: {date}',
+		noEntries: 'Henüz kayıt yok',
+		sharedSince: 'Görüntüleme izni verildiği tarih: {date}',
+		exporting: 'Dışa aktarma hazırlanıyor …',
+		createExport: 'Dışa aktar',
+		exportPdf: 'PDF olarak dışa aktar',
+		noView: 'Bu araç için henüz bir görünüm yok.'
 	},
 	demo: {
-		resetFailed: 'The demo could not be reset.',
-		banner: 'User preview / demo: nothing is saved in a real case',
+		resetFailed: 'Demo sıfırlanamadı.',
+		banner: 'Kullanıcı önizlemesi / demo: gerçek vakaya hiçbir şey kaydedilmez',
 		bannerText:
-			'This is how clients see the tool. What you enter here is test data, separate from all cases, and stays for you until you reset the demo.',
-		reset: 'Reset demo',
-		end: 'End preview'
+			'Danışanlar aracı bu şekilde görür. Burada girdiğiniz bilgiler test verileridir, tüm vakalardan ayrı tutulur ve siz demoyu sıfırlayana kadar sizin için saklanır.',
+		reset: 'Demoyu sıfırla',
+		end: 'Önizlemeyi bitir'
 	},
 	prefs: {
-		button: 'Notifications',
-		saved: 'Your notification settings have been saved.',
-		saveFailed: 'The settings could not be saved.',
-		title: 'Notification settings',
+		button: 'Bildirimler',
+		saved: 'Bildirim ayarlarınız kaydedildi.',
+		saveFailed: 'Ayarlar kaydedilemedi.',
+		title: 'Bildirim ayarları',
 		intro:
-			'What would you like to be told about when clients share their tools with you? This applies to all your cases. Several changes made shortly after one another are combined.',
-		firstShare: 'Tool content shared for the first time',
-		newEntry: 'New entries in shared tools',
-		changedEntry: 'Changes to existing entries',
-		save: 'Save settings'
+			'Danışanlar araçlarını sizinle paylaştığında hangi konularda bilgilendirilmek istersiniz? Bu, tüm vakalarınız için geçerlidir. Kısa süre içinde yapılan birden fazla değişiklik tek bildirimde toplanır.',
+		firstShare: 'Araç içeriklerinin ilk kez paylaşılması',
+		newEntry: 'Paylaşılan araçlardaki yeni kayıtlar',
+		changedEntry: 'Mevcut kayıtlardaki değişiklikler',
+		save: 'Ayarları kaydet'
 	},
 	profile: {
-		loadError: 'The tools could not be loaded.',
-		none: 'No tools unlocked yet.',
-		newCount: '{count} new',
-		shared: 'Shared with you',
-		notShared: 'Not shared',
-		open: 'Open tools in the case'
+		loadError: 'Araçlar yüklenemedi.',
+		none: 'Henüz kullanıma açılmış araç yok.',
+		newCount: '{count} yeni',
+		shared: 'Görüntüleme izni verildi',
+		notShared: 'Görüntüleme izni yok',
+		open: 'Araçları vakada aç'
 	},
 	rangePicker: {
-		label: 'Period',
-		all: 'All entries',
-		from: 'from {day}',
-		until: 'until {day}',
-		choose: 'Choose {label}',
-		quick: 'Quick choice',
-		thisWeek: 'This week',
-		lastFourWeeks: 'Last 4 weeks',
-		previousMonth: 'Previous month',
-		nextMonth: 'Next month',
-		pickFirst: 'Choose the first day of the period.',
-		pickLast: 'From {day}: now choose the last day.'
+		label: 'Dönem',
+		all: 'Tüm kayıtlar',
+		from: 'başlangıç: {day}',
+		until: 'bitiş: {day}',
+		choose: '{label} seçin',
+		quick: 'Hızlı seçim',
+		thisWeek: 'Bu hafta',
+		lastFourWeeks: 'Son 4 hafta',
+		previousMonth: 'Önceki ay',
+		nextMonth: 'Sonraki ay',
+		pickFirst: 'Dönemin ilk gününü seçin.',
+		pickLast: 'Başlangıç: {day}. Şimdi son günü seçin.'
 	},
 	planned: {
-		title: 'Planned activities this week',
-		none: 'No activities are planned for this week.',
-		plan: 'Plan activities in “Being active”',
-		with: 'with {name}'
+		title: 'Bu hafta planlanan etkinlikler',
+		none: 'Bu hafta için planlanmış etkinlik yok.',
+		plan: '“Aktif olmak” aracında etkinlik planlayın',
+		with: 'birlikte: {name}'
 	},
 	pdf: {
-		brand: 'Counselling tools',
-		case: 'Case',
-		createdAt: 'Export created on',
-		period: 'Period of the entries',
+		brand: 'Danışmanlık araçları',
+		case: 'Vaka',
+		createdAt: 'Dışa aktarma tarihi',
+		period: 'Kayıtların dönemi',
 		confidential:
-			'Confidential. Content the client has chosen to share, for use in the counselling context only.',
-		personal: 'Personal document from the counselling tools.',
-		page: 'Page {page} of {pages}',
-		caseLabel: 'Case {id}',
-		caseWithoutId: 'Case without ID',
-		noEntries: 'No entries',
-		fileCase: 'case'
+			'Gizli. Danışanın görüntülenmesine izin verdiği içerikler; yalnızca danışmanlık kapsamında kullanılmak içindir.',
+		personal: 'Danışmanlık araçlarından kişisel belge.',
+		page: 'Sayfa {page} / {pages}',
+		caseLabel: 'Vaka {id}',
+		caseWithoutId: 'Kimliği olmayan vaka',
+		noEntries: 'Kayıt yok',
+		fileCase: 'vaka'
 	},
 	notifications: {
-		someone: 'A client',
-		sharedTitle: 'Tool shared with you',
-		entriesTitle: 'New entries in a tool',
-		shared: '{who} shared “{tool}” with you.',
-		sharedAnd: '{who} shared “{tool}” with you and {what}.',
-		changes: '{who} {what} in “{tool}”.',
-		added: 'added entries',
-		changed: 'changed entries',
-		addedAndChanged: 'added and changed entries',
-		releasedTitle: 'New tool unlocked',
-		released: '“{tool}” is now available in “My tools”.'
+		someone: 'Bir danışan',
+		sharedTitle: 'Araç görüntülemenize açıldı',
+		entriesTitle: 'Bir araçta yeni kayıtlar',
+		shared: '{who}, “{tool}” aracını görüntülemenize açtı.',
+		sharedAnd: '{who}, “{tool}” aracını görüntülemenize açtı ve bu araçta {what}.',
+		changes: '{who}, “{tool}” aracında {what}.',
+		added: 'yeni kayıtlar ekledi',
+		changed: 'kayıtları değiştirdi',
+		addedAndChanged: 'yeni kayıtlar ekledi ve kayıtları değiştirdi',
+		releasedTitle: 'Yeni araç kullanıma açıldı',
+		released: '“{tool}” artık “Araçlarım” bölümünde kullanılabilir.'
 	},
 	audit: {
-		released: 'Released tool “{tool}”',
-		withdrawn: 'Withdrew tool “{tool}”',
-		exported: 'Exported “{tool}” as PDF',
-		shared: 'Shared “{tool}” with the counsellor',
-		unshared: 'Stopped sharing “{tool}”'
+		released: '“{tool}” aracı kullanıma açıldı',
+		withdrawn: '“{tool}” aracının kullanıma açılması geri alındı',
+		exported: '“{tool}” aracındaki kayıtlar PDF olarak dışa aktarıldı',
+		shared: '“{tool}” aracı görüntülemeye açıldı',
+		unshared: '“{tool}” aracının görüntüleme izni geri alındı'
 	},
 	manifest: {
-		title: 'Tools',
+		title: 'Araçlar',
 		description:
-			'Digital counselling tools: counsellors release exercises, clients work on them and may share them with their counsellor.',
-		screenshotOverview: 'Tools of a case',
-		screenshotEntries: 'Shared entries, read only',
-		screenshotBalance: 'The client’s decisional balance',
-		statReleased: '{tool}: released',
-		statStarted: '{tool}: started',
-		statShared: '{tool}: shared'
+			'Dijital danışmanlık araçları: Danışmanlar alıştırmaları kullanıma açar, danışanlar bunlar üzerinde çalışır ve isterlerse danışmanlarıyla paylaşır.',
+		screenshotOverview: 'Vakadaki araçlara genel bakış',
+		screenshotEntries: 'Paylaşılan kayıtlar, salt okunur',
+		screenshotBalance: 'Danışanın motivasyon terazisi',
+		statReleased: '{tool}: kullanıma açıldı',
+		statStarted: '{tool}: üzerinde çalışıldı',
+		statShared: '{tool}: paylaşıldı'
 	},
 	goals: {
 		steps: {
 			situation: {
-				section: 'Current situation',
-				title: 'Question 1 of 4: What is your current situation?',
+				section: 'Mevcut durum',
+				title: 'Soru 1 / 4: Mevcut durumunuz nasıl?',
 				hint: [
-					'Please briefly describe',
-					'• your own substance use or gambling, or',
-					'• the main issues or conflicts in dealing with a family member who uses substances or gambles.'
+					'Lütfen kısaca anlatın:',
+					'• kendi madde kullanımınızı veya kumar oynama davranışınızı ya da',
+					'• madde kullanan / kumar oynayan bir yakınınızla ilişkinizdeki temel konuları veya çatışmaları.'
 				],
-				summary: 'Your current situation',
-				counsellorLabel: 'Current situation'
+				summary: 'Mevcut durumunuz',
+				counsellorLabel: 'Mevcut durum'
 			},
 			factors: {
-				section: 'What keeps things as they are',
-				title: 'Question 2 of 4: What are the positive sides of the current situation?',
+				section: 'Durumu sürdüren etkenler',
+				title: 'Soru 2 / 4: Mevcut durumun olumlu yanları neler?',
 				hint: [
-					'What positive effects does substance use, gambling or media use have for you? What do you think: which reasons play a part for you when you use or gamble? What reasons might there be to leave the current situation as it is?'
+					'Madde kullanımının, kumar oynamanın veya medya kullanımının sizin için olumlu etkileri neler? Sizce madde kullanırken veya oynarken hangi nedenler rol oynuyor? Mevcut durumu değiştirmemek için hangi nedenler olabilir?'
 				],
-				summary: 'Things that make a change difficult',
-				counsellorLabel: 'Things that make a change difficult'
+				summary: 'Değişimi zorlaştıran etkenler',
+				counsellorLabel: 'Değişimi zorlaştıran etkenler'
 			},
 			motivation: {
-				section: 'Motivation to change',
-				title: 'Question 3 of 4: Why do you want to change something about the current situation?',
-				hint: ['What bothers you or weighs on you? Which things are not going the way you would like?'],
-				summary: 'Reasons for changing the situation',
-				counsellorLabel: 'Reasons for changing the situation'
+				section: 'Değişim motivasyonu',
+				title: 'Soru 3 / 4: Mevcut durumda neden bir şeyleri değiştirmek istiyorsunuz?',
+				hint: ['Sizi rahatsız eden veya yoran ne? Hangi şeyler istediğiniz gibi gitmiyor?'],
+				summary: 'Durumu değiştirmek için nedenler ve güdüler',
+				counsellorLabel: 'Durumu değiştirmek için nedenler ve güdüler'
 			},
 			resources: {
-				section: 'Personal strengths',
-				title: 'Question 4 of 4: Who or what could help you with your plan?',
+				section: 'Kişisel güçlü yanlar',
+				title: 'Soru 4 / 4: Bu niyetinizde size kim veya ne yardımcı olabilir?',
 				hint: [
-					'Do you have hobbies that take your mind off things, or friends or family who can support you?'
+					'Sizi oyalayan hobileriniz ya da size destek olabilecek arkadaşlarınız / yakınlarınız var mı?'
 				],
-				summary: 'Your personal strengths',
-				counsellorLabel: 'Personal strengths'
+				summary: 'Kişisel güçlü yanlarınız',
+				counsellorLabel: 'Kişisel güçlü yanlar'
 			},
 			goal: {
-				section: 'Setting a goal',
-				title: 'Before you start: set your goal',
+				section: 'Hedef belirleme',
+				title: 'Başlamadan önce: Hedefinizi belirleyin',
 				hint: [
-					'To work steadily on improving your situation over the coming weeks, it is important to name your personal goal as precisely as possible. What would you like to achieve in the coming weeks? What should the counselling help you with?',
-					'What concrete goal are you aiming for? (You can change your answer later.)'
+					'Önümüzdeki haftalarda durumunuzu iyileştirmek için kararlılıkla çalışabilmeniz için kişisel hedefinizi olabildiğince açık bir şekilde adlandırmanız önemlidir. Önümüzdeki haftalarda neyi başarmak istiyorsunuz? Danışmanlık size hangi konuda destek olmalı?',
+					'Hangi somut hedefe ulaşmak istiyorsunuz? (Cevabınızı daha sonra da değiştirebilirsiniz.)'
 				],
-				summary: 'Your personal goal',
-				counsellorLabel: 'Personal goal'
+				summary: 'Kişisel hedefiniz',
+				counsellorLabel: 'Kişisel hedef'
 			}
 		},
 		start:
-			'Please use the following questions to describe your current situation. Think about the reason you came to counselling. Your answers help to judge which exercises will be most helpful for you. Your counsellor’s feedback can then also respond better to your actual situation.',
-		startButton: 'Let’s start',
-		summaryTitle: 'Summary',
+			'Lütfen aşağıdaki soruların yardımıyla mevcut durumunuzu anlatın. Bunu yaparken danışmanlığa başvurma nedeninizi düşünün. Cevaplarınız, hangi alıştırmaların sizin için özellikle yararlı olacağını değerlendirmeye yardımcı olur. Danışmanınızın geri bildirimleri de böylece gerçek durumunuza daha iyi yanıt verebilir.',
+		startButton: 'Başlayalım',
+		summaryTitle: 'Özet',
 		summaryText:
-			'You have looked closely at your current situation and set a concrete goal. This is an important first step towards improving the situation. You can revise your answers at any time if you need to. I am happy to support you with this.',
-		overview: 'Your answers at a glance:',
-		edit: 'Edit',
-		editLabel: 'Edit: {label}',
-		empty: 'No answer yet',
-		restart: 'Go through it again',
-		home: 'My start page',
-		autosave: 'Your answers are saved automatically.',
-		back: 'Back',
-		toSummary: 'Go to summary',
-		next: 'Next',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		noAnswer: 'No answer',
-		noAnswers: 'No answers yet.',
-		reminder: 'Fill in starting point and goals',
-		demoSituation: 'For a few months I have been drinking almost every evening, usually two or three beers.'
+			'Mevcut durumunuzu ayrıntılı olarak ele aldınız ve somut bir hedef belirlediniz. Bu, durumu iyileştirmeye yönelik önemli bir ilk adımdır. Gerekirse bilgilerinizi istediğiniz zaman düzenleyebilirsiniz. Bu konuda size memnuniyetle destek olurum.',
+		overview: 'Bilgilerinize genel bakış:',
+		edit: 'Düzenle',
+		editLabel: 'Düzenle: {label}',
+		empty: 'Henüz bilgi yok',
+		restart: 'Baştan yeniden geç',
+		home: 'Ana sayfam',
+		autosave: 'Bilgileriniz otomatik olarak kaydedilir.',
+		back: 'Geri',
+		toSummary: 'Özete git',
+		next: 'İleri',
+		new: 'Yeni',
+		lastChanged: 'Son değişiklik: {date}',
+		noAnswer: 'Bilgi yok',
+		noAnswers: 'Henüz cevap yok.',
+		reminder: 'Başlangıç durumu ve hedefleri doldurun',
+		demoSituation: 'Birkaç aydır neredeyse her akşam içiyorum, genellikle iki üç bira.'
 	},
 	consumptionDiary: {
 		intro:
-			'The diary is for writing down every day everything connected with the change you are aiming for. It is important to keep at it and to record all relevant thoughts and feelings in detail. This helps you reach your goal! The clearer the picture your counsellor has of your situation, the better the counselling can support you. That is why we recommend sharing your entries with your counsellor.',
-		about: 'About the consumption diary',
+			'Günlük, hedeflediğiniz davranış değişikliğiyle ilgili her şeyi her gün not etmek içindir. Düzenli olarak devam etmeniz ve ilgili tüm düşünce ve duygularınızı günlüğe ayrıntılı olarak yazmanız önemlidir. Bu, hedefinize ulaşmanıza yardımcı olur! Danışmanınız durumunuzu ne kadar iyi anlarsa, size o kadar iyi danışmanlık yapılabilir. Bu nedenle kayıtlarınızı danışmanınızın görebileceği şekilde paylaşmanızı öneririz.',
+		about: 'Kullanım günlüğü hakkında',
 		nav: {
-			label: 'Consumption diary',
-			week: 'My week',
-			entry: 'Diary entry',
-			settings: 'Settings'
+			label: 'Kullanım günlüğü',
+			week: 'Haftam',
+			entry: 'Günlük kaydı',
+			settings: 'Ayarlar'
 		},
 		settings: {
-			title: 'Record these topics:',
-			addTopic: 'Add another topic',
-			pickTopic: 'Please choose at least one topic.',
-			save: 'Save',
-			start: 'Start diary'
+			title: 'Şu konuları kaydet:',
+			addTopic: 'başka bir konu ekle',
+			pickTopic: 'Lütfen en az bir konu seçin.',
+			save: 'Kaydet',
+			start: 'Günlüğü başlat'
 		},
 		newEntry: {
-			title: 'Diary entry',
-			date: 'Date',
-			add: 'Add entry: {topic}'
+			title: 'Günlük kaydı',
+			date: 'Tarih',
+			add: 'Kayıt ekle: {topic}'
 		},
 		week: {
-			title: 'My week',
+			title: 'Haftam',
 			cell: '{day}: {question}'
 		},
-		yes: 'yes',
-		no: 'no',
+		yes: 'evet',
+		no: 'hayır',
 		day: {
-			back: 'Back to the week',
-			overline: 'Diary | {topic}',
-			deleteAll: 'Delete entries',
-			cancel: 'Cancel',
-			moreAfterYes: 'More info',
-			moreAfterNo: 'More info',
-			logged: 'Recorded for this day:',
-			noPhase: 'No entry yet',
-			delete: 'Delete',
-			editTitle: 'Edit',
-			deleteTitle: 'Delete',
-			summary: 'Review of the day',
-			ratingHint: 'What went well for you today? What did not go so well? Think about your personal goal.',
-			planQuestion: 'What do you plan for tomorrow?',
-			done: 'Done',
-			save: 'Save'
+			back: 'Haftalık görünüme dön',
+			overline: 'Günlük | {topic}',
+			deleteAll: 'Kayıtları sil',
+			cancel: 'İptal',
+			moreAfterYes: 'daha fazla bilgi',
+			moreAfterNo: 'Daha fazla bilgi',
+			logged: 'Bu gün için kaydedilenler:',
+			noPhase: 'henüz kayıt yok',
+			delete: 'Sil',
+			editTitle: 'düzenle',
+			deleteTitle: 'sil',
+			summary: 'Günün özeti',
+			ratingHint:
+				'Bugün neyi iyi başardınız? Ne o kadar iyi gitmedi? Bunu yaparken kişisel hedefinizi düşünün.',
+			planQuestion: 'Yarın için ne planlıyorsunuz?',
+			done: 'Bitti',
+			save: 'kaydet'
 		},
 		phase: {
-			back: 'Back to the day',
-			date: 'Date',
-			start: 'Time (start)',
-			end: 'Time (end)',
-			nothingYet: 'Nothing added yet.',
-			deleteItem: 'Delete item',
-			deleteItemLabel: 'Delete item: {item}',
+			back: 'Günlük görünüme dön',
+			date: 'Tarih',
+			start: 'Saat (başlangıç)',
+			end: 'Saat (bitiş)',
+			nothingYet: 'Henüz bir şey girilmedi.',
+			deleteItem: 'Kaydı sil',
+			deleteItemLabel: 'Kaydı sil: {item}',
 			deviceQuestion:
-				'Which device did you use? (for example computer, smartphone, games console or handheld games device)',
-			missingItem: 'Please fill in at least one item and click “Add”.',
-			choose: 'Please choose',
+				'Hangi cihazı kullandınız? (ör. bilgisayar, akıllı telefon, oyun konsolu / taşınabilir oyun cihazı)',
+			missingItem: 'Lütfen en az bir bilgi girin ve “ekle” düğmesine tıklayın.',
+			choose: 'Lütfen seçin',
 			group: '{group}:',
-			drink: 'Drink',
-			size: 'Size',
-			count: 'Number',
-			joints: 'Joints',
-			bongs: 'Bongs',
-			otherKind: 'Other',
-			gambling: 'Gambling',
-			media: 'Media',
-			hours: 'Duration: hours',
-			minutes: 'Minutes',
-			add: 'Add',
-			cancel: 'Cancel',
-			timeRange: '{start} to {end}',
-			time: '{time}',
+			drink: 'İçecek',
+			size: 'Miktar',
+			count: 'Adet',
+			joints: 'Joint',
+			bongs: 'Bong',
+			otherKind: 'Diğer',
+			gambling: 'Kumar',
+			media: 'Medya',
+			hours: 'Süre: saat',
+			minutes: 'Dakika',
+			add: 'ekle',
+			cancel: 'İptal',
+			timeRange: 'saat {start} ile {end} arası',
+			time: 'saat {time}',
 			when: '{time}:',
-			noItems: 'No details about use'
+			noItems: 'Kullanımla ilgili bilgi yok'
 		},
 		topics: {
 			alcohol: {
-				label: 'Alcohol',
-				weekQuestion: 'Did you drink alcohol?',
-				dayQuestion: 'Did you drink alcohol today?',
-				pastDayQuestion: 'Did you drink alcohol on this day?',
-				ratingQuestion: 'How would you rate today with regard to your drinking?',
-				pastRatingQuestion: 'How would you rate this day with regard to your drinking?',
+				label: 'Alkol',
+				weekQuestion: 'Alkol içtiniz mi?',
+				dayQuestion: 'Bugün alkol içtiniz mi?',
+				pastDayQuestion: 'Bu gün alkol içtiniz mi?',
+				ratingQuestion: 'Alkol kullanımınız açısından bugünü nasıl değerlendiriyorsunuz?',
+				pastRatingQuestion: 'Alkol kullanımınız açısından bu günü nasıl değerlendiriyorsunuz?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not drinking, getting a task done, doing something nice, etc.)',
+					'Ertesi gün için kendinize bir görev ya da küçük bir hedef koyuyor musunuz? (Örnek: içmemek, bir işi halletmek, güzel bir şey yapmak vb.)',
 				yesIntro:
-					'Record your drinking here. Please make a new entry for each situation or phase in which you drank.',
+					'Alkol kullanımınızı buraya kaydedin. Lütfen her kullanım durumu / kullanım dönemi için yeni bir kayıt oluşturun.',
 				yesMore:
-					'For example, if you drank at lunchtime and in the evening, make two entries. If you had several drinks within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your drinking as precisely as possible, so that you can change it successfully.',
+					'Örneğin hem öğlen hem de akşam içtiyseniz iki kayıt oluşturun. Belirli bir zaman aralığında birden fazla içecek içtiyseniz bunu tek bir kullanım dönemi olarak girebilirsiniz. Günlüğün amacı, kullanım davranışınızı danışmanınızla birlikte olabildiğince iyi anlamanız ve böylece onu başarıyla değiştirebilmenizdir.',
 				noIntro:
-					'You didn’t drink any alcohol today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Bugün hiç alkol içmediniz mi? Harika! Ayık kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				pastNoIntro:
-					'You didn’t drink any alcohol on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Bu gün hiç alkol içmediniz mi? Harika! Ayık kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you drink?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Alcohol: add a phase of drinking',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Drinks recorded:'
+					'Belki kontrol stratejilerinizi başarıyla uygulayabildiniz? Günlükteki notlarınız, kalıcı bir davranış değişikliği ve ayık bir yaşam için özellikle başarılı stratejileri sizin ve danışmanınızın fark etmesine yardımcı olur. Bir şey yazmak istemiyorsanız “kaydet” düğmesine tıklamanız yeterli.',
+				contextQuestion: 'Kimlerle ve nerede içtiniz?',
+				triggerQuestion: 'Neden? Kullanımın nedeni / tetikleyicisi neydi?',
+				phaseTitle: 'Alkol: kullanım dönemi ekle',
+				newPhase: 'yeni kullanım dönemi ekle',
+				editPhase: 'Kullanım dönemini düzenle',
+				deletePhase: 'Kullanım dönemini sil',
+				deletePhaseQuestion: 'Bu kullanım dönemi silinsin mi?',
+				deleteAllQuestion: 'Bu gün için girilen tüm kullanım dönemleri silinecek. Yine de devam edilsin mi?',
+				saveLabel: 'Kullanım dönemini kaydet',
+				loggedLabel: 'Kaydedilen içecekler:'
 			},
 			cannabis: {
-				label: 'Cannabis',
-				weekQuestion: 'Did you use cannabis?',
-				dayQuestion: 'Did you use cannabis today?',
-				pastDayQuestion: 'Did you use cannabis on this day?',
-				ratingQuestion: 'How would you rate today with regard to your cannabis use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your cannabis use?',
+				label: 'Esrar',
+				weekQuestion: 'Esrar kullandınız mı?',
+				dayQuestion: 'Bugün esrar kullandınız mı?',
+				pastDayQuestion: 'Bu gün esrar kullandınız mı?',
+				ratingQuestion: 'Esrar kullanımınız açısından bugünü nasıl değerlendiriyorsunuz?',
+				pastRatingQuestion: 'Esrar kullanımınız açısından bu günü nasıl değerlendiriyorsunuz?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not smoking weed, getting a task done, doing something nice, etc.)',
+					'Ertesi gün için kendinize bir görev ya da küçük bir hedef koyuyor musunuz? (Örnek: esrar içmemek, bir işi halletmek, güzel bir şey yapmak vb.)',
 				yesIntro:
-					'Record your cannabis use here. Please make a new entry for each situation or phase in which you used.',
+					'Esrar kullanımınızı buraya kaydedin. Lütfen her kullanım durumu / kullanım dönemi için yeni bir kayıt oluşturun.',
 				yesMore:
-					'For example, if you smoked at lunchtime and in the evening, make two entries. If you used several times within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your use as precisely as possible, so that you can change it successfully.',
+					'Örneğin hem öğlen hem de akşam esrar içtiyseniz iki kayıt oluşturun. Belirli bir zaman aralığında birkaç kez kullandıysanız bunu tek bir kullanım dönemi olarak girebilirsiniz. Günlüğün amacı, kullanım davranışınızı danışmanınızla birlikte olabildiğince iyi anlamanız ve böylece onu başarıyla değiştirebilmenizdir.',
 				noIntro:
-					'You didn’t use today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Bugün hiç kullanmadınız mı? Harika! Ayık kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				pastNoIntro:
-					'You didn’t use on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Bu gün hiç kullanmadınız mı? Harika! Ayık kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you smoke?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Cannabis: add your use',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Use recorded:'
+					'Belki kontrol stratejilerinizi başarıyla uygulayabildiniz? Günlükteki notlarınız, kalıcı bir davranış değişikliği ve ayık bir yaşam için özellikle başarılı stratejileri sizin ve danışmanınızın fark etmesine yardımcı olur. Bir şey yazmak istemiyorsanız “kaydet” düğmesine tıklamanız yeterli.',
+				contextQuestion: 'Kimlerle ve nerede esrar içtiniz?',
+				triggerQuestion: 'Neden? Kullanımın nedeni / tetikleyicisi neydi?',
+				phaseTitle: 'Esrar: kullanım ekle',
+				newPhase: 'yeni kullanım dönemi ekle',
+				editPhase: 'Kullanım dönemini düzenle',
+				deletePhase: 'Kullanım dönemini sil',
+				deletePhaseQuestion: 'Bu kullanım dönemi silinsin mi?',
+				deleteAllQuestion: 'Bu gün için girilen tüm kullanım dönemleri silinecek. Yine de devam edilsin mi?',
+				saveLabel: 'Kullanım dönemini kaydet',
+				loggedLabel: 'Kaydedilen kullanım:'
 			},
 			gambling: {
-				label: 'Gambling',
-				weekQuestion: 'Did you gamble?',
-				dayQuestion: 'Did you gamble today?',
-				pastDayQuestion: 'Did you gamble on this day?',
-				ratingQuestion: 'How would you rate today with regard to your gambling?',
-				pastRatingQuestion: 'How would you rate this day with regard to your gambling?',
+				label: 'Kumar',
+				weekQuestion: 'Kumar oynadınız mı?',
+				dayQuestion: 'Bugün kumar oynadınız mı?',
+				pastDayQuestion: 'Bu gün kumar oynadınız mı?',
+				ratingQuestion: 'Kumar oynama davranışınız açısından bugünü nasıl değerlendiriyorsunuz?',
+				pastRatingQuestion: 'Kumar oynama davranışınız açısından bu günü nasıl değerlendiriyorsunuz?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gambling, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your gambling here. Please make a new entry for each period in which you gambled.',
+					'Ertesi gün için kendinize bir görev ya da küçük bir hedef koyuyor musunuz? (Örnek: kumar oynamamak, bir işi halletmek, güzel bir şey yapmak vb.)',
+				yesIntro:
+					'Kumar oynama davranışınızı buraya kaydedin. Lütfen kumar oynadığınız her dönem için yeni bir kayıt oluşturun.',
 				yesMore:
-					'For example, if you gambled at lunchtime and in the evening, make two entries. If you played several kinds of games within one period of time, you can enter them as one gambling session. The aim of the diary is for you and your counsellor to understand your behaviour as precisely as possible, so that you can change it successfully.',
+					'Örneğin hem öğlen hem de akşam kumar oynadıysanız iki kayıt oluşturun. Belirli bir zaman aralığında birden fazla kumar türü oynadıysanız bunları tek bir oyun dönemi olarak girebilirsiniz. Günlüğün amacı, davranışınızı danışmanınızla birlikte olabildiğince iyi anlamanız ve böylece onu başarıyla değiştirebilmenizdir.',
 				noIntro:
-					'You didn’t gamble today? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'Bugün hiç kumar oynamadınız mı? Harika! Kumarsız kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				pastNoIntro:
-					'You didn’t gamble on this day? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'Bu gün hiç kumar oynamadınız mı? Harika! Kumarsız kalmanıza neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a gambling-free life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you gamble?',
-				triggerQuestion: 'Why? What was the reason or trigger for gambling?',
-				phaseTitle: 'Add gambling',
-				newPhase: 'Add a new gambling session',
-				editPhase: 'Edit gambling session',
-				deletePhase: 'Delete gambling session',
-				deletePhaseQuestion: 'Delete this gambling session?',
-				deleteAllQuestion: 'All gambling sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Gambling recorded:'
+					'Belki kontrol stratejilerinizi başarıyla uygulayabildiniz? Günlükteki notlarınız, kalıcı bir davranış değişikliği ve kumarsız bir yaşam için özellikle başarılı stratejileri sizin ve danışmanınızın fark etmesine yardımcı olur. Bir şey yazmak istemiyorsanız “kaydet” düğmesine tıklamanız yeterli.',
+				contextQuestion: 'Nerede ve kimlerle kumar oynadınız?',
+				triggerQuestion: 'Neden? Kumar oynamanın nedeni / tetikleyicisi neydi?',
+				phaseTitle: 'Kumar ekle',
+				newPhase: 'yeni oyun dönemi ekle',
+				editPhase: 'Oyun dönemini düzenle',
+				deletePhase: 'Oyun dönemini sil',
+				deletePhaseQuestion: 'Bu oyun dönemi silinsin mi?',
+				deleteAllQuestion: 'Bu gün için girilen tüm oyun dönemleri silinecek. Yine de devam edilsin mi?',
+				saveLabel: 'Kaydı kaydet',
+				loggedLabel: 'Kaydedilen kumar oyunları:'
 			},
 			media: {
-				label: 'Media',
-				weekQuestion: 'Did you use media?',
-				dayQuestion: 'Did you use media today?',
-				pastDayQuestion: 'Did you use media on this day?',
-				ratingQuestion: 'How would you rate today with regard to your media use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your media use?',
+				label: 'Medya',
+				weekQuestion: 'Medya kullandınız mı?',
+				dayQuestion: 'Bugün medya kullandınız mı?',
+				pastDayQuestion: 'Bu gün medya kullandınız mı?',
+				ratingQuestion: 'Medya kullanımınız açısından bugünü nasıl değerlendiriyorsunuz?',
+				pastRatingQuestion: 'Medya kullanımınız açısından bu günü nasıl değerlendiriyorsunuz?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gaming, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your media use here. Please make a new entry for each situation or phase of use.',
+					'Ertesi gün için kendinize bir görev ya da küçük bir hedef koyuyor musunuz? (Örnek: oyun oynamamak, bir işi halletmek, güzel bir şey yapmak vb.)',
+				yesIntro:
+					'Medya kullanımınızı buraya kaydedin. Lütfen her kullanım durumu / kullanım dönemi için yeni bir kayıt oluşturun.',
 				yesMore:
-					'For example, if you used media at lunchtime and in the evening, make two entries. If you used several media within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your media use as precisely as possible, so that you can change it successfully.',
+					'Örneğin hem öğlen hem de akşam medya kullandıysanız iki kayıt oluşturun. Belirli bir zaman aralığında birden fazla medya kullandıysanız bunu tek bir kullanım dönemi olarak girebilirsiniz. Günlüğün amacı, medya kullanım davranışınızı danışmanınızla birlikte olabildiğince iyi anlamanız ve böylece onu başarıyla değiştirebilmenizdir.',
 				noIntro:
-					'You didn’t use any media today? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'Bugün hiç medya kullanmadınız mı? Harika! Size neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				pastNoIntro:
-					'You didn’t use any media on this day? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'Bu gün hiç medya kullanmadınız mı? Harika! Size neyin yardımcı olduğunu ve bu sırada nasıl hissettiğinizi mutlaka yazın.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you use media?',
-				triggerQuestion: 'Why? What was the reason or trigger for using media?',
-				phaseTitle: 'Add media use',
-				newPhase: 'Add a new media session',
-				editPhase: 'Edit media session',
-				deletePhase: 'Delete media session',
-				deletePhaseQuestion: 'Delete this media session?',
-				deleteAllQuestion: 'All media sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Media use recorded:'
+					'Belki kontrol stratejilerinizi başarıyla uygulayabildiniz? Günlükteki notlarınız, kalıcı bir davranış değişikliği için özellikle başarılı stratejileri sizin ve danışmanınızın fark etmesine yardımcı olur. Bir şey yazmak istemiyorsanız “kaydet” düğmesine tıklamanız yeterli.',
+				contextQuestion: 'Nerede ve kimlerle medya kullandınız?',
+				triggerQuestion: 'Neden? Medya kullanımının nedeni / tetikleyicisi neydi?',
+				phaseTitle: 'Medya kullanımı ekle',
+				newPhase: 'yeni medya dönemi ekle',
+				editPhase: 'Medya dönemini düzenle',
+				deletePhase: 'Medya dönemini sil',
+				deletePhaseQuestion: 'Bu medya dönemi silinsin mi?',
+				deleteAllQuestion: 'Bu gün için girilen tüm medya dönemleri silinecek. Yine de devam edilsin mi?',
+				saveLabel: 'Kaydı kaydet',
+				loggedLabel: 'Kaydedilen medya kullanımı:'
 			}
 		},
 		drinks: {
-			beer: 'Beer',
-			wine: 'Wine / sparkling wine',
-			spirits: 'Spirits',
-			liqueur: 'Liqueur',
-			'beer-mix': 'Beer mixed drinks',
-			alcopop: 'Alcopops'
+			beer: 'Bira',
+			wine: 'Şarap / köpüklü şarap',
+			spirits: 'Sert içki',
+			liqueur: 'Likör',
+			'beer-mix': 'Biralı karışık içecekler',
+			alcopop: 'Alkopop'
 		},
 		cannabisUnits: {
 			joint: 'joint',
 			bong: 'bong'
 		},
 		gameGroups: {
-			local: 'Gambling in person',
-			online: 'Online / on the internet'
+			local: 'Yerinde oynanan kumar oyunları',
+			online: 'Çevrimiçi / internet üzerinden'
 		},
 		games: {
-			'slot-arcade': 'Slot machines in amusement arcades',
-			'slot-gastro': 'Slot machines in bars and restaurants',
-			'casino-small': 'Slot machines in a casino',
-			'casino-large': 'Table games in a casino',
-			sports: 'Sports betting',
-			horses: 'Horse race betting',
-			lottery: 'Lotteries',
-			'other-local': 'Other gambling in person',
-			'online-slots': 'Online slot machines',
-			'online-casino': 'Online casino games (casino table games, except poker)',
-			'online-poker': 'Online poker',
-			'online-sports': 'Online sports betting',
-			'online-horses': 'Online horse race betting',
-			'online-lottery': 'Online lotteries',
-			'online-other': 'Other online gambling'
+			'slot-arcade': 'Oyun salonlarındaki para ödüllü oyun makineleri',
+			'slot-gastro': 'Kafe, bar ve restoranlardaki para ödüllü oyun makineleri',
+			'casino-small': 'Kumarhanedeki slot makineleri',
+			'casino-large': 'Kumarhanedeki masa oyunları',
+			sports: 'Spor bahisleri',
+			horses: 'At yarışı bahisleri',
+			lottery: 'Piyangolar',
+			'other-local': 'Yerinde oynanan diğer kumar oyunları',
+			'online-slots': 'Çevrimiçi slot oyunları (para / kumar makineleri)',
+			'online-casino': 'Çevrimiçi kumarhane oyunları (poker hariç kumarhane masa oyunları)',
+			'online-poker': 'Çevrimiçi poker',
+			'online-sports': 'Çevrimiçi spor bahisleri',
+			'online-horses': 'Çevrimiçi at yarışı bahisleri',
+			'online-lottery': 'Çevrimiçi piyangolar',
+			'online-other': 'Diğer çevrimiçi kumar oyunları'
 		},
 		mediaGroups: {
-			games: 'Online games',
-			communication: 'Communicating over the internet',
-			social: 'Social networks (for example TikTok, Instagram, WhatsApp, Telegram, Facebook)',
-			surfing: 'Surfing the internet',
-			more: 'Other media activities'
+			games: 'Çevrimiçi oyunlar',
+			communication: 'İnternet üzerinden iletişim',
+			social: 'Sosyal ağlar (ör. TikTok, Instagram, WhatsApp, Telegram, Facebook)',
+			surfing: 'İnternette gezinme',
+			more: 'Diğer medya etkinlikleri'
 		},
 		media: {
-			action: 'Action games (for example jump ’n’ run, beat ’em ups, action adventures)',
-			shooter: 'First-person shooters',
-			rpg: 'Role-playing games (for example MMORPGs, online and offline role-playing games)',
-			strategy: 'Strategy games (for example real-time strategy, building games)',
-			'sports-games': 'Sports games (for example manager games, sports simulations)',
-			simulation: 'Simulation games (for example flight, racing or life simulations)',
-			'music-games': 'Music and dance games (for example Just Dance Now, SingStar, Let’s Sing)',
-			skill: 'Skill games (for example Tetris)',
-			chat: 'Chatting',
-			mail: 'Writing emails',
-			'social-watch': 'Watching videos / looking at pictures',
-			'social-talk': 'Talking with other people',
-			research: 'Research',
-			shopping: 'Shopping',
-			magazines: 'Online magazines',
-			streaming: 'Online streaming (for example Netflix, TV channel apps, Amazon Prime)',
-			porn: 'Porn websites',
-			device: 'Optimising a computer / device',
-			'other-media': 'Other use of electronic media'
+			action: 'Aksiyon oyunları (ör. Jump ’n’ Run, Beat ’em up, aksiyon macera)',
+			shooter: 'Birinci şahıs nişancı oyunları',
+			rpg: 'Rol yapma oyunları (ör. MMORPG, çevrimiçi ve çevrimdışı rol yapma oyunları)',
+			strategy: 'Strateji oyunları (ör. gerçek zamanlı strateji, inşa oyunları)',
+			'sports-games': 'Spor oyunları (ör. menajerlik oyunları, spor simülasyonları)',
+			simulation: 'Simülasyon oyunları (ör. uçuş, araba yarışı veya yaşam simülasyonları)',
+			'music-games': 'Müzik ve dans oyunları (ör. Just Dance Now, SingStar, Let’s Sing)',
+			skill: 'Beceri oyunları (ör. Tetris)',
+			chat: 'Sohbet etmek',
+			mail: 'E-posta yazmak',
+			'social-watch': 'Video / fotoğraf izlemek',
+			'social-talk': 'Başka kişilerle fikir alışverişi',
+			research: 'Araştırma',
+			shopping: 'Alışveriş',
+			magazines: 'Çevrimiçi dergiler',
+			streaming: 'Çevrimiçi yayın izleme (ör. Netflix, TV kanallarının uygulamaları, Amazon Prime)',
+			porn: 'Porno siteleri',
+			device: 'Bilgisayar / cihaz ayarlarıyla uğraşmak',
+			'other-media': 'Elektronik medyanın diğer kullanımları'
 		},
 		items: {
 			alcohol: '{count}x {size} {drink}',
 			cannabis: '{count}x {unit}',
-			otherKind: 'Other: {text}',
-			otherKindCount: 'Other: {count}x {text}',
+			otherKind: 'Diğer: {text}',
+			otherKindCount: 'Diğer: {count}x {text}',
 			duration: '{activity}, {duration}'
 		},
 		sums: {
-			phases: { one: '{count} phase', other: '{count} phases' },
-			drinks: { one: '{count} drink', other: '{count} drinks' },
-			alcohol: '{drinks}, about {grams} g of alcohol',
-			joints: { one: '{count} joint', other: '{count} joints' },
-			bongs: { one: '{count} bong', other: '{count} bongs' },
-			otherKind: '{count}x other'
+			phases: { one: '{count} dönem', other: '{count} dönem' },
+			drinks: { one: '{count} içecek', other: '{count} içecek' },
+			alcohol: '{drinks}, yaklaşık {grams} g alkol',
+			joints: { one: '{count} joint', other: '{count} joint' },
+			bongs: { one: '{count} bong', other: '{count} bong' },
+			otherKind: '{count}x diğer'
 		},
 		counsellor: {
-			noEntries: 'No entries yet.',
-			topics: 'Topics recorded: {topics}',
-			new: 'New',
-			noDayEntries: 'No entries',
+			noEntries: 'Henüz kayıt yok.',
+			topics: 'Kaydedilen konular: {topics}',
+			new: 'Yeni',
+			noDayEntries: 'Kayıt yok',
 			tileTopic: '{topic}:',
-			noConsumption: 'No use recorded',
-			entriesOf: 'Entries from {day}',
-			answerYes: '{topic}: yes',
-			answerNo: '{topic}: no',
-			device: 'Device',
-			context: 'Where and with whom',
-			trigger: 'Reason or trigger',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow',
-			summaryNew: 'Review new'
+			noConsumption: 'Kullanım kaydedilmedi',
+			entriesOf: 'Kayıtlar: {day}',
+			answerYes: '{topic}: evet',
+			answerNo: '{topic}: hayır',
+			device: 'Cihaz',
+			context: 'Nerede ve kimlerle',
+			trigger: 'Neden / tetikleyici',
+			rating: 'Günün değerlendirmesi',
+			plan: 'Yarın için plan',
+			summaryNew: 'Özet yeni'
 		},
 		pdf: {
-			noEntries: 'No entries in this period.',
-			topics: 'Topics recorded: {topics}',
-			answerYes: '{topic}: yes ({sum})',
-			answerNo: '{topic}: no',
-			device: 'Device: {device}',
-			context: 'Where and with whom: {context}',
-			trigger: 'Reason or trigger: {trigger}',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow'
+			noEntries: 'Bu dönemde kayıt yok.',
+			topics: 'Kaydedilen konular: {topics}',
+			answerYes: '{topic}: evet ({sum})',
+			answerNo: '{topic}: hayır',
+			device: 'Cihaz: {device}',
+			context: 'Nerede ve kimlerle: {context}',
+			trigger: 'Neden / tetikleyici: {trigger}',
+			rating: 'Günün değerlendirmesi',
+			plan: 'Yarın için plan'
 		},
 		demo: {
-			alcoholRating: 'After the argument I drank more than I had planned.',
-			alcoholPlan: 'Go straight home after work.',
-			alcoholContext: 'At home, alone',
-			alcoholTrigger: 'Argument on the phone',
-			gamblingRating: 'I didn’t take any money with me, that helped.',
-			soberRating: 'Did sport in the evening instead of having a beer.',
-			soberPlan: 'Go to sport again.',
-			gamblingContext: 'On the bus and at home',
-			gamblingTrigger: 'Boredom'
+			alcoholRating: 'Tartışmadan sonra planladığımdan fazla içtim.',
+			alcoholPlan: 'İşten sonra doğrudan eve gitmek.',
+			alcoholContext: 'Evde, yalnız',
+			alcoholTrigger: 'Telefonda tartışma',
+			gamblingRating: 'Yanıma para almadım, bu yardımcı oldu.',
+			soberRating: 'Akşam bira yerine spor yaptım.',
+			soberPlan: 'Yine spora gitmek.',
+			gamblingContext: 'Otobüste ve evde',
+			gamblingTrigger: 'Can sıkıntısı'
 		}
 	},
 	relativesDiary: {
-		title: 'My diary',
+		title: 'Günlüğüm',
 		intro: [
-			'The diary is a place to write down the moving, difficult or happy events and thoughts of your day. For your entries, you can use the three questions shown in the day view as a guide. For example, click on today to make an entry.',
-			'Writing down experiences and thoughts, sorting them and “getting them off your chest” is often a relief in itself. Your diary entries are also important for your personal counselling: the better your counsellor understands your situation, the better they can support you. That is why we recommend making your entries visible to your counsellor.'
+			'Günlük, günün sizi etkileyen, zorlayan ya da güzel olaylarını ve düşüncelerini yazmak içindir. Kayıtlarınızda, günlük görünümde size gösterilen üç soruyu rehber olarak kullanabilirsiniz. Bir kayıt oluşturmak için örneğin bugünün tarihine tıklayın.',
+			'Yaşadıklarınızı ve düşüncelerinizi yazmak, onları düzene koymak ve “içinizden atmak” çoğu zaman tek başına bile rahatlatıcıdır. Günlüğe yazdıklarınız kişisel danışmanlığınız için de önemlidir: Danışmanınız durumunuzu ne kadar iyi anlarsa, size o kadar iyi danışmanlık yapılabilir. Bu nedenle kayıtlarınızı danışmanınızın görebileceği şekilde paylaşmanızı öneririz.'
 		],
 		questionsToday: [
-			'What was important to you today?',
-			'How did communication with your relative go today?',
-			'How do you feel about it?'
+			'Bugün sizin için önemli olan neydi?',
+			'Bugün yakınınızla iletişiminiz nasıl geçti?',
+			'Bununla ilgili nasıl hissediyorsunuz?'
 		],
 		questionsOtherDay: [
-			'What was important to you on this day?',
-			'How did communication with your relative go on this day?',
-			'How do you feel about it?'
+			'Bu gün sizin için önemli olan neydi?',
+			'Bu gün yakınınızla iletişiminiz nasıl geçti?',
+			'Bununla ilgili nasıl hissediyorsunuz?'
 		],
-		moodQuestionToday: 'How would you rate today?',
-		moodQuestionOtherDay: 'How would you rate this day?',
+		moodQuestionToday: 'Bugünü nasıl değerlendiriyorsunuz?',
+		moodQuestionOtherDay: 'Bu günü nasıl değerlendiriyorsunuz?',
 		moods: {
-			'very-bad': 'very bad',
-			'rather-bad': 'quite bad',
-			average: 'okay',
-			'rather-good': 'quite good',
-			'very-good': 'very good'
+			'very-bad': 'çok kötü',
+			'rather-bad': 'biraz kötü',
+			average: 'orta',
+			'rather-good': 'biraz iyi',
+			'very-good': 'çok iyi'
 		},
-		noMood: 'not given',
-		weekEntriesHeading: 'Diary entries',
-		weekMoodHeading: 'Mood',
-		openEntry: 'Open',
-		openEntryLabel: 'Open entry: {day}',
-		createEntry: 'Create entry',
-		createEntryLabel: 'Create entry: {day}',
-		backToOverview: 'back to the overview',
-		entryLabel: 'Diary entry',
-		emptyEntry: 'Please write something down or rate the day.',
-		saveEntry: 'Save entry',
-		deleteEntry: 'Delete entry',
-		deleteConfirm: 'Delete this diary entry?',
-		deleteButton: 'Delete',
-		weekView: 'Week view',
-		allEntries: 'All entries',
-		new: 'New',
-		noEntryForDay: 'No entry',
-		noEntries: 'No entries yet.',
-		pdfNoEntries: 'No entries in this period.',
-		pdfMood: 'Rating of the day: {mood}',
-		pdfNoText: 'No text entered.',
+		noMood: 'bilgi yok',
+		weekEntriesHeading: 'Günlük kayıtları',
+		weekMoodHeading: 'Ruh hâli',
+		openEntry: 'Aç',
+		openEntryLabel: 'Kaydı aç: {day}',
+		createEntry: 'Kayıt oluştur',
+		createEntryLabel: 'Kayıt oluştur: {day}',
+		backToOverview: 'genel bakışa dön',
+		entryLabel: 'Günlük kaydı',
+		emptyEntry: 'Lütfen bir şeyler yazın ya da günü değerlendirin.',
+		saveEntry: 'Kaydı kaydet',
+		deleteEntry: 'Kaydı sil',
+		deleteConfirm: 'Bu günlük kaydı silinsin mi?',
+		deleteButton: 'Sil',
+		weekView: 'Haftalık görünüm',
+		allEntries: 'Tüm kayıtlar',
+		new: 'Yeni',
+		noEntryForDay: 'Kayıt yok',
+		noEntries: 'Henüz kayıt yok.',
+		pdfNoEntries: 'Bu dönemde kayıt yok.',
+		pdfMood: 'Günün değerlendirmesi: {mood}',
+		pdfNoText: 'Metin girilmedi.',
 		demoEntries: [
-			'Tonight there was another argument when he came home late. I tried to stay calm and not to blame him. Afterwards I was exhausted, but also a little proud.',
-			'A quiet day. We went for a walk together and talked about our holiday.'
+			'Bu akşam eve geç geldiğinde yine tartıştık. Sakin kalmaya ve onu suçlamamaya çalıştım. Sonrasında yorgun düştüm ama biraz da gurur duydum.',
+			'Sakin bir gün. Birlikte yürüyüşe çıktık ve tatil hakkında konuştuk.'
 		]
 	},
 	balance: {
 		intro:
-			'Changing your own habits is always a challenge. Every change takes effort, costs energy and needs staying power. The decisional balance helps you to get clear about the advantages and disadvantages of overcoming your addictive behaviour.',
-		howItWorks: 'How the decisional balance works',
+			'Kendi alışkanlıklarını değiştirmek her zaman zorlu bir iştir. Her değişiklik yorucudur, güç ister ve sabır gerektirir. Motivasyon terazisi, bağımlılık davranışını bırakmanın artılarını ve eksilerini netleştirmenize yardımcı olur.',
+		howItWorks: 'Motivasyon terazisi nasıl çalışır',
 		howItWorksStep: '{title}:',
 		howItWorksSteps: [
 			{
-				title: 'Collect arguments',
-				text: 'Think about it for yourself: what will happen if I change my behaviour, for example if I stop drinking, gambling or smoking cannabis? What will happen if I carry on as before? Be honest with yourself!'
+				title: 'Gerekçeleri toplayın',
+				text: 'Kendiniz için düşünün: Davranışımı değiştirirsem, örneğin içmeyi, kumar oynamayı veya esrar içmeyi bırakırsam ne olur? Eskisi gibi devam edersem ne olur? Bunu yaparken kendinize karşı dürüst olun!'
 			},
 			{
-				title: 'Rate them',
-				text: 'In both cases, the effects of a change can be positive or negative for you. Also think about whether these effects are especially important to you or less important.'
+				title: 'Değerlendirin',
+				text: 'Her iki durumda da bir değişikliğin etkileri sizin için olumlu ya da olumsuz olabilir. Bu etkilerin sizin için çok mu önemli yoksa daha az mı önemli olduğunu da düşünün.'
 			},
 			{
-				title: 'Look at the result',
-				text: 'Once you have entered and rated all the advantages and disadvantages, the decisional balance shows you your current inner attitude towards the chosen topic.'
+				title: 'Sonuca bakın',
+				text: 'Tüm artıları ve eksileri girip değerlendirdiğinizde, motivasyon terazisi seçtiğiniz konu hakkındaki mevcut iç tutumunuzu gösterir.'
 			},
 			{
-				title: 'Draw a conclusion',
-				text: 'What is your conclusion? How would you rate your current motivation? Are you ready inside to change your behaviour? Or do you need more arguments?'
+				title: 'Bir sonuç çıkarın',
+				text: 'Vardığınız sonuç nedir? Mevcut motivasyonunuzu nasıl değerlendiriyorsunuz? Davranışınızı değiştirmeye içten hazır mısınız? Yoksa daha fazla gerekçeye mi ihtiyacınız var?'
 			}
 		],
 		howItWorksNote:
-			'You can work on the exercise again and add to it at any time when you think of new advantages and disadvantages. If you like, your counsellor can see your answers and so support you as well as possible with your plan.',
-		workOnExerciseFirst: 'Please work through the exercise first.',
-		sides: { pro: 'PRO', contra: 'CON' },
+			'Aklınıza yeni artılar ve eksiler geldiğinde alıştırmayı istediğiniz zaman yeniden düzenleyebilir ve tamamlayabilirsiniz. İsterseniz danışmanınız bilgilerinizi görebilir ve böylece bu niyetinizde size en iyi şekilde destek olabilir.',
+		workOnExerciseFirst: 'Lütfen önce alıştırmayı yapın.',
+		sides: { pro: 'ARTI', contra: 'EKSİ' },
 		poles: [
-			{ contra: 'Against change', pro: 'For change' },
-			{ contra: 'No change', pro: 'I want to change something!' },
-			{ contra: 'Fine the way it is', pro: 'Something has to change!' }
+			{ contra: 'Değişime KARŞI', pro: 'Değişimden YANA' },
+			{ contra: 'değişiklik yok', pro: 'Bir şeyleri değiştirmek istiyorum!' },
+			{ contra: 'olduğu gibi iyi', pro: 'bir şeylerin değişmesi gerek!' }
 		],
 		ratings: {
-			very: 'very important',
-			quite: 'quite important',
-			some: 'a little important',
-			none: 'not important at all'
+			very: 'çok önemli',
+			quite: 'oldukça önemli',
+			some: 'biraz önemli',
+			none: 'hiç önemli değil'
 		},
-		notImportant: 'not important',
+		notImportant: 'önemli değil',
 		ratingOption: '{label} ({stars})',
-		ratingQuestion: 'How important is this to you?',
+		ratingQuestion: 'Bu konu sizin için ne kadar önemli?',
 		halves: {
-			change: 'If I reach my goal / change my behaviour, I will have the following …',
-			keep: 'If I do not change my behaviour / do not reach my goal, I will have the following …'
+			change: 'Hedefime ulaşırsam / davranışımı değiştirirsem, bunun şu …',
+			keep: 'Davranışımı değiştirmezsem / hedefime ulaşamazsam, bunun şu …'
 		},
 		categoryInHalf: '… {title}',
 		categoryWithSide: '{category} ({side})',
 		categories: {
 			A: {
-				title: 'advantages',
-				long: 'Advantages of changing my behaviour',
-				listTitle: 'The advantages you entered if you reach your goal:'
+				title: 'avantajları olur',
+				long: 'Davranış değişikliğinin avantajları',
+				listTitle: 'Hedefinize ulaşırsanız girdiğiniz avantajlar:'
 			},
 			B: {
-				title: 'disadvantages',
-				long: 'Disadvantages of changing my behaviour',
-				listTitle: 'The disadvantages you entered if you reach your goal:'
+				title: 'dezavantajları olur',
+				long: 'Davranış değişikliğinin dezavantajları',
+				listTitle: 'Hedefinize ulaşırsanız girdiğiniz dezavantajlar:'
 			},
 			C: {
-				title: 'advantages',
-				long: 'Advantages if nothing changes',
-				listTitle: 'The advantages you entered if you do not change your behaviour:'
+				title: 'avantajları olur',
+				long: 'Hiçbir şey değişmezse avantajlar',
+				listTitle: 'Davranışınızı değiştirmezseniz girdiğiniz avantajlar:'
 			},
 			D: {
-				title: 'disadvantages',
-				long: 'Disadvantages if nothing changes',
-				listTitle: 'The disadvantages you entered if you do not change your behaviour:'
+				title: 'dezavantajları olur',
+				long: 'Hiçbir şey değişmezse dezavantajlar',
+				listTitle: 'Davranışınızı değiştirmezseniz girdiğiniz dezavantajlar:'
 			}
 		},
 		argumentKinds: {
 			advantage: {
-				missing: 'Please enter an advantage.',
-				add: 'New advantage',
-				edit: 'Edit advantage',
-				placeholder: 'Enter an advantage here. Use a new entry for each advantage.'
+				missing: 'Lütfen bir avantaj girin.',
+				add: 'Yeni avantaj',
+				edit: 'Avantajı düzenle',
+				placeholder: 'Avantajı buraya yazın. Her avantaj için yeni bir kayıt kullanın.'
 			},
 			disadvantage: {
-				missing: 'Please enter a disadvantage.',
-				add: 'New disadvantage',
-				edit: 'Edit disadvantage',
-				placeholder: 'Enter a disadvantage here. Use a new entry for each disadvantage.'
+				missing: 'Lütfen bir dezavantaj girin.',
+				add: 'Yeni dezavantaj',
+				edit: 'Dezavantajı düzenle',
+				placeholder: 'Dezavantajı buraya yazın. Her dezavantaj için yeni bir kayıt kullanın.'
 			}
 		},
 		examples: {
 			A: [
-				'I get more done again.',
-				'I have time for hobbies again.',
-				'I can think clearly again.',
-				'More money / less debt.',
-				'My body is not under so much strain any more.',
-				'I feel better.',
-				'A good feeling because I am tackling the problem.',
-				'Less stress with friends / family.'
+				'İşlerimi yeniden daha iyi yoluna koyarım.',
+				'Hobilerime yeniden zamanım olur.',
+				'Yeniden net düşünebilirim.',
+				'Daha fazla para / daha az borç.',
+				'Vücudum artık o kadar zorlanmaz.',
+				'Kendimi daha iyi hissederim.',
+				'Sorunu ele aldığım için iyi bir his.',
+				'Arkadaşlarımla / ailemle daha az sorun.'
 			],
 			B: [
-				'It will be difficult with my old group of friends.',
-				'I will miss the high.',
-				'It could get pretty boring.',
-				'A lot of things will be much less fun.',
-				'Withdrawal / going without will be hard.',
-				'The hope of a big win is gone.'
+				'Eski arkadaş çevremle zorlaşacak.',
+				'Sarhoşluk / kafa hâli hissini özleyeceğim.',
+				'Epey sıkıcı olabilir.',
+				'Pek çok şey çok daha az eğlenceli olacak.',
+				'Yoksunluk / bırakmak zor olacak.',
+				'Büyük kazanç umudu ortadan kalkar.'
 			],
 			C: [
-				'I can fall asleep more easily.',
-				'More fun when I am with friends.',
-				'When I drink / gamble / smoke cannabis, I get some peace.',
-				'I can really get “wasted” sometimes and forget everything around me.',
-				'The chance of a win remains.'
+				'Daha kolay uykuya dalarım.',
+				'Arkadaşlarla daha eğlenceli vakit.',
+				'İçerken / oynarken / esrar içerken kafamı dinlerim.',
+				'Bazen gerçekten “kendimi kaybedip” etrafımdaki her şeyi unutabilirim.',
+				'Kazanma şansı devam eder.'
 			],
 			D: [
-				'I hardly do anything else.',
-				'I let a lot of other things slide.',
-				'I get more and more annoyed with myself.',
-				'More trouble and arguments with my family.',
-				'I can hardly get out of bed in the morning.',
-				'My debts stay / keep growing.',
-				'My health keeps getting worse.',
-				'My life is still reduced to one problem.'
+				'Neredeyse başka hiçbir şey yapmıyorum.',
+				'Başka pek çok şeyi ihmal ediyorum.',
+				'Kendime giderek daha çok kızıyorum.',
+				'Ailemle sorunlar ve tartışmalar devam ediyor.',
+				'Sabahları yataktan zor kalkıyorum.',
+				'Borçlar kalıyor / artmaya devam ediyor.',
+				'Sağlığım kötüye gitmeye devam ediyor.',
+				'Hayatım tek bir soruna indirgenmiş olarak kalıyor.'
 			]
 		},
 		tendency: {
-			pending: 'Cannot be calculated yet',
-			balanced: 'Balanced',
-			maximum: 'Maximum {side} tendency',
-			clear: '{side} tendency',
-			slight: 'Slight {side} tendency'
+			pending: 'Henüz hesaplanamıyor',
+			balanced: 'Dengeli',
+			maximum: 'En güçlü {side} yönünde eğilim',
+			clear: '{side} yönünde eğilim',
+			slight: 'Hafif {side} yönünde eğilim'
 		},
-		resultLabel: 'Result of the decisional balance',
-		scaleTitle: 'Decisional balance: {value}, {tendency}',
-		scaleInactiveTitle: 'Decisional balance: not active yet',
-		allRatedZero: 'All arguments are rated “not important at all”, so the scale is not active yet.',
-		sidePoints: { one: '{side} {count} point', other: '{side} {count} points' },
+		resultLabel: 'Motivasyon terazisinin sonucu',
+		scaleTitle: 'Motivasyon terazisi: {value}, {tendency}',
+		scaleInactiveTitle: 'Motivasyon terazisi: henüz etkin değil',
+		allRatedZero: 'Tüm gerekçeler “hiç önemli değil” olarak değerlendirildiği için terazi henüz etkin değil.',
+		sidePoints: { one: '{side} {count} puan', other: '{side} {count} puan' },
 		valueWithTendency: '{value}, {tendency}',
-		miniInactive: 'Scale not active yet',
-		conclusionTitle: 'My conclusion',
+		miniInactive: 'Terazi henüz etkin değil',
+		conclusionTitle: 'Vardığım sonuç',
 		conclusionPrompt:
-			'What picture do you get after collecting all the arguments? What conclusions do you draw for yourself at the moment?',
-		saveConclusion: 'Save conclusion',
-		edit: 'Edit',
-		add: 'Add',
-		noEntriesYet: 'No entries yet.',
-		backToOverview: 'Back to the decisional balance overview',
-		argumentType: 'Type of argument',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		allExamplesUsed: 'All examples have already been entered.',
-		ratingMissing: 'Please rate how important this is to you.',
-		saveChange: 'Save change',
-		addEntry: 'Add entry',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		editItem: 'Edit: {text}',
-		deleteItem: 'Delete: {text}',
-		finish: 'Finish',
+			'Tüm gerekçeleri topladıktan sonra nasıl bir tablo ortaya çıkıyor? Şu an için kendiniz adına hangi sonuçları çıkarıyorsunuz?',
+		saveConclusion: 'Sonucu kaydet',
+		edit: 'Düzenle',
+		add: 'Ekle',
+		noEntriesYet: 'Henüz kayıt yok.',
+		backToOverview: 'Motivasyon terazisine genel bakışa dön',
+		argumentType: 'Gerekçe türü',
+		showExamples: 'Örnekleri göster',
+		hideExamples: 'Örnekleri gizle',
+		allExamplesUsed: 'Tüm örnekler zaten eklendi.',
+		ratingMissing: 'Lütfen bu konunun sizin için ne kadar önemli olduğunu değerlendirin.',
+		saveChange: 'Değişikliği kaydet',
+		addEntry: 'Kayıt ekle',
+		confirmDelete: 'Bu kayıt silinsin mi?',
+		delete: 'Sil',
+		editItem: 'Düzenle: {text}',
+		deleteItem: 'Sil: {text}',
+		finish: 'Bitir',
 		counsellor: {
-			noArguments: 'No arguments entered yet.',
-			conclusion: 'Conclusion',
-			new: 'New',
-			noConclusion: 'No conclusion entered yet.',
-			noEntries: 'No entries.',
-			open: 'Open',
-			close: 'Close',
-			category: 'Category',
-			relevance: 'Importance',
-			relevanceValue: { one: '{label} ({count} point)', other: '{label} ({count} points)' },
-			lastChanged: 'Last changed'
+			noArguments: 'Henüz gerekçe girilmedi.',
+			conclusion: 'Sonuç',
+			new: 'Yeni',
+			noConclusion: 'Henüz sonuç girilmedi.',
+			noEntries: 'Kayıt yok.',
+			open: 'Aç',
+			close: 'Kapat',
+			category: 'Kategori',
+			relevance: 'Önem',
+			relevanceValue: { one: '{label} ({count} puan)', other: '{label} ({count} puan)' },
+			lastChanged: 'Son değişiklik'
 		},
 		pdf: {
-			result: 'Result',
-			inactive: 'The scale is not active yet (no importance points).',
-			summary: 'Motivation score {value} ({tendency}), {pro}, {contra}, on a scale from −10 to +10.',
-			conclusion: 'Conclusion',
-			noConclusion: 'No conclusion entered.',
-			arguments: 'Arguments',
-			noEntries: 'No entries.',
+			result: 'Sonuç',
+			inactive: 'Terazi henüz etkin değil (önem puanı yok).',
+			summary: 'Motivasyon değeri {value} ({tendency}), {pro}, {contra}, −10 ile +10 arasındaki ölçekte.',
+			conclusion: 'Sonuç',
+			noConclusion: 'Sonuç girilmedi.',
+			arguments: 'Gerekçeler',
+			noEntries: 'Kayıt yok.',
 			rating: '{label} ({count})'
 		}
 	},
 	emergencyKit: {
 		sections: {
 			motivation: {
-				title: 'My motivation: why I am sticking with it',
-				listLabel: 'This is why I want to change my behaviour / reach my goal:',
-				fieldLabel: 'This is why I want to change my behaviour / reach my goal',
-				cardTitle: 'Why I am sticking with it',
+				title: 'Motivasyonum: Bu yüzden devam ediyorum',
+				listLabel: 'Davranışımı değiştirmek / hedefime ulaşmak istememin nedenleri:',
+				fieldLabel: 'Davranışımı değiştirmek / hedefime ulaşmak istememin nedenleri',
+				cardTitle: 'Bu yüzden devam ediyorum',
 				intro:
-					'There are many good reasons why you are working towards your personal goal. Write down the reasons that matter most to you personally. This helps you to make your decision even firmer. Read your reasons again and again so that you always keep them in mind. We have collected some examples for you that you can use as a guide.',
+					'Kişisel hedefinizin peşinden gitmeniz için pek çok iyi neden var. Sizin için kişisel olarak en önemli nedenleri buraya yazın. Bu, kararınızı daha da sağlamlaştırmanıza yardımcı olur. Nedenlerinizi her zaman aklınızda tutmak için onları tekrar tekrar okuyun. Size yol gösterebilecek bazı örnekleri sizin için bir araya getirdik.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Örnekler',
 						items: [
-							'I have time for other things again',
-							'Finally no more feelings of guilt',
-							'I want my partner to be able to trust me again',
-							'I want to feel myself again',
-							'I don’t want to have to think about it all the time',
-							'If I carry on like this, my relationship will be over',
-							'Finally being free again',
-							'I no longer have to lie to my family, my friends or my employer',
-							'No more secrets, no more double life',
-							'I can look my children in the eye again',
-							'Finally time and energy for other things again',
-							'No more criminal activities to get money',
-							'I can look myself in the eye again',
-							'Finally no more new debts',
-							'If I carry on like this, I will get deeper and deeper into trouble'
+							'Başka şeylere yeniden zamanım olur',
+							'Sonunda suçluluk duygusu yok',
+							'Eşim / partnerim bana yeniden güvenebilsin',
+							'Kendimi yeniden hissetmek istiyorum',
+							'Sürekli bunu düşünmek zorunda kalmak istemiyorum',
+							'Böyle devam edersem ilişkim biter',
+							'Sonunda yeniden özgür olmak',
+							'Aileme, arkadaşlarıma, işverenime artık yalan söylemek zorunda değilim',
+							'Artık gizli saklı işler yok, çifte hayat yok',
+							'Çocuklarımın yüzüne yeniden bakabilirim',
+							'Sonunda başka şeyler için yeniden zaman ve güç',
+							'Para bulmak için artık suç teşkil eden işler yok',
+							'Yeniden aynada kendi yüzüme bakabilirim',
+							'Sonunda yeni borç yok',
+							'Böyle devam edersem sorunların içine giderek daha çok batarım'
 						]
 					}
 				]
 			},
 			strategy: {
-				title: 'My strategies for everyday life',
-				listLabel: 'This helps me reach my goal:',
-				fieldLabel: 'This helps me in everyday life',
-				cardTitle: 'This helps me in everyday life',
+				title: 'Günlük hayat için stratejilerim',
+				listLabel: 'Hedefime ulaşmamda bana yardımcı olanlar:',
+				fieldLabel: 'Günlük hayatta bana yardımcı olanlar',
+				cardTitle: 'Günlük hayatta bana yardımcı olanlar',
 				intro:
-					'Write down everything that helps you reach your goal in everyday life. Simple rules of behaviour that you set for yourself are especially helpful. But hobbies and activities that you do regularly also help to take your mind off cravings, reduce stress and reach your goal in the long term. Below are some examples that you can use.',
+					'Günlük hayatta hedefinize ulaşmanıza yardımcı olan her şeyi buraya yazın. Özellikle kendiniz için koyduğunuz basit davranış kuralları faydalıdır. Ancak düzenli olarak yaptığınız hobiler ve etkinlikler de yoğun madde isteğinden uzaklaşmanıza, stresi azaltmanıza ve hedefinize uzun vadede ulaşmanıza yardımcı olur. Aşağıda kullanabileceğiniz bazı örnekler bulunuyor.',
 				examples: [
 					{
-						label: 'General',
+						label: 'Genel',
 						items: [
-							'I keep getting help',
-							'I go to my self-help group regularly',
-							'I look after my friendships',
-							'I make sure I do active things in my free time',
-							'I don’t bottle up anger and frustration',
-							'I play it safe',
-							'I avoid my gambling or drinking friends',
-							'I avoid friends who use substances',
-							'I do sport regularly',
-							'I pay attention to risk situations and early warning signs of a possible relapse',
-							'I keep working on my goal of staying abstinent',
-							'I stand up for my needs',
-							'I reward myself now and then',
-							'I treat myself to something nice',
-							'I face my problems',
-							'I take care of my debts'
+							'Yardım almaya devam ediyorum',
+							'Kendine yardım grubuma düzenli olarak gidiyorum',
+							'Arkadaşlıklarıma özen gösteriyorum',
+							'Boş zamanımı aktif geçirmeye özen gösteriyorum',
+							'Öfkemi ve hayal kırıklığımı içime atmıyorum',
+							'Riske girmiyorum',
+							'Birlikte kumar oynadığım / içtiğim arkadaşlarımdan uzak duruyorum',
+							'Madde kullanan arkadaş çevremden uzak duruyorum',
+							'Düzenli olarak spor yapıyorum',
+							'Risk durumlarına ve olası bir nüksün erken uyarı işaretlerine dikkat ediyorum',
+							'Tamamen bırakma hedefim üzerinde sürekli çalışıyorum',
+							'İhtiyaçlarımı savunuyorum',
+							'Ara sıra kendimi ödüllendiriyorum',
+							'Kendime güzel bir şey ısmarlıyorum',
+							'Sorunlarımla yüzleşiyorum',
+							'Borçlarımla ilgileniyorum'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Kumar',
 						items: [
-							'I install a program that blocks access to online gambling sites',
-							'I stay away from places where people gamble',
-							'When I see an amusement arcade, I cross to the other side of the street',
-							'I set myself clear limits on how much money I spend each day / each week',
-							'I spend my money consciously on things I really need',
-							'I pay attention to how much cash I take with me'
+							'Çevrimiçi kumar sitelerine erişimi engelleyen bir program kuruyorum',
+							'Kumar oynanan yerlerden uzak duruyorum',
+							'Bir oyun salonu gördüğümde yolun karşı tarafına geçiyorum',
+							'Günlük / haftalık ne kadar para harcayacağıma dair kendime net sınırlar koyuyorum',
+							'Paramı bilinçli olarak gerçekten ihtiyacım olan şeylere harcıyorum',
+							'Yanıma ne kadar nakit para aldığıma dikkat ediyorum'
 						]
 					}
 				]
 			},
 			support: {
-				title: 'This is where I get support'
+				title: 'Destek alabileceğim yerler'
 			},
 			critical: {
-				title: 'Critical situations, moods and thoughts',
-				listLabel: '“Inner risk situations”: I have to be especially careful here!',
-				fieldLabel: 'Situations and moods in which I have to be careful',
-				cardTitle: 'I have to be careful here',
+				title: 'Kritik durumlar, ruh hâlleri ve düşünceler',
+				listLabel: '“İç risk durumları”: Burada özellikle dikkatli olmalıyım!',
+				fieldLabel: 'Dikkatli olmam gereken durumlar ve ruh hâlleri',
+				cardTitle: 'Burada dikkatli olmalıyım',
 				intro:
-					'In this exercise you learn to recognise the situations, moods and thoughts in which you are at risk of falling back into old patterns of behaviour. These are also called “inner risk situations”. Which thoughts and moods could put your decision and your goal at risk? So in which situations should you be especially careful? Have a look at our examples. At first glance, many moods or thoughts seem to have little to do with the actual problem behaviour. What are your very own “inner risk situations”?',
+					'Bu alıştırmada, eski davranış kalıplarına geri dönme tehlikesiyle karşılaştığınız durumları, ruh hâllerini ve düşünceleri tanımayı öğrenirsiniz. Bunlara “iç risk durumları” da denir. Hangi düşünceler ve ruh hâlleri kararınızı ve hedefinizi tehlikeye atabilir? Yani hangi durumlarda özellikle dikkatli olmalısınız? Örneklerimize göz atın. Pek çok ruh hâli veya düşünce, ilk bakışta asıl sorunlu davranışla pek ilgili görünmez. Sizin kendinize özgü “iç risk durumlarınız” neler?',
 				examples: [
 					{
-						label: 'General',
+						label: 'Genel',
 						items: [
-							'When I think about the “good old days”',
-							'When I think that not everything was so bad',
-							'When I think “once doesn’t count”',
-							'When I am with old acquaintances again',
-							'When I am in a bad mood and need something to “calm down”',
-							'When I am frustrated at work or in my relationship',
-							'When things are not going the way I want them to',
-							'When I am bored',
-							'When I am stressed and want to relax',
-							'When I think “nothing matters anyway now”',
-							'When I get careless because I think I have made it',
-							'When I think that I am not addicted at all',
-							'When I am arguing a lot with my partner again'
+							'“Eski güzel günleri” düşündüğümde',
+							'Her şeyin o kadar da kötü olmadığını düşündüğümde',
+							'“Bir kereden bir şey olmaz” diye düşündüğümde',
+							'Yeniden eski tanıdıklarla bir araya geldiğimde',
+							'Moralim bozuk olduğunda ve “sakinleşmek” için bir şeye ihtiyaç duyduğumda',
+							'İşte veya ilişkimde hayal kırıklığı yaşadığımda',
+							'Her şey istediğim gibi gitmediğinde',
+							'Canım sıkıldığında',
+							'Stresli olduğumda ve rahatlamak istediğimde',
+							'“Artık her şey zaten fark etmez” diye düşündüğümde',
+							'Başardığımı düşündüğüm için dikkatsizleştiğimde',
+							'Aslında hiç bağımlı olmadığımı düşündüğümde',
+							'Eşimle / partnerimle yeniden çok tartıştığımda'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Kumar',
 						items: [
-							'When I want to gamble again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by putting “just a few coins” into a slot machine',
-							'When I think I can solve my money problems that way',
-							'When I am carrying too much money',
-							'When I have been drinking alcohol',
-							'When I think about gambling more often again',
-							'When I think “one trip to the casino won’t hurt”'
+							'“Sadece merak ettiğim için” yeniden oynamak istediğimde',
+							'Başardıklarım için kendimi makineye “sadece birkaç bozuk para” atarak ödüllendirmek istediğimde',
+							'Maddi sorunlarımı bu şekilde çözebileceğimi düşündüğümde',
+							'Yanımda çok fazla para taşıdığımda',
+							'Alkol içtiğimde',
+							'Yeniden daha sık kumar oynamayı düşündüğümde',
+							'“Bir kere kumarhaneye gitmekten zarar gelmez” diye düşündüğümde'
 						]
 					},
 					{
-						label: 'Alcohol',
+						label: 'Alkol',
 						items: [
-							'When I want to drink again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by drinking “just a small beer”'
+							'“Sadece merak ettiğim için” yeniden içmek istediğimde',
+							'Başardıklarım için kendimi “sadece küçük bir bira” içerek ödüllendirmek istediğimde'
 						]
 					},
 					{
-						label: 'Cannabis',
+						label: 'Esrar',
 						items: [
-							'When I want to smoke weed again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by taking “just one drag on a joint”'
+							'“Sadece merak ettiğim için” yeniden esrar içmek istediğimde',
+							'Başardıklarım için kendimi “jointten sadece bir nefes” alarak ödüllendirmek istediğimde'
 						]
 					}
 				]
 			},
 			craving: {
-				title: 'What helps me with cravings',
-				listLabel: 'This helps me when I have cravings:',
-				fieldLabel: 'This helps me when I have cravings',
-				cardTitle: 'When I have cravings',
+				title: 'Craving (yoğun madde isteği) anında bana yardımcı olanlar',
+				listLabel: 'Craving / yoğun madde isteği yaşadığımda bana yardımcı olanlar:',
+				fieldLabel: 'Craving / yoğun madde isteği yaşadığımda bana yardımcı olanlar',
+				cardTitle: 'Yoğun madde isteğinde',
 				intro:
-					'People who give up an addictive behaviour often feel a strong urge to go back to the old behaviour again and again over a long period of time. This is called “craving”. An intense craving usually only lasts a short time. Short “emergency instructions” can help you to get through the craving in such situations. The instructions should be very direct and concrete, like an order to yourself. They help you to keep a cool head and resist the craving. Make sure you keep the sentences short and very clear.',
+					'Bağımlılık davranışını bırakan kişiler, uzun bir süre boyunca tekrar tekrar eski davranışa geri dönmek için güçlü bir istek duyar. Bu duruma “craving” (İngilizcede özlem, açlık anlamına gelir) ya da yoğun madde isteği denir. Yoğun istek genellikle kısa sürer. Bu gibi durumlarda kısa “acil durum talimatları”, yoğun isteği atlatmanıza yardımcı olabilir. Talimatlar çok doğrudan ve somut olmalıdır (kendinize verdiğiniz bir emir gibi). Sakin kalmanıza ve yoğun isteğe direnmenize yardımcı olurlar. Cümleleri kısa ve çok açık yazmaya dikkat edin.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Örnekler',
 						items: [
-							'I take my mind off it straight away with other activities (do sport, go shopping, go to the cinema)',
-							'I call my trusted person straight away',
-							'I write an entry in my diary',
-							'I think about how much I have achieved so far',
-							'I send a message to my counsellor',
-							'I am proud of what I have achieved so far',
-							'I call an addiction counselling service',
-							'I go to a safe place and meet a trusted person',
-							'I won’t risk what I have achieved so far!',
-							'I think about how far I have come!',
-							'I think: “Don’t let your family down!”',
-							'I won’t put my relationship at risk!',
-							'I tell myself: “STOP! Get out of here! Now!”'
+							'Hemen başka etkinliklerle dikkatimi dağıtıyorum (spor yapıyorum, alışverişe gidiyorum, sinemaya gidiyorum)',
+							'Güvendiğim kişiyi hemen arıyorum',
+							'Günlüğüme bir kayıt yazıyorum',
+							'Şimdiye kadar ne kadar çok şey başardığımı düşünüyorum',
+							'Danışmanıma bir mesaj yazıyorum',
+							'Şimdiye kadarki başarılarımla gurur duyuyorum',
+							'Bir bağımlılık danışmanlık merkezini arıyorum',
+							'Güvenli bir yere gidiyorum, güvendiğim bir kişiyle buluşuyorum',
+							'Şimdiye kadar başardıklarımı riske atmıyorum!',
+							'Ne kadar yol kat ettiğimi düşünüyorum!',
+							'Şunu düşünüyorum: “Aileni yüzüstü bırakma!”',
+							'İlişkimi tehlikeye atmıyorum!',
+							'Kendime şunu söylüyorum: “DUR! Hemen buradan uzaklaş! Şimdi!”'
 						]
 					}
 				]
 			},
 			risks: {
-				title: 'My most important risk situations and control strategies',
-				cardTitle: 'Risk situations and strategies'
+				title: 'En önemli risk durumlarım ve kontrol stratejilerim',
+				cardTitle: 'Risk durumları ve stratejiler'
 			},
 			relapse: {
-				title: 'Relapse: what to do?',
-				listLabel: 'This is what I do if I relapse:',
-				fieldLabel: 'This is what I do if I relapse',
-				cardTitle: 'If I relapse',
+				title: 'Nüks: Ne yapmalı?',
+				listLabel: 'Nüks durumunda yapacaklarım:',
+				fieldLabel: 'Nüks durumunda yapacaklarım',
+				cardTitle: 'Nüks durumunda',
 				intro:
-					'If you do relapse: don’t panic! Don’t give up on your plan. You can learn from relapses and improve your coping strategies later. But the most important command at first is STOP! Leave the situation as quickly as possible to avoid or limit further harm. How do you want to act if you relapse? What exactly can you do? Write down concrete instructions here that will help you personally in this case.',
+					'Bir nüks yaşanırsa: Panik yapmayın! Niyetinizden vazgeçmeyin. Nükslerden ders çıkarabilir ve başa çıkma stratejilerinizi daha sonra buna göre geliştirebilirsiniz. Ancak ilk ve en önemli komut şudur: DUR! Daha fazla zararı önlemek veya sınırlamak için o durumdan olabildiğince hızlı uzaklaşmalısınız. Nüks durumunda nasıl davranmak istersiniz? Tam olarak ne yapabilirsiniz? Böyle bir durum için size kişisel olarak yardımcı olacak somut talimatları buraya yazın.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Örnekler',
 						items: [
-							'I stop gambling/drinking/smoking weed STRAIGHT AWAY and accept that I lost control!',
-							'I get out as fast as I can and leave!',
-							'I don’t hide the relapse, I confide in my family',
-							'Even if I feel ashamed, I call my trusted person straight away',
-							'I get support from …',
-							'I take my relapse seriously, but I don’t see it as a disaster',
-							'I use the situation as a reason to keep working on my goal',
-							'I use the relapse to improve my coping strategies',
-							'I won’t give up!'
+							'Kumar oynamayı / içmeyi / esrar içmeyi HEMEN bırakıyorum ve kontrolü kaybettiğimi kabul ediyorum!',
+							'Olabildiğince hızlı dışarı çıkıyor ve oradan uzaklaşıyorum!',
+							'Nüksü saklamıyorum, aileme açılıyorum',
+							'Utansam bile güvendiğim kişiyi hemen arıyorum',
+							'Şuradan destek alıyorum: …',
+							'Nüksümü ciddiye alıyorum ama onu bir felaket olarak görmüyorum',
+							'Bu durumu hedefim üzerinde çalışmaya devam etmek için bir fırsat olarak görüyorum',
+							'Nüksü başa çıkma stratejilerimi geliştirmek için kullanıyorum',
+							'Pes etmiyorum!'
 						]
 					}
 				]
 			}
 		},
-		importance: { veryImportant: 'very important', important: 'important' },
+		importance: { veryImportant: 'çok önemli', important: 'önemli' },
 		start:
-			'Habits, routines and ways of thinking that have become fixed are hard to give up. This is especially true for addictions. It often takes a huge effort to resist cravings. In your personal “emergency kit” you collect important information that helps you to avoid relapses and be prepared for challenges.',
-		more: 'The risk of falling back into old habits is especially high in the first days, weeks and months. The aim of this exercise is to have helpful strategies ready for difficult situations and to be able to respond well to cravings. Use the questions and suggestions in this exercise to prepare your personal strategies and put together your “emergency kit”. If you like, your counsellor will support you with this.',
-		showInfo: 'Show more information',
-		hideInfo: 'Hide more information',
-		printTitle: 'Print your emergency kit',
-		confirmLabel: 'Continue anyway?',
-		confirmEmpty: 'At least one section has no entries. Continue anyway?',
-		proceed: 'Continue',
-		printKit: 'Download the whole emergency kit as a PDF',
-		printCard: 'Emergency kit in business card format',
+			'Yerleşmiş davranışlardan, alışkanlıklardan ve düşünce kalıplarından vazgeçmek zordur. Bu özellikle bağımlılık hastalıkları için geçerlidir. Yoğun madde isteğine (“craving”) direnmek çoğu zaman büyük çaba gerektirir. Kişisel “acil durum çantanızda”, nükslerden kaçınmanıza ve zorluklara hazırlıklı olmanıza yardımcı olacak önemli bilgileri toplarsınız.',
+		more: 'Eski alışkanlıklara geri dönme riski ilk günlerde, haftalarda ve aylarda özellikle yüksektir. Bu alıştırmanın amacı, zor durumlarda işe yarayan stratejileri hazırda bulundurmak ve yoğun madde isteğine uygun şekilde tepki verebilmektir. Kişisel stratejilerinizi hazırlamak ve “acil durum çantanızı” oluşturmak için bu alıştırmadaki soruları ve önerileri kullanın. İsterseniz danışmanınız bu konuda size destek olacaktır.',
+		showInfo: 'Bilgi metnini göster',
+		hideInfo: 'Bilgi metnini gizle',
+		printTitle: 'Acil durum çantasını yazdır',
+		confirmLabel: 'Yine de devam edilsin mi?',
+		confirmEmpty: 'En az bir bölümde kayıt yok. Yine de devam edilsin mi?',
+		proceed: 'Devam et',
+		printKit: 'Acil durum çantasının tamamını PDF olarak al',
+		printCard: 'Kartvizit boyutunda acil durum çantası',
 		cardHint:
-			'Cut out, the business card format fits into any wallet, so you always have your emergency kit with you.',
-		missingImportance: 'Please choose for each entry how important it is to you.',
-		backToKit: 'Back to the emergency kit',
-		back: 'Back',
-		part: 'Emergency kit, part {number}',
-		entryLabel: 'Entry {number}',
-		importanceQuestion: 'How important?',
-		choose: 'Please choose',
-		deleteLabel: 'Delete: {text}',
-		addEntry: '+ New entry',
-		save: 'Save',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		examplesByTopic: 'Examples by topic',
-		allExamplesUsed: 'All examples have already been added.',
-		pickExample: 'Click on an example to add it as an entry.',
-		myTrusted: 'My trusted person(s)',
-		change: 'Change',
-		addTrusted: 'Add a trusted person',
-		myAgency: 'My counselling service',
-		showAgency: 'Show',
-		counsellorsLine: 'Counselling: {names}',
-		notStored: 'Not added yet',
-		mySelfHelp: 'My self-help group',
-		addSelfHelp: 'Add a self-help group',
-		requestedOn: 'Recommendation requested on {date}',
+			'Kartvizit boyutu kesildiğinde her cüzdana sığar; böylece acil durum çantanız her zaman yanınızda olur.',
+		missingImportance: 'Lütfen her kayıt için sizin açınızdan ne kadar önemli olduğunu seçin.',
+		backToKit: 'Acil durum çantasına dön',
+		back: 'Geri',
+		part: 'Acil durum çantası, bölüm {number}',
+		entryLabel: 'Kayıt {number}',
+		importanceQuestion: 'Ne kadar önemli?',
+		choose: 'Lütfen seçin',
+		deleteLabel: 'Sil: {text}',
+		addEntry: '+ Yeni kayıt',
+		save: 'Kaydet',
+		showExamples: 'Örnekleri göster',
+		hideExamples: 'Örnekleri gizle',
+		examplesByTopic: 'Konuya göre örnekler',
+		allExamplesUsed: 'Tüm örnekler zaten eklendi.',
+		pickExample: 'Bir örneğe tıkladığınızda o örnek kayıt olarak eklenir.',
+		myTrusted: 'Güvendiğim kişi(ler)',
+		change: 'Değiştir',
+		addTrusted: 'Güvendiğiniz kişiyi ekleyin',
+		myAgency: 'Danışmanlık merkezim',
+		showAgency: 'Göster',
+		counsellorsLine: 'Danışmanlık: {names}',
+		notStored: 'Henüz eklenmedi',
+		mySelfHelp: 'Kendine yardım grubum',
+		addSelfHelp: 'Kendine yardım grubunu ekleyin',
+		requestedOn: 'Öneri talep tarihi: {date}',
 		trustedIntro: [
-			'Involving people who are close to you in your private life can take a lot of weight off your shoulders. Have you already told anyone about the problem? Then add their first names and/or their role (for example friend, brother, mother, grandad) to your support list.',
-			'If you have not told anyone so far, think about who you could involve as a trusted person in the future. Think of your friends, your family, your neighbours or other people close to you in your private life. Who could support you with your plan and help you in difficult situations?'
+			'Yakın çevrenizdeki insanları sürece dahil etmek, yükünüzü büyük ölçüde hafifletebilir. Sorunu daha önce birileriyle paylaştınız mı? O hâlde bu kişilerin adlarını ve/veya rollerini (ör. arkadaş, kardeş, anne, dede) destek listenize ekleyin.',
+			'Şimdiye kadar kimseye anlatmadıysanız, ileride kimi güvendiğiniz bir kişi olarak sürece dahil edebileceğinizi düşünün. Arkadaş çevrenizi, ailenizi, komşularınızı veya özel hayatınızdaki size yakın diğer kişileri düşünün. Bu niyetinizde size kim destek olabilir ve zor durumlarda yardım edebilir?'
 		],
-		trustedField: 'Name / role of trusted person {number}',
-		trustedPlaceholder: 'Enter a name',
-		rowLabel: 'Row {number}',
-		addRow: '+ Add a row',
-		saveEntries: 'Save entries',
+		trustedField: 'Güvendiğim kişi {number}: ad / rol',
+		trustedPlaceholder: 'Ad girin',
+		rowLabel: 'Satır {number}',
+		addRow: '+ Satır ekle',
+		saveEntries: 'Kayıtları kaydet',
 		agencyIntro:
-			'Your counsellor is there for you not only online, but also in person. Give them a call, make an appointment for counselling in person or go to the open consultation hours.',
-		yourAgency: 'Your counselling service:',
+			'Danışmanınız yalnızca dijital olarak değil, yüz yüze de sizin için orada. Danışmanınızı telefonla arayın, yüz yüze danışmanlık için randevu alın ya da açık danışma saatlerine gidin.',
+		yourAgency: 'Danışmanlık merkeziniz:',
 		agencyMissing:
-			'The contact details of your counselling service have not been added here yet. Your counsellor will be happy to give them to you.',
-		yourCounsellor: 'Your counsellor:',
+			'Danışmanlık merkezinizin iletişim bilgileri burada henüz kayıtlı değil. Danışmanınız bu bilgileri size memnuniyetle iletecektir.',
+		yourCounsellor: 'Danışmanınız:',
 		selfHelpIntro: [
-			'Self-help groups make it possible for people affected and their family members to talk with each other. This does not only bring emotional relief. Members of the group also benefit from the experiences of the other participants. Self-help groups are organised through counselling services or self-help organisations.',
-			'Your counsellor will help you look for suitable groups near you or online.'
+			'Kendine yardım grupları, sorunu yaşayan kişilerin ve yakınlarının birbirleriyle fikir alışverişi yapmasını sağlar. Bu yalnızca ruhsal olarak rahatlatmakla kalmaz. Grup üyeleri, diğer katılımcıların deneyimlerinden de yararlanır. Kendine yardım grupları, danışmanlık merkezleri veya kendine yardım kuruluşları aracılığıyla düzenlenir.',
+			'Danışmanınız size yakın bir yerde ya da çevrimiçi uygun grupları bulmanıza yardımcı olur.'
 		],
-		requestButton: 'I would like a self-help group to be recommended to me.',
-		requestDone: 'I would like a self-help group to be recommended to me. (requested on {date})',
-		requestHint: 'Your counsellor will then get a message.',
+		requestButton: 'Bana bir kendine yardım grubu önerilmesini istiyorum.',
+		requestDone: 'Bana bir kendine yardım grubu önerilmesini istiyorum. (talep tarihi: {date})',
+		requestHint: 'Bunun üzerine danışmanınıza bir mesaj gönderilir.',
 		nakosText:
-			'You can also use the following link to look for information about self-help groups near you yourself:',
-		nakosLink:
-			'NAKOS (National Contact and Information Centre for the Encouragement and Support of Self-Help Groups, in German)',
-		selfHelpField: 'My self-help group:',
-		selfHelpPlaceholder: 'Enter the name of the group, date(s), contact person and phone number here',
+			'Aşağıdaki bağlantı yardımıyla çevrenizdeki kendine yardım grupları hakkında kendiniz de bilgi arayabilirsiniz:',
+		nakosLink: 'NAKOS (Kendine Yardım Gruplarını Teşvik ve Destek Ulusal İletişim ve Bilgi Merkezi, Almanca)',
+		selfHelpField: 'Kendine yardım grubum:',
+		selfHelpPlaceholder:
+			'Grubun adını, toplantı tarih(ler)ini, iletişim kişisini ve telefon numarasını buraya yazın',
 		risksIntro:
-			'Here you can find all the risk situations and control strategies that you worked out in the exercise “Risk situations and control strategies”. If you have learned other tips and strategies during counselling for dealing well with risk situations, you can write them in the text field below.',
-		noRisks:
-			'You have not added any risk situations in the exercise “Risk situations and control strategies” yet.',
-		riskSituation: 'Risk situation',
-		rating: 'Rating',
-		controlStrategy: 'Control strategy',
-		noStrategy: 'No control strategy yet',
-		printRisk: 'Include in the printout?',
-		otherStrategies: 'Other strategies that I have learned and want to use consciously in the future:',
-		previewEmpty: 'No entries yet',
-		previewMore: 'and {count} more',
-		selfHelpLine: 'Self-help group: {text}',
-		new: 'New',
-		noEntries: 'No entries.',
-		trusted: 'Trusted person(s)',
-		selfHelp: 'Self-help group',
-		requestWanted: 'Recommendation wanted',
-		requestSince: 'since {date}',
-		noPrintedRisks: 'No risk situations selected for the printout.',
+			'Burada “Risk durumları ve kontrol stratejileri” alıştırmasında hazırladığınız tüm risk durumlarını ve ilgili kontrol stratejilerini bulabilirsiniz. Danışmanlık sürecinde risk durumlarıyla başarıyla başa çıkmak için başka yöntemler ve stratejiler öğrendiyseniz, bunları aşağıdaki metin alanına yazabilirsiniz.',
+		noRisks: '“Risk durumları ve kontrol stratejileri” alıştırmasında henüz bir risk durumu girmediniz.',
+		riskSituation: 'Risk durumu',
+		rating: 'Değerlendirme',
+		controlStrategy: 'Kontrol stratejisi',
+		noStrategy: 'Henüz kontrol stratejisi yok',
+		printRisk: 'Çıktıya eklensin mi?',
+		otherStrategies: 'Öğrendiğim ve gelecekte bilinçli olarak kullanmak istediğim diğer stratejiler:',
+		previewEmpty: 'Henüz kayıt yok',
+		previewMore: 've {count} tane daha',
+		selfHelpLine: 'Kendine yardım grubu: {text}',
+		new: 'Yeni',
+		noEntries: 'Kayıt yok.',
+		trusted: 'Güvenilen kişi(ler)',
+		selfHelp: 'Kendine yardım grubu',
+		requestWanted: 'Öneri isteniyor',
+		requestSince: 'talep tarihi: {date}',
+		noPrintedRisks: 'Çıktı için hiçbir risk durumu seçilmedi.',
 		risksOnlyShared:
-			'The risk situations are only visible as long as “Risk situations and control strategies” is shared too.',
+			'Risk durumları yalnızca “Risk durumları ve kontrol stratejileri” de paylaşıldığı sürece görünür.',
 		pdf: {
-			title: 'My emergency kit',
-			noAnswer: 'Not given',
-			agencyMissing: 'The contact details of your counselling service have not been added here yet.',
-			myCounsellor: 'My counsellor',
-			requested: 'Recommendation of a self-help group requested on {date}.',
-			cardsTitle: 'My emergency kit in business card format',
-			cardsHint: 'Cut out along the dashed lines and take with you.',
-			cardsEmpty: 'No entries yet.',
-			cardRiskRated: '{situation} (rating: {rating})',
+			title: 'Acil durum çantam',
+			noAnswer: 'Bilgi yok',
+			agencyMissing: 'Danışmanlık merkezinizin iletişim bilgileri burada henüz kayıtlı değil.',
+			myCounsellor: 'Danışmanım',
+			requested: 'Kendine yardım grubu önerisi talep tarihi: {date}.',
+			cardsTitle: 'Kartvizit boyutunda acil durum çantam',
+			cardsHint: 'Kesikli çizgilerden kesip yanınızda taşıyabilirsiniz.',
+			cardsEmpty: 'Henüz kayıt yok.',
+			cardRiskRated: '{situation} (değerlendirme: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'
 		},
 		request: {
-			title: 'Self-help group requested',
-			text: '{name} would like a self-help group to be recommended to them. Please give {name} suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.',
+			title: 'Kendine yardım grubu talep edildi',
+			text: '{name} kendisine bir kendine yardım grubu önerilmesini istiyor. Lütfen bu kişiye, “Acil durum çantası” alıştırmasındaki “Kendine yardım grubum” bölümüne yazabileceği uygun bilgileri (grubun adı, toplantı tarih(ler)i, iletişim kişisi, telefon numarası) iletin ve gerekirse diğer konuları konuşmak için mesaj işlevi üzerinden iletişime geçin. Bu, danışmanlık araçları tarafından otomatik olarak oluşturulmuş bir mesajdır.',
 			textUnnamed:
-				'A client would like a self-help group to be recommended to them. Please give the client suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.'
+				'Bir danışan kendisine bir kendine yardım grubu önerilmesini istiyor. Lütfen bu kişiye, “Acil durum çantası” alıştırmasındaki “Kendine yardım grubum” bölümüne yazabileceği uygun bilgileri (grubun adı, toplantı tarih(ler)i, iletişim kişisi, telefon numarası) iletin ve gerekirse diğer konuları konuşmak için mesaj işlevi üzerinden iletişime geçin. Bu, danışmanlık araçları tarafından otomatik olarak oluşturulmuş bir mesajdır.'
 		},
 		demo: {
-			motivations: ['Finally being free again', 'I can look my children in the eye again'],
-			strategy: 'I do sport regularly',
-			trusted: 'Anna (sister)',
-			craving: 'I call my trusted person straight away',
-			relapse: 'I won’t give up!'
+			motivations: ['Sonunda yeniden özgür olmak', 'Çocuklarımın yüzüne yeniden bakabilirim'],
+			strategy: 'Düzenli olarak spor yapıyorum',
+			trusted: 'Ayşe (kız kardeşim)',
+			craving: 'Güvendiğim kişiyi hemen arıyorum',
+			relapse: 'Pes etmiyorum!'
 		}
 	},
 	active: {
 		intro: [
-			'Taking care of yourself plays a big part in a good quality of life. A good quality of life helps to reduce stress, to lessen cravings and to prevent relapses.',
-			'Sports, creative and social activities in particular can clearly lift your mood or ease withdrawal symptoms. Other positive activities that you plan firmly also help you to leave old habits and patterns behind, especially if you make them a regular part of your everyday life. What matters is that you feel good doing them. This exercise helps you to make your everyday life active and pleasant. Use our suggestions or enter your own ideas for activities.'
+			'Kendine özen göstermek, iyi bir yaşam kalitesine büyük ölçüde katkıda bulunur. İyi bir yaşam kalitesi stresi azaltmaya, yoğun madde isteğini (craving) hafifletmeye ve nükslerden kaçınmaya yardımcı olur.',
+			'Özellikle sportif, yaratıcı ve sosyal etkinlikler ruh hâlinizi belirgin şekilde iyileştirmeye veya yoksunluk belirtilerini azaltmaya yardımcı olur. Önceden planlanmış başka olumlu etkinlikler de eski alışkanlıkları veya davranış kalıplarını aşmanıza yardımcı olur. Özellikle de bunları günlük hayatınıza düzenli olarak eklerseniz. Önemli olan, bunları yaparken kendinizi iyi hissetmenizdir. Bu alıştırma, günlük hayatınızı aktif ve keyifli hâle getirmenize destek olur. Önerilerimizi kullanın ya da etkinlikler için kendi fikirlerinizi yazın.'
 		],
-		howToToggle: 'How does it work?',
+		howToToggle: 'Nasıl ilerlerim?',
 		howTo: [
-			'Enter your planned activities below. Click “Add activity” to save the entry.',
-			'Make sure your plans are doable. Think as precisely as you can about which activities you can realistically do and when.',
-			'If you like, use our suggestions to find an activity that suits you.',
-			'Planned activities are shown in your diary automatically. If you like, you can also add your entries to your personal calendar.'
+			'Planladığınız etkinlikleri aşağıya yazın. “Etkinlik ekle” düğmesine tıkladığınızda kayıt eklenir.',
+			'Planlarınızın uygulanabilir olmasına dikkat edin. Hangi etkinlikleri ne zaman gerçekçi olarak yapabileceğinizi olabildiğince ayrıntılı düşünün.',
+			'Gerekirse size uygun bir etkinlik bulmak için önerilerimizi kullanın.',
+			'Planlanan etkinlikler günlüğünüzde otomatik olarak gösterilir. İsterseniz kayıtlarınızı kişisel takviminize de ekleyebilirsiniz.'
 		],
-		newTitle: 'Plan a new activity',
-		editTitle: 'Edit activity',
-		suggestionsButton: 'Ideas for activities',
-		titleLabel: 'Enter an activity',
-		titlePlaceholder: 'Name or description of the activity',
-		dateLabel: 'Choose a date (optional)',
-		timeLabel: 'Choose a time (optional)',
-		repeatLabel: 'Repeat the activity?',
+		newTitle: 'Yeni etkinlik planla',
+		editTitle: 'Etkinliği düzenle',
+		suggestionsButton: 'Etkinlik önerileri',
+		titleLabel: 'Etkinlik girin',
+		titlePlaceholder: 'Etkinliğin adı veya açıklaması',
+		dateLabel: 'Tarih seçin (isteğe bağlı)',
+		timeLabel: 'Saat seçin (isteğe bağlı)',
+		repeatLabel: 'Etkinlik tekrarlansın mı?',
 		repeatOptions: {
-			none: 'never',
-			daily: 'daily',
-			weekly: 'weekly',
-			custom: 'on chosen dates'
+			none: 'hayır',
+			daily: 'her gün',
+			weekly: 'her hafta',
+			custom: 'seçilen tarihlerde'
 		},
-		furtherDateLabel: 'Another date',
-		addDate: 'Add date',
-		furtherDatesLabel: 'Other dates',
-		removeDate: 'remove',
-		removeDateLabel: 'Remove date: {day}',
-		companionLabel: 'Company (optional)',
-		companionPlaceholder: 'Name of a person who joins you',
-		missingTitle: 'Please enter an activity.',
-		missingDate: 'Please also choose a date if you want to set a time or a repetition.',
-		add: 'Add activity',
-		saveChange: 'Save changes',
-		listTitle: 'Your activities',
-		addToCalendar: 'Add to my calendar',
-		calendarFileName: 'being-active.ics',
-		empty: 'No activities entered yet.',
-		editLabel: 'Edit: {title}',
-		deleteTitle: 'Delete activity',
-		deleteLabel: 'Delete: {title}',
-		confirmDelete: 'Delete this activity?',
-		delete: 'Delete',
-		noDate: 'no date',
-		noFurtherDate: 'no more dates',
+		furtherDateLabel: 'Başka bir tarih',
+		addDate: 'Tarih ekle',
+		furtherDatesLabel: 'Diğer tarihler',
+		removeDate: 'kaldır',
+		removeDateLabel: 'Tarihi kaldır: {day}',
+		companionLabel: 'Eşlik eden kişi (isteğe bağlı)',
+		companionPlaceholder: 'Size eşlik eden kişinin adı',
+		missingTitle: 'Lütfen bir etkinlik girin.',
+		missingDate: 'Saat ve tekrar için lütfen bir tarih de seçin.',
+		add: 'Etkinlik ekle',
+		saveChange: 'Değişikliği kaydet',
+		listTitle: 'Girilen etkinlikler',
+		addToCalendar: 'Takvimime ekle',
+		calendarFileName: 'aktif-olmak.ics',
+		empty: 'Henüz etkinlik girilmedi.',
+		editLabel: 'Düzenle: {title}',
+		deleteTitle: 'Etkinliği sil',
+		deleteLabel: 'Sil: {title}',
+		confirmDelete: 'Bu etkinlik silinsin mi?',
+		delete: 'Sil',
+		noDate: 'tarih yok',
+		noFurtherDate: 'başka tarih yok',
 		dayAndTime: '{day}, {time}',
-		nextLine: 'Next date: {next}',
-		nextLineWithRepeat: 'Next date: {next} ({repeat})',
-		repeatLine: 'Repeats: {repeat}',
-		furtherDatesLine: 'Other dates: {dates}',
-		companionLine: 'Company: {companion}',
-		noCompanion: 'not given',
+		nextLine: 'Sonraki tarih: {next}',
+		nextLineWithRepeat: 'Sonraki tarih: {next} ({repeat})',
+		repeatLine: 'Tekrar: {repeat}',
+		furtherDatesLine: 'Diğer tarihler: {dates}',
+		companionLine: 'Eşlik eden: {companion}',
+		noCompanion: 'bilgi yok',
 		counsellor: {
-			next: 'Next date',
-			repeat: 'Repeats',
+			next: 'Sonraki tarih',
+			repeat: 'Tekrar',
 			repeatWithDates: '{repeat}: {dates}',
-			companion: 'Company',
-			lastChanged: 'Last changed',
-			new: 'New'
+			companion: 'Eşlik eden',
+			lastChanged: 'Son değişiklik',
+			new: 'Yeni'
 		},
-		backToPlanning: 'Back to planning',
-		suggestionsTitle: 'Ideas for activities',
+		backToPlanning: 'Planlamaya dön',
+		suggestionsTitle: 'Etkinlik önerileri',
 		suggestionsHint:
-			'Use our suggestions as ideas for your own planning. It helps to describe your plan in even more detail.',
+			'Önerilerimizi kendi planlamanız için ilham kaynağı olarak kullanın. Niyetinizi mümkünse daha da somut olarak yazın.',
 		suggestions: {
 			sport: {
-				title: 'Active and sporty',
+				title: 'Aktif ve sportif',
 				items: [
-					'Go for a walk',
-					'Go jogging',
-					'Play football',
-					'Play badminton',
-					'Play table tennis',
-					'Go to the gym',
-					'Dance',
-					'Cycle or go on a bike tour',
-					'Go on a day trip',
-					'Go hiking',
-					'Go to a climbing gym',
-					'Boxing',
-					'Go swimming',
-					'Play mini golf',
-					'Go bowling'
+					'Yürüyüşe çıkmak',
+					'Koşuya çıkmak',
+					'Futbol oynamak',
+					'Badminton oynamak',
+					'Masa tenisi oynamak',
+					'Spor salonuna gitmek',
+					'Dans etmek',
+					'Bisiklete binmek veya bisiklet turuna çıkmak',
+					'Bir geziye çıkmak',
+					'Doğa yürüyüşü yapmak',
+					'Tırmanma salonuna gitmek',
+					'Boks yapmak',
+					'Yüzmek',
+					'Mini golf oynamak',
+					'Bowling oynamak'
 				]
 			},
 			relaxation: {
-				title: 'Relaxation',
+				title: 'Rahatlama',
 				items: [
-					'Go to the sauna',
-					'Take a bath or a shower',
-					'Get a massage',
-					'Listen to music',
-					'Light some candles',
-					'Learn a relaxation technique',
-					'Meditate or do yoga',
-					'Kiss',
-					'Flirt',
-					'Cuddle',
-					'Listen to an audio drama'
+					'Saunaya gitmek',
+					'Banyo yapmak veya duş almak',
+					'Masaj yaptırmak',
+					'Müzik dinlemek',
+					'Mum yakmak',
+					'Bir gevşeme tekniği öğrenmek',
+					'Meditasyon veya yoga yapmak',
+					'Öpüşmek',
+					'Flört etmek',
+					'Sarılmak',
+					'Bir radyo tiyatrosu / sesli hikâye dinlemek'
 				]
 			},
 			inspiration: {
-				title: 'Inspiration',
+				title: 'İlham',
 				items: [
-					'Read a book',
-					'Read a newspaper or magazine',
-					'Read cartoons or comics',
-					'Make a phone call',
-					'Write emails or letters',
-					'Go to the cinema',
-					'Have a film night',
-					'Go to the theatre',
-					'Go to a talk',
-					'Go to a club or disco',
-					'Go to a concert',
-					'Go away for the weekend',
-					'Go to an amusement park',
-					'Visit a museum or an exhibition',
-					'Stroll through shops and buy yourself a little treat',
-					'Go exploring somewhere you do not know yet'
+					'Bir kitap okumak',
+					'Bir gazete veya dergi okumak',
+					'Karikatür veya çizgi roman okumak',
+					'Telefonla konuşmak',
+					'E-posta veya mektup yazmak',
+					'Sinemaya gitmek',
+					'Film gecesi yapmak',
+					'Tiyatroya gitmek',
+					'Bir konferansa / söyleşiye gitmek',
+					'Bir kulübe veya diskoya gitmek',
+					'Bir konsere gitmek',
+					'Hafta sonu gezisine çıkmak',
+					'Bir eğlence parkına gitmek',
+					'Bir müzeye veya sergiye gitmek',
+					'Mağazaları gezip kendine küçük, hoş bir şey almak',
+					'Keşfe çıkmak, bilinmeyen bir yeri gezmek'
 				]
 			},
 			treats: {
-				title: 'Treats',
+				title: 'Keyif',
 				items: [
-					'Have an ice cream',
-					'Have a piece of cake',
-					'Order a pizza',
-					'Cook or bake',
-					'Try new recipes',
-					'Take a cooking class',
-					'Cook for friends',
-					'Organise a barbecue or a picnic'
+					'Dondurma yemek',
+					'Bir dilim pasta yemek',
+					'Pizza sipariş etmek',
+					'Yemek yapmak veya pasta / kek pişirmek',
+					'Yeni tarifler denemek',
+					'Bir yemek kursuna katılmak',
+					'Arkadaşlar için yemek yapmak',
+					'Bir mangal akşamı veya piknik düzenlemek'
 				]
 			},
 			creative: {
-				title: 'Creative',
+				title: 'Yaratıcı',
 				items: [
-					'Paint or draw',
-					'Do pottery',
-					'Sew or knit',
-					'Do crafts',
-					'Do a puzzle or a crossword',
-					'Learn a new language',
-					'Take photos',
-					'Take an adult education class',
-					'Read',
-					'Write a poem',
-					'Make music'
+					'Resim yapmak veya çizim yapmak',
+					'Seramik yapmak',
+					'Dikiş dikmek veya örgü örmek',
+					'El işi yapmak',
+					'Yapboz veya bulmaca çözmek',
+					'Yeni bir dil öğrenmek',
+					'Fotoğraf çekmek',
+					'Halk eğitim merkezinde bir kursa katılmak',
+					'Okumak',
+					'Bir şiir yazmak',
+					'Müzik yapmak'
 				]
 			}
 		},
 		demo: {
-			walk: 'Walk by the river',
-			cinema: 'Go to the cinema',
-			book: 'Read a book'
+			walk: 'Nehir kenarında yürüyüş yapmak',
+			cinema: 'Sinemaya gitmek',
+			book: 'Bir kitap okumak'
 		}
 	},
 	riskSituations: {
 		start:
-			'In this exercise you take a close look at your risk situations and develop suitable control strategies.',
-		guideShow: 'How to fill this in',
-		guideHide: 'Hide instructions',
+			'Bu alıştırmada risk durumlarınızı yakından ele alır ve uygun kontrol stratejileri geliştirirsiniz.',
+		guideShow: 'Doldurma rehberi',
+		guideHide: 'Rehberi gizle',
 		guideIntro:
-			'If you share your entries, your counsellor can read them and support you better. Of course you can change or delete your entries whenever you like. Go through it step by step like this:',
+			'Kayıtlarınızı paylaşırsanız danışmanınız bilgilerinizi okuyabilir ve size daha iyi destek olabilir. Kayıtlarınızı elbette istediğiniz zaman değiştirebilir veya silebilirsiniz. Adım adım şu şekilde ilerleyin:',
 		guideSteps: {
 			situation: {
-				title: 'Enter risk situations',
-				text: '{title} in which you have used substances or shown the problematic behaviour so far.'
+				title: 'Risk durumlarını girin',
+				text: '{title}: Şimdiye kadar madde kullandığınız veya sorunlu davranışı gösterdiğiniz durumları yazın.'
 			},
 			rating: {
-				title: 'Rate them',
-				text: '{title}: Some risk situations are harder to cope with than others. Rate each situation by how hard you think it will be for you to stay strong in it.'
+				title: 'Değerlendirin',
+				text: '{title}: Risk durumlarıyla başa çıkmanın zorluğu farklı olabilir. Her durumu, o durumda kararlı kalmanın sizin için ne kadar zor olacağını tahmin ederek değerlendirin.'
 			},
 			strategies: {
-				title: 'Develop control strategies',
-				text: '{title}: Think about what you can do to stay in control in these situations and not fall back into old patterns. These can be certain actions or thoughts that take your mind off things.'
+				title: 'Kontrol stratejileri geliştirin',
+				text: '{title}: Bu durumlarda kontrolü elinizde tutmak ve eski davranış kalıplarına geri dönmemek için hangi olanaklarınız olduğunu düşünün. Bunlar dikkatinizi dağıtan belirli eylemler veya düşünceler olabilir.'
 			},
 			relapse: {
-				title: 'Improve after a relapse',
-				text: '{title}: If you fall back into old patterns and habits, use what you learn from it as an important lesson! Edit your control strategy to make it better. Your counsellor can support you with this.'
+				title: 'Nüks sonrası iyileştirme',
+				text: '{title}: Eski davranış kalıplarına ve alışkanlıklara geri dönerseniz, bundan çıkardığınız sonuçları önemli bir ders olarak kullanın! Kontrol stratejinizi iyileştirmek için düzenleyin. Danışmanınız bu konuda size destek olabilir.'
 			}
 		},
-		heading: 'My risk situations and control strategies',
-		empty: 'You have not entered a risk situation yet.',
-		noSituations: 'No risk situations entered yet.',
-		deleteQuestion: 'Delete this risk situation with all its relapse analyses?',
-		delete: 'Delete',
+		heading: 'Risk durumlarım ve kontrol stratejilerim',
+		empty: 'Henüz bir risk durumu girmediniz.',
+		noSituations: 'Henüz risk durumu girilmedi.',
+		deleteQuestion: 'Bu risk durumu tüm nüks analizleriyle birlikte silinsin mi?',
+		delete: 'Sil',
 		columns: {
-			situation: 'Risk situation',
-			difficulty: 'Rating',
-			strategy: 'Control strategy',
-			relapse: 'Relapse'
+			situation: 'Risk durumu',
+			difficulty: 'Değerlendirme',
+			strategy: 'Kontrol stratejisi',
+			relapse: 'Nüks'
 		},
-		difficulty: { easy: 'easy', medium: 'medium', hard: 'hard', 'very-hard': 'very hard' },
-		analyseRelapse: 'Analyse a relapse',
-		relapseState: 'As of {date}',
-		notEdited: 'not done yet',
-		editLabel: 'Edit: {situation}',
-		deleteLabel: 'Delete: {situation}',
-		add: 'Enter a new risk situation',
-		tablePdf: 'Save table as PDF',
-		noStrategy: 'No strategy yet',
-		showMore: 'show more',
-		showLess: 'show less',
-		toOverview: 'Back to overview',
-		createTitle: 'Create a risk situation',
-		editTitle: 'Edit risk situation',
+		difficulty: { easy: 'kolay', medium: 'orta', hard: 'zor', 'very-hard': 'çok zor' },
+		analyseRelapse: 'Nüksü analiz et',
+		relapseState: 'Durum: {date}',
+		notEdited: 'henüz düzenlenmedi',
+		editLabel: 'Düzenle: {situation}',
+		deleteLabel: 'Sil: {situation}',
+		add: 'Yeni risk durumu gir',
+		tablePdf: 'Tabloyu PDF olarak al',
+		noStrategy: 'Henüz strateji yok',
+		showMore: 'daha fazla göster',
+		showLess: 'daha az göster',
+		toOverview: 'Genel bakışa dön',
+		createTitle: 'Risk durumu oluştur',
+		editTitle: 'Risk durumunu düzenle',
 		situationHint:
-			'Describe a typical situation in which you use substances or show the problematic behaviour, or in which it would be hard for you to do without.',
-		difficultyQuestion: 'How difficult is it for you to stay strong in this situation?',
-		choose: 'Please choose',
-		strategyLabel: 'Control or coping strategy',
-		strategyQuestion: 'How can you avoid falling back into old habits in this situation?',
-		missingSituation: 'Please describe the risk situation.',
-		missingDifficulty: 'Please choose a rating.',
-		save: 'Save',
-		relapseOverline: 'Analyse relapses',
-		relapseTitle: 'Improve your coping strategies',
+			'Madde kullandığınız veya sorunlu davranışı gösterdiğiniz ya da vazgeçmenin size zor geleceği tipik bir durumu anlatın.',
+		difficultyQuestion: 'Bu durumda kararlı kalmak sizin için ne kadar zor?',
+		choose: 'Lütfen seçin',
+		strategyLabel: 'Kontrol / başa çıkma stratejisi',
+		strategyQuestion: 'Bu durumda eski alışkanlıklara dönmekten nasıl kaçınabilirsiniz?',
+		missingSituation: 'Lütfen risk durumunu anlatın.',
+		missingDifficulty: 'Lütfen bir değerlendirme seçin.',
+		save: 'Kaydet',
+		relapseOverline: 'Nüksleri analiz et',
+		relapseTitle: 'Başa çıkma stratejilerini geliştirin',
 		relapseIntro:
-			'Changing habits often takes a huge effort and rarely works without setbacks. If you have fallen back into old patterns, for example by drinking, smoking cannabis or gambling although you did not really want to, do not let this discourage you! Instead, use this concrete experience to prepare better for future challenges. Use the following questions to analyse the situation and learn for the future. Your counsellor can support you in analysing setbacks and working out coping strategies.',
-		mySituation: 'My risk situation',
-		editingAnalysis: 'You are editing the analysis from {date}.',
+			'Alışkanlıkları değiştirmek çoğu zaman büyük çaba gerektirir ve nadiren aksilik yaşanmadan gerçekleşir. Eski davranış kalıplarına geri döndüyseniz, yani aslında istemediğiniz hâlde örneğin içtiyseniz, esrar içtiyseniz veya kumar oynadıysanız, bunun motivasyonunuzu kırmasına izin vermeyin! Bunun yerine bu somut deneyimi, gelecekteki zorluklara daha iyi hazırlanmak için kullanın. Gelecek için ders çıkarmak amacıyla aşağıdaki soruların yardımıyla o durumu analiz edin. Danışmanınız, aksilikleri analiz etmenizde ve başa çıkma stratejileri geliştirmenizde size destek olabilir.',
+		mySituation: 'Risk durumum',
+		editingAnalysis: '{date} tarihli analizi düzenliyorsunuz.',
 		questions: {
 			circumstances:
-				'1. What circumstances and surroundings (place, event, people present) were part of the relapse?',
-			feelings: '2. What feelings or thoughts influenced your decision and triggered the relapse?',
-			mainReason: '3. What do you think was the main reason that led to the relapse?',
+				'1. Nüks sırasında hangi koşullar ve eşlik eden etkenler (yer, olay, orada bulunan kişiler) vardı?',
+			feelings: '2. Hangi duygular veya düşünceler kararınızı etkiledi ve nükse yol açtı?',
+			mainReason: '3. Sizce nükse yol açan asıl neden neydi?',
 			alternatives:
-				'4. What alternatives were there in this situation? (What exactly could you have done differently? Which thoughts could have helped? Who or what could have supported you?)',
+				'4. Bu durumda hangi seçenekler vardı? (Somut olarak neyi farklı yapabilirdiniz? Hangi düşünceler yardımcı olabilirdi? Size kim veya ne destek olabilirdi?)',
 			newStrategy:
-				'5. How could you master the situation in the future? (Your answer is automatically used as the new control strategy for this risk situation.)'
+				'5. Gelecekte bu durumun üstesinden nasıl gelebilirsiniz? (Yazdığınız cevap, bu risk durumu için otomatik olarak yeni kontrol stratejisi olarak kaydedilir.)'
 		},
-		previousStrategyOverline: 'My previous control strategy:',
-		noPreviousStrategy: 'No strategy entered yet.',
-		newStrategyPlaceholder: 'Describe your new control strategy as precisely as you can',
-		missingAnswer: 'Please answer at least one of the questions.',
-		pagePdf: 'Save page as PDF',
-		allRelapses: 'All relapses',
-		analysisOf: 'Analysis from {date}',
-		open: 'Open',
-		close: 'Close',
-		edit: 'Edit',
+		previousStrategyOverline: 'Daha önce girdiğim kontrol stratejisi:',
+		noPreviousStrategy: 'Henüz strateji girilmedi.',
+		newStrategyPlaceholder: 'Yeni kontrol stratejinizi olabildiğince ayrıntılı anlatın',
+		missingAnswer: 'Lütfen sorulardan en az birini cevaplayın.',
+		pagePdf: 'Sayfayı PDF olarak al',
+		allRelapses: 'Tüm nüksler',
+		analysisOf: 'Analiz tarihi: {date}',
+		open: 'Aç',
+		close: 'Kapat',
+		edit: 'Düzenle',
 		answers: {
-			circumstances: 'Circumstances and surroundings',
-			feelings: 'Feelings and thoughts',
-			mainReason: 'Main reason',
-			alternatives: 'Alternatives'
+			circumstances: 'Koşullar ve eşlik eden etkenler',
+			feelings: 'Duygular ve düşünceler',
+			mainReason: 'Asıl neden',
+			alternatives: 'Seçenekler'
 		},
-		previousStrategy: 'Previous control strategy',
-		newStrategy: 'New control strategy',
-		noAnswer: 'No answer',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		pages: 'Pages',
-		previousPage: 'Back',
-		nextPage: 'Next',
-		pageOf: 'Page {page} of {pages}',
-		noRelapse: 'No relapse recorded.',
-		lastRelapse: 'Last relapse, analysed on {date}',
-		showAllRelapses: 'All relapses ({count})',
-		hideEarlierRelapses: 'Hide earlier relapses',
-		analysedOn: 'Analysed on {date}',
-		pdfRelapses: 'Relapses: {situation}',
-		analysisGone: 'This analysis no longer exists.',
-		deleted: 'Deleted',
+		previousStrategy: 'Daha önce girilen kontrol stratejisi',
+		newStrategy: 'Yeni kontrol stratejisi',
+		noAnswer: 'Bilgi yok',
+		new: 'Yeni',
+		lastChanged: 'Son değişiklik: {date}',
+		pages: 'Sayfalar',
+		previousPage: 'Geri',
+		nextPage: 'İleri',
+		pageOf: 'Sayfa {page} / {pages}',
+		noRelapse: 'Kaydedilmiş nüks yok.',
+		lastRelapse: 'Son nüks, analiz tarihi: {date}',
+		showAllRelapses: 'Tüm nüksler ({count})',
+		hideEarlierRelapses: 'Önceki nüksleri gizle',
+		analysedOn: 'Analiz tarihi: {date}',
+		pdfRelapses: 'Nüksler: {situation}',
+		analysisGone: 'Bu analiz artık mevcut değil.',
+		deleted: 'Silindi',
 		demo: [
 			{
-				situation: 'Friday evening after work, when my colleagues go out for a drink.',
-				strategy: 'I arrange to do sport beforehand and go straight home.'
+				situation: 'Cuma akşamı işten sonra, iş arkadaşlarım bir şeyler içmeye gittiğinde.',
+				strategy: 'Önceden spor için buluşma ayarlıyorum ve doğrudan eve gidiyorum.'
 			},
 			{
-				situation: 'When I am home alone and bored.',
-				strategy: 'I call someone or go for a walk.'
+				situation: 'Evde yalnız olduğumda ve canım sıkıldığında.',
+				strategy: 'Birini arıyorum ya da kısa bir yürüyüşe çıkıyorum.'
 			}
 		]
 	},
 	trafficLight: {
 		levels: {
 			red: {
-				colourName: 'Red',
-				danger: 'great danger',
+				colourName: 'Kırmızı',
+				danger: 'büyük tehlike',
 				explanation:
-					'Hands off, risk of addiction! With this media activity, it is extremely likely that you will lose yourself in addiction.'
+					'Uzak durun, bağımlılık tehlikesi! Bu medya etkinliğinde bağımlılığa kapılmak son derece olasıdır.'
 			},
 			yellow: {
-				colourName: 'Yellow',
-				danger: 'possible danger',
+				colourName: 'Sarı',
+				danger: 'olası tehlike',
 				explanation:
-					'Be careful! This media activity could become dangerous. You should keep a close eye on your use to avoid addiction.'
+					'Dikkat! Bu medya etkinliği tehlikeli hâle gelebilir. Bağımlılıktan kaçınmak için kullanımınızı yakından takip etmelisiniz.'
 			},
 			green: {
-				colourName: 'Green',
-				danger: 'no danger',
-				explanation: 'You can use this media activity without any problems.'
+				colourName: 'Yeşil',
+				danger: 'tehlike yok',
+				explanation: 'Bu medya etkinliğini sorunsuz kullanabilirsiniz.'
 			}
 		},
 		levelLabel: '{colour}: {danger}',
 		levelOption: '{danger} ({colour})',
 		intro:
-			'This exercise helps you to judge how dangerous individual media activities are for you personally, and so to strengthen your ability to handle media use. With the traffic light model, you can sort media activities into the categories “harmless”, “risky” and “not to be used under any circumstances”. The traffic light is not fixed: it should be adjusted again and again during counselling. The aim is for you and your counsellor to understand as precisely as possible how addictive individual activities can be for you.',
-		instructionsTitle: 'How to fill it in:',
+			'Bu alıştırma, tek tek medya etkinliklerinin sizin için kişisel olarak ne kadar tehlikeli olduğunu değerlendirmenize ve böylece medyayı bilinçli kullanma becerinizi güçlendirmenize yardımcı olur. Trafik ışığı modeliyle medya etkinliklerini “zararsız”, “riskli” ve “kesinlikle kullanılmaması gereken” kategorilerine ayırabilirsiniz. Trafik ışığı sabit değildir; danışmanlık süresince tekrar tekrar güncellenmelidir. Amaç, tek tek etkinliklerin sizin için taşıdığı kişisel bağımlılık potansiyelini danışmanınızla birlikte olabildiğince iyi anlamanızdır.',
+		instructionsTitle: 'Doldurma rehberi:',
 		instructions: [
-			'Enter a media activity.',
-			'Rate how likely it is to lead to addiction by giving it a colour.',
-			'Click an entry to edit or delete it.'
+			'Bir medya etkinliği girin.',
+			'Bu etkinliğe bir renk vererek bağımlılık tehlikesini değerlendirin.',
+			'Düzenlemek veya silmek için bir kayda tıklayın.'
 		],
-		explanationsTitle: 'What the colours mean:',
-		legendLabel: 'Legend',
-		lightLabel: 'Traffic light',
-		activityCount: { one: '{count} activity', other: '{count} activities' },
-		noActivities: 'No activities.',
-		editActivityLabel: '{text}, {danger}: edit or delete',
-		add: '+ Add a new activity',
-		newTitle: 'Enter a new media activity',
-		editTitle: 'Edit activity',
-		activityLabel: 'Media activity',
-		examplesLabel: 'Examples:',
-		examples: ['Playing a computer game', 'Writing emails', 'Watching a film', 'Online banking', 'Instagram'],
-		dangerQuestion: 'How great is the danger that this activity leads to addiction?',
-		missingActivity: 'Please enter a media activity.',
-		missingLevel: 'Please choose how great the danger is.',
-		cancel: 'Cancel',
-		save: 'Save',
-		delete: 'Delete',
-		confirmDeleteLabel: 'Confirm deletion',
-		confirmDelete: 'Delete this activity?',
-		empty: 'No activities entered yet.',
-		new: 'New',
+		explanationsTitle: 'Renklerin anlamı:',
+		legendLabel: 'Açıklama',
+		lightLabel: 'Trafik ışığı',
+		activityCount: { one: '{count} etkinlik', other: '{count} etkinlik' },
+		noActivities: 'Etkinlik yok.',
+		editActivityLabel: '{text}, {danger}: düzenle veya sil',
+		add: '+ Yeni etkinlik gir',
+		newTitle: 'Yeni bir medya etkinliği girin',
+		editTitle: 'Etkinliği düzenle',
+		activityLabel: 'Medya etkinliği',
+		examplesLabel: 'Örnekler:',
+		examples: [
+			'Bilgisayar oyunu oynamak',
+			'E-posta yazmak',
+			'Film izlemek',
+			'Online bankacılık işlemleri yapmak',
+			'Instagram'
+		],
+		dangerQuestion: 'Bu etkinliğin bağımlılığa yol açma tehlikesi ne kadar yüksek?',
+		missingActivity: 'Lütfen bir medya etkinliği girin.',
+		missingLevel: 'Lütfen tehlikenin ne kadar yüksek olduğunu seçin.',
+		cancel: 'İptal',
+		save: 'Kaydet',
+		delete: 'Sil',
+		confirmDeleteLabel: 'Silmeyi onayla',
+		confirmDelete: 'Bu etkinlik silinsin mi?',
+		empty: 'Henüz etkinlik girilmedi.',
+		new: 'Yeni',
 		pdfLevelHeading: '{colour}: {danger} ({level})',
 		demo: {
-			red: 'Playing a computer game',
+			red: 'Bilgisayar oyunu oynamak',
 			yellow: 'Instagram',
-			green: 'Writing emails'
+			green: 'E-posta yazmak'
 		}
 	},
 	positivePerception: {
-		pages: ['Introduction', 'Giving compliments', 'Giving compliments', 'Noticing the positive'],
-		pageOf: 'Page {page} of {count}',
-		back: 'Back',
-		next: 'Next',
+		pages: ['Giriş', 'İltifat etmek', 'İltifat etmek', 'Olumlu yanları fark etmek'],
+		pageOf: 'Sayfa {page} / {count}',
+		back: 'Geri',
+		next: 'İleri',
 		intro: [
-			'Conflicts and arguments are part of every healthy relationship. Still, constant disputes in a family can put a lot of strain on the relationship between parents and their children over time. This happens at the latest when little or no attention is paid to the good things any more. Often the family then only complains about what goes wrong, and positive moments hardly seem to exist at all.',
-			'This kind of “negative attention” can mean that we only notice the negative sides of our children’s behaviour. When something does not work, we criticise it straight away. What goes well, on the other hand, we often take for granted. We notice the negative things at once and react to them, while we may no longer notice the positive things at all.'
+			'Çatışmalar ve tartışmalar her sağlıklı ilişkinin bir parçası olsa da, ailedeki anlaşmazlıklar zamanla ebeveynler ile çocukları arasındaki ilişkiye çok yük olabilir. Bu, en geç olumlu şeylere çok az ilgi gösterildiğinde ya da hiç gösterilmediğinde ortaya çıkar. O zaman ailede çoğu zaman yalnızca olumsuz şeylerden şikâyet edilir; olumlu olaylar sanki hiç yokmuş gibi görünür.',
+			'Bu tür bir “olumsuz ilgi”, çocuklarımızın davranışlarında yalnızca olumsuz yanları fark etmemize yol açabilir: Bir şey yolunda gitmediğinde hemen eleştirilir, iyi giden şeyleri ise çoğu zaman olağan kabul ederiz. Olumsuz yanları hemen fark edip onlara tepki verirken, olumlu yanları belki artık hiç fark etmeyiz.'
 		],
 		schemeIntro: [
-			'That is why it helps to keep an eye on the things that go well. Paying attention to the positive builds self-confidence in children and young people and helps them protect themselves. Even small changes in how you treat each other can make a big difference to your relationship. Focusing on the positive can greatly improve the atmosphere in the family.',
-			'The diagram below shows what negative and positive comments can trigger in your child. Click on a comment to see how the child might react.'
+			'Oysa iyi giden şeyleri gözden kaçırmamak yararlıdır. Olumlu şeylere ilgi göstermek, çocuklarda ve gençlerde özgüveni ve kendini koruma becerisini güçlendirir. Birbirinize davranış biçiminizdeki küçük değişiklikler bile ilişki üzerinde büyük bir etki yaratabilir. Olumlu yanlara odaklanmak aile ortamını önemli ölçüde iyileştirebilir.',
+			'Olumsuz ve olumlu sözlerin çocuğunuzda neler uyandırabileceği aşağıdaki şemada açıklanmıştır. Çocuğun tepkisini görmek için sözlere tıklayın.'
 		],
-		remarksLabel: 'What the parent says',
+		remarksLabel: 'Ebeveynin sözü',
 		quotedRemark: '“{remark}”',
 		tones: {
-			negative: 'negative',
-			positive: 'positive'
+			negative: 'olumsuz',
+			positive: 'olumlu'
 		},
 		remarks: {
 			clumsy: {
-				remark: 'You’re being totally stupid again.',
-				selfImage: 'I am stupid',
-				feeling: 'negative, bad',
-				behaviour: 'angry, difficult'
+				remark: 'Yine çok aptalca davranıyorsun.',
+				selfImage: 'ben aptalım',
+				feeling: 'olumsuz / kötü',
+				behaviour: 'öfkeli, huysuz'
 			},
 			forgetful: {
-				remark: 'I knew you’d forget that again.',
-				selfImage: 'I am unreliable',
-				feeling: 'unhappy, ashamed',
-				behaviour: 'sad, still unreliable'
+				remark: 'Bunu yine unutacağın belliydi.',
+				selfImage: 'ben güvenilmezim',
+				feeling: 'memnuniyetsiz, utanç',
+				behaviour: 'üzgün, güvenilmez olmaya devam'
 			},
 			kind: {
-				remark: 'How lovely that you did that.',
-				selfImage: 'I am kind',
-				feeling: 'content',
-				behaviour: 'kind, friendly'
+				remark: 'Bunu yapman ne güzel.',
+				selfImage: 'ben iyi biriyim',
+				feeling: 'memnun',
+				behaviour: 'nazik, dostça'
 			},
 			skilful: {
-				remark: 'You’re so good at that.',
-				selfImage: 'I can do things',
-				feeling: 'content',
-				behaviour: 'friendly'
+				remark: 'Bu işte ne kadar becerikli olduğuna bak.',
+				selfImage: 'ben bir şeyler yapabilirim',
+				feeling: 'memnun',
+				behaviour: 'dostça'
 			}
 		},
-		selfImageLabel: 'How the child sees themselves',
-		feelingLabel: 'How the child feels',
-		behaviourLabel: 'How the child might behave',
-		chooseRemark: 'Choose a comment on the left.',
+		selfImageLabel: 'Çocuğun kendini algılayışı',
+		feelingLabel: 'Çocuğun duygusu',
+		behaviourLabel: 'Çocuğun olası davranışı',
+		chooseRemark: 'Soldan bir söz seçin.',
 		explanationPoints: [
-			'“Negative attention” can put a heavy strain on the atmosphere in the family.',
-			'Negative comments can harm how your child sees themselves and how they behave.',
-			'Positive comments and praise, on the other hand, build your child’s self-confidence.'
+			'“Olumsuz ilgi”, aile ortamına çok yük olabilir.',
+			'Olumsuz sözler çocuğunuzun kendini algılayışı ve davranışı üzerinde olumsuz sonuçlar doğurabilir.',
+			'Olumlu sözler ve övgü ise çocuğunuzun özgüvenini güçlendirir.'
 		],
 		explanationClosing:
-			'This tool is here to bring these positive things back into focus. The aim is to improve your contact and your everyday life with your child through praise and appreciation.',
+			'Bu nedenle bu araç, bu olumlu yanları yeniden ön plana çıkarmayı amaçlar. Amaç, övgü ve takdir yoluyla çocuğunuzla bağınızı ve etkileşiminizi iyileştirmektir.',
 		aspectsIntro:
-			'The easiest way to give your child positive feedback is with praise or a compliment. Every time you praise your child or pay them a compliment, your own attention also turns to the good things your child does. So first, think about which of your child’s behaviours are pleasing and positive. What behaviour or activity of your child could you praise?',
-		hideHint: 'Hide tip',
-		showHint: 'Show tip',
+			'Çocuğunuza olumlu geri bildirim vermenin en kolay yolu övgü veya iltifattır. Çocuğunuza yaptığınız her övgü veya iltifatla, sizin dikkatiniz de çocuğunuzun olumlu davranışlarına yönelir. Bu nedenle önce çocuğunuzun hangi davranışlarının sevindirici ve olumlu olduğunu düşünmelisiniz. Çocuğunuzun hangi davranışını, hangi etkinliğini övebilirsiniz?',
+		hideHint: 'İpucunu gizle',
+		showHint: 'İpucunu göster',
 		aspectsHint:
-			'Keep in mind: a compliment is about something specific your child did, not about their whole personality. These may be simple, everyday things, or even things you take for granted. You can of course also praise a behaviour or an activity that your child enjoys. In fact, it is very worthwhile to encourage such activities so they can grow and become a possible alternative to the problem behaviour (for example gaming, smoking cannabis or drinking alcohol).',
-		examplesTitle: 'Positive behaviours could be:',
+			'Şunu unutmayın: İltifat, çocuğunuzun bütün kişiliğiyle değil, somut bir davranışıyla ilgilidir. Bu davranışlar basit, gündelik şeyler, hatta en azından sizin gözünüzde olağan şeyler olabilir. Elbette çocuğunuzun keyif aldığı bir davranışı veya etkinliği de övebilirsiniz. Aslında bu tür etkinlikleri desteklemek, onları geliştirmek ve böylece sorunlu davranışa (ör. bilgisayar oyunu oynamak, esrar içmek, alkol kullanmak vb.) olası bir alternatif oluşturmak için çok yararlıdır.',
+		examplesTitle: 'Olumlu davranışlar şunlar olabilir:',
 		examples: [
-			'Helping at home (for example doing the washing-up)',
-			'Taking care of small tasks (for example running an errand)',
-			'Doing sport (or doing sport regularly)',
-			'Coming home on time',
-			'Doing their homework',
-			'Getting a good mark (or not getting a bad mark)',
-			'Remembering someone’s birthday'
+			'Ev işlerine yardım (ör. bulaşıkları yıkamak)',
+			'Küçük işleri halletmek (ör. bir alışveriş yapmak)',
+			'Spor yapmış olmak (veya düzenli spor yapmak)',
+			'Eve zamanında gelmek',
+			'Ödevlerini yapmak',
+			'İyi bir not almak (veya kötü not almamak)',
+			'Birinin doğum gününü hatırlamak'
 		],
-		inputLabel: 'Please write down behaviours and activities of your child that you would like to praise:',
-		emptyInput: 'Please write something first.',
+		inputLabel: 'Lütfen çocuğunuzun övmek istediğiniz davranışlarını ve etkinliklerini buraya yazın:',
+		emptyInput: 'Lütfen önce bir şey yazın.',
 		characterCount: '{length} / {max}',
-		save: 'Save',
-		saveChange: 'Save changes',
-		cancel: 'Cancel',
-		savedTitle: 'Your saved behaviours',
-		noEntries: 'No entries yet.',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		edit: 'Edit',
-		editLabel: 'Edit: {text}',
-		deleteLabel: 'Delete: {text}',
-		counsellorTitle: 'Behaviours and activities to praise',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		demoBehaviours: ['Cleared the table without being asked.', 'Went to football practice at the weekend.']
+		save: 'Kaydet',
+		saveChange: 'Değişikliği kaydet',
+		cancel: 'İptal',
+		savedTitle: 'Kaydettiğiniz davranışlar',
+		noEntries: 'Henüz kayıt yok.',
+		confirmDelete: 'Bu kayıt silinsin mi?',
+		delete: 'Sil',
+		edit: 'Düzenle',
+		editLabel: 'Düzenle: {text}',
+		deleteLabel: 'Sil: {text}',
+		counsellorTitle: 'Övülecek davranışlar ve etkinlikler',
+		new: 'Yeni',
+		lastChanged: 'Son değişiklik: {date}',
+		demoBehaviours: ['Kendisine söylenmeden sofrayı topladı.', 'Hafta sonu futbol antrenmanına gitti.']
 	}
 };
