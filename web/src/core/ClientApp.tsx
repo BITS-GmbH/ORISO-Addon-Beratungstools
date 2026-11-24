@@ -21,6 +21,7 @@ export function ClientApp() {
 				toolId={open}
 				mode="client"
 				backLabel="Meine Tools"
+				onOpenTool={setOpen}
 				onBack={() => {
 					setOpen(null);
 					void reload();

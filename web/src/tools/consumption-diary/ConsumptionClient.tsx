@@ -49,7 +49,7 @@ export interface DiaryActions {
 }
 
 /** The consumption diary (section 2.2): topics, "Meine Woche", day overviews with phases and the day's summary. */
-export function ConsumptionClient({ tool, entries, store, informal }: ClientViewProps) {
+export function ConsumptionClient({ tool, entries, store, informal, openTool }: ClientViewProps) {
 	const diary = diaryOf(entries);
 	const today = localToday();
 	const [screen, setScreen] = useState<Screen>(() => ({ name: diary.chosen.length ? 'week' : 'settings' }));
@@ -154,6 +154,7 @@ export function ConsumptionClient({ tool, entries, store, informal }: ClientView
 					onWeek={setMonday}
 					onChoose={choose}
 					linked={tool.linked ?? {}}
+					onPlan={openTool && (() => openTool('active'))}
 				/>
 			)}
 		</div>
@@ -260,7 +261,8 @@ function Week({
 	monday,
 	onWeek,
 	onChoose,
-	linked
+	linked,
+	onPlan
 }: {
 	diary: DiaryData;
 	informal: boolean;
@@ -270,6 +272,7 @@ function Week({
 	onWeek: (monday: string) => void;
 	onChoose: (day: string, topic: TopicId, consumed: boolean) => void;
 	linked: NonNullable<ClientViewProps['tool']['linked']>;
+	onPlan?: () => void;
 }) {
 	const [showIntro, setShowIntro] = useState(false);
 	const topics = diary.chosen;
@@ -318,7 +321,7 @@ function Week({
 						</div>
 					))}
 				</div>
-				<PlannedActivities linked={linked} monday={monday} />
+				<PlannedActivities linked={linked} monday={monday} onPlan={onPlan} />
 			</div>
 		</Card>
 	);

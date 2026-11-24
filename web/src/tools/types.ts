@@ -14,6 +14,8 @@ export interface ClientViewProps {
 	onDone: () => void;
 	/** Makes one of the tool's client PDFs (`clientExports` on the server) and downloads it. */
 	download: (format: string, params?: Record<string, string>) => Promise<void>;
+	/** Opens another of the client's released tools; absent in the demo. */
+	openTool?: (id: ToolId) => void;
 }
 
 export interface CounsellorViewProps {

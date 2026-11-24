@@ -9,10 +9,13 @@ import { addDays, formatDayShort } from '../../../shared/days.ts';
  */
 export function PlannedActivities({
 	linked,
-	monday
+	monday,
+	onPlan
 }: {
 	linked: Partial<Record<ToolId, Entry[]>>;
 	monday: string;
+	/** Opens "Aktiv sein"; only the client gets it. */
+	onPlan?: () => void;
 }) {
 	const entries = linked[ACTIVITY_TOOL];
 	if (!entries) {
@@ -23,7 +26,17 @@ export function PlannedActivities({
 		<section className="bt-stack bt-stack--tight" aria-label="Geplante Aktivitäten diese Woche">
 			<h3 className="bt-title">Geplante Aktivitäten diese Woche</h3>
 			{occurrences.length === 0 ? (
-				<p className="bt-muted bt-small">Für diese Woche sind keine Aktivitäten geplant.</p>
+				<p className="bt-muted bt-small">
+					Für diese Woche sind keine Aktivitäten geplant.
+					{onPlan && (
+						<>
+							{' '}
+							<button type="button" className="bt-linkbtn bt-small" onClick={onPlan}>
+								Aktivitäten in „Aktiv sein“ planen
+							</button>
+						</>
+					)}
+				</p>
 			) : (
 				<ul className="bt-list">
 					{occurrences.map(({ id, day, time, activity }) => (

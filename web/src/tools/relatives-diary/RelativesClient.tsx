@@ -33,7 +33,7 @@ export const entriesByDay = (entries: Entry[]): Map<string, Entry<DiaryEntry>> =
 	);
 
 /** "Mein Tagebuch" (section 2.3): a week with snippets and moods, and one entry per day. */
-export function RelativesClient({ tool, entries, store, informal }: ClientViewProps) {
+export function RelativesClient({ tool, entries, store, informal, openTool }: ClientViewProps) {
 	const today = localToday();
 	const [monday, setMonday] = useState(() => weekStart(today));
 	const [openDay, setOpenDay] = useState<string | null>(null);
@@ -107,7 +107,11 @@ export function RelativesClient({ tool, entries, store, informal }: ClientViewPr
 							);
 						})}
 					</div>
-					<PlannedActivities linked={tool.linked ?? {}} monday={monday} />
+					<PlannedActivities
+						linked={tool.linked ?? {}}
+						monday={monday}
+						onPlan={openTool && (() => openTool('active'))}
+					/>
 				</div>
 			</Card>
 		</div>

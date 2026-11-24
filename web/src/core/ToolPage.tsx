@@ -1,7 +1,7 @@
 import { Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useCallback, useMemo, useState } from 'react';
 import type { ClientTool } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { type ToolId, toolInfo } from '../../../shared/catalog.ts';
 import { ApiError, ownerApi } from '../api.ts';
 import { useHost, useTx } from '../host.ts';
 import { webTool } from '../tools/index.ts';
@@ -13,10 +13,11 @@ interface Props {
 	mode: 'client' | 'demo';
 	onBack: () => void;
 	backLabel: string;
+	onOpenTool?: (id: ToolId) => void;
 }
 
 /** A tool as its user sees it: header with autosave status, the share switch and the tool itself. */
-export function ToolPage({ toolId, mode, onBack, backLabel }: Props) {
+export function ToolPage({ toolId, mode, onBack, backLabel, onOpenTool }: Props) {
 	const host = useHost();
 	const api = useMemo(
 		() => ownerApi(host.api, mode === 'client' ? '/me' : '/demo', toolId),
@@ -41,7 +42,15 @@ export function ToolPage({ toolId, mode, onBack, backLabel }: Props) {
 		return <Spinner />;
 	}
 	return (
-		<LoadedTool key={toolId} tool={data} api={api} title={title} onBack={onBack} backLabel={backLabel} />
+		<LoadedTool
+			key={toolId}
+			tool={data}
+			api={api}
+			title={title}
+			onBack={onBack}
+			backLabel={backLabel}
+			onOpenTool={onOpenTool}
+		/>
 	);
 }
 
@@ -50,13 +59,15 @@ function LoadedTool({
 	api,
 	title,
 	onBack,
-	backLabel
+	backLabel,
+	onOpenTool
 }: {
 	tool: ClientTool;
 	api: ReturnType<typeof ownerApi>;
 	title: string;
 	onBack: () => void;
 	backLabel: string;
+	onOpenTool?: (id: ToolId) => void;
 }) {
 	const host = useHost();
 	const tx = useTx();
@@ -155,6 +166,7 @@ function LoadedTool({
 					locale={host.locale}
 					onDone={onBack}
 					download={download}
+					openTool={onOpenTool}
 				/>
 			) : (
 				<Notice type="info" title="Dieses Tool ist noch nicht verfügbar." />
