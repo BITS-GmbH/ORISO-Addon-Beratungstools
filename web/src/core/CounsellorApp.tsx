@@ -8,7 +8,7 @@ import { webTool } from '../tools/index.ts';
 import { formatDate, Pill, useLoad } from '../ui.tsx';
 import { DemoView } from './DemoView.tsx';
 import { EntriesView } from './EntriesView.tsx';
-import { NotificationPrefsPanel } from './NotificationPrefs.tsx';
+import { NotificationPrefsButton, NotificationPrefsPanel } from './NotificationPrefs.tsx';
 import { ToolIcon } from './ToolIcon.tsx';
 
 type View =
@@ -22,6 +22,7 @@ export function CounsellorApp() {
 	const host = useHost();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [view, setView] = useState<View>({ type: 'overview' });
+	const [prefsOpen, setPrefsOpen] = useState(false);
 	const overview = useLoad(api.overview);
 	const show = (next: View) => {
 		setView(next);
@@ -75,7 +76,11 @@ export function CounsellorApp() {
 
 	return (
 		<div className="bt-stack">
-			<Headline level={2}>Tools</Headline>
+			<div className="bt-row bt-row--between">
+				<Headline level={2}>Tools</Headline>
+				<NotificationPrefsButton open={prefsOpen} onToggle={() => setPrefsOpen(!prefsOpen)} />
+			</div>
+			{prefsOpen && <NotificationPrefsPanel onClose={() => setPrefsOpen(false)} />}
 			{released.length > 0 && (
 				<section className="bt-stack bt-stack--tight" aria-label="Freigeschaltete Tools">
 					<Headline level={3}>Freigeschaltet</Headline>
@@ -91,7 +96,6 @@ export function CounsellorApp() {
 			{tools.length === 0 && (
 				<Notice type="info" title="Für diese Beratungsstelle sind keine Tools eingeschaltet." />
 			)}
-			<NotificationPrefsPanel />
 		</div>
 	);
 }

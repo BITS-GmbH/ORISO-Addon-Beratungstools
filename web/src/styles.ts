@@ -41,6 +41,9 @@ export const CSS = `
 
 .bt-linkbtn { font: inherit; font-size: 14px; font-weight: 600; color: var(--bt-primary); background: none; border: 0; padding: 4px 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; width: fit-content; max-width: 100%; text-align: left; }
 .bt-linkbtn:hover { text-decoration: underline; }
+.bt-tonalbtn { font: inherit; font-size: 14px; font-weight: 600; color: var(--bt-primary); background: var(--bt-surface); border: 1px solid var(--bt-outline-soft); border-radius: 999px; padding: 5px 14px 5px 10px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.bt-tonalbtn:hover, .bt-tonalbtn[aria-expanded='true'] { background: var(--bt-primary-soft); border-color: var(--bt-primary); }
+.bt-tonalbtn svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .bt-linkbtn svg, .bt-icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .bt :focus-visible:not(.MuiInputBase-input, .MuiInputBase-root *, .MuiPickersInputBase-root *) { outline: 3px solid color-mix(in srgb, var(--bt-primary) 45%, transparent); outline-offset: 2px; }
 

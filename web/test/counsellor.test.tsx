@@ -190,7 +190,11 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
-		fireEvent.click(await screen.findByText('Benachrichtigungseinstellungen'));
+		const button = await screen.findByRole('button', { name: 'Benachrichtigungen' });
+		expect(button.getAttribute('aria-expanded')).toBe('false');
+		expect(screen.queryByText('Benachrichtigungseinstellungen')).toBeNull();
+		fireEvent.click(button);
+		expect(button.getAttribute('aria-expanded')).toBe('true');
 		fireEvent.click(await screen.findByLabelText('Änderungen an bestehenden Einträgen'));
 		fireEvent.click(screen.getByText('Einstellungen speichern'));
 		await waitFor(() =>
@@ -200,6 +204,7 @@ describe('tool overview', () => {
 				changedEntry: false
 			})
 		);
+		await waitFor(() => expect(screen.queryByText('Einstellungen speichern')).toBeNull());
 	});
 });
 
