@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { Answer } from '../../../../shared/tools/goals.ts';
-import { ANSWER_KIND, isStepId, MAX_ANSWER_LENGTH, STEPS } from '../../../../shared/tools/goals.ts';
+import { localized } from '../../../../shared/i18n/index.ts';
+import { ANSWER_KIND, isStepId, MAX_ANSWER_LENGTH, STEP_IDS } from '../../../../shared/tools/goals.ts';
 import type { ServerTool } from '../types.ts';
 
 export const answerSchema = z.object({ text: z.string().trim().min(1).max(MAX_ANSWER_LENGTH) });
@@ -22,35 +23,30 @@ export const goals: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const texts = i18n.m.goals;
 		const answers = new Map(
 			entries.filter((e) => e.kind === ANSWER_KIND).map((e) => [e.key, (e.data as Answer).text])
 		);
 		if (answers.size === 0) {
-			pdf.paragraph('Noch keine Antworten.', { muted: true });
+			pdf.paragraph(texts.noAnswers, { muted: true });
 			return;
 		}
-		for (const step of STEPS) {
-			pdf.field(step.counsellorLabel, answers.get(step.id) ?? 'Keine Angabe');
+		for (const id of STEP_IDS) {
+			pdf.field(texts.steps[id].counsellorLabel, answers.get(id) ?? texts.noAnswer);
 		}
 	},
-	demo: () => [
-		{
-			kind: ANSWER_KIND,
-			key: 'situation',
-			data: { text: 'Ich trinke seit einigen Monaten fast jeden Abend, meistens zwei bis drei Bier.' }
-		}
-	],
+	demo: ({ m }) => [{ kind: ANSWER_KIND, key: 'situation', data: { text: m.goals.demoSituation } }],
 	calendar({ releasedAt, shared, entries }) {
 		const answered = new Set(entries.filter((e) => e.kind === ANSWER_KIND).map((e) => e.key));
-		if (shared || STEPS.every((step) => answered.has(step.id))) {
+		if (shared || STEP_IDS.every((id) => answered.has(id))) {
 			return [];
 		}
 		return [
 			{
 				id: 'goals-fill-in',
 				kind: 'reminder',
-				title: { de: 'Ausgangssituation und Ziele ausfüllen', en: 'Fill in starting point and goals' },
+				title: localized(({ m }) => m.goals.reminder),
 				start: new Date(Date.parse(releasedAt) + REMINDER_DELAY_MS).toISOString(),
 				allDay: true
 			}

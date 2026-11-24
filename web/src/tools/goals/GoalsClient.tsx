@@ -1,34 +1,33 @@
 import { Button, Card, Headline, Textarea } from '@oriso/web-kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
 import {
 	ANSWER_KIND,
 	MAX_ANSWER_LENGTH,
-	STEPS,
-	startMessage,
-	summaryMessage,
+	STEP_IDS,
 	type Answer,
-	type GoalsStep
+	type StepId
 } from '../../../../shared/tools/goals.ts';
+import { useI18n } from '../../host.ts';
 import type { ClientViewProps } from '../types.ts';
 
 type Screen = 'start' | 'summary' | number;
-type StepId = GoalsStep['id'];
 
 const SAVE_DELAY_MS = 800;
 
 /** Four questions, the goal and a summary, saved automatically while the client types (section 2.1). */
-export function GoalsClient({ tool, entries, store, informal, onDone }: ClientViewProps) {
+export function GoalsClient({ tool, entries, store, onDone }: ClientViewProps) {
+	const { m, t } = useI18n();
+	const texts = m.goals;
 	const saved = useCallback(
 		(id: StepId) =>
 			(entries.find((e) => e.kind === ANSWER_KIND && e.key === id)?.data as Answer | undefined)?.text ?? '',
 		[entries]
 	);
 	const [drafts, setDrafts] = useState<Record<string, string>>(() =>
-		Object.fromEntries(STEPS.map((step) => [step.id, saved(step.id)]))
+		Object.fromEntries(STEP_IDS.map((id) => [id, saved(id)]))
 	);
 	const [screen, setScreen] = useState<Screen>(() =>
-		STEPS.some((step) => saved(step.id)) ? 'summary' : 'start'
+		STEP_IDS.some((id) => saved(id)) ? 'summary' : 'start'
 	);
 	const timers = useRef(new Map<StepId, ReturnType<typeof setTimeout>>());
 	const latest = useRef({ drafts, saved, store });
@@ -74,9 +73,7 @@ export function GoalsClient({ tool, entries, store, informal, onDone }: ClientVi
 	};
 
 	const intro =
-		typeof tool.options.intro === 'string' && tool.options.intro
-			? tool.options.intro
-			: startMessage(informal);
+		typeof tool.options.intro === 'string' && tool.options.intro ? tool.options.intro : texts.start;
 
 	if (screen === 'start') {
 		return (
@@ -84,7 +81,7 @@ export function GoalsClient({ tool, entries, store, informal, onDone }: ClientVi
 				<div className="bt-stack">
 					<p className="bt-pre">{intro}</p>
 					<div>
-						<Button onClick={() => go(0)}>{tx(informal, 'Los geht’s', 'Los geht’s')}</Button>
+						<Button onClick={() => go(0)}>{texts.startButton}</Button>
 					</div>
 				</div>
 			</Card>
@@ -95,38 +92,36 @@ export function GoalsClient({ tool, entries, store, informal, onDone }: ClientVi
 		return (
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Zusammenfassung</Headline>
-					<p>{summaryMessage(informal)}</p>
-					<p className="bt-title">
-						{tx(informal, 'Ihre Angaben im Überblick:', 'Deine Angaben im Überblick:')}
-					</p>
+					<Headline level={3}>{texts.summaryTitle}</Headline>
+					<p>{texts.summaryText}</p>
+					<p className="bt-title">{texts.overview}</p>
 					<div className="bt-summary">
-						{STEPS.map((step, index) => (
-							<div key={step.id}>
-								<strong>{step.summary(informal)}</strong>
+						{STEP_IDS.map((id, index) => (
+							<div key={id}>
+								<strong>{texts.steps[id].summary}</strong>
 								<button
 									type="button"
 									className="bt-linkbtn"
 									onClick={() => go(index)}
-									aria-label={`Bearbeiten: ${step.summary(informal)}`}
+									aria-label={t(texts.editLabel, { label: texts.steps[id].summary })}
 								>
-									Bearbeiten
+									{texts.edit}
 								</button>
 								<p
-									className={`bt-pre${drafts[step.id]?.trim() ? '' : ' bt-muted'}`}
+									className={`bt-pre${drafts[id]?.trim() ? '' : ' bt-muted'}`}
 									style={{ gridColumn: '1 / -1' }}
 								>
-									{drafts[step.id]?.trim() || 'Noch keine Angabe'}
+									{drafts[id]?.trim() || texts.empty}
 								</p>
 							</div>
 						))}
 					</div>
 					<div className="bt-row">
 						<Button variant="secondary" onClick={() => go(0)}>
-							{tx(informal, 'Von vorn durchgehen', 'Von vorn durchgehen')}
+							{texts.restart}
 						</Button>
 						<Button variant="tertiary" onClick={onDone}>
-							Meine Startseite
+							{texts.home}
 						</Button>
 					</div>
 				</div>
@@ -134,46 +129,43 @@ export function GoalsClient({ tool, entries, store, informal, onDone }: ClientVi
 		);
 	}
 
-	const step = STEPS[screen] as GoalsStep;
-	const last = screen === STEPS.length - 1;
+	const id = STEP_IDS[screen] as StepId;
+	const step = texts.steps[id];
+	const last = screen === STEP_IDS.length - 1;
 	return (
 		<Card>
 			<div className="bt-stack">
 				<div className="bt-steps" aria-hidden>
-					{STEPS.map((candidate, index) => (
-						<span key={candidate.id} className={index <= screen ? 'is-done' : undefined} />
+					{STEP_IDS.map((candidate, index) => (
+						<span key={candidate} className={index <= screen ? 'is-done' : undefined} />
 					))}
 				</div>
 				<div>
 					<p className="bt-overline">{step.section}</p>
-					<Headline level={3}>{step.title(informal)}</Headline>
+					<Headline level={3}>{step.title}</Headline>
 				</div>
 				<div className="bt-stack bt-stack--tight">
-					{step.hint(informal).map((line) => (
+					{step.hint.map((line) => (
 						<p key={line} className="bt-muted">
 							{line}
 						</p>
 					))}
 				</div>
 				<Textarea
-					id={`goals-${step.id}`}
-					label={step.summary(informal)}
-					value={drafts[step.id] ?? ''}
+					id={`goals-${id}`}
+					label={step.summary}
+					value={drafts[id] ?? ''}
 					maxLength={MAX_ANSWER_LENGTH}
 					minRows={6}
-					onChange={(value) => change(step.id, value)}
-					helperText={tx(
-						informal,
-						'Ihre Angaben werden automatisch gespeichert.',
-						'Deine Angaben werden automatisch gespeichert.'
-					)}
+					onChange={(value) => change(id, value)}
+					helperText={texts.autosave}
 				/>
 				<div className="bt-row bt-row--between">
 					<Button variant="secondary" onClick={() => go(screen === 0 ? 'start' : screen - 1)}>
-						Zurück
+						{texts.back}
 					</Button>
 					<Button onClick={() => go(last ? 'summary' : screen + 1)}>
-						{last ? 'Zur Zusammenfassung' : 'Weiter'}
+						{last ? texts.toSummary : texts.next}
 					</Button>
 				</div>
 			</div>

@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { isStepId, STEP_IDS, STEPS, startMessage } from '../../shared/tools/goals.ts';
+import { i18n } from '../../shared/i18n/index.ts';
+import { isStepId, STEP_IDS } from '../../shared/tools/goals.ts';
 import { answerSchema, goals } from '../src/tools/goals/index.ts';
 
 describe('goals', () => {
 	it('has four questions, then the goal, as in the tool description', () => {
 		expect(STEP_IDS).toEqual(['situation', 'factors', 'motivation', 'resources', 'goal']);
-		expect(STEPS.slice(0, 4).map((step) => step.title(false).slice(0, 12))).toEqual([
+		const { steps } = i18n('de').m.goals;
+		expect(STEP_IDS.slice(0, 4).map((id) => steps[id].title.slice(0, 12))).toEqual([
 			'Frage 1 von ',
 			'Frage 2 von ',
 			'Frage 3 von ',
@@ -14,11 +16,11 @@ describe('goals', () => {
 	});
 
 	it('addresses the client formally or informally', () => {
-		expect(startMessage(false)).toContain('Bitte beschreiben Sie');
-		expect(startMessage(true)).toContain('Bitte beschreibe');
-		for (const step of STEPS) {
-			expect(step.title(true)).not.toMatch(/\b(Sie|Ihre?|Ihnen)\b/);
-			for (const line of step.hint(true)) {
+		expect(i18n('de', false).m.goals.start).toContain('Bitte beschreiben Sie');
+		expect(i18n('de', true).m.goals.start).toContain('Bitte beschreibe');
+		for (const step of Object.values(i18n('de', true).m.goals.steps)) {
+			expect(step.title).not.toMatch(/\b(Sie|Ihre?|Ihnen)\b/);
+			for (const line of step.hint) {
 				expect(line).not.toMatch(/\b(Sie|Ihre?|Ihnen)\b/);
 			}
 		}
@@ -56,5 +58,19 @@ describe('goals', () => {
 		expect(
 			goals.calendar?.({ ...calendarBase, releasedAt, shared: false, entries: STEP_IDS.map(entry) })
 		).toEqual([]);
+	});
+
+	it('names the reminder in every language', () => {
+		const [reminder] =
+			goals.calendar?.({
+				...calendarBase,
+				releasedAt: '2026-11-01T10:00:00.000Z',
+				shared: false,
+				entries: []
+			}) ?? [];
+		expect(reminder?.title).toMatchObject({
+			de: 'Ausgangssituation und Ziele ausfüllen',
+			en: 'Fill in starting point and goals'
+		});
 	});
 });
