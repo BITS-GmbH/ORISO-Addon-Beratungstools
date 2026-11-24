@@ -155,4 +155,54 @@ describe('Notfallkoffer', () => {
 		expect(within(unrated).queryByText('Bewertung')).toBeNull();
 		expect(unrated.textContent).not.toContain('undefined');
 	});
+	it('speaks English for an English host', async () => {
+		const { host } = fakeHost(
+			{
+				'GET /me/tools/emergency-kit': () =>
+					tool([entry('motivation', { text: 'Frei sein', importance: 1 })], {
+						linked: { 'risk-situations': [risk] }
+					})
+			},
+			{ locale: 'en' }
+		);
+		renderWith(host, page());
+		expect(await screen.findByText('My motivation: why I am sticking with it')).toBeTruthy();
+		expect(screen.getByText('Download the whole emergency kit as a PDF')).toBeTruthy();
+		fireEvent.click(screen.getByText('My most important risk situations and control strategies'));
+		const rated = screen.getByText('Feier').closest('li') as HTMLElement;
+		expect(within(rated).getByText('Rating')).toBeTruthy();
+		expect(within(rated).getByText('hard')).toBeTruthy();
+		fireEvent.click(screen.getByText('Back to the emergency kit'));
+		fireEvent.click(screen.getByText('Critical situations, moods and thoughts'));
+		fireEvent.click(screen.getByText('Show examples'));
+		fireEvent.click(screen.getByText('Cannabis'));
+		expect(screen.getByText('When I want to smoke weed again “just out of curiosity”')).toBeTruthy();
+	});
+
+	it('addresses the client informally where the host says so', async () => {
+		const { host } = fakeHost({ 'GET /me/tools/emergency-kit': () => tool([]) }, { informal: true });
+		renderWith(host, page());
+		expect(await screen.findByText(/In deinem persönlichen „Notfallkoffer“ sammelst du/)).toBeTruthy();
+		fireEvent.click(screen.getByText('Meine Motivation: Darum bleibe ich dabei'));
+		fireEvent.click(screen.getByText('Beispiele anzeigen'));
+		fireEvent.click(screen.getByText('Endlich wieder frei sein'));
+		fireEvent.click(screen.getByText('Speichern'));
+		expect(screen.getByRole('alert').textContent).toBe(
+			'Bitte wähle bei jedem Eintrag aus, wie wichtig er für dich ist.'
+		);
+	});
+
+	it('shows counsellors the tiles in English', () => {
+		const motivation = entry('motivation', { text: 'Frei sein', importance: 2 });
+		const other = entry('other-strategies', { text: 'Atmen' }, 'main');
+		const { host } = fakeHost({}, { locale: 'en' });
+		renderWith(
+			host,
+			<KitCounsellor entries={[motivation, other]} options={{}} locale="en" linked={{}} isNew={() => true} />
+		);
+		const tile = screen.getByRole('region', { name: 'My motivation: why I am sticking with it' });
+		expect(within(tile).getByText('important')).toBeTruthy();
+		expect(within(tile).getAllByText('New')).toHaveLength(2);
+		expect(screen.getByText(/only visible as long as “Risk situations and control strategies”/)).toBeTruthy();
+	});
 });

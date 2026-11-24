@@ -9,16 +9,23 @@ import {
 	trustedOf,
 	type SectionId
 } from '../../../../shared/tools/emergency-kit.ts';
+import type { I18n } from '../../../../shared/i18n/index.ts';
 import type { SituationItem } from '../../../../shared/tools/risk-situations.ts';
+import { useI18n } from '../../host.ts';
 
 const PREVIEW = 3;
 
-export const ImportanceLabel = ({ value }: { value?: number }) =>
-	value ? (
-		<span className={`bt-pill bt-pill--${value === 1 ? 'shared' : 'neutral'}`}>{importanceLabel(value)}</span>
+export function ImportanceLabel({ value }: { value?: number }) {
+	const { m } = useI18n();
+	return value ? (
+		<span className={`bt-pill bt-pill--${value === 1 ? 'shared' : 'neutral'}`}>
+			{importanceLabel(m, value)}
+		</span>
 	) : null;
+}
 
 const linesOf = (
+	{ m, t }: I18n,
 	section: SectionId,
 	entries: Entry[],
 	risks: SituationItem[] | undefined,
@@ -29,7 +36,7 @@ const linesOf = (
 		return [
 			...trustedOf(entries).map((person) => person.name),
 			...(agency ? [agency.split('\n')[0] ?? ''] : []),
-			...(selfHelp ? [`Selbsthilfegruppe: ${selfHelp}`] : [])
+			...(selfHelp ? [t(m.emergencyKit.selfHelpLine, { text: selfHelp })] : [])
 		];
 	}
 	if (section === 'risks') {
@@ -54,9 +61,11 @@ export function SectionPreview({
 	risks: SituationItem[] | undefined;
 	agency: string;
 }) {
-	const lines = linesOf(section, entries, risks, agency);
+	const i18n = useI18n();
+	const { m, t } = i18n;
+	const lines = linesOf(i18n, section, entries, risks, agency);
 	if (lines.length === 0) {
-		return <span className="bt-kit-tile__empty">Noch keine Einträge</span>;
+		return <span className="bt-kit-tile__empty">{m.emergencyKit.previewEmpty}</span>;
 	}
 	return (
 		<span className="bt-kit-tile__lines">
@@ -66,7 +75,9 @@ export function SectionPreview({
 				</span>
 			))}
 			{lines.length > PREVIEW && (
-				<span className="bt-kit-tile__more">und {lines.length - PREVIEW} weitere</span>
+				<span className="bt-kit-tile__more">
+					{t(m.emergencyKit.previewMore, { count: lines.length - PREVIEW })}
+				</span>
 			)}
 		</span>
 	);

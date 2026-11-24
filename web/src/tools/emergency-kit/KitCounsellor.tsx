@@ -5,19 +5,17 @@ import {
 	isPrinted,
 	itemsOf,
 	keyedOf,
-	LIST_SECTIONS,
 	OTHER_STRATEGIES_KIND,
-	OTHER_STRATEGIES_LABEL,
 	REQUEST_KIND,
-	RISKS_TITLE,
+	SECTION_NUMBERS,
 	SELF_HELP_KIND,
 	SELF_HELP_REQUEST_KEY,
-	SUPPORT_TITLE,
 	trustedOf,
 	type ListKind
 } from '../../../../shared/tools/emergency-kit.ts';
 import { difficultyOf, situationsOf } from '../../../../shared/tools/risk-situations.ts';
-import { formatDate, Pill } from '../../ui.tsx';
+import { useI18n } from '../../host.ts';
+import { Pill } from '../../ui.tsx';
 import type { CounsellorViewProps } from '../types.ts';
 import { ImportanceLabel } from './parts.tsx';
 
@@ -34,6 +32,7 @@ function Tile({
 	fresh: boolean;
 	children: ReactNode;
 }) {
+	const { m } = useI18n();
 	return (
 		<Card>
 			<section className="bt-stack bt-stack--tight" aria-label={title}>
@@ -41,7 +40,7 @@ function Tile({
 					<h3 className="bt-title">
 						{number}. {title}
 					</h3>
-					{fresh && <Pill tone="new">Neu</Pill>}
+					{fresh && <Pill tone="new">{m.emergencyKit.new}</Pill>}
 				</div>
 				{children}
 			</section>
@@ -50,22 +49,29 @@ function Tile({
 }
 
 function Line({ entry, isNew, children }: { entry: Entry; isNew: IsNew; children: ReactNode }) {
+	const { m } = useI18n();
 	const fresh = isNew(entry);
 	return (
 		<li className={`bt-item${fresh ? ' bt-entry--new' : ''}`}>
 			<span className="bt-item__text">{children}</span>
-			{fresh && <Pill tone="new">Neu</Pill>}
+			{fresh && <Pill tone="new">{m.emergencyKit.new}</Pill>}
 		</li>
 	);
 }
 
-const Empty = () => <p className="bt-muted bt-small">Keine Einträge.</p>;
+function Empty() {
+	return <p className="bt-muted bt-small">{useI18n().m.emergencyKit.noEntries}</p>;
+}
 
 function ListTile({ kind, entries, isNew }: { kind: ListKind; entries: Entry[]; isNew: IsNew }) {
-	const section = LIST_SECTIONS[kind];
+	const section = useI18n().m.emergencyKit.sections[kind];
 	const items = itemsOf(entries, kind);
 	return (
-		<Tile number={section.number} title={section.title} fresh={items.some((item) => isNew(item.entry))}>
+		<Tile
+			number={SECTION_NUMBERS[kind]}
+			title={section.title}
+			fresh={items.some((item) => isNew(item.entry))}
+		>
 			<p className="bt-muted bt-small">{section.listLabel}</p>
 			{items.length === 0 ? (
 				<Empty />
@@ -83,7 +89,9 @@ function ListTile({ kind, entries, isNew }: { kind: ListKind; entries: Entry[]; 
 }
 
 /** Read only: the sections of the Notfallkoffer as tiles, with "neu" on what the counsellor has not seen. */
-export function KitCounsellor({ entries, isNew, locale, linked }: CounsellorViewProps) {
+export function KitCounsellor({ entries, isNew, linked }: CounsellorViewProps) {
+	const { m, t, date } = useI18n();
+	const texts = m.emergencyKit;
 	const trusted = trustedOf(entries);
 	const selfHelp = keyedOf(entries, SELF_HELP_KIND);
 	const request = keyedOf(entries, REQUEST_KIND, SELF_HELP_REQUEST_KEY);
@@ -98,8 +106,12 @@ export function KitCounsellor({ entries, isNew, locale, linked }: CounsellorView
 		<div className="bt-kit">
 			<ListTile kind="motivation" entries={entries} isNew={isNew} />
 			<ListTile kind="strategy" entries={entries} isNew={isNew} />
-			<Tile number={3} title={SUPPORT_TITLE} fresh={supportEntries.some(isNew)}>
-				<strong className="bt-small">Vertrauensperson(en)</strong>
+			<Tile
+				number={SECTION_NUMBERS.support}
+				title={texts.sections.support.title}
+				fresh={supportEntries.some(isNew)}
+			>
+				<strong className="bt-small">{texts.trusted}</strong>
 				{trusted.length === 0 ? (
 					<Empty />
 				) : (
@@ -111,48 +123,53 @@ export function KitCounsellor({ entries, isNew, locale, linked }: CounsellorView
 						))}
 					</ul>
 				)}
-				<strong className="bt-small">Selbsthilfegruppe</strong>
+				<strong className="bt-small">{texts.selfHelp}</strong>
 				{selfHelp ? <p className="bt-pre">{(selfHelp.data as { text: string }).text}</p> : <Empty />}
 				{request && (
 					<p className="bt-small">
-						<Pill tone="shared">Empfehlung gewünscht</Pill> seit {formatDate(request.createdAt, locale)}
+						<Pill tone="shared">{texts.requestWanted}</Pill>{' '}
+						{t(texts.requestSince, { date: date(request.createdAt) })}
 					</p>
 				)}
 			</Tile>
 			<ListTile kind="critical" entries={entries} isNew={isNew} />
 			<ListTile kind="craving" entries={entries} isNew={isNew} />
 			{(risks || other) && (
-				<Tile number={6} title={RISKS_TITLE} fresh={Boolean(other && isNew(other))}>
+				<Tile
+					number={SECTION_NUMBERS.risks}
+					title={texts.sections.risks.title}
+					fresh={Boolean(other && isNew(other))}
+				>
 					{risks ? (
 						printed.length === 0 ? (
-							<p className="bt-muted bt-small">Keine Risikosituationen für den Ausdruck ausgewählt.</p>
+							<p className="bt-muted bt-small">{texts.noPrintedRisks}</p>
 						) : (
 							<ul className="bt-list">
-								{printed.map((risk) => (
-									<li key={risk.id} className="bt-item">
-										<dl className="bt-details bt-item__text">
-											<dt>Risikosituation</dt>
-											<dd>{risk.situation}</dd>
-											{difficultyOf(risk.difficulty) && (
-												<>
-													<dt>Bewertung</dt>
-													<dd>{difficultyOf(risk.difficulty)?.label}</dd>
-												</>
-											)}
-											<dt>Kontrollstrategie</dt>
-											<dd>{risk.strategy || '–'}</dd>
-										</dl>
-									</li>
-								))}
+								{printed.map((risk) => {
+									const difficulty = difficultyOf(risk.difficulty);
+									return (
+										<li key={risk.id} className="bt-item">
+											<dl className="bt-details bt-item__text">
+												<dt>{texts.riskSituation}</dt>
+												<dd>{risk.situation}</dd>
+												{difficulty && (
+													<>
+														<dt>{texts.rating}</dt>
+														<dd>{m.riskSituations.difficulty[difficulty.value]}</dd>
+													</>
+												)}
+												<dt>{texts.controlStrategy}</dt>
+												<dd>{risk.strategy || '–'}</dd>
+											</dl>
+										</li>
+									);
+								})}
 							</ul>
 						)
 					) : (
-						<p className="bt-muted bt-small">
-							Die Risikosituationen sind nur sichtbar, solange auch „Risikosituationen und Kontrollstrategien“
-							geteilt ist.
-						</p>
+						<p className="bt-muted bt-small">{texts.risksOnlyShared}</p>
 					)}
-					<strong className="bt-small">{OTHER_STRATEGIES_LABEL}</strong>
+					<strong className="bt-small">{texts.otherStrategies}</strong>
 					{other ? <p className="bt-pre">{(other.data as { text: string }).text}</p> : <Empty />}
 				</Tile>
 			)}

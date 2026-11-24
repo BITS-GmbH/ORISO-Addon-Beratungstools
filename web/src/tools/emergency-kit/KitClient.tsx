@@ -1,43 +1,33 @@
 import { Button, Card, Checkbox, Headline, Select, Textarea, TextField } from '@oriso/web-kit';
 import { useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
 import type { Entry } from '../../../../shared/api.ts';
 import {
-	agencyIntro,
 	emptySections,
 	IMPORTANCE,
 	isPrinted,
 	itemsOf,
 	keyedOf,
 	keyedText,
-	LIST_SECTIONS,
 	MAIN_KEY,
 	MAX_LONG_TEXT_LENGTH,
 	MAX_NAME_LENGTH,
 	MAX_TEXT_LENGTH,
-	moreText,
 	NAKOS_URL,
-	nakosText,
 	OTHER_STRATEGIES_KIND,
-	OTHER_STRATEGIES_LABEL,
 	REQUEST_KIND,
 	RISK_PRINT_KIND,
-	RISKS_TITLE,
-	risksIntro,
+	SECTION_NUMBERS,
 	SECTION_ORDER,
 	SELF_HELP_KIND,
 	SELF_HELP_REQUEST_KEY,
-	selfHelpIntro,
-	startText,
-	SUPPORT_TITLE,
 	TRUSTED_KIND,
-	trustedIntro,
 	trustedOf,
 	type ListKind,
 	type SectionId
 } from '../../../../shared/tools/emergency-kit.ts';
 import { difficultyOf, situationsOf, type SituationItem } from '../../../../shared/tools/risk-situations.ts';
-import { BackButton, formatDate, Icon, IconButton } from '../../ui.tsx';
+import { useI18n } from '../../host.ts';
+import { BackButton, Icon, IconButton } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 import { SectionPreview } from './parts.tsx';
 
@@ -46,7 +36,7 @@ type Screen = 'overview' | SectionId | 'trusted' | 'agency' | 'self-help';
 type Store = ClientViewProps['store'];
 
 /** The Notfallkoffer as the client uses it: seven sections, their edit pages and the PDFs. */
-export function KitClient({ tool, entries, store, informal, locale, download }: ClientViewProps) {
+export function KitClient({ tool, entries, store, download }: ClientViewProps) {
 	const [screen, setScreen] = useState<Screen>('overview');
 	const risks = tool.linked?.['risk-situations'];
 	const agency = typeof tool.options.agency === 'string' ? tool.options.agency.trim() : '';
@@ -59,146 +49,97 @@ export function KitClient({ tool, entries, store, informal, locale, download }: 
 		case 'critical':
 		case 'craving':
 		case 'relapse':
-			return (
-				<ListEditor
-					key={screen}
-					kind={screen}
-					entries={entries}
-					store={store}
-					informal={informal}
-					onClose={toOverview}
-				/>
-			);
+			return <ListEditor key={screen} kind={screen} entries={entries} store={store} onClose={toOverview} />;
 		case 'support':
 			return (
 				<SupportPage
 					entries={entries}
 					agency={agency}
 					counsellors={counsellors}
-					locale={locale}
 					onOpen={setScreen}
 					onBack={toOverview}
 				/>
 			);
 		case 'trusted':
-			return (
-				<TrustedEditor
-					entries={entries}
-					store={store}
-					informal={informal}
-					onClose={() => setScreen('support')}
-				/>
-			);
+			return <TrustedEditor entries={entries} store={store} onClose={() => setScreen('support')} />;
 		case 'agency':
-			return (
-				<AgencyPage
-					agency={agency}
-					counsellors={counsellors}
-					informal={informal}
-					onBack={() => setScreen('support')}
-				/>
-			);
+			return <AgencyPage agency={agency} counsellors={counsellors} onBack={() => setScreen('support')} />;
 		case 'self-help':
-			return (
-				<SelfHelpEditor
-					entries={entries}
-					store={store}
-					informal={informal}
-					locale={locale}
-					onClose={() => setScreen('support')}
-				/>
-			);
+			return <SelfHelpEditor entries={entries} store={store} onClose={() => setScreen('support')} />;
 		case 'risks':
 			if (risks) {
 				return (
-					<RisksEditor
-						entries={entries}
-						risks={situationsOf(risks)}
-						store={store}
-						informal={informal}
-						onClose={toOverview}
-					/>
+					<RisksEditor entries={entries} risks={situationsOf(risks)} store={store} onClose={toOverview} />
 				);
 			}
 			break;
 	}
-	return (
-		<Overview
-			entries={entries}
-			risks={risks}
-			agency={agency}
-			informal={informal}
-			onOpen={setScreen}
-			download={download}
-		/>
-	);
+	return <Overview entries={entries} risks={risks} agency={agency} onOpen={setScreen} download={download} />;
 }
 
 function Overview({
 	entries,
 	risks,
 	agency,
-	informal,
 	onOpen,
 	download
 }: {
 	entries: Entry[];
 	risks: Entry[] | undefined;
 	agency: string;
-	informal: boolean;
 	onOpen: (screen: Screen) => void;
 	download: ClientViewProps['download'];
 }) {
+	const { m } = useI18n();
+	const texts = m.emergencyKit;
 	const [more, setMore] = useState(entries.length === 0);
 	const [confirming, setConfirming] = useState(false);
 	const situations = risks ? situationsOf(risks) : undefined;
 	const empty = emptySections(entries, agency, situations);
-	const sections = SECTION_ORDER.filter((section) => section.id !== 'risks' || risks !== undefined);
+	const sections = SECTION_ORDER.filter((id) => id !== 'risks' || risks !== undefined);
 
 	return (
 		<div className="bt-stack">
 			<Card>
 				<div className="bt-stack bt-stack--tight">
-					<p className="bt-lead">{startText(informal)}</p>
+					<p className="bt-lead">{texts.start}</p>
 					<div>
 						<button type="button" className="bt-linkbtn" aria-expanded={more} onClick={() => setMore(!more)}>
-							{more ? 'Infotext ausblenden' : 'Infotext einblenden'}
+							{more ? texts.hideInfo : texts.showInfo}
 						</button>
 					</div>
-					{more && <p>{moreText(informal)}</p>}
+					{more && <p>{texts.more}</p>}
 				</div>
 			</Card>
 			<div className="bt-kit">
-				{sections.map((section) => (
-					<button key={section.id} type="button" className="bt-kit-tile" onClick={() => onOpen(section.id)}>
+				{sections.map((id) => (
+					<button key={id} type="button" className="bt-kit-tile" onClick={() => onOpen(id)}>
 						<span className="bt-kit-tile__title">
 							<span className="bt-kit-tile__number" aria-hidden>
-								{section.number}
+								{SECTION_NUMBERS[id]}
 							</span>
-							{section.title}
+							{texts.sections[id].title}
 						</span>
-						<SectionPreview section={section.id} entries={entries} risks={situations} agency={agency} />
+						<SectionPreview section={id} entries={entries} risks={situations} agency={agency} />
 					</button>
 				))}
 			</div>
 			<Card>
 				<div className="bt-stack bt-stack--tight">
-					<h3 className="bt-title">Notfallkoffer ausdrucken</h3>
+					<h3 className="bt-title">{texts.printTitle}</h3>
 					{confirming ? (
-						<div className="bt-confirm" role="alertdialog" aria-label="Trotzdem fortfahren?">
-							<span style={{ flex: 1 }}>
-								Zu mindestens einer Rubrik liegen keine Einträge vor. Trotzdem fortfahren?
-							</span>
+						<div className="bt-confirm" role="alertdialog" aria-label={texts.confirmLabel}>
+							<span style={{ flex: 1 }}>{texts.confirmEmpty}</span>
 							<Button
 								onClick={() => {
 									setConfirming(false);
 									void download('kit');
 								}}
 							>
-								Fortfahren
+								{texts.proceed}
 							</Button>
 							<Button variant="tertiary" onClick={() => setConfirming(false)}>
-								Abbrechen
+								{m.common.cancel}
 							</Button>
 						</div>
 					) : (
@@ -207,20 +148,14 @@ function Overview({
 								variant="secondary"
 								onClick={() => (empty.length > 0 ? setConfirming(true) : void download('kit'))}
 							>
-								Gesamten Notfallkoffer als PDF ausgeben
+								{texts.printKit}
 							</Button>
 							<Button variant="secondary" onClick={() => void download('card')}>
-								Notfallkoffer im Visitenkartenformat
+								{texts.printCard}
 							</Button>
 						</div>
 					)}
-					<p className="bt-muted bt-small">
-						{tx(
-							informal,
-							'Das Visitenkartenformat passt ausgeschnitten in jede Geldbörse, so haben Sie Ihren Notfallkoffer immer dabei.',
-							'Das Visitenkartenformat passt ausgeschnitten in jede Geldbörse, so hast du deinen Notfallkoffer immer dabei.'
-						)}
-					</p>
+					<p className="bt-muted bt-small">{texts.cardHint}</p>
 				</div>
 			</Card>
 		</div>
@@ -241,16 +176,16 @@ function ListEditor({
 	kind,
 	entries,
 	store,
-	informal,
 	onClose
 }: {
 	kind: ListKind;
 	entries: Entry[];
 	store: Store;
-	informal: boolean;
 	onClose: () => void;
 }) {
-	const section = LIST_SECTIONS[kind];
+	const { m, t } = useI18n();
+	const texts = m.emergencyKit;
+	const section = texts.sections[kind];
 	const items = itemsOf(entries, kind);
 	const withImportance = kind === 'motivation';
 	const [rows, setRows] = useState<Row[]>(() =>
@@ -279,13 +214,7 @@ function ListEditor({
 
 	const save = () => {
 		if (withImportance && rows.some((row) => row.text.trim() && !row.importance)) {
-			setProblem(
-				tx(
-					informal,
-					'Bitte wählen Sie bei jedem Eintrag aus, wie wichtig er für Sie ist.',
-					'Bitte wähle bei jedem Eintrag aus, wie wichtig er für dich ist.'
-				)
-			);
+			setProblem(texts.missingImportance);
 			return;
 		}
 		const kept = new Set<string>();
@@ -317,16 +246,17 @@ function ListEditor({
 
 	const used = new Set(rows.map((row) => row.text.trim()));
 	const examples = section.examples[group] ?? section.examples[0];
+	const entryLabel = (index: number) => t(texts.entryLabel, { number: index + 1 });
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onClose}>Zum Notfallkoffer</BackButton>
+			<BackButton onClick={onClose}>{texts.backToKit}</BackButton>
 			<Card>
 				<div className="bt-stack">
 					<div className="bt-stack bt-stack--tight">
-						<p className="bt-overline">Notfallkoffer, Teil {section.number}</p>
+						<p className="bt-overline">{t(texts.part, { number: SECTION_NUMBERS[kind] })}</p>
 						<Headline level={3}>{section.title}</Headline>
-						<p>{section.intro(informal)}</p>
+						<p>{section.intro}</p>
 					</div>
 					<Examples
 						groups={section.examples}
@@ -343,7 +273,7 @@ function ListEditor({
 									<div className="bt-kit-row__fields">
 										<Textarea
 											id={`kit-${kind}-${row.key}`}
-											label={`Eintrag ${index + 1}`}
+											label={entryLabel(index)}
 											value={row.text}
 											maxLength={MAX_TEXT_LENGTH}
 											minRows={2}
@@ -352,14 +282,14 @@ function ListEditor({
 										{withImportance && (
 											<Select
 												id={`kit-importance-${row.key}`}
-												label="Wie wichtig?"
+												label={texts.importanceQuestion}
 												value={row.importance}
 												error={Boolean(problem) && Boolean(row.text.trim()) && !row.importance}
 												options={[
-													{ value: '', label: 'Bitte auswählen' },
+													{ value: '', label: texts.choose },
 													...IMPORTANCE.map((option) => ({
 														value: String(option.value),
-														label: option.label
+														label: texts.importance[option.key]
 													}))
 												]}
 												onChange={(importance) => change(row.key, { importance })}
@@ -368,7 +298,7 @@ function ListEditor({
 									</div>
 									<IconButton
 										icon="delete"
-										label={`Löschen: ${row.text || `Eintrag ${index + 1}`}`}
+										label={t(texts.deleteLabel, { text: row.text || entryLabel(index) })}
 										onClick={() => setRows((list) => list.filter((candidate) => candidate.key !== row.key))}
 									/>
 								</li>
@@ -380,7 +310,7 @@ function ListEditor({
 								className="bt-linkbtn"
 								onClick={() => setRows((list) => [...list, newRow()])}
 							>
-								+ Neuer Eintrag
+								{texts.addEntry}
 							</button>
 						</div>
 					</div>
@@ -390,9 +320,9 @@ function ListEditor({
 						</p>
 					)}
 					<div className="bt-row">
-						<Button onClick={save}>Speichern</Button>
+						<Button onClick={save}>{texts.save}</Button>
 						<Button variant="tertiary" onClick={onClose}>
-							Abbrechen
+							{m.common.cancel}
 						</Button>
 					</div>
 				</div>
@@ -414,18 +344,19 @@ function Examples({
 	items: string[];
 	onPick: (text: string) => void;
 }) {
+	const texts = useI18n().m.emergencyKit;
 	const [open, setOpen] = useState(false);
 	return (
 		<div className="bt-stack bt-stack--tight">
 			<div>
 				<button type="button" className="bt-linkbtn" aria-expanded={open} onClick={() => setOpen(!open)}>
-					{open ? 'Beispiele ausblenden' : 'Beispiele anzeigen'}
+					{open ? texts.hideExamples : texts.showExamples}
 				</button>
 			</div>
 			{open && (
 				<>
 					{groups.length > 1 && (
-						<div className="bt-tabs" role="group" aria-label="Beispiele nach Thema">
+						<div className="bt-tabs" role="group" aria-label={texts.examplesByTopic}>
 							{groups.map((candidate, index) => (
 								<button
 									key={candidate.label}
@@ -448,9 +379,9 @@ function Examples({
 							))}
 						</div>
 					) : (
-						<p className="bt-muted bt-small">Alle Beispiele sind schon eingetragen.</p>
+						<p className="bt-muted bt-small">{texts.allExamplesUsed}</p>
 					)}
-					<p className="bt-muted bt-small">Ein Klick auf ein Beispiel übernimmt es als Eintrag.</p>
+					<p className="bt-muted bt-small">{texts.pickExample}</p>
 				</>
 			)}
 		</div>
@@ -461,34 +392,34 @@ function SupportPage({
 	entries,
 	agency,
 	counsellors,
-	locale,
 	onOpen,
 	onBack
 }: {
 	entries: Entry[];
 	agency: string;
 	counsellors: string[];
-	locale: string;
 	onOpen: (screen: Screen) => void;
 	onBack: () => void;
 }) {
+	const { m, t, date } = useI18n();
+	const texts = m.emergencyKit;
 	const trusted = trustedOf(entries);
 	const selfHelp = keyedText(entries, SELF_HELP_KIND);
 	const request = keyedOf(entries, REQUEST_KIND, SELF_HELP_REQUEST_KEY);
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onBack}>Zum Notfallkoffer</BackButton>
+			<BackButton onClick={onBack}>{texts.backToKit}</BackButton>
 			<Card>
 				<div className="bt-stack">
 					<div>
-						<p className="bt-overline">Notfallkoffer, Teil 3</p>
-						<Headline level={3}>{SUPPORT_TITLE}</Headline>
+						<p className="bt-overline">{t(texts.part, { number: SECTION_NUMBERS.support })}</p>
+						<Headline level={3}>{texts.sections.support.title}</Headline>
 					</div>
 					<div className="bt-summary">
 						<div>
-							<strong>Meine Vertrauensperson(en)</strong>
+							<strong>{texts.myTrusted}</strong>
 							<button type="button" className="bt-linkbtn" onClick={() => onOpen('trusted')}>
-								{trusted.length ? 'Ändern' : 'Vertrauensperson eintragen'}
+								{trusted.length ? texts.change : texts.addTrusted}
 							</button>
 							{trusted.length > 0 && (
 								<ul className="bt-plain" style={{ gridColumn: '1 / -1' }}>
@@ -499,26 +430,28 @@ function SupportPage({
 							)}
 						</div>
 						<div>
-							<strong>Meine Beratungsstelle</strong>
+							<strong>{texts.myAgency}</strong>
 							<button type="button" className="bt-linkbtn" onClick={() => onOpen('agency')}>
-								Anzeigen
+								{texts.showAgency}
 							</button>
 							<p className={`bt-pre${agency ? '' : ' bt-muted'}`} style={{ gridColumn: '1 / -1' }}>
 								{agency ||
-									(counsellors.length ? `Beratung: ${counsellors.join(', ')}` : 'Noch nicht hinterlegt')}
+									(counsellors.length
+										? t(texts.counsellorsLine, { names: counsellors.join(', ') })
+										: texts.notStored)}
 							</p>
 						</div>
 						<div>
-							<strong>Meine Selbsthilfegruppe</strong>
+							<strong>{texts.mySelfHelp}</strong>
 							<button type="button" className="bt-linkbtn" onClick={() => onOpen('self-help')}>
-								{selfHelp ? 'Ändern' : 'Selbsthilfegruppe eintragen'}
+								{selfHelp ? texts.change : texts.addSelfHelp}
 							</button>
 							{(selfHelp || request) && (
 								<div style={{ gridColumn: '1 / -1' }}>
 									{selfHelp && <p className="bt-pre">{selfHelp}</p>}
 									{request && (
 										<p className="bt-small bt-muted">
-											Empfehlung angefragt am {formatDate(request.createdAt, locale)}
+											{t(texts.requestedOn, { date: date(request.createdAt) })}
 										</p>
 									)}
 								</div>
@@ -531,17 +464,9 @@ function SupportPage({
 	);
 }
 
-function TrustedEditor({
-	entries,
-	store,
-	informal,
-	onClose
-}: {
-	entries: Entry[];
-	store: Store;
-	informal: boolean;
-	onClose: () => void;
-}) {
+function TrustedEditor({ entries, store, onClose }: { entries: Entry[]; store: Store; onClose: () => void }) {
+	const { m, t } = useI18n();
+	const texts = m.emergencyKit;
 	const people = trustedOf(entries);
 	const [rows, setRows] = useState<Row[]>(() =>
 		people.length
@@ -575,11 +500,11 @@ function TrustedEditor({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onClose}>Zurück</BackButton>
+			<BackButton onClick={onClose}>{texts.back}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Meine Vertrauensperson(en)</Headline>
-					{trustedIntro(informal).map((paragraph) => (
+					<Headline level={3}>{texts.myTrusted}</Headline>
+					{texts.trustedIntro.map((paragraph) => (
 						<p key={paragraph}>{paragraph}</p>
 					))}
 					<ul className="bt-list">
@@ -588,8 +513,8 @@ function TrustedEditor({
 								<div className="bt-kit-row__fields">
 									<TextField
 										id={`kit-trusted-${row.key}`}
-										label={`Name / Rolle Vertrauensperson ${index + 1}`}
-										placeholder="Name eintragen"
+										label={t(texts.trustedField, { number: index + 1 })}
+										placeholder={texts.trustedPlaceholder}
 										value={row.text}
 										maxLength={MAX_NAME_LENGTH}
 										onChange={(text) =>
@@ -603,7 +528,9 @@ function TrustedEditor({
 								</div>
 								<IconButton
 									icon="delete"
-									label={`Löschen: ${row.text || `Zeile ${index + 1}`}`}
+									label={t(texts.deleteLabel, {
+										text: row.text || t(texts.rowLabel, { number: index + 1 })
+									})}
 									onClick={() => setRows((list) => list.filter((candidate) => candidate.key !== row.key))}
 								/>
 							</li>
@@ -615,13 +542,13 @@ function TrustedEditor({
 							className="bt-linkbtn"
 							onClick={() => setRows((list) => [...list, newRow()])}
 						>
-							+ Zeile hinzufügen
+							{texts.addRow}
 						</button>
 					</div>
 					<div className="bt-row">
-						<Button onClick={save}>Einträge speichern</Button>
+						<Button onClick={save}>{texts.saveEntries}</Button>
 						<Button variant="tertiary" onClick={onClose}>
-							Zurück
+							{texts.back}
 						</Button>
 					</div>
 				</div>
@@ -633,45 +560,33 @@ function TrustedEditor({
 function AgencyPage({
 	agency,
 	counsellors,
-	informal,
 	onBack
 }: {
 	agency: string;
 	counsellors: string[];
-	informal: boolean;
 	onBack: () => void;
 }) {
+	const texts = useI18n().m.emergencyKit;
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onBack}>Zurück</BackButton>
+			<BackButton onClick={onBack}>{texts.back}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Meine Beratungsstelle</Headline>
-					<p>{agencyIntro(informal)}</p>
+					<Headline level={3}>{texts.myAgency}</Headline>
+					<p>{texts.agencyIntro}</p>
 					<div className="bt-quote">
-						<span className="bt-overline">
-							{tx(informal, 'Ihre Beratungsstelle:', 'Deine Beratungsstelle:')}
-						</span>
-						<p className={`bt-pre${agency ? '' : ' bt-muted'}`}>
-							{agency ||
-								tx(
-									informal,
-									'Die Kontaktdaten Ihrer Beratungsstelle sind hier noch nicht hinterlegt. Ihre Beraterin / Ihr Berater nennt sie Ihnen gerne.',
-									'Die Kontaktdaten deiner Beratungsstelle sind hier noch nicht hinterlegt. Deine Beraterin / dein Berater nennt sie dir gerne.'
-								)}
-						</p>
+						<span className="bt-overline">{texts.yourAgency}</span>
+						<p className={`bt-pre${agency ? '' : ' bt-muted'}`}>{agency || texts.agencyMissing}</p>
 					</div>
 					{counsellors.length > 0 && (
 						<div className="bt-quote">
-							<span className="bt-overline">
-								{tx(informal, 'Ihre Beraterin / Ihr Berater:', 'Deine Beraterin / dein Berater:')}
-							</span>
+							<span className="bt-overline">{texts.yourCounsellor}</span>
 							<p>{counsellors.join(', ')}</p>
 						</div>
 					)}
 					<div>
 						<Button variant="secondary" onClick={onBack}>
-							Zurück
+							{texts.back}
 						</Button>
 					</div>
 				</div>
@@ -683,16 +598,14 @@ function AgencyPage({
 function SelfHelpEditor({
 	entries,
 	store,
-	informal,
-	locale,
 	onClose
 }: {
 	entries: Entry[];
 	store: Store;
-	informal: boolean;
-	locale: string;
 	onClose: () => void;
 }) {
+	const { m, t, date } = useI18n();
+	const texts = m.emergencyKit;
 	const saved = keyedText(entries, SELF_HELP_KIND);
 	const [text, setText] = useState(saved);
 	const request = keyedOf(entries, REQUEST_KIND, SELF_HELP_REQUEST_KEY);
@@ -709,18 +622,17 @@ function SelfHelpEditor({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onClose}>Zurück</BackButton>
+			<BackButton onClick={onClose}>{texts.back}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Meine Selbsthilfegruppe</Headline>
-					{selfHelpIntro(informal).map((paragraph) => (
+					<Headline level={3}>{texts.mySelfHelp}</Headline>
+					{texts.selfHelpIntro.map((paragraph) => (
 						<p key={paragraph}>{paragraph}</p>
 					))}
 					{request ? (
 						<p className="bt-done" role="status">
 							<Icon name="check" />
-							Ich möchte eine Selbsthilfegruppe empfohlen bekommen. (angefragt am{' '}
-							{formatDate(request.createdAt, locale)})
+							{t(texts.requestDone, { date: date(request.createdAt) })}
 						</p>
 					) : (
 						<div>
@@ -730,41 +642,30 @@ function SelfHelpEditor({
 								onClick={() => void store.putKeyed(REQUEST_KIND, SELF_HELP_REQUEST_KEY, { requested: true })}
 							>
 								<Icon name="check" />
-								Ich möchte eine Selbsthilfegruppe empfohlen bekommen.
+								{texts.requestButton}
 							</button>
-							<p className="bt-muted bt-small">
-								{tx(
-									informal,
-									'Ihre Beraterin / Ihr Berater erhält dann eine Nachricht.',
-									'Deine Beraterin / dein Berater erhält dann eine Nachricht.'
-								)}
-							</p>
+							<p className="bt-muted bt-small">{texts.requestHint}</p>
 						</div>
 					)}
 					<p>
-						{nakosText(informal)}{' '}
+						{texts.nakosText}{' '}
 						<a href={NAKOS_URL} target="_blank" rel="noopener noreferrer">
-							NAKOS (Nationale Kontakt- und Informationsstelle zur Anregung und Unterstützung von
-							Selbsthilfegruppen)
+							{texts.nakosLink}
 						</a>
 					</p>
 					<Textarea
 						id="kit-self-help"
-						label="Meine Selbsthilfegruppe:"
-						placeholder={tx(
-							informal,
-							'Tragen Sie hier den Namen der Gruppe, Termin(e), Ansprechperson, Telefonnummer ein',
-							'Trag hier den Namen der Gruppe, Termin(e), Ansprechperson, Telefonnummer ein'
-						)}
+						label={texts.selfHelpField}
+						placeholder={texts.selfHelpPlaceholder}
 						value={text}
 						maxLength={MAX_LONG_TEXT_LENGTH}
 						minRows={4}
 						onChange={setText}
 					/>
 					<div className="bt-row">
-						<Button onClick={save}>Speichern</Button>
+						<Button onClick={save}>{texts.save}</Button>
 						<Button variant="tertiary" onClick={onClose}>
-							Abbrechen
+							{m.common.cancel}
 						</Button>
 					</div>
 				</div>
@@ -777,15 +678,15 @@ function RisksEditor({
 	entries,
 	risks,
 	store,
-	informal,
 	onClose
 }: {
 	entries: Entry[];
 	risks: SituationItem[];
 	store: Store;
-	informal: boolean;
 	onClose: () => void;
 }) {
+	const { m, t } = useI18n();
+	const texts = m.emergencyKit;
 	const savedOther = keyedText(entries, OTHER_STRATEGIES_KIND);
 	const [other, setOther] = useState(savedOther);
 	const [print, setPrint] = useState<Record<string, boolean>>(() =>
@@ -810,67 +711,64 @@ function RisksEditor({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onClose}>Zum Notfallkoffer</BackButton>
+			<BackButton onClick={onClose}>{texts.backToKit}</BackButton>
 			<Card>
 				<div className="bt-stack">
 					<div className="bt-stack bt-stack--tight">
-						<p className="bt-overline">Notfallkoffer, Teil 6</p>
-						<Headline level={3}>{RISKS_TITLE}</Headline>
-						<p>{risksIntro(informal)}</p>
+						<p className="bt-overline">{t(texts.part, { number: SECTION_NUMBERS.risks })}</p>
+						<Headline level={3}>{texts.sections.risks.title}</Headline>
+						<p>{texts.risksIntro}</p>
 					</div>
 					{risks.length === 0 ? (
-						<p className="bt-muted">
-							{tx(
-								informal,
-								'In der Übung „Risikosituationen und Kontrollstrategien“ haben Sie noch keine Risikosituation eingetragen.',
-								'In der Übung „Risikosituationen und Kontrollstrategien“ hast du noch keine Risikosituation eingetragen.'
-							)}
-						</p>
+						<p className="bt-muted">{texts.noRisks}</p>
 					) : (
 						<ul className="bt-list">
-							{risks.map((risk) => (
-								<li key={risk.id} className="bt-risk bt-risk--kit">
-									<div className="bt-risk__cell">
-										<span className="bt-overline">Risikosituation</span>
-										<span className="bt-item__text">{risk.situation}</span>
-									</div>
-									<div className="bt-risk__cell">
-										{difficultyOf(risk.difficulty) && (
-											<>
-												<span className="bt-overline">Bewertung</span>
-												<span>{difficultyOf(risk.difficulty)?.label}</span>
-											</>
-										)}
-									</div>
-									<div className="bt-risk__cell">
-										<span className="bt-overline">Kontrollstrategie</span>
-										<span className={`bt-pre${risk.strategy ? '' : ' bt-muted'}`}>
-											{risk.strategy || 'Noch keine Kontrollstrategie'}
-										</span>
-									</div>
-									<div className="bt-risk__cell">
-										<Checkbox
-											label="Für Ausdruck übernehmen?"
-											checked={print[risk.id] ?? true}
-											onChange={(checked) => setPrint({ ...print, [risk.id]: checked })}
-										/>
-									</div>
-								</li>
-							))}
+							{risks.map((risk) => {
+								const difficulty = difficultyOf(risk.difficulty);
+								return (
+									<li key={risk.id} className="bt-risk bt-risk--kit">
+										<div className="bt-risk__cell">
+											<span className="bt-overline">{texts.riskSituation}</span>
+											<span className="bt-item__text">{risk.situation}</span>
+										</div>
+										<div className="bt-risk__cell">
+											{difficulty && (
+												<>
+													<span className="bt-overline">{texts.rating}</span>
+													<span>{m.riskSituations.difficulty[difficulty.value]}</span>
+												</>
+											)}
+										</div>
+										<div className="bt-risk__cell">
+											<span className="bt-overline">{texts.controlStrategy}</span>
+											<span className={`bt-pre${risk.strategy ? '' : ' bt-muted'}`}>
+												{risk.strategy || texts.noStrategy}
+											</span>
+										</div>
+										<div className="bt-risk__cell">
+											<Checkbox
+												label={texts.printRisk}
+												checked={print[risk.id] ?? true}
+												onChange={(checked) => setPrint({ ...print, [risk.id]: checked })}
+											/>
+										</div>
+									</li>
+								);
+							})}
 						</ul>
 					)}
 					<Textarea
 						id="kit-other-strategies"
-						label={OTHER_STRATEGIES_LABEL}
+						label={texts.otherStrategies}
 						value={other}
 						maxLength={MAX_LONG_TEXT_LENGTH}
 						minRows={4}
 						onChange={setOther}
 					/>
 					<div className="bt-row">
-						<Button onClick={save}>Speichern</Button>
+						<Button onClick={save}>{texts.save}</Button>
 						<Button variant="tertiary" onClick={onClose}>
-							Abbrechen
+							{m.common.cancel}
 						</Button>
 					</div>
 				</div>
