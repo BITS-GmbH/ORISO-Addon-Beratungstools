@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import { snippet } from '../../shared/tools/relatives-diary.ts';
 import { entrySchema, relativesDiary } from '../src/tools/relatives-diary/index.ts';
 import { createWriter } from './pdfWriter.ts';
@@ -43,7 +44,8 @@ describe('relatives-diary', () => {
 			entries: [entry('2026-11-20', { text: 'Später' }), entry('2026-11-18', { text: 'Früher', mood: 2 })],
 			options: {},
 			linked: {},
-			counsellors: []
+			counsellors: [],
+			i18n: i18n('de')
 		});
 		expect(text()).toBe(
 			'## Mittwoch, 18.11.2026\nBewertung des Tages: eher schlecht\nFrüher\n## Freitag, 20.11.2026\nBewertung des Tages: keine Angabe\nSpäter'

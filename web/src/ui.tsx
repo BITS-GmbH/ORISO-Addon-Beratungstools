@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { i18nFor } from '../../shared/i18n/index.ts';
+import { useI18n } from './host.ts';
 
 const ICONS = {
 	back: 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z',
@@ -64,22 +66,25 @@ export const Pill = ({
 export type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
 /** The autosave indicator: tells the user that their input has been stored. */
-export const SaveStatus = ({ state }: { state: SaveState }) => (
-	<span
-		className={`bt-saving${state === 'error' ? ' bt-saving--error' : ''}`}
-		role="status"
-		aria-live="polite"
-	>
-		{state === 'saving' && 'Wird gespeichert …'}
-		{state === 'saved' && (
-			<>
-				<Icon name="check" />
-				Automatisch gespeichert
-			</>
-		)}
-		{state === 'error' && 'Nicht gespeichert'}
-	</span>
-);
+export const SaveStatus = ({ state }: { state: SaveState }) => {
+	const { m } = useI18n();
+	return (
+		<span
+			className={`bt-saving${state === 'error' ? ' bt-saving--error' : ''}`}
+			role="status"
+			aria-live="polite"
+		>
+			{state === 'saving' && m.common.saving}
+			{state === 'saved' && (
+				<>
+					<Icon name="check" />
+					{m.common.saved}
+				</>
+			)}
+			{state === 'error' && m.common.notSaved}
+		</span>
+	);
+};
 
 export const Switch = ({
 	checked,
@@ -129,15 +134,9 @@ export const downloadBlob = (blob: Blob, fileName: string): void => {
 	setTimeout(() => URL.revokeObjectURL(url), 10_000);
 };
 
+/** Date (and time) in the format of the host's locale. */
 export const formatDate = (iso: string | null | undefined, locale = 'de', withTime = false): string =>
-	iso
-		? new Date(iso).toLocaleString(locale.split('@')[0] || 'de', {
-				day: '2-digit',
-				month: '2-digit',
-				year: 'numeric',
-				...(withTime ? { hour: '2-digit', minute: '2-digit' } : {})
-			})
-		: '';
+	i18nFor(locale).date(iso, { withTime });
 
 interface Loaded<T> {
 	data: T | null;
@@ -215,29 +214,32 @@ export const WeekNav = ({
 	onPrevious: () => void;
 	onNext: () => void;
 	nextDisabled?: boolean;
-}) => (
-	<div className="bt-weeknav">
-		<button
-			type="button"
-			className="bt-iconbtn"
-			aria-label="Woche zurück"
-			title="Woche zurück"
-			onClick={onPrevious}
-		>
-			<Icon name="previous" />
-		</button>
-		<span className="bt-title" aria-live="polite">
-			{label}
-		</span>
-		<button
-			type="button"
-			className="bt-iconbtn"
-			aria-label="Woche vor"
-			title="Woche vor"
-			disabled={nextDisabled}
-			onClick={onNext}
-		>
-			<Icon name="next" />
-		</button>
-	</div>
-);
+}) => {
+	const { m } = useI18n();
+	return (
+		<div className="bt-weeknav">
+			<button
+				type="button"
+				className="bt-iconbtn"
+				aria-label={m.common.weekBack}
+				title={m.common.weekBack}
+				onClick={onPrevious}
+			>
+				<Icon name="previous" />
+			</button>
+			<span className="bt-title" aria-live="polite">
+				{label}
+			</span>
+			<button
+				type="button"
+				className="bt-iconbtn"
+				aria-label={m.common.weekForward}
+				title={m.common.weekForward}
+				disabled={nextDisabled}
+				onClick={onNext}
+			>
+				<Icon name="next" />
+			</button>
+		</div>
+	);
+};

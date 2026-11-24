@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import { levelLabel } from '../../shared/tools/traffic-light.ts';
 import { trafficLight, activitySchema } from '../src/tools/traffic-light/index.ts';
 
@@ -30,7 +31,7 @@ describe('Ampelmodell input', () => {
 	});
 
 	it('seeds valid demo activities', () => {
-		for (const seed of trafficLight.demo?.() ?? []) {
+		for (const seed of trafficLight.demo?.(i18n('de')) ?? []) {
 			expect(trafficLight.kinds[seed.kind]?.schema.safeParse(seed.data).success).toBe(true);
 		}
 	});

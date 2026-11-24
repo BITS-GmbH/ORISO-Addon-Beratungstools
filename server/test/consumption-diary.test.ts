@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import {
 	consumedOn,
 	daySum,
@@ -144,7 +145,7 @@ describe('consumption-diary', () => {
 	});
 
 	it('exports days with answers, phases and summary, and seeds a valid demo', () => {
-		const demo = consumptionDiary.demo?.() ?? [];
+		const demo = consumptionDiary.demo?.(i18n('de')) ?? [];
 		for (const seed of demo) {
 			expect(consumptionDiary.kinds[seed.kind]?.schema.safeParse(seed.data).success).toBe(true);
 			if (seed.key && seed.kind !== 'topics') {
@@ -156,7 +157,8 @@ describe('consumption-diary', () => {
 			entries: demo.map((seed) => entry(seed.kind, seed.data, seed.day ?? null, seed.key ?? null)),
 			options: {},
 			linked: {},
-			counsellors: []
+			counsellors: [],
+			i18n: i18n('de')
 		});
 		const out = text();
 		expect(out).toContain('Dokumentierte Themen: Alkohol, Glücksspiel');

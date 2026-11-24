@@ -1,6 +1,7 @@
 import type { z } from 'zod';
 import type { Entry, ToolOptions } from '../../../shared/api.ts';
 import type { ToolId } from '../../../shared/catalog.ts';
+import type { I18n } from '../../../shared/i18n/index.ts';
 import type { PdfWriter } from '../core/pdf.ts';
 import type { Localized } from '../host.ts';
 
@@ -45,14 +46,16 @@ export interface ExportInput {
 	linked: LinkedEntries;
 	/** Display names of the client's counsellors, when the tool asks for them. */
 	counsellors: string[];
+	/** The language of the PDF (formal address); dates via `formatDay(day, i18n.lang)`. */
+	i18n: I18n;
 }
 
 export type LinkedEntries = Partial<Record<ToolId, Entry[]>>;
 
 /** A PDF the client makes of their own entries, e.g. the Notfallkoffer as business cards. */
 export interface ClientExport {
-	/** Title on top of the PDF and part of the file name. */
-	title: string;
+	/** Title on top of the PDF. */
+	title: (i18n: I18n) => string;
 	/** Without the common header, for formats with their own layout. */
 	bare?: boolean;
 	write(pdf: PdfWriter, input: ExportInput & { params: Record<string, string> }): void;
@@ -68,7 +71,7 @@ export interface SeedEntry {
 export interface CalendarEntry {
 	id: string;
 	kind: 'appointment' | 'deadline' | 'reminder';
-	title: { de: string; en?: string };
+	title: Localized;
 	start: string;
 	end?: string;
 	allDay?: boolean;
@@ -102,8 +105,8 @@ export interface ServerTool {
 	reads?: ToolId[];
 	/** The client's counsellors by name (from the host context), handed over as `counsellors`. */
 	counsellorNames?: boolean;
-	/** Example entries for the counsellor's demo, applied on first use and on reset. */
-	demo?(): SeedEntry[];
+	/** Example entries for the counsellor's demo in their language, applied on first use and on reset. */
+	demo?(i18n: I18n): SeedEntry[];
 	/** Dated reminders for the client's calendar (ADR-034, section 6). */
 	calendar?(input: CalendarInput): CalendarEntry[];
 }

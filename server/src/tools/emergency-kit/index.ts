@@ -250,8 +250,8 @@ export const emergencyKit: ServerTool = {
 	},
 	exportPdf: writeKit,
 	clientExports: {
-		kit: { title: 'Mein Notfallkoffer', write: writeKit },
-		card: { title: 'Mein Notfallkoffer', bare: true, write: writeCards }
+		kit: { title: () => 'Mein Notfallkoffer', write: writeKit },
+		card: { title: () => 'Mein Notfallkoffer', bare: true, write: writeCards }
 	},
 	demo: () => [
 		{ kind: 'motivation', data: { text: 'Endlich wieder frei sein', importance: 1 } },

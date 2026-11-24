@@ -1,9 +1,9 @@
 import { Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useCallback, useMemo, useState } from 'react';
 import type { ClientTool } from '../../../shared/api.ts';
-import { type ToolId, toolInfo } from '../../../shared/catalog.ts';
+import { type ToolId, toolTexts } from '../../../shared/catalog.ts';
 import { ApiError, ownerApi } from '../api.ts';
-import { useHost, useTx } from '../host.ts';
+import { useHost, useI18n } from '../host.ts';
 import { webTool } from '../tools/index.ts';
 import { BackButton, downloadBlob, SaveStatus, Switch, useLoad } from '../ui.tsx';
 import { useEntryStore } from './entryStore.ts';
@@ -19,21 +19,20 @@ interface Props {
 /** A tool as its user sees it: header with autosave status, the share switch and the tool itself. */
 export function ToolPage({ toolId, mode, onBack, backLabel, onOpenTool }: Props) {
 	const host = useHost();
+	const { m, t, lang } = useI18n();
 	const api = useMemo(
-		() => ownerApi(host.api, mode === 'client' ? '/me' : '/demo', toolId),
-		[host.api, mode, toolId]
+		() => ownerApi(host.api, mode === 'client' ? '/me' : '/demo', toolId, lang),
+		[host.api, mode, toolId, lang]
 	);
 	const { data, error } = useLoad(api.load);
-	const title = toolInfo(toolId)?.title.de ?? toolId;
+	const title = toolTexts(m, toolId).title;
 
 	if (error && !data) {
 		return (
 			<div className="bt-stack">
 				<BackButton onClick={onBack}>{backLabel}</BackButton>
-				<Notice type="error" title={`„${title}“ konnte nicht geladen werden.`}>
-					{error instanceof ApiError && error.status === 403
-						? 'Das Tool ist nicht mehr freigeschaltet.'
-						: 'Bitte versuchen Sie es später noch einmal.'}
+				<Notice type="error" title={t(m.toolPage.loadError, { title })}>
+					{error instanceof ApiError && error.status === 403 ? m.toolPage.notReleased : m.common.tryLater}
 				</Notice>
 			</div>
 		);
@@ -70,7 +69,7 @@ function LoadedTool({
 	onOpenTool?: (id: ToolId) => void;
 }) {
 	const host = useHost();
-	const tx = useTx();
+	const { m, lang } = useI18n();
 	const [shared, setShared] = useState(tool.shared);
 	const onError = useCallback(
 		(error: Error) =>
@@ -78,13 +77,10 @@ function LoadedTool({
 				type: 'error',
 				text:
 					error instanceof ApiError && error.status === 403
-						? 'Das Tool ist nicht mehr freigeschaltet. Ihre Eingabe wurde nicht gespeichert.'
-						: tx(
-								'Speichern hat nicht geklappt. Bitte versuchen Sie es noch einmal.',
-								'Speichern hat nicht geklappt. Bitte versuch es noch einmal.'
-							)
+						? m.toolPage.notReleasedNotSaved
+						: m.toolPage.saveFailed
 			}),
-		[host, tx]
+		[host, m]
 	);
 	const { entries, store } = useEntryStore(api, tool.entries, onError);
 	const module = webTool(tool.id);
@@ -92,19 +88,13 @@ function LoadedTool({
 	const download = useCallback(
 		async (format: string, params?: Record<string, string>) => {
 			try {
-				const { blob, fileName } = await api.exportPdf(format, params);
+				const { blob, fileName } = await api.exportPdf(format, { ...params, lang });
 				downloadBlob(blob, fileName);
 			} catch {
-				host.notify({
-					type: 'error',
-					text: tx(
-						'Das PDF konnte nicht erstellt werden. Bitte versuchen Sie es noch einmal.',
-						'Das PDF konnte nicht erstellt werden. Bitte versuch es noch einmal.'
-					)
-				});
+				host.notify({ type: 'error', text: m.toolPage.pdfFailed });
 			}
 		},
-		[api, host, tx]
+		[api, host, m, lang]
 	);
 
 	const changeShare = async (next: boolean) => {
@@ -113,15 +103,7 @@ function LoadedTool({
 			await api.share(next);
 			host.notify({
 				type: 'success',
-				text: next
-					? tx(
-							'Ihre Beratung kann diese Inhalte jetzt einsehen.',
-							'Deine Beratung kann diese Inhalte jetzt einsehen.'
-						)
-					: tx(
-							'Die Inhalte sind wieder nur für Sie sichtbar.',
-							'Die Inhalte sind wieder nur für dich sichtbar.'
-						)
+				text: next ? m.toolPage.sharedNow : m.toolPage.privateAgain
 			});
 		} catch (error) {
 			setShared(!next);
@@ -139,19 +121,9 @@ function LoadedTool({
 			{tool.allowSharing && (
 				<div className="bt-entry">
 					<Switch
-						overline="Sichtbarkeit für Berater/in"
-						label={tx(
-							'Mit meiner Beraterin / meinem Berater teilen',
-							'Mit meiner Beraterin / meinem Berater teilen'
-						)}
-						description={
-							shared
-								? tx(
-										'Ihre Beraterin / Ihr Berater kann Ihre Einträge einsehen und wird über neue Einträge informiert.',
-										'Deine Beraterin / dein Berater kann deine Einträge einsehen und wird über neue Einträge informiert.'
-									)
-								: tx('Ihre Einträge sind nur für Sie sichtbar.', 'Deine Einträge sind nur für dich sichtbar.')
-						}
+						overline={m.toolPage.shareOverline}
+						label={m.toolPage.shareLabel}
+						description={shared ? m.toolPage.shareOn : m.toolPage.shareOff}
 						checked={shared}
 						onChange={changeShare}
 					/>
@@ -169,7 +141,7 @@ function LoadedTool({
 					openTool={onOpenTool}
 				/>
 			) : (
-				<Notice type="info" title="Dieses Tool ist noch nicht verfügbar." />
+				<Notice type="info" title={m.toolPage.notAvailable} />
 			)}
 		</div>
 	);

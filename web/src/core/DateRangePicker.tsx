@@ -1,5 +1,14 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
-import { addDays, formatDay, formatDayLong, weekStart } from '../../../shared/days.ts';
+import {
+	addDays,
+	formatDay,
+	formatDayLong,
+	formatMonth,
+	weekdayNames,
+	weekStart
+} from '../../../shared/days.ts';
+import { i18n, type Lang } from '../../../shared/i18n/index.ts';
+import { useI18n } from '../host.ts';
 import { Icon } from '../ui.tsx';
 
 export interface DayRange {
@@ -7,30 +16,6 @@ export interface DayRange {
 	from: string;
 	to: string;
 }
-
-const MONTHS = [
-	'Januar',
-	'Februar',
-	'März',
-	'April',
-	'Mai',
-	'Juni',
-	'Juli',
-	'August',
-	'September',
-	'Oktober',
-	'November',
-	'Dezember'
-];
-const WEEKDAYS = [
-	['Mo', 'Montag'],
-	['Di', 'Dienstag'],
-	['Mi', 'Mittwoch'],
-	['Do', 'Donnerstag'],
-	['Fr', 'Freitag'],
-	['Sa', 'Samstag'],
-	['So', 'Sonntag']
-];
 
 const monthOf = (day: string) => `${day.slice(0, 7)}-01`;
 
@@ -48,8 +33,6 @@ const shiftDayByMonths = (day: string, by: number): string => {
 	return candidate > last ? last : candidate;
 };
 
-const monthLabel = (month: string) => `${MONTHS[Number(month.slice(5, 7)) - 1]} ${month.slice(0, 4)}`;
-
 /** Monday to Sunday rows covering the month. */
 const weeksOf = (month: string): string[][] => {
 	const next = shiftMonth(month, 1);
@@ -60,14 +43,19 @@ const weeksOf = (month: string): string[][] => {
 	return weeks;
 };
 
-export const rangeLabel = ({ from, to }: DayRange): string => {
+export const rangeLabel = ({ from, to }: DayRange, lang: Lang = 'de'): string => {
+	const { m, t } = i18n(lang);
 	if (!from && !to) {
-		return 'Alle Einträge';
+		return m.rangePicker.all;
 	}
 	if (from && to) {
-		return from === to ? formatDay(from) : `${formatDay(from)} bis ${formatDay(to)}`;
+		return from === to
+			? formatDay(from, lang)
+			: t(m.days.period, { from: formatDay(from, lang), to: formatDay(to, lang) });
 	}
-	return from ? `ab ${formatDay(from)}` : `bis ${formatDay(to)}`;
+	return from
+		? t(m.rangePicker.from, { day: formatDay(from, lang) })
+		: t(m.rangePicker.until, { day: formatDay(to, lang) });
 };
 
 /**
@@ -78,7 +66,7 @@ export function DateRangePicker({
 	value,
 	onChange,
 	today,
-	label = 'Zeitraum'
+	label
 }: {
 	value: DayRange;
 	onChange: (range: DayRange) => void;
@@ -86,6 +74,8 @@ export function DateRangePicker({
 	today: string;
 	label?: string;
 }) {
+	const { m, t, lang } = useI18n();
+	const fieldLabel = label ?? m.rangePicker.label;
 	const id = useId();
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const triggerRef = useRef<HTMLButtonElement>(null);
@@ -205,8 +195,8 @@ export function DateRangePicker({
 				onClick={() => (open ? close() : openCalendar())}
 			>
 				<span className="bt-range__text">
-					<span className="bt-range__label">{label}</span>
-					<span className="bt-range__value">{rangeLabel(value)}</span>
+					<span className="bt-range__label">{fieldLabel}</span>
+					<span className="bt-range__value">{rangeLabel(value, lang)}</span>
 				</span>
 				<Icon name="calendar" />
 			</button>
@@ -215,7 +205,7 @@ export function DateRangePicker({
 					id={`${id}-dialog`}
 					className="bt-range__popover"
 					role="dialog"
-					aria-label={`${label} wählen`}
+					aria-label={t(m.rangePicker.choose, { label: fieldLabel })}
 					onKeyDown={(event) => {
 						if (event.key === 'Escape') {
 							event.preventDefault();
@@ -223,43 +213,43 @@ export function DateRangePicker({
 						}
 					}}
 				>
-					<div className="bt-range__quick" role="group" aria-label="Schnellauswahl">
+					<div className="bt-range__quick" role="group" aria-label={m.rangePicker.quick}>
 						<button
 							type="button"
 							className="bt-chip"
 							onClick={() => commit({ from: weekStart(today), to: today })}
 						>
-							Diese Woche
+							{m.rangePicker.thisWeek}
 						</button>
 						<button
 							type="button"
 							className="bt-chip"
 							onClick={() => commit({ from: addDays(today, -27), to: today })}
 						>
-							Letzte 4 Wochen
+							{m.rangePicker.lastFourWeeks}
 						</button>
 						<button type="button" className="bt-chip" onClick={() => commit({ from: '', to: '' })}>
-							Alle Einträge
+							{m.rangePicker.all}
 						</button>
 					</div>
 					<div className="bt-range__month">
 						<button
 							type="button"
 							className="bt-iconbtn"
-							aria-label="Vorheriger Monat"
-							title="Vorheriger Monat"
+							aria-label={m.rangePicker.previousMonth}
+							title={m.rangePicker.previousMonth}
 							onClick={() => setMonth(shiftMonth(month, -1))}
 						>
 							<Icon name="previous" />
 						</button>
 						<span className="bt-range__monthlabel" aria-live="polite" id={`${id}-month`}>
-							{monthLabel(month)}
+							{formatMonth(month, lang)}
 						</span>
 						<button
 							type="button"
 							className="bt-iconbtn"
-							aria-label="Nächster Monat"
-							title="Nächster Monat"
+							aria-label={m.rangePicker.nextMonth}
+							title={m.rangePicker.nextMonth}
 							disabled={nextMonthDisabled}
 							onClick={() => setMonth(shiftMonth(month, 1))}
 						>
@@ -276,7 +266,7 @@ export function DateRangePicker({
 					>
 						<thead>
 							<tr>
-								{WEEKDAYS.map(([short, long]) => (
+								{weekdayNames(lang).map(([short, long]) => (
 									<th key={short} scope="col" abbr={long}>
 										{short}
 									</th>
@@ -308,7 +298,7 @@ export function DateRangePicker({
 														data-day={day}
 														tabIndex={day === tabbable ? 0 : -1}
 														disabled={day > today}
-														aria-label={formatDayLong(day)}
+														aria-label={formatDayLong(day, lang)}
 														aria-current={day === today ? 'date' : undefined}
 														onClick={() => pick(day)}
 														onMouseEnter={() => start !== null && setHovered(day)}
@@ -326,8 +316,8 @@ export function DateRangePicker({
 					</table>
 					<p className="bt-small bt-muted" aria-live="polite">
 						{start === null
-							? 'Ersten Tag des Zeitraums wählen.'
-							: `Ab ${formatDay(start)}: jetzt den letzten Tag wählen.`}
+							? m.rangePicker.pickFirst
+							: t(m.rangePicker.pickLast, { day: formatDay(start, lang) })}
 					</p>
 				</div>
 			)}

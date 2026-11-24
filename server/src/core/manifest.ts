@@ -1,5 +1,6 @@
 import packageJson from '../../../package.json' with { type: 'json' };
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
+import { localized } from '../../../shared/i18n/index.ts';
 import type { ServerTool } from '../tools/types.ts';
 
 export const NAME = 'beratungstools';
@@ -26,57 +27,38 @@ export const manifest = (tools: ServerTool[]) => ({
 	settings: '/schema/settings.json',
 	calendar: '/calendar',
 	events: ['user.deleted'],
-	stats: tools.flatMap((tool) => {
-		const title = toolInfo(tool.id)?.title ?? { de: tool.id, en: tool.id };
-		return [
-			{
-				id: `${tool.id}.released`,
-				label: { de: `${title.de}: freigeschaltet`, en: `${title.en}: released` },
-				type: 'count'
-			},
-			{
-				id: `${tool.id}.started`,
-				label: { de: `${title.de}: bearbeitet`, en: `${title.en}: started` },
-				type: 'count'
-			},
-			{
-				id: `${tool.id}.shared`,
-				label: { de: `${title.de}: geteilt`, en: `${title.en}: shared` },
-				type: 'count'
-			}
-		];
-	}),
+	stats: tools.flatMap((tool) =>
+		(
+			[
+				['released', 'statReleased'],
+				['started', 'statStarted'],
+				['shared', 'statShared']
+			] as const
+		).map(([stat, label]) => ({
+			id: `${tool.id}.${stat}`,
+			label: localized(({ m, t }) => t(m.manifest[label], { tool: toolTexts(m, tool.id).title })),
+			type: 'count'
+		}))
+	),
 	apps: [
 		{
 			id: APP_ID,
-			title: { de: 'Tools', en: 'Tools' },
-			description: {
-				de: 'Digitale Beratungstools: Beratende schalten Übungen frei, Ratsuchende bearbeiten sie und teilen sie auf Wunsch mit der Beratung.',
-				en: 'Digital counselling tools: counsellors release exercises, clients work on them and may share them with their counsellor.'
-			},
+			title: localized(({ m }) => m.manifest.title),
+			description: localized(({ m }) => m.manifest.description),
 			icon: '/ui/icons/tools.svg',
 			slots: Object.values(SLOTS),
 			visibility: 'dynamic',
-			screenshots: [
-				{
-					slot: SLOTS.consultantSession,
-					file: 'uebersicht.png',
-					de: 'Tool-Übersicht im Fall',
-					en: 'Tools of a case'
-				},
-				{
-					slot: SLOTS.consultantSession,
-					file: 'einsicht.png',
-					de: 'Geteilte Einträge, schreibgeschützt',
-					en: 'Shared entries, read only'
-				},
-				{
-					slot: SLOTS.askerNavigation,
-					file: 'motivationswaage.png',
-					de: 'Motivationswaage der ratsuchenden Person',
-					en: 'The client’s decisional balance'
-				}
-			].map(({ slot, file, de, en }) => ({ slot, url: `${DOCS}/img/${file}`, caption: { de, en } }))
+			screenshots: (
+				[
+					[SLOTS.consultantSession, 'uebersicht.png', 'screenshotOverview'],
+					[SLOTS.consultantSession, 'einsicht.png', 'screenshotEntries'],
+					[SLOTS.askerNavigation, 'motivationswaage.png', 'screenshotBalance']
+				] as const
+			).map(([slot, file, caption]) => ({
+				slot,
+				url: `${DOCS}/img/${file}`,
+				caption: localized(({ m }) => m.manifest[caption])
+			}))
 		}
 	],
 	health: '/health'

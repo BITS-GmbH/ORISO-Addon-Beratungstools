@@ -1,9 +1,7 @@
 import type { Claims } from './auth.ts';
 
-export interface Localized {
-	de: string;
-	en?: string;
-}
+/** A text per language; the host shows the user's language, else German. */
+export type Localized = { de: string } & Partial<Record<string, string>>;
 
 export interface HostNotification {
 	recipient: 'self' | 'asker' | 'counsellors';

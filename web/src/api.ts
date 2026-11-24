@@ -50,12 +50,13 @@ const fetchPdf = async (
 };
 
 /** The routes a tool uses as its user: `/me` for the client, `/demo` for a counsellor's demo. */
-export const ownerApi = (api: Call, base: '/me' | '/demo', tool: string) => {
+export const ownerApi = (api: Call, base: '/me' | '/demo', tool: string, lang = 'de') => {
 	const root = `${base}/tools/${encodeURIComponent(tool)}`;
+	const withLang = `?${new URLSearchParams({ lang })}`;
 	const keyed = (kind: string, key: string) =>
 		`${root}/keyed/${encodeURIComponent(kind)}/${encodeURIComponent(key)}`;
 	return {
-		load: () => request<ClientTool>(api, root),
+		load: () => request<ClientTool>(api, `${root}${withLang}`),
 		create: (kind: string, data: unknown, day?: string) =>
 			request<Entry>(api, `${root}/entries`, 'POST', { kind, data, day }),
 		update: (id: string, data: unknown, day?: string) =>
@@ -65,7 +66,7 @@ export const ownerApi = (api: Call, base: '/me' | '/demo', tool: string) => {
 			request<Entry>(api, keyed(kind, key), 'PUT', { data, day }),
 		removeKeyed: (kind: string, key: string) => request<void>(api, keyed(kind, key), 'DELETE'),
 		share: (shared: boolean) => request<{ shared: boolean }>(api, `${root}/share`, 'PUT', { shared }),
-		reset: () => request<void>(api, `${root}/reset`, 'POST'),
+		reset: () => request<void>(api, `${root}/reset${withLang}`, 'POST'),
 		exportPdf: (format: string, params: Record<string, string> = {}) =>
 			fetchPdf(api, `${root}/export/${encodeURIComponent(format)}`, params, `${tool}-${format}.pdf`)
 	};
@@ -82,7 +83,7 @@ export const caseApi = (api: Call) => ({
 	entries: (tool: string) => request<CaseEntries>(api, `/case/tools/${tool}/entries`),
 	seen: (tool: string, until?: string) =>
 		request<{ seenAt: string }>(api, `/case/tools/${tool}/seen`, 'POST', { until }),
-	exportPdf: (tool: string, range: { from?: string; to?: string } = {}) =>
+	exportPdf: (tool: string, range: { from?: string; to?: string; lang?: string } = {}) =>
 		fetchPdf(api, `/case/tools/${tool}/export`, range as Record<string, string>, `${tool}.pdf`),
 	prefs: () => request<NotificationPrefs>(api, '/counsellor/notification-prefs'),
 	savePrefs: (prefs: NotificationPrefs) =>

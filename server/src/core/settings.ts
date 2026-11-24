@@ -1,5 +1,6 @@
 import type { ToolOptions } from '../../../shared/api.ts';
-import { settingsKey, toolInfo } from '../../../shared/catalog.ts';
+import { settingsKey, toolTexts } from '../../../shared/catalog.ts';
+import { i18n } from '../../../shared/i18n/index.ts';
 import type { ServerTool, SettingProperty } from '../tools/types.ts';
 
 export interface SettingsSchema {
@@ -24,7 +25,7 @@ export const settingsSchema = (tools: ServerTool[]): SettingsSchema => {
 		}
 	};
 	for (const tool of tools) {
-		const title = toolInfo(tool.id)?.title.de ?? tool.id;
+		const title = toolTexts(i18n('de').m, tool.id).title;
 		properties[settingsKey(tool.id)] = {
 			type: 'boolean',
 			title: `${title} anbieten`,

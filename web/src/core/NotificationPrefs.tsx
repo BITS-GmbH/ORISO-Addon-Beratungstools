@@ -2,13 +2,14 @@ import { Button, Checkbox } from '@oriso/web-kit';
 import { useEffect, useMemo, useState } from 'react';
 import { DEFAULT_PREFS, type NotificationPrefs } from '../../../shared/api.ts';
 import { caseApi } from '../api.ts';
-import { useHost } from '../host.ts';
+import { useHost, useI18n } from '../host.ts';
 import { Icon } from '../ui.tsx';
 
 export const PREFS_PANEL_ID = 'bt-notification-prefs';
 
 /** Opens the notification preferences; sits next to the "Tools" headline so it is found. */
 export function NotificationPrefsButton({ open, onToggle }: { open: boolean; onToggle: () => void }) {
+	const { m } = useI18n();
 	return (
 		<button
 			type="button"
@@ -18,7 +19,7 @@ export function NotificationPrefsButton({ open, onToggle }: { open: boolean; onT
 			onClick={onToggle}
 		>
 			<Icon name="bell" />
-			Benachrichtigungen
+			{m.prefs.button}
 		</button>
 	);
 }
@@ -26,6 +27,7 @@ export function NotificationPrefsButton({ open, onToggle }: { open: boolean; onT
 /** The counsellor's own choice which tool events notify them (in all their cases). */
 export function NotificationPrefsPanel({ onClose }: { onClose: () => void }) {
 	const host = useHost();
+	const { m } = useI18n();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [prefs, setPrefs] = useState<NotificationPrefs | null>(null);
 	const [saving, setSaving] = useState(false);
@@ -41,49 +43,42 @@ export function NotificationPrefsPanel({ onClose }: { onClose: () => void }) {
 		setSaving(true);
 		try {
 			setPrefs(await api.savePrefs(prefs));
-			host.notify({ type: 'success', text: 'Ihre Benachrichtigungseinstellungen sind gespeichert.' });
+			host.notify({ type: 'success', text: m.prefs.saved });
 			onClose();
 		} catch {
-			host.notify({ type: 'error', text: 'Die Einstellungen konnten nicht gespeichert werden.' });
+			host.notify({ type: 'error', text: m.prefs.saveFailed });
 		} finally {
 			setSaving(false);
 		}
 	};
 
 	return (
-		<section
-			id={PREFS_PANEL_ID}
-			className="bt-entry bt-stack bt-stack--tight"
-			aria-label="Benachrichtigungen"
-		>
-			<h3 className="bt-title">Benachrichtigungseinstellungen</h3>
+		<section id={PREFS_PANEL_ID} className="bt-entry bt-stack bt-stack--tight" aria-label={m.prefs.button}>
+			<h3 className="bt-title">{m.prefs.title}</h3>
 			{prefs && (
 				<>
-					<p className="bt-muted bt-small">
-						Worüber möchten Sie informiert werden, wenn Ratsuchende ihre Tools mit Ihnen teilen? Gilt für alle
-						Ihre Fälle. Mehrere Änderungen kurz hintereinander werden zusammengefasst.
-					</p>
+					<p className="bt-muted bt-small">{m.prefs.intro}</p>
 					<Checkbox
-						label="Erstmalige Freigabe von Tool-Inhalten"
+						label={m.prefs.firstShare}
 						checked={prefs.firstShare}
 						onChange={(firstShare) => setPrefs({ ...prefs, firstShare })}
 					/>
 					<Checkbox
-						label="Neue Einträge in freigegebenen Tools"
+						label={m.prefs.newEntry}
 						checked={prefs.newEntry}
 						onChange={(newEntry) => setPrefs({ ...prefs, newEntry })}
 					/>
 					<Checkbox
-						label="Änderungen an bestehenden Einträgen"
+						label={m.prefs.changedEntry}
 						checked={prefs.changedEntry}
 						onChange={(changedEntry) => setPrefs({ ...prefs, changedEntry })}
 					/>
 					<div className="bt-row">
 						<Button disabled={saving} onClick={save}>
-							Einstellungen speichern
+							{m.prefs.save}
 						</Button>
 						<Button variant="tertiary" onClick={onClose}>
-							Abbrechen
+							{m.common.cancel}
 						</Button>
 					</div>
 				</>

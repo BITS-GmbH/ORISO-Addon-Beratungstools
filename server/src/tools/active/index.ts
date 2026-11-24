@@ -110,7 +110,7 @@ export const active: ServerTool = {
 				`Nächster Termin: ${nextLabel(data, today)}`,
 				`Wiederholung: ${REPEAT_LABELS[data.repeat]}`,
 				...(data.repeat === 'custom' && data.dates?.length
-					? [`Weitere Termine: ${data.dates.map(formatDayLong).join('; ')}`]
+					? [`Weitere Termine: ${data.dates.map((day) => formatDayLong(day)).join('; ')}`]
 					: []),
 				`Begleitung: ${data.companion ?? 'keine Angabe'}`
 			];

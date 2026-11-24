@@ -1,6 +1,7 @@
 import type { NotificationPrefs } from '../../../shared/api.ts';
 import { DEFAULT_PREFS } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
+import { localized } from '../../../shared/i18n/index.ts';
 import type { Claims } from '../auth.ts';
 import type { Host, HostNotification } from '../host.ts';
 import type { OutboxRow, Store } from '../store.ts';
@@ -19,30 +20,29 @@ export const counsellorNotification = (
 	tool: string,
 	kinds: EventKind[]
 ): HostNotification => {
-	const title = toolInfo(tool)?.title ?? { de: tool, en: tool };
-	const who = username ?? 'Eine ratsuchende Person';
-	const whoEn = username ?? 'A client';
 	const shared = kinds.includes('firstShare');
 	const added = kinds.includes('newEntry');
 	const changed = kinds.includes('changedEntry');
-	const what = [added && 'neue Einträge vorgenommen', changed && 'Einträge geändert']
-		.filter(Boolean)
-		.join(' und ');
-	const whatEn = [added && 'added entries', changed && 'changed entries'].filter(Boolean).join(' and ');
-	const de = shared
-		? `${who} hat „${title.de}“ zur Einsicht freigegeben${what ? ` und darin ${what}` : ''}.`
-		: `${who} hat in „${title.de}“ ${what}.`;
-	const en = shared
-		? `${whoEn} shared “${title.en}” with you${whatEn ? ` and ${whatEn}` : ''}.`
-		: `${whoEn} ${whatEn} in “${title.en}”.`;
 	return {
 		recipient: 'counsellors',
 		appId: APP_ID,
 		important: false,
-		title: shared
-			? { de: 'Tool zur Einsicht freigegeben', en: 'Tool shared with you' }
-			: { de: 'Neue Einträge in einem Tool', en: 'New entries in a tool' },
-		text: { de, en },
+		title: localized(({ m }) => (shared ? m.notifications.sharedTitle : m.notifications.entriesTitle)),
+		text: localized(({ m, t }) => {
+			const what =
+				added && changed
+					? m.notifications.addedAndChanged
+					: added
+						? m.notifications.added
+						: changed
+							? m.notifications.changed
+							: '';
+			const vars = { who: username ?? m.notifications.someone, tool: toolTexts(m, tool).title, what };
+			return t(
+				shared ? (what ? m.notifications.sharedAnd : m.notifications.shared) : m.notifications.changes,
+				vars
+			);
+		}),
 		target: { slot: SLOTS.consultantSession }
 	};
 };

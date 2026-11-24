@@ -1,11 +1,12 @@
 import { Button, Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useMemo, useState } from 'react';
 import type { CaseTool } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
+import type { I18n } from '../../../shared/i18n/index.ts';
 import { ApiError, caseApi } from '../api.ts';
-import { useHost } from '../host.ts';
+import { useHost, useI18n } from '../host.ts';
 import { webTool } from '../tools/index.ts';
-import { formatDate, Pill, useLoad } from '../ui.tsx';
+import { Pill, useLoad } from '../ui.tsx';
 import { DemoView } from './DemoView.tsx';
 import { EntriesView } from './EntriesView.tsx';
 import { NotificationPrefsButton, NotificationPrefsPanel } from './NotificationPrefs.tsx';
@@ -20,6 +21,7 @@ type View =
 /** The tools of a case (slot `consultant.session`): release, read shared entries, try the demo. */
 export function CounsellorApp() {
 	const host = useHost();
+	const { m } = useI18n();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [view, setView] = useState<View>({ type: 'overview' });
 	const [prefsOpen, setPrefsOpen] = useState(false);
@@ -39,10 +41,10 @@ export function CounsellorApp() {
 	}
 	if (overview.error && !overview.data) {
 		return (
-			<Notice type="error" title="Die Tools des Falls konnten nicht geladen werden.">
+			<Notice type="error" title={m.counsellor.loadError}>
 				{overview.error instanceof ApiError && overview.error.status === 400
-					? 'Bitte öffnen Sie die Tools aus einem Fall heraus.'
-					: 'Bitte versuchen Sie es später noch einmal.'}
+					? m.counsellor.openFromCase
+					: m.common.tryLater}
 			</Notice>
 		);
 	}
@@ -77,61 +79,58 @@ export function CounsellorApp() {
 	return (
 		<div className="bt-stack">
 			<div className="bt-row bt-row--between">
-				<Headline level={2}>Tools</Headline>
+				<Headline level={2}>{m.counsellor.tools}</Headline>
 				<NotificationPrefsButton open={prefsOpen} onToggle={() => setPrefsOpen(!prefsOpen)} />
 			</div>
 			{prefsOpen && <NotificationPrefsPanel onClose={() => setPrefsOpen(false)} />}
 			{released.length > 0 && (
-				<section className="bt-stack bt-stack--tight" aria-label="Freigeschaltete Tools">
-					<Headline level={3}>Freigeschaltet</Headline>
+				<section className="bt-stack bt-stack--tight" aria-label={m.counsellor.releasedTools}>
+					<Headline level={3}>{m.counsellor.released}</Headline>
 					<ul className="bt-toollist">{released.map(row)}</ul>
 				</section>
 			)}
 			{notReleased.length > 0 && (
-				<section className="bt-stack bt-stack--tight" aria-label="Noch nicht freigeschaltete Tools">
-					<Headline level={3}>Noch nicht freigeschaltet</Headline>
+				<section className="bt-stack bt-stack--tight" aria-label={m.counsellor.notReleasedTools}>
+					<Headline level={3}>{m.counsellor.notReleasedYet}</Headline>
 					<ul className="bt-toollist">{notReleased.map(row)}</ul>
 				</section>
 			)}
-			{tools.length === 0 && (
-				<Notice type="info" title="Für diese Beratungsstelle sind keine Tools eingeschaltet." />
-			)}
+			{tools.length === 0 && <Notice type="info" title={m.counsellor.noTools} />}
 		</div>
 	);
 }
 
-function stateOf(tool: CaseTool) {
+function stateOf(tool: CaseTool, { m }: I18n) {
 	if (!tool.released) {
 		return null;
 	}
 	if (tool.shared) {
-		return <Pill tone="shared">Einsicht freigegeben</Pill>;
+		return <Pill tone="shared">{m.counsellor.shared}</Pill>;
 	}
-	return tool.hasEntries ? (
-		<Pill tone="neutral">Einträge vorhanden, keine Einsicht</Pill>
-	) : (
-		<Pill tone="neutral">Noch keine Einträge</Pill>
+	return (
+		<Pill tone="neutral">{tool.hasEntries ? m.counsellor.entriesNotShared : m.counsellor.noEntries}</Pill>
 	);
 }
 
-function newEntries(tool: CaseTool) {
+function newEntries(tool: CaseTool, { m, t }: I18n) {
 	if (tool.newCount <= 0) {
 		return null;
 	}
-	return <Pill tone="new">{tool.newCount === 1 ? '1 neuer Eintrag' : `${tool.newCount} neue Einträge`}</Pill>;
+	return <Pill tone="new">{t(m.counsellor.newEntries, { count: tool.newCount })}</Pill>;
 }
 
 function ToolRow({ tool, onOpen }: { tool: CaseTool; onOpen: () => void }) {
-	const info = toolInfo(tool.id);
+	const i18n = useI18n();
+	const info = toolTexts(i18n.m, tool.id);
 	return (
 		<button type="button" className="bt-toolrow" onClick={onOpen}>
 			<ToolIcon icon={webTool(tool.id)?.icon} />
 			<span className="bt-toolrow__text">
 				<span className="bt-toolrow__title">
-					<span className="bt-title">{info?.title.de ?? tool.id}</span>
-					{newEntries(tool)}
+					<span className="bt-title">{info.title}</span>
+					{newEntries(tool, i18n)}
 				</span>
-				<span className="bt-muted bt-small">{info?.summary}</span>
+				<span className="bt-muted bt-small">{info.summary}</span>
 			</span>
 			<span className="bt-toolrow__chevron" aria-hidden="true">
 				›
@@ -150,11 +149,13 @@ interface DetailProps {
 
 function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps) {
 	const host = useHost();
+	const i18n = useI18n();
+	const { m, t } = i18n;
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [busy, setBusy] = useState(false);
 	const [confirmWithdraw, setConfirmWithdraw] = useState(false);
-	const info = toolInfo(tool.id);
-	const title = info?.title.de ?? tool.id;
+	const info = toolTexts(m, tool.id);
+	const { title } = info;
 
 	const act = async (action: () => Promise<unknown>, success: string) => {
 		setBusy(true);
@@ -164,10 +165,7 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 		} catch (error) {
 			host.notify({
 				type: error instanceof ApiError && error.status === 409 ? 'warning' : 'error',
-				text:
-					error instanceof ApiError && error.status === 409
-						? 'Freischalten gerade nicht möglich: Der Träger hat den aktuellen Auftragsverarbeitungsvertrag noch nicht bestätigt.'
-						: 'Das hat nicht geklappt. Bitte versuchen Sie es noch einmal.'
+				text: error instanceof ApiError && error.status === 409 ? m.counsellor.dpa : m.common.tryAgain
 			});
 		} finally {
 			setBusy(false);
@@ -177,14 +175,18 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 	};
 
 	const dates = [
-		tool.released && tool.releasedAt ? `Freigeschaltet am ${formatDate(tool.releasedAt, host.locale)}` : null,
-		tool.lastChangedAt ? `zuletzt bearbeitet am ${formatDate(tool.lastChangedAt, host.locale, true)}` : null
+		tool.released && tool.releasedAt
+			? t(m.counsellor.releasedOn, { date: i18n.date(tool.releasedAt) })
+			: null,
+		tool.lastChangedAt
+			? t(m.counsellor.lastChangedOn, { date: i18n.date(tool.lastChangedAt, { withTime: true }) })
+			: null
 	].filter(Boolean);
 
 	return (
 		<div className="bt-stack">
 			<button type="button" className="bt-linkbtn" onClick={onBack}>
-				‹ Alle Tools
+				‹ {m.counsellor.allTools}
 			</button>
 			<div className="bt-tile__head">
 				<ToolIcon icon={webTool(tool.id)?.icon} />
@@ -192,65 +194,47 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 					<Headline level={2}>{title}</Headline>
 					<div className="bt-row">
 						<Pill tone={tool.released ? 'on' : 'off'}>
-							{tool.released ? 'Freigeschaltet' : 'Nicht freigeschaltet'}
+							{tool.released ? m.counsellor.released : m.counsellor.notReleased}
 						</Pill>
-						{stateOf(tool)}
-						{newEntries(tool)}
+						{stateOf(tool, i18n)}
+						{newEntries(tool, i18n)}
 					</div>
 				</div>
 			</div>
 			{dates.length > 0 && <p className="bt-muted bt-small">{dates.join(', ')}</p>}
-			<p>{info?.description}</p>
+			<p>{info.description}</p>
 			<div className="bt-tile__actions">
 				{!tool.released && (
 					<Button
 						disabled={busy}
-						onClick={() =>
-							act(
-								() => api.release(tool.id),
-								`„${title}“ ist freigeschaltet. Die ratsuchende Person wird benachrichtigt.`
-							)
-						}
+						onClick={() => act(() => api.release(tool.id), t(m.counsellor.releasedNotice, { title }))}
 					>
-						Freischalten
+						{m.counsellor.release}
 					</Button>
 				)}
 				{tool.released && tool.shared && (
 					<Button disabled={busy} onClick={onEntries}>
-						Einträge ansehen
+						{m.counsellor.viewEntries}
 					</Button>
 				)}
 				<Button variant="secondary" onClick={onDemo}>
-					User-Vorschau
+					{m.counsellor.preview}
 				</Button>
 				{tool.released && !confirmWithdraw && (
 					<Button variant="tertiary" disabled={busy} onClick={() => setConfirmWithdraw(true)}>
-						Freischaltung aufheben
+						{m.counsellor.withdraw}
 					</Button>
 				)}
 			</div>
-			<p className="bt-muted bt-small">
-				Die User-Vorschau zeigt das Tool so, wie die ratsuchende Person es sieht, mit Testdaten.
-			</p>
+			<p className="bt-muted bt-small">{m.counsellor.previewHint}</p>
 			{confirmWithdraw && (
-				<div className="bt-confirm" role="group" aria-label="Freischaltung aufheben">
-					<span style={{ flex: '1 1 220px' }}>
-						Freischaltung aufheben? Das Tool verschwindet für die ratsuchende Person, Sie sehen keine Inhalte
-						mehr. Die Einträge bleiben gespeichert.
-					</span>
-					<Button
-						disabled={busy}
-						onClick={() =>
-							act(
-								() => api.withdraw(tool.id),
-								'Die Freischaltung ist aufgehoben. Die Einträge bleiben gespeichert.'
-							)
-						}
-					>
-						Aufheben
+				<div className="bt-confirm" role="group" aria-label={m.counsellor.withdraw}>
+					<span style={{ flex: '1 1 220px' }}>{m.counsellor.withdrawConfirm}</span>
+					<Button disabled={busy} onClick={() => act(() => api.withdraw(tool.id), m.counsellor.withdrawn)}>
+						{m.counsellor.withdrawButton}
 					</Button>
 					<Button variant="tertiary" onClick={() => setConfirmWithdraw(false)}>
-						Abbrechen
+						{m.common.cancel}
 					</Button>
 				</div>
 			)}

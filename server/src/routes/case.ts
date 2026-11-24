@@ -1,7 +1,9 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import type { CaseEntries, CaseOverview, CaseTool, NotificationPrefs } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
+import { formatPeriod } from '../../../shared/days.ts';
+import { i18n, langOf, localized } from '../../../shared/i18n/index.ts';
 import { HttpError, type Core } from '../app.ts';
 import { isCounsellor, type Claims } from '../auth.ts';
 import { isActive, isReadable } from '../core/access.ts';
@@ -14,12 +16,11 @@ import type { ServerTool } from '../tools/types.ts';
 const prefsBody = z.object({ firstShare: z.boolean(), newEntry: z.boolean(), changedEntry: z.boolean() });
 const seenBody = z.object({ until: z.iso.datetime().optional() });
 const DAY = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
-const exportQuery = z.object({ from: DAY.optional(), to: DAY.optional() });
-
-const formatDay = (day: string) => {
-	const [year, month, date] = day.split('-');
-	return `${date}.${month}.${year}`;
-};
+const exportQuery = z.object({
+	from: DAY.optional(),
+	to: DAY.optional(),
+	lang: z.string().max(20).optional()
+});
 
 /**
  * The counsellor's side of a case. The client comes from the token's `askerId`, which the
@@ -126,23 +127,19 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 		}
 		const isNew = await store.release(tenantId, askerId, tool.id, counsellorId, core.now());
 		if (isNew) {
-			const title = toolInfo(tool.id)?.title ?? { de: tool.id, en: tool.id };
 			await Promise.all([
 				host.audit(request.claims, {
 					action: 'tool.released',
 					appId: APP_ID,
-					summary: { de: `Tool „${title.de}“ freigeschaltet`, en: `Released tool “${title.en}”` },
+					summary: localized(({ m, t }) => t(m.audit.released, { tool: toolTexts(m, tool.id).title })),
 					subject: 'asker'
 				}),
 				host.notify(request.claims, {
 					recipient: 'asker',
 					appId: APP_ID,
 					important: true,
-					title: { de: 'Neues Tool freigeschaltet', en: 'New tool released' },
-					text: {
-						de: `„${title.de}“ steht ab jetzt unter „Meine Tools“ bereit.`,
-						en: `“${title.en}” is now available in your tools.`
-					},
+					title: localized(({ m }) => m.notifications.releasedTitle),
+					text: localized(({ m, t }) => t(m.notifications.released, { tool: toolTexts(m, tool.id).title })),
 					target: { slot: SLOTS.askerNavigation }
 				})
 			]);
@@ -155,11 +152,10 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 		const { tenantId, askerId } = inCase(request.claims);
 		const tool = core.tool((request.params as { tool: string }).tool);
 		if (await store.withdraw(tenantId, askerId, tool.id, core.now())) {
-			const title = toolInfo(tool.id)?.title ?? { de: tool.id, en: tool.id };
 			await host.audit(request.claims, {
 				action: 'tool.withdrawn',
 				appId: APP_ID,
-				summary: { de: `Freischaltung „${title.de}“ aufgehoben`, en: `Withdrew tool “${title.en}”` },
+				summary: localized(({ m, t }) => t(m.audit.withdrawn, { tool: toolTexts(m, tool.id).title })),
 				subject: 'asker'
 			});
 		}
@@ -195,48 +191,48 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 
 	app.get('/api/case/tools/:tool/export', async (request, reply) => {
 		const { tenantId, askerId, tool, settings } = await readable(request);
-		const query = exportQuery.parse(request.query);
+		const { lang, ...query } = exportQuery.parse(request.query);
 		const range = tool.exportRange ? query : {};
+		const language = i18n(langOf(lang));
+		const { m, t } = language;
 		const [entries, linked, context] = await Promise.all([
 			store.entries(tenantId, askerId, tool.id, range),
 			linkedOf(tenantId, askerId, tool, settings),
 			tool.counsellorNames ? host.context(request.claims, 'asker') : null
 		]);
-		const title = toolInfo(tool.id)?.title ?? { de: tool.id, en: tool.id };
 		const days = entries.map((entry) => entry.day ?? entry.updatedAt.slice(0, 10)).sort();
 		const first = range.from ?? days[0];
 		const last = range.to ?? days[days.length - 1];
-		const period =
-			!first || !last
-				? 'Keine Einträge'
-				: first === last
-					? formatDay(first)
-					: `${formatDay(first)} bis ${formatDay(last)}`;
+		const period = !first || !last ? m.pdf.noEntries : formatPeriod(first, last, language.lang);
 		const sessionId = request.claims.sessionId;
 		const createdAt = core.now();
 		const pdf = await renderPdf(
 			{
-				toolTitle: title.de,
-				caseLabel: sessionId ? `Fall ${sessionId}` : 'Fall ohne Kennung',
+				toolTitle: toolTexts(m, tool.id).title,
+				caseLabel: sessionId ? t(m.pdf.caseLabel, { id: String(sessionId) }) : m.pdf.caseWithoutId,
 				createdAt,
 				period
 			},
 			core.timeZone,
+			language,
 			(writer) =>
 				tool.exportPdf(writer, {
 					entries,
 					options: optionsOf(settings, tool),
 					linked,
-					counsellors: counsellorNames(context, request.claims.agencyId)
+					counsellors: counsellorNames(context, request.claims.agencyId),
+					i18n: language
 				})
 		);
 		await host.audit(request.claims, {
 			action: 'tool.exported',
 			appId: APP_ID,
-			summary: { de: `Einträge aus „${title.de}“ als PDF exportiert`, en: `Exported “${title.en}” as PDF` },
+			summary: localized(({ m: texts, t: format }) =>
+				format(texts.audit.exported, { tool: toolTexts(texts, tool.id).title })
+			),
 			subject: 'asker'
 		});
-		const fileName = `${tool.id}${sessionId ? `-fall-${sessionId}` : ''}-${createdAt.toISOString().slice(0, 10)}.pdf`;
+		const fileName = `${tool.id}${sessionId ? `-${m.pdf.fileCase}-${sessionId}` : ''}-${createdAt.toISOString().slice(0, 10)}.pdf`;
 		return reply
 			.header('Content-Type', 'application/pdf')
 			.header('Content-Disposition', `attachment; filename="${fileName}"`)

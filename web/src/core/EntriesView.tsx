@@ -1,12 +1,12 @@
 import { Button, Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useEffect, useMemo, useState } from 'react';
 import { isNewSince, type CaseEntries, type Entry } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
 import { localToday } from '../../../shared/days.ts';
 import { ApiError, caseApi } from '../api.ts';
-import { useHost } from '../host.ts';
+import { useHost, useI18n } from '../host.ts';
 import { webTool } from '../tools/index.ts';
-import { BackButton, downloadBlob, formatDate, useLoad } from '../ui.tsx';
+import { BackButton, downloadBlob, useLoad } from '../ui.tsx';
 import { DateRangePicker, type DayRange } from './DateRangePicker.tsx';
 
 const latest = (entries: Entry[]) =>
@@ -17,23 +17,18 @@ export function EntriesView({ toolId, onBack }: { toolId: string; onBack: () => 
 	const host = useHost();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const { data, error } = useLoad(() => api.entries(toolId));
-	const title = toolInfo(toolId)?.title.de ?? toolId;
+	const { m } = useI18n();
+	const title = toolTexts(m, toolId).title;
 
 	if (error && !data) {
 		return (
 			<div className="bt-stack">
-				<BackButton onClick={onBack}>Zur Übersicht</BackButton>
+				<BackButton onClick={onBack}>{m.entries.back}</BackButton>
 				<Notice
 					type="warning"
-					title={
-						error instanceof ApiError && error.status === 403
-							? 'Keine Einsicht'
-							: 'Die Einträge konnten nicht geladen werden.'
-					}
+					title={error instanceof ApiError && error.status === 403 ? m.entries.noAccess : m.entries.loadError}
 				>
-					{error instanceof ApiError && error.status === 403
-						? 'Die ratsuchende Person hat die Einsicht zurückgenommen oder das Tool ist nicht mehr freigeschaltet.'
-						: 'Bitte versuchen Sie es später noch einmal.'}
+					{error instanceof ApiError && error.status === 403 ? m.entries.revoked : m.common.tryLater}
 				</Notice>
 			</div>
 		);
@@ -46,6 +41,8 @@ export function EntriesView({ toolId, onBack }: { toolId: string; onBack: () => 
 
 function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onBack: () => void }) {
 	const host = useHost();
+	const i18n = useI18n();
+	const { m, t } = i18n;
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const module = webTool(data.id);
 	const [exporting, setExporting] = useState(false);
@@ -60,15 +57,16 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 	const exportPdf = async () => {
 		setExporting(true);
 		try {
-			const { blob, fileName } = await api.exportPdf(data.id, exportRange ? range : {});
+			const { blob, fileName } = await api.exportPdf(data.id, {
+				...(exportRange ? range : {}),
+				lang: i18n.lang
+			});
 			downloadBlob(blob, fileName);
 		} catch (error) {
 			host.notify({
 				type: error instanceof ApiError && error.status === 403 ? 'warning' : 'error',
 				text:
-					error instanceof ApiError && error.status === 403
-						? 'Die ratsuchende Person hat die Einsicht zurückgenommen. Ein Export ist nicht möglich.'
-						: 'Der Export hat nicht geklappt. Bitte versuchen Sie es noch einmal.'
+					error instanceof ApiError && error.status === 403 ? m.entries.exportRevoked : m.entries.exportFailed
 			});
 		} finally {
 			setExporting(false);
@@ -77,21 +75,25 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onBack}>Zur Übersicht</BackButton>
+			<BackButton onClick={onBack}>{m.entries.back}</BackButton>
 			<div>
-				<p className="bt-overline">Einträge, schreibgeschützt</p>
+				<p className="bt-overline">{m.entries.readOnly}</p>
 				<Headline level={2}>{title}</Headline>
 				<p className="bt-muted bt-small">
-					{lastChange
-						? `Zuletzt bearbeitet am ${formatDate(lastChange, host.locale, true)}`
-						: 'Noch keine Einträge'}
-					{data.sharedSince ? `, Einsicht freigegeben seit ${formatDate(data.sharedSince, host.locale)}` : ''}
+					{[
+						lastChange
+							? t(m.entries.lastChangedOn, { date: i18n.date(lastChange, { withTime: true }) })
+							: m.entries.noEntries,
+						data.sharedSince ? t(m.entries.sharedSince, { date: i18n.date(data.sharedSince) }) : null
+					]
+						.filter(Boolean)
+						.join(', ')}
 				</p>
 			</div>
 			<div className="bt-row" style={{ alignItems: 'flex-end' }}>
 				{exportRange && <DateRangePicker value={range} onChange={setRange} today={localToday()} />}
 				<Button variant="secondary" disabled={exporting} onClick={exportPdf}>
-					{exporting ? 'Export wird erstellt …' : exportRange ? 'Export erstellen' : 'Als PDF exportieren'}
+					{exporting ? m.entries.exporting : exportRange ? m.entries.createExport : m.entries.exportPdf}
 				</Button>
 			</div>
 			{module ? (
@@ -103,7 +105,7 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 					linked={data.linked ?? {}}
 				/>
 			) : (
-				<Notice type="info" title="Für dieses Tool gibt es noch keine Ansicht." />
+				<Notice type="info" title={m.entries.noView} />
 			)}
 		</div>
 	);

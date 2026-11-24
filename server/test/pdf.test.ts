@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import type { Entry } from '../../shared/api.ts';
 import { renderPdf } from '../src/core/pdf.ts';
 import { TOOLS } from '../src/tools/index.ts';
@@ -96,8 +97,8 @@ describe('export', () => {
 		'renders %s, also without entries',
 		async (id, tool) => {
 			for (const entries of [SAMPLES[id] ?? [], []]) {
-				const pdf = await renderPdf(header, 'Europe/Berlin', (writer) =>
-					tool.exportPdf(writer, { entries, options: {}, linked: {}, counsellors: [] })
+				const pdf = await renderPdf(header, 'Europe/Berlin', i18n('de'), (writer) =>
+					tool.exportPdf(writer, { entries, options: {}, linked: {}, counsellors: [], i18n: i18n('de') })
 				);
 				expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
 				expect(pdf.length).toBeGreaterThan(1000);
@@ -110,8 +111,8 @@ describe('export', () => {
 		const many = Array.from({ length: 150 }, (_, index) =>
 			entry('argument', { category: 'B', text: `Argument ${index} `.repeat(8), rating: 2 })
 		);
-		const pdf = await renderPdf(header, 'Europe/Berlin', (writer) =>
-			tool.exportPdf(writer, { entries: many, options: {}, linked: {}, counsellors: [] })
+		const pdf = await renderPdf(header, 'Europe/Berlin', i18n('de'), (writer) =>
+			tool.exportPdf(writer, { entries: many, options: {}, linked: {}, counsellors: [], i18n: i18n('de') })
 		);
 		expect((pdf.toString('latin1').match(/\/Type \/Page\b/g) ?? []).length).toBeGreaterThan(3);
 	});

@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import PDFDocument from 'pdfkit';
+import type { I18n } from '../../../shared/i18n/index.ts';
 
 /** Noto Sans merged with Noto Sans Ethiopic (OFL): Latin, Cyrillic and Ge'ez in one font. */
 const FONT = fileURLToPath(new URL('../../fonts/BeratungstoolsSans-Regular.ttf', import.meta.url));
@@ -161,20 +162,18 @@ const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 	};
 };
 
-const formatDateTime = (date: Date, timeZone: string) =>
-	new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(date);
+const formatDateTime = (date: Date, timeZone: string, { locales }: I18n) =>
+	new Intl.DateTimeFormat(locales, { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(date);
 
-const CONFIDENTIAL =
-	'Vertraulich. Von der ratsuchenden Person zur Einsicht freigegebene Inhalte, nur zur Verwendung im Beratungskontext.';
-
-const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: string) => {
-	doc.font('regular').fontSize(9).fillColor(COLORS.muted).text('Beratungstools', MARGIN, MARGIN);
+const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: string, i18n: I18n) => {
+	const { m } = i18n;
+	doc.font('regular').fontSize(9).fillColor(COLORS.muted).text(m.pdf.brand, MARGIN, MARGIN);
 	doc.font('bold').fontSize(20).fillColor(COLORS.accent).text(header.toolTitle);
 	doc.moveDown(0.4);
 	const rows: Array<[string, string]> = [
-		...(header.caseLabel ? [['Fall', header.caseLabel] as [string, string]] : []),
-		['Export erstellt am', formatDateTime(header.createdAt, timeZone)],
-		...(header.period ? [['Zeitraum der Einträge', header.period] as [string, string]] : [])
+		...(header.caseLabel ? [[m.pdf.case, header.caseLabel] as [string, string]] : []),
+		[m.pdf.createdAt, formatDateTime(header.createdAt, timeZone, i18n)],
+		...(header.period ? [[m.pdf.period, header.period] as [string, string]] : [])
 	];
 	for (const [label, value] of rows) {
 		const top = doc.y;
@@ -203,6 +202,7 @@ const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: st
 export const renderPdf = (
 	header: ExportHeader,
 	timeZone: string,
+	i18n: I18n,
 	write: (pdf: PdfWriter) => void
 ): Promise<Buffer> =>
 	new Promise((resolve, reject) => {
@@ -223,7 +223,7 @@ export const renderPdf = (
 		doc.on('error', reject);
 
 		if (!header.bare) {
-			writeHeader(doc, header, timeZone);
+			writeHeader(doc, header, timeZone, i18n);
 		}
 
 		try {
@@ -242,11 +242,16 @@ export const renderPdf = (
 				.font('regular')
 				.fontSize(8)
 				.fillColor(COLORS.muted)
-				.text(`${header.footer ?? CONFIDENTIAL} Seite ${index + 1} von ${range.count}`, MARGIN, bottom, {
-					width: doc.page.width - 2 * MARGIN,
-					align: 'center',
-					lineBreak: false
-				});
+				.text(
+					`${header.footer ?? i18n.m.pdf.confidential} ${i18n.t(i18n.m.pdf.page, { page: index + 1, pages: range.count })}`,
+					MARGIN,
+					bottom,
+					{
+						width: doc.page.width - 2 * MARGIN,
+						align: 'center',
+						lineBreak: false
+					}
+				);
 		}
 		doc.end();
 	});

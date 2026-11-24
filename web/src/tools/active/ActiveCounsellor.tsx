@@ -31,7 +31,7 @@ export function ActiveCounsellor({ entries, isNew, locale }: CounsellorViewProps
 								{data.repeat === 'custom' && data.dates?.length
 									? `: ${[data.date, ...data.dates]
 											.filter((day): day is string => Boolean(day))
-											.map(formatDayLong)
+											.map((day) => formatDayLong(day))
 											.join('; ')}`
 									: ''}
 							</dd>

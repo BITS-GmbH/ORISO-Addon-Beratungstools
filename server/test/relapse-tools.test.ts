@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import type { Entry } from '../../shared/api.ts';
 import { emptySections, isPrinted, selfHelpRequest } from '../../shared/tools/emergency-kit.ts';
 import { relapsesOf, situationsOf } from '../../shared/tools/risk-situations.ts';
@@ -23,11 +24,12 @@ const entry = (
 	updatedAt: createdAt
 });
 
-const pdfText = async (write: Parameters<typeof renderPdf>[2], bare = false) =>
+const pdfText = async (write: Parameters<typeof renderPdf>[3], bare = false) =>
 	(
 		await renderPdf(
 			{ toolTitle: 'Test', createdAt: new Date('2026-11-20T10:00:00Z'), bare },
 			'Europe/Berlin',
+			i18n('de'),
 			write
 		)
 	).subarray(0, 5);
@@ -84,7 +86,13 @@ describe('Risikosituationen und Kontrollstrategien', () => {
 			previousStrategy: '',
 			newStrategy: ''
 		});
-		const input = { entries: [situation, relapse], options: {}, linked: {}, counsellors: [] };
+		const input = {
+			entries: [situation, relapse],
+			options: {},
+			linked: {},
+			counsellors: [],
+			i18n: i18n('de')
+		};
 		for (const [name, params] of [
 			['table', {}],
 			['relapse', { id: relapse.id }],
@@ -141,6 +149,7 @@ describe('Notfallkoffer', () => {
 			options: { agency: 'Suchtberatung\nMusterstraße 1' },
 			linked: { 'risk-situations': [situation] },
 			counsellors: ['Maria Beispiel'],
+			i18n: i18n('de'),
 			params: {}
 		};
 		const unrated = entry('situation', { situation: 'Streit', strategy: 'Spazieren' });

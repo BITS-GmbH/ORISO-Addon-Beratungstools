@@ -2,6 +2,7 @@ import type { Entry } from '../../../shared/api.ts';
 import type { ToolId } from '../../../shared/catalog.ts';
 import { ACTIVITY_TOOL, occurrencesBetween } from '../../../shared/activities.ts';
 import { addDays, formatDayShort } from '../../../shared/days.ts';
+import { useI18n } from '../host.ts';
 
 /**
  * "Geplante Aktivitäten diese Woche" in the diaries: the activities of "Aktiv sein" that take place
@@ -17,22 +18,23 @@ export function PlannedActivities({
 	/** Opens "Aktiv sein"; only the client gets it. */
 	onPlan?: () => void;
 }) {
+	const { m, t, lang } = useI18n();
 	const entries = linked[ACTIVITY_TOOL];
 	if (!entries) {
 		return null;
 	}
 	const occurrences = occurrencesBetween(entries, monday, addDays(monday, 6));
 	return (
-		<section className="bt-stack bt-stack--tight" aria-label="Geplante Aktivitäten diese Woche">
-			<h3 className="bt-title">Geplante Aktivitäten diese Woche</h3>
+		<section className="bt-stack bt-stack--tight" aria-label={m.planned.title}>
+			<h3 className="bt-title">{m.planned.title}</h3>
 			{occurrences.length === 0 ? (
 				<p className="bt-muted bt-small">
-					Für diese Woche sind keine Aktivitäten geplant.
+					{m.planned.none}
 					{onPlan && (
 						<>
 							{' '}
 							<button type="button" className="bt-linkbtn bt-small" onClick={onPlan}>
-								Aktivitäten in „Aktiv sein“ planen
+								{m.planned.plan}
 							</button>
 						</>
 					)}
@@ -42,12 +44,12 @@ export function PlannedActivities({
 					{occurrences.map(({ id, day, time, activity }) => (
 						<li key={id} className="bt-item" style={{ flexWrap: 'wrap' }}>
 							<span className="bt-planned__when">
-								{formatDayShort(day)}
-								{time ? `, ${time} Uhr` : ''}
+								{formatDayShort(day, lang)}
+								{time ? `, ${t(m.days.time, { time })}` : ''}
 							</span>
 							<span className="bt-item__text">
 								{activity.title}
-								{activity.companion ? ` (mit ${activity.companion})` : ''}
+								{activity.companion ? ` (${t(m.planned.with, { name: activity.companion })})` : ''}
 							</span>
 						</li>
 					))}

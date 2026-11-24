@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import { nextOccurrence, occurrenceDays, occurrencesBetween } from '../../shared/activities.ts';
 import { nextLabel, SUGGESTIONS, toIcs } from '../../shared/tools/active.ts';
 import { active, activitySchema, zonedIso } from '../src/tools/active/index.ts';
@@ -182,7 +183,7 @@ describe('active', () => {
 	});
 
 	it('exports the activities and seeds a valid demo', () => {
-		const demo = active.demo?.() ?? [];
+		const demo = active.demo?.(i18n('de')) ?? [];
 		expect(demo.length).toBeGreaterThan(0);
 		for (const seed of demo) {
 			expect(activitySchema.safeParse(seed.data).success).toBe(true);
@@ -192,7 +193,8 @@ describe('active', () => {
 			entries: demo.map((seed, i) => entry(String(i), seed.data)),
 			options: {},
 			linked: {},
-			counsellors: []
+			counsellors: [],
+			i18n: i18n('de')
 		});
 		expect(text()).toContain('Ins Kino gehen');
 		expect(text()).toContain('Begleitung: Peter, Marie');

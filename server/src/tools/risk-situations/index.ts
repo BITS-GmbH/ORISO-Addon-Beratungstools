@@ -97,7 +97,7 @@ export const riskSituations: ServerTool = {
 	},
 	clientExports: {
 		table: {
-			title: 'Meine Risikosituationen und Kontrollstrategien',
+			title: () => 'Meine Risikosituationen und Kontrollstrategien',
 			write(pdf, { entries }) {
 				const situations = situationsOf(entries);
 				if (situations.length === 0) {
@@ -108,7 +108,7 @@ export const riskSituations: ServerTool = {
 			}
 		},
 		relapse: {
-			title: 'Rückfall analysieren',
+			title: () => 'Rückfall analysieren',
 			write(pdf, { entries, params }) {
 				const relapse = entries.find((e) => e.kind === RELAPSE_KIND && e.id === params.id);
 				const data = relapse

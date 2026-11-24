@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { i18n } from '../../shared/i18n/index.ts';
 import { REMARKS } from '../../shared/tools/positive-perception.ts';
 import { behaviourSchema, positivePerception } from '../src/tools/positive-perception/index.ts';
 
@@ -18,7 +19,7 @@ describe('Positives Wahrnehmen input', () => {
 	});
 
 	it('seeds valid demo behaviours', () => {
-		for (const seed of positivePerception.demo?.() ?? []) {
+		for (const seed of positivePerception.demo?.(i18n('de')) ?? []) {
 			expect(positivePerception.kinds[seed.kind]?.schema.safeParse(seed.data).success).toBe(true);
 		}
 	});

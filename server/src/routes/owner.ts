@@ -1,7 +1,8 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import type { ClientTool, ClientToolList, Entry } from '../../../shared/api.ts';
-import { toolInfo } from '../../../shared/catalog.ts';
+import { toolTexts } from '../../../shared/catalog.ts';
+import { i18n, langOf, localized, type I18n } from '../../../shared/i18n/index.ts';
 import { HttpError, type Core } from '../app.ts';
 import { isAsker, isCounsellor, type Claims } from '../auth.ts';
 import { isActive } from '../core/access.ts';
@@ -17,6 +18,10 @@ const createBody = z.object({ kind: z.string().min(1).max(40), day: DAY.nullish(
 const updateBody = z.object({ day: DAY.nullish(), data: z.unknown() });
 const shareBody = z.object({ shared: z.boolean() });
 const exportParams = z.record(z.string(), z.string().max(100));
+
+/** The language the web asks for (`?lang=`), for PDFs and the demo's example entries. */
+const languageOf = (request: FastifyRequest) =>
+	i18n(langOf((request.query as { lang?: unknown } | undefined)?.lang as string));
 
 interface Owner {
 	tenantId: number;
@@ -105,9 +110,9 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 		}
 	};
 
-	const seedDemo = async (owner: Owner, tool: ServerTool) => {
+	const seedDemo = async (owner: Owner, tool: ServerTool, language: I18n) => {
 		const now = core.now();
-		for (const seed of tool.demo?.() ?? []) {
+		for (const seed of tool.demo?.(language) ?? []) {
 			const definition = kindOf(tool, seed.kind);
 			const data = definition.schema.parse(seed.data);
 			const write = { kind: seed.kind, key: seed.key ?? null, day: seed.day ?? null, data };
@@ -121,22 +126,22 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 	};
 
 	/** The owner's entries; a counsellor's demo gets its example entries on first use. */
-	const entriesOf = async (owner: Owner, tool: ServerTool): Promise<Entry[]> => {
+	const entriesOf = async (owner: Owner, tool: ServerTool, language: I18n): Promise<Entry[]> => {
 		const entries = await store.entries(owner.tenantId, owner.ownerId, tool.id);
 		if (!owner.demo || entries.length > 0 || (await store.shareOf(owner.tenantId, owner.ownerId, tool.id))) {
 			return entries;
 		}
-		await seedDemo(owner, tool);
+		await seedDemo(owner, tool, language);
 		return store.entries(owner.tenantId, owner.ownerId, tool.id);
 	};
 
-	const linkedOf = (owner: Owner, tool: ServerTool, settings: Settings) =>
+	const linkedOf = (owner: Owner, tool: ServerTool, settings: Settings, language: I18n) =>
 		readLinked(
 			core.tools,
 			tool,
 			settings,
 			async (other) => owner.demo || isActive(await store.releaseOf(owner.tenantId, owner.ownerId, other.id)),
-			(other) => entriesOf(owner, other)
+			(other) => entriesOf(owner, other, language)
 		);
 
 	const counsellorsOf = async (request: FastifyRequest, owner: Owner, tool: ServerTool) => {
@@ -181,10 +186,11 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 
 	app.get(`${prefix}/tools/:tool`, async (request): Promise<ClientTool> => {
 		const { owner, tool, settings } = await access(request);
-		const entries = await entriesOf(owner, tool);
+		const language = languageOf(request);
+		const entries = await entriesOf(owner, tool, language);
 		const [share, linked, counsellors] = await Promise.all([
 			store.shareOf(owner.tenantId, owner.ownerId, tool.id),
-			linkedOf(owner, tool, settings),
+			linkedOf(owner, tool, settings, language),
 			counsellorsOf(request, owner, tool)
 		]);
 		if (!owner.demo) {
@@ -210,23 +216,32 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 		if (!format) {
 			throw new HttpError(404, 'unknown export');
 		}
-		const params = exportParams.parse(request.query ?? {});
+		const { lang: _lang, ...params } = exportParams.parse(request.query ?? {});
+		const language = languageOf(request);
 		const [entries, linked, counsellors] = await Promise.all([
-			entriesOf(owner, tool),
-			linkedOf(owner, tool, settings),
+			entriesOf(owner, tool, language),
+			linkedOf(owner, tool, settings, language),
 			counsellorsOf(request, owner, tool)
 		]);
 		const createdAt = core.now();
 		const pdf = await renderPdf(
 			{
-				toolTitle: format.title,
+				toolTitle: format.title(language),
 				createdAt,
 				bare: format.bare,
-				footer: 'Persönliche Unterlage aus den Beratungstools.'
+				footer: language.m.pdf.personal
 			},
 			core.timeZone,
+			language,
 			(writer) =>
-				format.write(writer, { entries, options: optionsOf(settings, tool), linked, counsellors, params })
+				format.write(writer, {
+					entries,
+					options: optionsOf(settings, tool),
+					linked,
+					counsellors,
+					params,
+					i18n: language
+				})
 		);
 		const fileName = `${tool.id}-${name}-${createdAt.toISOString().slice(0, 10)}.pdf`;
 		return reply
@@ -334,20 +349,19 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 		}
 		const wasShared = await store.setShare(owner.tenantId, owner.ownerId, tool.id, shared, core.now());
 		if (!owner.demo && shared !== wasShared) {
-			const title = toolInfo(tool.id)?.title.de ?? tool.id;
 			await core.host.audit(
 				request.claims,
 				shared
 					? {
 							action: 'tool.shared',
 							appId: APP_ID,
-							summary: { de: `Einsicht in „${title}“ freigegeben` },
+							summary: localized(({ m, t }) => t(m.audit.shared, { tool: toolTexts(m, tool.id).title })),
 							subject: 'self'
 						}
 					: {
 							action: 'tool.unshared',
 							appId: APP_ID,
-							summary: { de: `Einsicht in „${title}“ zurückgenommen` },
+							summary: localized(({ m, t }) => t(m.audit.unshared, { tool: toolTexts(m, tool.id).title })),
 							subject: 'self'
 						}
 			);
@@ -362,7 +376,7 @@ export const registerOwnerRoutes = (app: FastifyInstance, core: Core, mode: Mode
 		app.post(`${prefix}/tools/:tool/reset`, async (request, reply) => {
 			const { owner, tool } = await access(request);
 			await store.clearTool(owner.tenantId, owner.ownerId, tool.id);
-			await seedDemo(owner, tool);
+			await seedDemo(owner, tool, languageOf(request));
 			return reply.code(204).send();
 		});
 	}
