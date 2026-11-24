@@ -83,6 +83,7 @@ const saveSettings = async () => {
 
 element('informal').onchange = renderAll;
 element('locale').onchange = renderAll;
+(element('locale') as HTMLSelectElement).value = new URLSearchParams(location.search).get('lang') ?? 'de';
 element('sharing').onchange = saveSettings;
 element('poles').onchange = saveSettings;
 element('sample').onclick = async () => {
