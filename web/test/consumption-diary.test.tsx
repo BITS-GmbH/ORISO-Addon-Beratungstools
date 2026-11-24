@@ -70,6 +70,17 @@ describe('Konsumtagebuch', () => {
 		expect(screen.queryByLabelText('Cannabis')).toBeNull();
 		fireEvent.click(screen.getByText('weiteres Thema hinzufügen'));
 		expect(screen.getByLabelText('Cannabis')).toBeTruthy();
+		expect(screen.queryByText('weiteres Thema hinzufügen')).toBeNull();
+	});
+
+	it('offers no further topic when all topics are chosen', async () => {
+		const { host } = fakeHost({
+			'GET /me/tools/consumption-diary': () => tool([topics(['alcohol', 'cannabis', 'gambling', 'media'])])
+		});
+		open(host);
+		fireEvent.click(await screen.findByText('Einstellungen'));
+		expect(screen.getByLabelText('Medien')).toBeTruthy();
+		expect(screen.queryByText('weiteres Thema hinzufügen')).toBeNull();
 	});
 
 	it('answers a day with "nein" from the week and shows the motivating text', async () => {

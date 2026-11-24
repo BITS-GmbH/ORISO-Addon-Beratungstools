@@ -176,6 +176,7 @@ function TopicSettings({
 	const [showAll, setShowAll] = useState(chosen.length === 0);
 	const [problem, setProblem] = useState(false);
 	const visible = TOPIC_IDS.filter((id) => showAll || chosen.includes(id));
+	const moreTopics = visible.length < TOPIC_IDS.length;
 	return (
 		<>
 			{intro && (
@@ -203,7 +204,7 @@ function TopicSettings({
 							</div>
 						))}
 					</div>
-					{!showAll && (
+					{moreTopics && (
 						<div>
 							<button type="button" className="bt-linkbtn" onClick={() => setShowAll(true)}>
 								weiteres Thema hinzufügen
