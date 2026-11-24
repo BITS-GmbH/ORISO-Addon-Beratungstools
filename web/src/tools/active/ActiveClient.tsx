@@ -1,25 +1,22 @@
 import { Button, Card, DatePicker, Headline, Select, TextField } from '@oriso/web-kit';
 import { useRef, useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
 import {
 	ACTIVITY_KIND,
 	activitiesOf,
-	REPEAT_LABELS,
 	REPEATS,
 	type Activity,
 	type Repeat
 } from '../../../../shared/activities.ts';
 import { formatDayLong, localToday } from '../../../../shared/days.ts';
 import {
-	howTo,
-	intro,
 	MAX_COMPANION_LENGTH,
 	MAX_TITLE_LENGTH,
 	nextLabel,
-	SUGGESTIONS,
-	suggestionsHint,
-	toIcs
+	SUGGESTION_CATEGORIES,
+	toIcs,
+	type SuggestionCategory
 } from '../../../../shared/tools/active.ts';
+import { useI18n } from '../../host.ts';
 import { BackButton, downloadBlob, Icon, TimeField } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 
@@ -47,7 +44,10 @@ const download = (text: string, fileName: string) =>
 	downloadBlob(new Blob([text], { type: 'text/calendar;charset=utf-8' }), fileName);
 
 /** "Aktiv sein" (section 2.6): plan activities, see them listed, take them into a calendar. */
-export function ActiveClient({ tool, entries, store, informal }: ClientViewProps) {
+export function ActiveClient({ tool, entries, store }: ClientViewProps) {
+	const i18n = useI18n();
+	const { m, t } = i18n;
+	const texts = m.active;
 	const [draft, setDraft] = useState<Draft>(EMPTY);
 	const [editingId, setEditingId] = useState<string | null>(null);
 	const [suggesting, setSuggesting] = useState(false);
@@ -67,17 +67,11 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 	const submit = () => {
 		const title = draft.title.trim();
 		if (!title) {
-			setProblem(tx(informal, 'Bitte tragen Sie eine Aktivität ein.', 'Bitte trage eine Aktivität ein.'));
+			setProblem(texts.missingTitle);
 			return;
 		}
 		if (!draft.date && (draft.time || draft.repeat !== 'none')) {
-			setProblem(
-				tx(
-					informal,
-					'Für Uhrzeit und Wiederholung wählen Sie bitte auch ein Datum.',
-					'Für Uhrzeit und Wiederholung wähle bitte auch ein Datum.'
-				)
-			);
+			setProblem(texts.missingDate);
 			return;
 		}
 		const data: Activity = {
@@ -95,7 +89,6 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 	if (suggesting) {
 		return (
 			<Suggestions
-				informal={informal}
 				onBack={() => setSuggesting(false)}
 				onPick={(title) => {
 					setDraft((current) => ({ ...current, title }));
@@ -109,19 +102,19 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 
 	return (
 		<div className="bt-stack">
-			<Intro custom={customIntro} informal={informal} />
+			<Intro custom={customIntro} />
 			<Card>
 				<div className="bt-stack" ref={formRef}>
 					<div className="bt-row bt-row--between">
-						<Headline level={3}>{editingId ? 'Aktivität bearbeiten' : 'Neue Aktivität planen'}</Headline>
+						<Headline level={3}>{editingId ? texts.editTitle : texts.newTitle}</Headline>
 						<Button variant="secondary" onClick={() => setSuggesting(true)}>
-							Vorschläge für Aktivitäten
+							{texts.suggestionsButton}
 						</Button>
 					</div>
 					<TextField
 						id="active-title"
-						label="Aktivität eintragen"
-						placeholder="Name oder Beschreibung der Aktivität"
+						label={texts.titleLabel}
+						placeholder={texts.titlePlaceholder}
 						value={draft.title}
 						maxLength={MAX_TITLE_LENGTH}
 						error={Boolean(problem) && !draft.title.trim()}
@@ -129,19 +122,19 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 					/>
 					<div className="bt-fields">
 						<DatePicker
-							label="Datum auswählen (optional)"
+							label={texts.dateLabel}
 							value={draft.date}
 							onChange={(date) => setDraft({ ...draft, date })}
 						/>
 						<TimeField
-							label="Uhrzeit auswählen (optional)"
+							label={texts.timeLabel}
 							value={draft.time}
 							onChange={(time) => setDraft({ ...draft, time })}
 						/>
 						<Select
-							label="Aktivität wiederholen?"
+							label={texts.repeatLabel}
 							value={draft.repeat}
-							options={REPEATS.map((value) => ({ value, label: REPEAT_LABELS[value] }))}
+							options={REPEATS.map((value) => ({ value, label: texts.repeatOptions[value] }))}
 							onChange={(repeat) => setDraft({ ...draft, repeat: repeat as Repeat })}
 						/>
 					</div>
@@ -153,8 +146,8 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 						/>
 					)}
 					<TextField
-						label="Begleitung (optional)"
-						placeholder="Name einer begleitenden Person"
+						label={texts.companionLabel}
+						placeholder={texts.companionPlaceholder}
 						value={draft.companion}
 						maxLength={MAX_COMPANION_LENGTH}
 						onChange={(companion) => setDraft({ ...draft, companion })}
@@ -165,10 +158,10 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 						</p>
 					)}
 					<div className="bt-row">
-						<Button onClick={submit}>{editingId ? 'Änderung speichern' : 'Aktivität hinzufügen'}</Button>
+						<Button onClick={submit}>{editingId ? texts.saveChange : texts.add}</Button>
 						{editingId && (
 							<Button variant="tertiary" onClick={reset}>
-								Abbrechen
+								{m.common.cancel}
 							</Button>
 						)}
 					</div>
@@ -177,7 +170,7 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 			<Card>
 				<div className="bt-stack bt-stack--tight">
 					<div className="bt-row bt-row--between">
-						<h3 className="bt-title">Eingetragene Aktivitäten</h3>
+						<h3 className="bt-title">{texts.listTitle}</h3>
 						{dated.length > 0 && (
 							<Button
 								variant="secondary"
@@ -185,18 +178,19 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 									download(
 										toIcs(
 											dated.map((a) => ({ id: a.id, data: a.data })),
-											new Date()
+											new Date(),
+											i18n
 										),
-										'aktiv-sein.ics'
+										texts.calendarFileName
 									)
 								}
 							>
-								In meinen Kalender übernehmen
+								{texts.addToCalendar}
 							</Button>
 						)}
 					</div>
 					{activities.length === 0 ? (
-						<p className="bt-muted">Noch keine Aktivitäten eingetragen.</p>
+						<p className="bt-muted">{texts.empty}</p>
 					) : (
 						<ul className="bt-list">
 							{activities.map(({ id, data }) => (
@@ -207,7 +201,7 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 								>
 									{confirming === id ? (
 										<div className="bt-row" style={{ flex: 1 }}>
-											<span style={{ flex: 1 }}>Diese Aktivität löschen?</span>
+											<span style={{ flex: 1 }}>{texts.confirmDelete}</span>
 											<Button
 												onClick={() => {
 													setConfirming(null);
@@ -217,10 +211,10 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 													void store.remove(id);
 												}}
 											>
-												Löschen
+												{texts.delete}
 											</Button>
 											<Button variant="tertiary" onClick={() => setConfirming(null)}>
-												Abbrechen
+												{m.common.cancel}
 											</Button>
 										</div>
 									) : (
@@ -228,7 +222,7 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 											<button
 												type="button"
 												className="bt-plan"
-												aria-label={`Bearbeiten: ${data.title}`}
+												aria-label={t(texts.editLabel, { title: data.title })}
 												onClick={() => {
 													setDraft(draftOf(data));
 													setEditingId(id);
@@ -238,16 +232,22 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 											>
 												<strong className="bt-item__text">{data.title}</strong>
 												<span className="bt-small bt-muted">
-													Nächster Termin: {nextLabel(data, today)}
-													{data.repeat !== 'none' ? ` (${REPEAT_LABELS[data.repeat]})` : ''}
+													{data.repeat === 'none'
+														? t(texts.nextLine, { next: nextLabel(data, today, i18n) })
+														: t(texts.nextLineWithRepeat, {
+																next: nextLabel(data, today, i18n),
+																repeat: texts.repeatOptions[data.repeat]
+															})}
 												</span>
-												<span className="bt-small bt-muted">Begleitung: {data.companion ?? '–'}</span>
+												<span className="bt-small bt-muted">
+													{t(texts.companionLine, { companion: data.companion ?? '–' })}
+												</span>
 											</button>
 											<button
 												type="button"
 												className="bt-iconbtn"
-												title="Aktivität löschen"
-												aria-label={`Löschen: ${data.title}`}
+												title={texts.deleteTitle}
+												aria-label={t(texts.deleteLabel, { title: data.title })}
 												onClick={() => setConfirming(id)}
 											>
 												<Icon name="delete" />
@@ -264,7 +264,8 @@ export function ActiveClient({ tool, entries, store, informal }: ClientViewProps
 	);
 }
 
-function Intro({ custom, informal }: { custom: string; informal: boolean }) {
+function Intro({ custom }: { custom: string }) {
+	const texts = useI18n().m.active;
 	const [open, setOpen] = useState(false);
 	return (
 		<Card>
@@ -272,16 +273,16 @@ function Intro({ custom, informal }: { custom: string; informal: boolean }) {
 				{custom ? (
 					<p className="bt-pre">{custom}</p>
 				) : (
-					intro(informal).map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+					texts.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
 				)}
 				<div>
 					<button type="button" className="bt-linkbtn" aria-expanded={open} onClick={() => setOpen(!open)}>
-						Wie gehe ich vor?
+						{texts.howToToggle}
 					</button>
 				</div>
 				{open && (
 					<ul style={{ paddingLeft: 20, margin: 0 }} className="bt-stack bt-stack--tight">
-						{howTo(informal).map((line) => (
+						{texts.howTo.map((line) => (
 							<li key={line}>{line}</li>
 						))}
 					</ul>
@@ -300,6 +301,8 @@ function CustomDates({
 	first: string;
 	onChange: (dates: string[]) => void;
 }) {
+	const { lang, t, m } = useI18n();
+	const texts = m.active;
 	const [next, setNext] = useState('');
 	const add = () => {
 		if (next && next !== first && !dates.includes(next)) {
@@ -310,23 +313,23 @@ function CustomDates({
 	return (
 		<div className="bt-stack bt-stack--tight">
 			<div className="bt-row" style={{ alignItems: 'flex-end' }}>
-				<DatePicker label="Weiterer Termin" value={next} onChange={setNext} />
+				<DatePicker label={texts.furtherDateLabel} value={next} onChange={setNext} />
 				<Button variant="secondary" disabled={!next} onClick={add}>
-					Termin hinzufügen
+					{texts.addDate}
 				</Button>
 			</div>
 			{dates.length > 0 && (
-				<ul className="bt-chips" aria-label="Weitere Termine">
+				<ul className="bt-chips" aria-label={texts.furtherDatesLabel}>
 					{dates.map((day) => (
 						<li key={day} className="bt-chip" style={{ listStyle: 'none', display: 'inline-flex', gap: 4 }}>
-							{formatDayLong(day)}
+							{formatDayLong(day, lang)}
 							<button
 								type="button"
 								className="bt-linkbtn bt-small"
-								aria-label={`Termin entfernen: ${formatDayLong(day)}`}
+								aria-label={t(texts.removeDateLabel, { day: formatDayLong(day, lang) })}
 								onClick={() => onChange(dates.filter((d) => d !== day))}
 							>
-								entfernen
+								{texts.removeDate}
 							</button>
 						</li>
 					))}
@@ -336,40 +339,33 @@ function CustomDates({
 	);
 }
 
-function Suggestions({
-	informal,
-	onBack,
-	onPick
-}: {
-	informal: boolean;
-	onBack: () => void;
-	onPick: (title: string) => void;
-}) {
-	const [category, setCategory] = useState(0);
-	const current = SUGGESTIONS[category] ?? SUGGESTIONS[0];
+function Suggestions({ onBack, onPick }: { onBack: () => void; onPick: (title: string) => void }) {
+	const texts = useI18n().m.active;
+	const [category, setCategory] = useState<SuggestionCategory>('sport');
+	const current = texts.suggestions[category];
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onBack}>Zurück zur Planung</BackButton>
+			<BackButton onClick={onBack}>{texts.backToPlanning}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Vorschläge für Aktivitäten</Headline>
-					<p>{suggestionsHint(informal)}</p>
+					<Headline level={3}>{texts.suggestionsTitle}</Headline>
+					<p>{texts.suggestionsHint}</p>
 					<div className="bt-navtabs" role="tablist">
-						{SUGGESTIONS.map((candidate, index) => (
+						{SUGGESTION_CATEGORIES.map((candidate) => (
 							<button
-								key={candidate.title}
+								key={candidate}
 								type="button"
 								role="tab"
 								className="bt-navtab"
-								aria-selected={index === category}
-								onClick={() => setCategory(index)}
+								aria-selected={candidate === category}
+								onClick={() => setCategory(candidate)}
 							>
-								{candidate.title}
+								{texts.suggestions[candidate].title}
 							</button>
 						))}
 					</div>
-					<div className="bt-chips" role="tabpanel" aria-label={current?.title}>
-						{current?.items.map((item) => (
+					<div className="bt-chips" role="tabpanel" aria-label={current.title}>
+						{current.items.map((item) => (
 							<button key={item} type="button" className="bt-chip" onClick={() => onPick(item)}>
 								{item}
 							</button>

@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import type { Activity } from '../../../../shared/activities.ts';
-import { ACTIVITY_KIND, activitiesOf, REPEAT_LABELS, REPEATS } from '../../../../shared/activities.ts';
+import { ACTIVITY_KIND, activitiesOf, REPEATS } from '../../../../shared/activities.ts';
 import { addDays, formatDayLong, isDay } from '../../../../shared/days.ts';
+import { localized } from '../../../../shared/i18n/index.ts';
 import {
 	MAX_ACTIVITIES,
 	MAX_COMPANION_LENGTH,
@@ -96,34 +97,40 @@ export const active: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const { lang, m, t } = i18n;
+		const texts = m.active;
 		const activities = activitiesOf(entries);
 		if (activities.length === 0) {
-			pdf.paragraph('Noch keine Aktivitäten eingetragen.', { muted: true });
+			pdf.paragraph(texts.empty, { muted: true });
 			return;
 		}
 		const today = new Date().toISOString().slice(0, 10);
-		pdf.heading('Eingetragene Aktivitäten');
+		pdf.heading(texts.listTitle);
 		for (const { data } of activities) {
 			pdf.subheading(data.title);
 			const details = [
-				`Nächster Termin: ${nextLabel(data, today)}`,
-				`Wiederholung: ${REPEAT_LABELS[data.repeat]}`,
+				t(texts.nextLine, { next: nextLabel(data, today, i18n) }),
+				t(texts.repeatLine, { repeat: texts.repeatOptions[data.repeat] }),
 				...(data.repeat === 'custom' && data.dates?.length
-					? [`Weitere Termine: ${data.dates.map((day) => formatDayLong(day)).join('; ')}`]
+					? [
+							t(texts.furtherDatesLine, {
+								dates: data.dates.map((day) => formatDayLong(day, lang)).join('; ')
+							})
+						]
 					: []),
-				`Begleitung: ${data.companion ?? 'keine Angabe'}`
+				t(texts.companionLine, { companion: data.companion ?? texts.noCompanion })
 			];
 			pdf.paragraph(details.join('\n'));
 		}
 	},
-	demo: () => {
+	demo: ({ m }) => {
 		const today = new Date().toISOString().slice(0, 10);
 		return [
 			{
 				kind: ACTIVITY_KIND,
 				data: {
-					title: 'Spazieren gehen am Fluss',
+					title: m.active.demo.walk,
 					date: addDays(today, 1),
 					time: '18:00',
 					repeat: 'weekly',
@@ -133,14 +140,14 @@ export const active: ServerTool = {
 			{
 				kind: ACTIVITY_KIND,
 				data: {
-					title: 'Ins Kino gehen',
+					title: m.active.demo.cinema,
 					date: addDays(today, 3),
 					time: '20:00',
 					repeat: 'none',
 					companion: 'Peter, Marie'
 				}
 			},
-			{ kind: ACTIVITY_KIND, data: { title: 'Ein Buch lesen', repeat: 'none' } }
+			{ kind: ACTIVITY_KIND, data: { title: m.active.demo.book, repeat: 'none' } }
 		];
 	},
 	calendar({ entries, now, timeZone }) {
@@ -152,7 +159,7 @@ export const active: ServerTool = {
 				result.push({
 					id: `active-${entry.id}-${occurrence}`,
 					kind: 'reminder',
-					title: { de: data.title },
+					title: localized(() => data.title),
 					...(data.time
 						? { start: zonedIso(occurrence, data.time, timeZone), allDay: false }
 						: { start: `${occurrence}T00:00:00.000Z`, allDay: true })

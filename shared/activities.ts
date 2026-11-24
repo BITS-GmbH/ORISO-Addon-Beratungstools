@@ -13,13 +13,6 @@ export const ACTIVITY_KIND = 'activity';
 export const REPEATS = ['none', 'daily', 'weekly', 'custom'] as const;
 export type Repeat = (typeof REPEATS)[number];
 
-export const REPEAT_LABELS: Record<Repeat, string> = {
-	none: 'keine',
-	daily: 'täglich',
-	weekly: 'wöchentlich',
-	custom: 'individueller Termin'
-};
-
 export interface Activity {
 	title: string;
 	/** First (or only) day, `YYYY-MM-DD`; activities may have no date at all. */

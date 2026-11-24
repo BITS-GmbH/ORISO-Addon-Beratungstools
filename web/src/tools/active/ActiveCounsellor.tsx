@@ -1,18 +1,23 @@
-import { activitiesOf, REPEAT_LABELS } from '../../../../shared/activities.ts';
+import { activitiesOf } from '../../../../shared/activities.ts';
 import { formatDayLong, localToday } from '../../../../shared/days.ts';
 import { nextLabel } from '../../../../shared/tools/active.ts';
-import { formatDate, Pill } from '../../ui.tsx';
+import { useI18n } from '../../host.ts';
+import { Pill } from '../../ui.tsx';
 import type { CounsellorViewProps } from '../types.ts';
 
 /** Read only: the planned activities with their next date, repetition and companion. */
-export function ActiveCounsellor({ entries, isNew, locale }: CounsellorViewProps) {
+export function ActiveCounsellor({ entries, isNew }: CounsellorViewProps) {
+	const i18n = useI18n();
+	const { lang, t } = i18n;
+	const texts = i18n.m.active;
+	const labels = texts.counsellor;
 	const activities = activitiesOf(entries);
 	const today = localToday();
 	if (activities.length === 0) {
-		return <p className="bt-muted">Noch keine Aktivitäten eingetragen.</p>;
+		return <p className="bt-muted">{texts.empty}</p>;
 	}
 	return (
-		<ul className="bt-list" aria-label="Eingetragene Aktivitäten">
+		<ul className="bt-list" aria-label={texts.listTitle}>
 			{activities.map((entry) => {
 				const { data } = entry;
 				const fresh = isNew(entry);
@@ -20,25 +25,27 @@ export function ActiveCounsellor({ entries, isNew, locale }: CounsellorViewProps
 					<li key={entry.id} className={`bt-entry${fresh ? ' bt-entry--new' : ''}`}>
 						<div className="bt-row bt-row--between" style={{ flexWrap: 'nowrap', alignItems: 'flex-start' }}>
 							<strong className="bt-item__text">{data.title}</strong>
-							{fresh && <Pill tone="new">Neu</Pill>}
+							{fresh && <Pill tone="new">{labels.new}</Pill>}
 						</div>
 						<dl className="bt-details">
-							<dt>Nächster Termin</dt>
-							<dd>{nextLabel(data, today)}</dd>
-							<dt>Wiederholung</dt>
+							<dt>{labels.next}</dt>
+							<dd>{nextLabel(data, today, i18n)}</dd>
+							<dt>{labels.repeat}</dt>
 							<dd>
-								{REPEAT_LABELS[data.repeat]}
 								{data.repeat === 'custom' && data.dates?.length
-									? `: ${[data.date, ...data.dates]
-											.filter((day): day is string => Boolean(day))
-											.map((day) => formatDayLong(day))
-											.join('; ')}`
-									: ''}
+									? t(labels.repeatWithDates, {
+											repeat: texts.repeatOptions[data.repeat],
+											dates: [data.date, ...data.dates]
+												.filter((day): day is string => Boolean(day))
+												.map((day) => formatDayLong(day, lang))
+												.join('; ')
+										})
+									: texts.repeatOptions[data.repeat]}
 							</dd>
-							<dt>Begleitung</dt>
+							<dt>{labels.companion}</dt>
 							<dd>{data.companion ?? '–'}</dd>
-							<dt>Zuletzt geändert</dt>
-							<dd>{formatDate(entry.updatedAt, locale, true)}</dd>
+							<dt>{labels.lastChanged}</dt>
+							<dd>{i18n.date(entry.updatedAt, { withTime: true })}</dd>
 						</dl>
 					</li>
 				);

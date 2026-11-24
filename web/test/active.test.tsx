@@ -110,4 +110,72 @@ describe('Aktiv sein', () => {
 		expect(screen.getByText('Marie')).toBeTruthy();
 		expect(screen.queryByText('Löschen')).toBeNull();
 	});
+
+	it('speaks English to an English client', async () => {
+		let created: any = null;
+		const activity = entry('activity', {
+			title: 'Schwimmen',
+			date: '2099-01-05',
+			time: '18:00',
+			repeat: 'weekly',
+			companion: 'Marie'
+		});
+		const { host } = fakeHost(
+			{
+				'GET /me/tools/active': () => tool([activity]),
+				'POST /me/tools/active/entries': (body) => {
+					created = body;
+					return entry(body.kind, body.data);
+				}
+			},
+			{ locale: 'en' }
+		);
+		open(host);
+		expect(await screen.findByText('Next date: Monday, 05/01/2099, 18:00 (weekly)')).toBeTruthy();
+		expect(screen.getByText('Company: Marie')).toBeTruthy();
+		expect(screen.getByText('Add to my calendar')).toBeTruthy();
+		fireEvent.click(screen.getByText('Add activity'));
+		expect(screen.getByRole('alert').textContent).toBe('Please enter an activity.');
+		fireEvent.click(screen.getByText('Ideas for activities'));
+		fireEvent.click(screen.getByRole('tab', { name: 'Treats' }));
+		fireEvent.click(screen.getByText('Order a pizza'));
+		expect((screen.getByLabelText('Enter an activity') as HTMLInputElement).value).toBe('Order a pizza');
+		fireEvent.click(screen.getByText('Add activity'));
+		await waitFor(() =>
+			expect(created).toEqual({ kind: 'activity', data: { title: 'Order a pizza', repeat: 'none' } })
+		);
+	});
+
+	it('addresses the client informally in German', async () => {
+		const { host } = fakeHost({ 'GET /me/tools/active': () => tool([]) }, { informal: true });
+		open(host);
+		fireEvent.click(await screen.findByText('Aktivität hinzufügen'));
+		expect(screen.getByRole('alert').textContent).toBe('Bitte trage eine Aktivität ein.');
+		fireEvent.click(screen.getByText('Wie gehe ich vor?'));
+		expect(screen.getByText(/^Trage unten deine geplanten Aktivitäten ein/)).toBeTruthy();
+	});
+
+	it('shows the counsellor view in English', () => {
+		const custom = entry('activity', {
+			title: 'Kurs',
+			date: '2099-01-05',
+			repeat: 'custom',
+			dates: ['2099-01-12']
+		});
+		const { host } = fakeHost({}, { locale: 'en' });
+		renderWith(
+			host,
+			<ActiveCounsellor
+				entries={[custom]}
+				linked={{}}
+				options={{}}
+				locale="en"
+				isNew={(e) => e.updatedAt > '2026-11-10'}
+			/>
+		);
+		expect(screen.getByText('Next date')).toBeTruthy();
+		expect(screen.getByText('Monday, 05/01/2099')).toBeTruthy();
+		expect(screen.getByText('on chosen dates: Monday, 05/01/2099; Monday, 12/01/2099')).toBeTruthy();
+		expect(screen.getByText('New')).toBeTruthy();
+	});
 });

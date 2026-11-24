@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { i18n } from '../../shared/i18n/index.ts';
 import { nextOccurrence, occurrenceDays, occurrencesBetween } from '../../shared/activities.ts';
-import { nextLabel, SUGGESTIONS, toIcs } from '../../shared/tools/active.ts';
+import { nextLabel, SUGGESTION_CATEGORIES, toIcs } from '../../shared/tools/active.ts';
 import { active, activitySchema, zonedIso } from '../src/tools/active/index.ts';
 import { createWriter } from './pdfWriter.ts';
 
@@ -72,12 +72,16 @@ describe('active', () => {
 	it('names the next date', () => {
 		const weekly = { title: 'Sport', date: '2026-11-03', time: '18:00', repeat: 'weekly' as const };
 		expect(nextOccurrence(weekly, '2026-11-20')).toBe('2026-11-24');
-		expect(nextLabel(weekly, '2026-11-20')).toBe('Dienstag, 24.11.2026, 18:00 Uhr');
-		expect(nextLabel({ ...weekly, repeat: 'none' }, '2026-11-20')).toBe('kein weiterer Termin');
-		expect(nextLabel({ ...weekly, date: '2027-01-05', repeat: 'none' }, '2026-11-20')).toBe(
+		const de = i18n('de');
+		expect(nextLabel(weekly, '2026-11-20', de)).toBe('Dienstag, 24.11.2026, 18:00 Uhr');
+		expect(nextLabel({ ...weekly, repeat: 'none' }, '2026-11-20', de)).toBe('kein weiterer Termin');
+		expect(nextLabel({ ...weekly, date: '2027-01-05', repeat: 'none' }, '2026-11-20', de)).toBe(
 			'Dienstag, 05.01.2027, 18:00 Uhr'
 		);
-		expect(nextLabel({ title: 'Lesen', repeat: 'none' }, '2026-11-20')).toBe('kein Termin');
+		expect(nextLabel({ title: 'Lesen', repeat: 'none' }, '2026-11-20', de)).toBe('kein Termin');
+		const en = i18n('en');
+		expect(nextLabel(weekly, '2026-11-20', en)).toBe('Tuesday, 24/11/2026, 18:00');
+		expect(nextLabel({ title: 'Lesen', repeat: 'none' }, '2026-11-20', en)).toBe('no date');
 	});
 
 	it('lists the occurrences of a week in order, for the diaries', () => {
@@ -114,7 +118,8 @@ describe('active', () => {
 					data: { title: 'Kurs', date: '2026-11-26', time: '09:30', repeat: 'custom', dates: ['2026-12-03'] }
 				}
 			],
-			new Date('2026-11-20T09:00:00Z')
+			new Date('2026-11-20T09:00:00Z'),
+			i18n('de')
 		);
 		const lines = ics.split('\r\n');
 		expect(lines[0]).toBe('BEGIN:VCALENDAR');
@@ -132,7 +137,8 @@ describe('active', () => {
 	it('folds long lines', () => {
 		const ics = toIcs(
 			[{ id: 'a', data: { title: 'ä'.repeat(60), date: '2026-11-24', repeat: 'none' } }],
-			new Date()
+			new Date(),
+			i18n('de')
 		);
 		for (const line of ics.split('\r\n')) {
 			expect(new TextEncoder().encode(line).length).toBeLessThanOrEqual(75);
@@ -159,7 +165,7 @@ describe('active', () => {
 		expect(result?.find((e) => e.id === 'active-a-2026-11-24')).toEqual({
 			id: 'active-a-2026-11-24',
 			kind: 'reminder',
-			title: { de: 'Kino' },
+			title: expect.objectContaining({ de: 'Kino', en: 'Kino' }),
 			start: '2026-11-24T19:00:00.000Z',
 			allDay: false
 		});
@@ -170,16 +176,53 @@ describe('active', () => {
 	});
 
 	it('has the suggestions of the tool description, without duplicates', () => {
-		expect(SUGGESTIONS.map((c) => c.title)).toEqual([
+		const { suggestions } = i18n('de').m.active;
+		expect(SUGGESTION_CATEGORIES.map((id) => suggestions[id].title)).toEqual([
 			'Aktiv und sportlich',
 			'Entspannung',
 			'Inspiration',
 			'Genuss',
 			'Kreativ'
 		]);
-		for (const category of SUGGESTIONS) {
-			expect(new Set(category.items).size).toBe(category.items.length);
+		for (const lang of ['de', 'en'] as const) {
+			for (const id of SUGGESTION_CATEGORIES) {
+				const { items } = i18n(lang).m.active.suggestions[id];
+				expect(new Set(items).size).toBe(items.length);
+			}
 		}
+	});
+
+	it('writes the fixed texts of the calendar file in the export language', () => {
+		const ics = toIcs(
+			[{ id: 'a', data: { title: 'Kino', date: '2026-11-24', repeat: 'none', companion: 'Peter' } }],
+			new Date('2026-11-20T09:00:00Z'),
+			i18n('en')
+		);
+		expect(ics.split('\r\n')).toContain('DESCRIPTION:Company: Peter');
+		expect(ics).toContain('SUMMARY:Kino');
+	});
+
+	it('exports in English and seeds an English demo', () => {
+		const en = i18n('en');
+		const demo = active.demo?.(en) ?? [];
+		expect(demo.map((seed) => (seed.data as { title: string }).title)).toContain('Go to the cinema');
+		const { writer, text } = createWriter();
+		active.exportPdf(writer, {
+			entries: [
+				...demo.map((seed, i) => entry(String(i), seed.data)),
+				entry('x', { title: 'Kurs', date: '2099-01-05', repeat: 'custom', dates: ['2099-01-12'] })
+			],
+			options: {},
+			linked: {},
+			counsellors: [],
+			i18n: en
+		});
+		expect(text()).toContain('# Your activities');
+		expect(text()).toContain('Company: Peter, Marie');
+		expect(text()).toContain('Repeats: on chosen dates');
+		expect(text()).toContain('Other dates: Monday, 12/01/2099');
+		expect(text()).toContain('Company: not given');
+		expect(text()).not.toMatch(/Begleitung|Nächster|Wiederholung/);
 	});
 
 	it('exports the activities and seeds a valid demo', () => {
