@@ -78,7 +78,8 @@ describe('Ampelmodell export', () => {
 
 	it('writes the levels with their activities in German', () => {
 		const text = exportText('de', entries);
-		expect(text).toContain('# Gelb: mögliche Gefahr (2)');
+		expect(text).toContain('# Gelb: mögliche Gefahr (1 Aktivität)');
+		expect(text).toContain('# Rot: große Gefahr (0 Aktivitäten)');
 		expect(text).toContain('- Instagram');
 		expect(text).toContain('Keine Aktivitäten.');
 		expect(exportText('de', [])).toBe('Noch keine Aktivitäten eingetragen.');
@@ -86,8 +87,8 @@ describe('Ampelmodell export', () => {
 
 	it('writes the export in English', () => {
 		const text = exportText('en', entries);
-		expect(text).toContain('# Red: great danger (3)');
-		expect(text).toContain('# Yellow: possible danger (2)');
+		expect(text).toContain('# Red: great danger (0 activities)');
+		expect(text).toContain('# Yellow: possible danger (1 activity)');
 		expect(text).toContain('No activities.');
 		expect(exportText('en', [])).toContain('No activities entered yet.');
 	});

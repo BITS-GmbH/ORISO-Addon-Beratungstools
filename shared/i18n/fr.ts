@@ -1517,7 +1517,10 @@ export const fr: Catalogue = {
 		confirmDelete: 'Supprimer cette activité ?',
 		empty: 'Aucune activité saisie pour le moment.',
 		new: 'Nouveau',
-		pdfLevelHeading: '{colour} : {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour} : {danger} ({count} activité)',
+			other: '{colour} : {danger} ({count} activités)'
+		},
 		demo: {
 			red: 'Jouer à un jeu vidéo',
 			yellow: 'Instagram',

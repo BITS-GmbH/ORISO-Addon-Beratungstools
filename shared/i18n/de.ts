@@ -2093,7 +2093,10 @@ export const de = {
 		confirmDelete: 'Diese Aktivität löschen?',
 		empty: 'Noch keine Aktivitäten eingetragen.',
 		new: 'Neu',
-		pdfLevelHeading: '{colour}: {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour}: {danger} ({count} Aktivität)',
+			other: '{colour}: {danger} ({count} Aktivitäten)'
+		},
 		demo: {
 			red: 'Ein Computerspiel spielen',
 			yellow: 'Instagram',

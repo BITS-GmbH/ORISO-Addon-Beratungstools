@@ -1535,7 +1535,12 @@ export const ru: Catalogue = {
 		confirmDelete: 'Удалить это занятие?',
 		empty: 'Занятия пока не внесены.',
 		new: 'Новое',
-		pdfLevelHeading: '{colour}: {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour}: {danger} ({count} занятие)',
+			few: '{colour}: {danger} ({count} занятия)',
+			many: '{colour}: {danger} ({count} занятий)',
+			other: '{colour}: {danger} ({count} занятия)'
+		},
 		demo: {
 			red: 'Играть в компьютерную игру',
 			yellow: 'Instagram',

@@ -41,7 +41,8 @@ export const trafficLight: ServerTool = {
 		for (const level of LEVEL_VALUES) {
 			const colour = LEVEL_COLOURS[level];
 			const { colourName, danger } = texts.levels[colour];
-			const heading = i18n.t(texts.pdfLevelHeading, { colour: colourName, danger, level });
+			const items = activities.filter((activity) => activity.level === level);
+			const heading = i18n.t(texts.pdfLevelHeading, { colour: colourName, danger, count: items.length });
 			pdf.drawing(20, (doc, { x, y }) => {
 				doc.circle(x + 7, y + 8, 7).fill(PDF_COLOURS[colour]);
 				doc
@@ -50,7 +51,6 @@ export const trafficLight: ServerTool = {
 					.fillColor('#1a1c1e')
 					.text(heading, x + 22, y + 2);
 			});
-			const items = activities.filter((activity) => activity.level === level);
 			if (items.length === 0) {
 				pdf.paragraph(texts.noActivities, { muted: true });
 			}

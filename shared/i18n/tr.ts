@@ -1496,7 +1496,10 @@ export const tr: Catalogue = {
 		confirmDelete: 'Bu etkinlik silinsin mi?',
 		empty: 'Henüz etkinlik girilmedi.',
 		new: 'Yeni',
-		pdfLevelHeading: '{colour}: {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour}: {danger} ({count} etkinlik)',
+			other: '{colour}: {danger} ({count} etkinlik)'
+		},
 		demo: {
 			red: 'Bilgisayar oyunu oynamak',
 			yellow: 'Instagram',

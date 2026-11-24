@@ -1487,7 +1487,10 @@ export const en: Complete = {
 		confirmDelete: 'Delete this activity?',
 		empty: 'No activities entered yet.',
 		new: 'New',
-		pdfLevelHeading: '{colour}: {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour}: {danger} ({count} activity)',
+			other: '{colour}: {danger} ({count} activities)'
+		},
 		demo: {
 			red: 'Playing a computer game',
 			yellow: 'Instagram',

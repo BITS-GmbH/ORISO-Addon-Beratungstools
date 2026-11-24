@@ -1450,7 +1450,10 @@ export const ti: Catalogue = {
 		confirmDelete: 'እዚ ንጥፈት ይደምሰስ ዶ?',
 		empty: 'ገና ዝኣተወ ንጥፈት የለን።',
 		new: 'ሓድሽ',
-		pdfLevelHeading: '{colour}፦ {danger} ({level})',
+		pdfLevelHeading: {
+			one: '{colour}፦ {danger} ({count} ንጥፈት)',
+			other: '{colour}፦ {danger} ({count} ንጥፈታት)'
+		},
 		demo: {
 			red: 'ናይ ኮምፒተር ጸወታ ምጽዋት',
 			yellow: 'Instagram',
