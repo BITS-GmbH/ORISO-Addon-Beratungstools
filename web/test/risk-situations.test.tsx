@@ -128,4 +128,45 @@ describe('Risikosituationen und Kontrollstrategien', () => {
 		fireEvent.click(screen.getByText('Weiter'));
 		expect(screen.getByText('Situation 6')).toBeTruthy();
 	});
+
+	it('speaks English to an English client, in the editor and the relapse analysis', async () => {
+		const { host } = fakeHost(
+			{ 'GET /me/tools/risk-situations': () => tool([situation('Party')]) },
+			{ locale: 'en' }
+		);
+		renderWith(host, page());
+		expect(await screen.findByText('My risk situations and control strategies')).toBeTruthy();
+		expect(screen.getByText('hard')).toBeTruthy();
+		expect(screen.getByText('not done yet')).toBeTruthy();
+		fireEvent.click(screen.getByText('How to fill this in'));
+		expect(screen.getByText('Enter risk situations').closest('li')?.textContent).toBe(
+			'Enter risk situations in which you have used substances or shown the problematic behaviour so far.'
+		);
+		fireEvent.click(screen.getByText('Analyse a relapse'));
+		expect(screen.getByText('Improve your coping strategies')).toBeTruthy();
+		expect(screen.getByLabelText(/^5\. How could you master the situation/)).toBeTruthy();
+		fireEvent.click(screen.getByText('Save'));
+		expect(screen.getByRole('alert').textContent).toBe('Please answer at least one of the questions.');
+		fireEvent.click(screen.getByText('Back to overview'));
+		fireEvent.click(screen.getByText('Enter a new risk situation'));
+		expect(screen.getByLabelText(/How difficult is it for you/)).toBeTruthy();
+		expect(screen.getByRole('option', { name: 'very hard' })).toBeTruthy();
+	});
+
+	it('shows counsellors the cards in English', () => {
+		const { host } = fakeHost({}, { locale: 'en' });
+		renderWith(
+			host,
+			<RiskCounsellor
+				entries={[situation('Party')]}
+				options={{}}
+				locale="en"
+				linked={{}}
+				isNew={() => false}
+			/>
+		);
+		expect(screen.getByText('No relapse recorded.')).toBeTruthy();
+		expect(screen.getByText('Control strategy')).toBeTruthy();
+		expect(screen.getByText(/^Last changed on /)).toBeTruthy();
+	});
 });

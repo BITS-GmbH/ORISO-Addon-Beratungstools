@@ -1,38 +1,30 @@
 import { Button, Card, Headline, Select, Textarea } from '@oriso/web-kit';
 import { useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
 import {
 	DIFFICULTIES,
-	difficultyQuestion,
-	guideIntro,
-	guideSteps,
 	MAX_ANSWER_LENGTH,
 	MAX_SITUATION_LENGTH,
 	MAX_STRATEGY_LENGTH,
-	NEW_STRATEGY_QUESTION,
+	RELAPSE_ANSWERS,
 	RELAPSE_KIND,
-	RELAPSE_QUESTIONS,
-	relapseIntro,
 	relapsesOf,
 	SITUATION_KIND,
-	situationHint,
 	situationsOf,
-	startText,
-	strategyQuestion,
 	type Relapse,
 	type RelapseAnswer,
 	type RelapseItem,
 	type Situation,
 	type SituationItem
 } from '../../../../shared/tools/risk-situations.ts';
-import { BackButton, formatDate, IconButton } from '../../ui.tsx';
+import { useI18n } from '../../host.ts';
+import { BackButton, IconButton } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
-import { DifficultyBadge, RelapseDetails } from './parts.tsx';
+import { DifficultyBadge, RelapseDetails, WithTitle } from './parts.tsx';
 
 type Screen = { name: 'list' } | { name: 'edit'; id: string | null } | { name: 'relapse'; id: string };
 
 /** Risikosituationen und Kontrollstrategien as the client uses it: the list, the editor and the relapse analysis. */
-export function RiskClient({ entries, store, informal, locale, download }: ClientViewProps) {
+export function RiskClient({ entries, store, download }: ClientViewProps) {
 	const [screen, setScreen] = useState<Screen>({ name: 'list' });
 	const situations = situationsOf(entries);
 	const back = () => setScreen({ name: 'list' });
@@ -43,7 +35,6 @@ export function RiskClient({ entries, store, informal, locale, download }: Clien
 			<SituationEditor
 				key={screen.id ?? 'new'}
 				situation={current}
-				informal={informal}
 				onCancel={back}
 				onSave={(data) => {
 					void (current ? store.update(current.id, data) : store.create(SITUATION_KIND, data));
@@ -60,8 +51,6 @@ export function RiskClient({ entries, store, informal, locale, download }: Clien
 					situation={situation}
 					relapses={relapsesOf(entries, situation.id)}
 					store={store}
-					informal={informal}
-					locale={locale}
 					download={download}
 					onBack={back}
 				/>
@@ -72,8 +61,6 @@ export function RiskClient({ entries, store, informal, locale, download }: Clien
 		<Overview
 			situations={situations}
 			entries={entries}
-			informal={informal}
-			locale={locale}
 			onEdit={(id) => setScreen({ name: 'edit', id })}
 			onRelapse={(id) => setScreen({ name: 'relapse', id })}
 			onDelete={(item) => {
@@ -90,8 +77,6 @@ export function RiskClient({ entries, store, informal, locale, download }: Clien
 function Overview({
 	situations,
 	entries,
-	informal,
-	locale,
 	onEdit,
 	onRelapse,
 	onDelete,
@@ -99,20 +84,20 @@ function Overview({
 }: {
 	situations: SituationItem[];
 	entries: ClientViewProps['entries'];
-	informal: boolean;
-	locale: string;
 	onEdit: (id: string | null) => void;
 	onRelapse: (id: string) => void;
 	onDelete: (item: SituationItem) => void;
 	onPdf: () => void;
 }) {
+	const i18n = useI18n();
+	const texts = i18n.m.riskSituations;
 	const [guide, setGuide] = useState(situations.length === 0);
 	const [confirming, setConfirming] = useState<string | null>(null);
 	return (
 		<div className="bt-stack">
 			<Card>
 				<div className="bt-stack bt-stack--tight">
-					<p>{startText(informal)}</p>
+					<p>{texts.start}</p>
 					<div>
 						<button
 							type="button"
@@ -120,18 +105,16 @@ function Overview({
 							aria-expanded={guide}
 							onClick={() => setGuide(!guide)}
 						>
-							{guide ? 'Anleitung ausblenden' : 'Anleitung zum Ausfüllen'}
+							{guide ? texts.guideHide : texts.guideShow}
 						</button>
 					</div>
 					{guide && (
 						<div className="bt-stack bt-stack--tight">
-							<p>{guideIntro(informal)}</p>
+							<p>{texts.guideIntro}</p>
 							<ol className="bt-steps-list">
-								{guideSteps(informal).map(([title, text]) => (
-									<li key={title}>
-										<strong>{title}</strong>
-										{title === 'Risikosituation eintragen' ? ', ' : ': '}
-										{text}
+								{Object.entries(texts.guideSteps).map(([id, step]) => (
+									<li key={id}>
+										<WithTitle text={step.text} title={step.title} />
 									</li>
 								))}
 							</ol>
@@ -141,15 +124,9 @@ function Overview({
 			</Card>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>Meine Risikosituationen und Kontrollstrategien</Headline>
+					<Headline level={3}>{texts.heading}</Headline>
 					{situations.length === 0 ? (
-						<p className="bt-muted">
-							{tx(
-								informal,
-								'Sie haben noch keine Risikosituation eingetragen.',
-								'Du hast noch keine Risikosituation eingetragen.'
-							)}
-						</p>
+						<p className="bt-muted">{texts.empty}</p>
 					) : (
 						<ul className="bt-list">
 							{situations.map((item) => {
@@ -158,55 +135,53 @@ function Overview({
 									<li key={item.id} className="bt-risk">
 										{confirming === item.id ? (
 											<div className="bt-confirm" style={{ gridColumn: '1 / -1' }}>
-												<span style={{ flex: 1 }}>
-													Diese Risikosituation mit allen Rückfallanalysen löschen?
-												</span>
+												<span style={{ flex: 1 }}>{texts.deleteQuestion}</span>
 												<Button
 													onClick={() => {
 														setConfirming(null);
 														onDelete(item);
 													}}
 												>
-													Löschen
+													{texts.delete}
 												</Button>
 												<Button variant="tertiary" onClick={() => setConfirming(null)}>
-													Abbrechen
+													{i18n.m.common.cancel}
 												</Button>
 											</div>
 										) : (
 											<>
 												<div className="bt-risk__cell">
-													<span className="bt-overline">Risikosituation</span>
+													<span className="bt-overline">{texts.columns.situation}</span>
 													<span className="bt-item__text">{item.situation}</span>
 												</div>
 												<div className="bt-risk__cell">
-													<span className="bt-overline">Bewertung</span>
+													<span className="bt-overline">{texts.columns.difficulty}</span>
 													<DifficultyBadge value={item.difficulty} />
 												</div>
 												<div className="bt-risk__cell">
-													<span className="bt-overline">Kontrollstrategie</span>
+													<span className="bt-overline">{texts.columns.strategy}</span>
 													<Teaser text={item.strategy} />
 												</div>
 												<div className="bt-risk__cell">
-													<span className="bt-overline">Rückfall</span>
+													<span className="bt-overline">{texts.columns.relapse}</span>
 													<button type="button" className="bt-linkbtn" onClick={() => onRelapse(item.id)}>
-														Rückfall analysieren
+														{texts.analyseRelapse}
 													</button>
 													<span className="bt-small bt-muted">
 														{last
-															? `Stand ${formatDate(last.entry.createdAt, locale)}`
-															: 'noch nicht bearbeitet'}
+															? i18n.t(texts.relapseState, { date: i18n.date(last.entry.createdAt) })
+															: texts.notEdited}
 													</span>
 												</div>
 												<div className="bt-risk__actions">
 													<IconButton
 														icon="edit"
-														label={`Bearbeiten: ${item.situation}`}
+														label={i18n.t(texts.editLabel, { situation: item.situation })}
 														onClick={() => onEdit(item.id)}
 													/>
 													<IconButton
 														icon="delete"
-														label={`Löschen: ${item.situation}`}
+														label={i18n.t(texts.deleteLabel, { situation: item.situation })}
 														onClick={() => setConfirming(item.id)}
 													/>
 												</div>
@@ -218,10 +193,10 @@ function Overview({
 						</ul>
 					)}
 					<div className="bt-row">
-						<Button onClick={() => onEdit(null)}>Neue Risikosituation eintragen</Button>
+						<Button onClick={() => onEdit(null)}>{texts.add}</Button>
 						{situations.length > 0 && (
 							<Button variant="secondary" onClick={onPdf}>
-								Tabelle als PDF ausgeben
+								{texts.tablePdf}
 							</Button>
 						)}
 					</div>
@@ -232,9 +207,10 @@ function Overview({
 }
 
 function Teaser({ text }: { text: string }) {
+	const texts = useI18n().m.riskSituations;
 	const [open, setOpen] = useState(false);
 	if (!text) {
-		return <span className="bt-muted bt-small">Noch keine Strategie</span>;
+		return <span className="bt-muted bt-small">{texts.noStrategy}</span>;
 	}
 	const long = text.length > 160;
 	return (
@@ -242,7 +218,7 @@ function Teaser({ text }: { text: string }) {
 			<span className={`bt-item__text${long && !open ? ' bt-clamp' : ''}`}>{text}</span>
 			{long && (
 				<button type="button" className="bt-linkbtn bt-small" onClick={() => setOpen(!open)}>
-					{open ? 'weniger anzeigen' : 'mehr anzeigen'}
+					{open ? texts.showLess : texts.showMore}
 				</button>
 			)}
 		</>
@@ -251,15 +227,15 @@ function Teaser({ text }: { text: string }) {
 
 function SituationEditor({
 	situation,
-	informal,
 	onSave,
 	onCancel
 }: {
 	situation: SituationItem | undefined;
-	informal: boolean;
 	onSave: (data: Situation) => void;
 	onCancel: () => void;
 }) {
+	const i18n = useI18n();
+	const texts = i18n.m.riskSituations;
 	const [text, setText] = useState(situation?.situation ?? '');
 	const [difficulty, setDifficulty] = useState<string>(situation?.difficulty ?? '');
 	const [strategy, setStrategy] = useState(situation?.strategy ?? '');
@@ -267,13 +243,11 @@ function SituationEditor({
 
 	const save = () => {
 		if (!text.trim()) {
-			setProblem(
-				tx(informal, 'Bitte beschreiben Sie die Risikosituation.', 'Bitte beschreibe die Risikosituation.')
-			);
+			setProblem(texts.missingSituation);
 			return;
 		}
 		if (!difficulty) {
-			setProblem(tx(informal, 'Bitte wählen Sie eine Bewertung aus.', 'Bitte wähle eine Bewertung aus.'));
+			setProblem(texts.missingDifficulty);
 			return;
 		}
 		onSave({
@@ -285,16 +259,14 @@ function SituationEditor({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onCancel}>Zur Übersicht</BackButton>
+			<BackButton onClick={onCancel}>{texts.toOverview}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>
-						{situation ? 'Risikosituation bearbeiten' : 'Risikosituation erstellen'}
-					</Headline>
+					<Headline level={3}>{situation ? texts.editTitle : texts.createTitle}</Headline>
 					<Textarea
 						id="risk-situation"
-						label="Risikosituation"
-						helperText={situationHint(informal)}
+						label={texts.columns.situation}
+						helperText={texts.situationHint}
 						value={text}
 						maxLength={MAX_SITUATION_LENGTH}
 						minRows={3}
@@ -303,19 +275,19 @@ function SituationEditor({
 					/>
 					<Select
 						id="risk-difficulty"
-						label={difficultyQuestion(informal)}
+						label={texts.difficultyQuestion}
 						value={difficulty}
 						error={Boolean(problem) && Boolean(text.trim()) && !difficulty}
 						options={[
-							{ value: '', label: 'Bitte auswählen' },
-							...DIFFICULTIES.map((d) => ({ value: d.value, label: d.label }))
+							{ value: '', label: texts.choose },
+							...DIFFICULTIES.map((d) => ({ value: d.value, label: texts.difficulty[d.value] }))
 						]}
 						onChange={setDifficulty}
 					/>
 					<Textarea
 						id="risk-strategy"
-						label="Kontroll-/Bewältigungsstrategie"
-						helperText={strategyQuestion(informal)}
+						label={texts.strategyLabel}
+						helperText={texts.strategyQuestion}
 						value={strategy}
 						maxLength={MAX_STRATEGY_LENGTH}
 						minRows={4}
@@ -327,9 +299,9 @@ function SituationEditor({
 						</p>
 					)}
 					<div className="bt-row">
-						<Button onClick={save}>Speichern</Button>
+						<Button onClick={save}>{texts.save}</Button>
 						<Button variant="tertiary" onClick={onCancel}>
-							Abbrechen
+							{i18n.m.common.cancel}
 						</Button>
 					</div>
 				</div>
@@ -350,19 +322,17 @@ function RelapsePage({
 	situation,
 	relapses,
 	store,
-	informal,
-	locale,
 	download,
 	onBack
 }: {
 	situation: SituationItem;
 	relapses: RelapseItem[];
 	store: ClientViewProps['store'];
-	informal: boolean;
-	locale: string;
 	download: ClientViewProps['download'];
 	onBack: () => void;
 }) {
+	const i18n = useI18n();
+	const texts = i18n.m.riskSituations;
 	const [editing, setEditing] = useState<RelapseItem | null>(null);
 	const [answers, setAnswers] = useState(EMPTY_ANSWERS);
 	const [problem, setProblem] = useState<string | null>(null);
@@ -390,13 +360,7 @@ function RelapsePage({
 			Object.entries(answers).map(([key, value]) => [key, value.trim()])
 		) as typeof answers;
 		if (Object.values(trimmed).every((value) => !value)) {
-			setProblem(
-				tx(
-					informal,
-					'Bitte beantworten Sie mindestens eine der Fragen.',
-					'Bitte beantworte mindestens eine der Fragen.'
-				)
-			);
+			setProblem(texts.missingAnswer);
 			return null;
 		}
 		const data: Relapse = { situationId: situation.id, ...trimmed, previousStrategy };
@@ -417,49 +381,44 @@ function RelapsePage({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={onBack}>Zur Übersicht</BackButton>
+			<BackButton onClick={onBack}>{texts.toOverview}</BackButton>
 			<Card>
 				<div className="bt-stack">
 					<div className="bt-stack bt-stack--tight">
-						<p className="bt-overline">Rückfälle analysieren</p>
-						<Headline level={3}>Bewältigungsstrategien verfeinern</Headline>
-						<p>{relapseIntro(informal)}</p>
+						<p className="bt-overline">{texts.relapseOverline}</p>
+						<Headline level={3}>{texts.relapseTitle}</Headline>
+						<p>{texts.relapseIntro}</p>
 					</div>
 					<div className="bt-quote">
-						<span className="bt-overline">Meine Risikosituation</span>
+						<span className="bt-overline">{texts.mySituation}</span>
 						<p className="bt-pre">{situation.situation}</p>
 					</div>
 					{editing && (
 						<p className="bt-muted bt-small">
-							{tx(informal, 'Sie bearbeiten die Analyse vom', 'Du bearbeitest die Analyse vom')}{' '}
-							{formatDate(editing.entry.createdAt, locale)}.
+							{i18n.t(texts.editingAnalysis, { date: i18n.date(editing.entry.createdAt) })}
 						</p>
 					)}
-					{RELAPSE_QUESTIONS.map((question) => (
+					{RELAPSE_ANSWERS.map((id) => (
 						<Textarea
-							key={question.id}
-							id={`relapse-${question.id}`}
-							label={question.question(informal)}
-							value={answers[question.id]}
+							key={id}
+							id={`relapse-${id}`}
+							label={texts.questions[id]}
+							value={answers[id]}
 							maxLength={MAX_ANSWER_LENGTH}
 							minRows={3}
-							onChange={(value) => setAnswers({ ...answers, [question.id]: value })}
+							onChange={(value) => setAnswers({ ...answers, [id]: value })}
 						/>
 					))}
 					<div className="bt-quote">
-						<span className="bt-overline">Meine zuvor eingetragene Kontrollstrategie:</span>
+						<span className="bt-overline">{texts.previousStrategyOverline}</span>
 						<p className={`bt-pre${previousStrategy ? '' : ' bt-muted'}`}>
-							{previousStrategy || 'Noch keine Strategie eingetragen.'}
+							{previousStrategy || texts.noPreviousStrategy}
 						</p>
 					</div>
 					<Textarea
 						id="relapse-newStrategy"
-						label={NEW_STRATEGY_QUESTION(informal)}
-						placeholder={tx(
-							informal,
-							'Beschreiben Sie möglichst genau Ihre neue Kontrollstrategie',
-							'Beschreibe möglichst genau deine neue Kontrollstrategie'
-						)}
+						label={texts.questions.newStrategy}
+						placeholder={texts.newStrategyPlaceholder}
 						value={answers.newStrategy}
 						maxLength={MAX_STRATEGY_LENGTH}
 						minRows={4}
@@ -471,7 +430,7 @@ function RelapsePage({
 						</p>
 					)}
 					<div className="bt-row">
-						<Button onClick={() => void save()}>Speichern</Button>
+						<Button onClick={() => void save()}>{texts.save}</Button>
 						<Button
 							variant="secondary"
 							onClick={async () => {
@@ -481,11 +440,11 @@ function RelapsePage({
 								}
 							}}
 						>
-							Seite als PDF ausgeben
+							{texts.pagePdf}
 						</Button>
 						{editing && (
 							<Button variant="tertiary" onClick={() => startEdit(null)}>
-								Abbrechen
+								{i18n.m.common.cancel}
 							</Button>
 						)}
 					</div>
@@ -494,14 +453,16 @@ function RelapsePage({
 			{relapses.length > 0 && (
 				<Card>
 					<div className="bt-stack bt-stack--tight">
-						<h3 className="bt-title">Alle Rückfälle</h3>
+						<h3 className="bt-title">{texts.allRelapses}</h3>
 						<ul className="bt-list">
 							{relapses.map((relapse) => {
 								const expanded = open === relapse.id;
 								return (
 									<li key={relapse.id} className="bt-entry">
 										<div className="bt-row bt-row--between">
-											<strong>Analyse vom {formatDate(relapse.entry.createdAt, locale)}</strong>
+											<strong>
+												{i18n.t(texts.analysisOf, { date: i18n.date(relapse.entry.createdAt) })}
+											</strong>
 											<div className="bt-row">
 												<button
 													type="button"
@@ -509,21 +470,21 @@ function RelapsePage({
 													aria-expanded={expanded}
 													onClick={() => setOpen(expanded ? null : relapse.id)}
 												>
-													{expanded ? 'Schließen' : 'Öffnen'}
+													{expanded ? texts.close : texts.open}
 												</button>
 												<button
 													type="button"
 													className="bt-linkbtn bt-small"
 													onClick={() => startEdit(relapse)}
 												>
-													Bearbeiten
+													{texts.edit}
 												</button>
 												<button
 													type="button"
 													className="bt-linkbtn bt-small"
 													onClick={() => void download('relapse', { id: relapse.id })}
 												>
-													Seite als PDF ausgeben
+													{texts.pagePdf}
 												</button>
 											</div>
 										</div>

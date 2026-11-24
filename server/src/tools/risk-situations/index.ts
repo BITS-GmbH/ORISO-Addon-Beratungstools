@@ -9,13 +9,15 @@ import {
 	MAX_SITUATIONS,
 	MAX_STRATEGY_LENGTH,
 	RELAPSE_KIND,
-	RELAPSE_QUESTIONS,
+	RELAPSE_ANSWERS,
 	relapsesOf,
 	SITUATION_KIND,
 	situationsOf,
+	type Difficulty,
 	type RelapseItem,
 	type SituationItem
 } from '../../../../shared/tools/risk-situations.ts';
+import type { I18n } from '../../../../shared/i18n/index.ts';
 import type { PdfWriter } from '../../core/pdf.ts';
 import type { ServerTool } from '../types.ts';
 
@@ -37,37 +39,46 @@ export const relapseSchema = z.object({
 	newStrategy: text(MAX_STRATEGY_LENGTH)
 });
 
-const formatDay = (iso: string) =>
-	new Intl.DateTimeFormat('de-DE', { dateStyle: 'medium', timeZone: 'Europe/Berlin' }).format(new Date(iso));
+const formatDay = (i18n: I18n, iso: string) => i18n.date(iso, { timeZone: 'Europe/Berlin' });
 
-const difficultyLabel = (value: string) => difficultyOf(value)?.label ?? '';
+const difficultyLabel = (i18n: I18n, value: string) => {
+	const difficulty = difficultyOf(value);
+	return difficulty ? i18n.m.riskSituations.difficulty[difficulty.value] : '';
+};
 
-const relapseState = (relapses: RelapseItem[]) =>
-	relapses[0] ? `Stand ${formatDay(relapses[0].entry.createdAt)}` : 'noch nicht bearbeitet';
+const relapseState = (i18n: I18n, relapses: RelapseItem[]) =>
+	relapses[0]
+		? i18n.t(i18n.m.riskSituations.relapseState, { date: formatDay(i18n, relapses[0].entry.createdAt) })
+		: i18n.m.riskSituations.notEdited;
 
-const writeTable = (pdf: PdfWriter, situations: SituationItem[], entries: Entry[]) =>
+const writeTable = (pdf: PdfWriter, i18n: I18n, situations: SituationItem[], entries: Entry[]) => {
+	const texts = i18n.m.riskSituations;
 	pdf.table(
 		[
-			{ label: 'Risikosituation', width: 3 },
-			{ label: 'Bewertung', width: 1.2 },
-			{ label: 'Kontrollstrategie', width: 3 },
-			{ label: 'Rückfall', width: 1.5 }
+			{ label: texts.columns.situation, width: 3 },
+			{ label: texts.columns.difficulty, width: 1.2 },
+			{ label: texts.columns.strategy, width: 3 },
+			{ label: texts.columns.relapse, width: 1.5 }
 		],
 		situations.map((item) => [
 			item.situation,
-			difficultyLabel(item.difficulty),
-			item.strategy || 'Noch keine Strategie',
-			relapseState(relapsesOf(entries, item.id))
+			difficultyLabel(i18n, item.difficulty),
+			item.strategy || texts.noStrategy,
+			relapseState(i18n, relapsesOf(entries, item.id))
 		])
 	);
-
-const writeRelapse = (pdf: PdfWriter, relapse: RelapseItem) => {
-	for (const question of RELAPSE_QUESTIONS) {
-		pdf.field(question.counsellorLabel, relapse[question.id] || 'Keine Angabe');
-	}
-	pdf.field('Zuvor eingetragene Kontrollstrategie', relapse.previousStrategy || 'Keine Angabe');
-	pdf.field('Neue Kontrollstrategie', relapse.newStrategy || 'Keine Angabe');
 };
+
+const writeRelapse = (pdf: PdfWriter, i18n: I18n, relapse: RelapseItem) => {
+	const texts = i18n.m.riskSituations;
+	for (const id of RELAPSE_ANSWERS) {
+		pdf.field(texts.answers[id], relapse[id] || texts.noAnswer);
+	}
+	pdf.field(texts.previousStrategy, relapse.previousStrategy || texts.noAnswer);
+	pdf.field(texts.newStrategy, relapse.newStrategy || texts.noAnswer);
+};
+
+const DEMO_DIFFICULTIES: Difficulty[] = ['hard', 'medium'];
 
 export const riskSituations: ServerTool = {
 	id: 'risk-situations',
@@ -75,72 +86,63 @@ export const riskSituations: ServerTool = {
 		[SITUATION_KIND]: { schema: situationSchema, max: MAX_SITUATIONS },
 		[RELAPSE_KIND]: { schema: relapseSchema, max: MAX_RELAPSES }
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const texts = i18n.m.riskSituations;
 		const situations = situationsOf(entries);
 		if (situations.length === 0) {
-			pdf.paragraph('Noch keine Risikosituationen eingetragen.', { muted: true });
+			pdf.paragraph(texts.noSituations, { muted: true });
 			return;
 		}
-		pdf.heading('Risikosituationen und Kontrollstrategien');
-		writeTable(pdf, situations, entries);
+		pdf.heading(i18n.m.catalog['risk-situations'].title);
+		writeTable(pdf, i18n, situations, entries);
 		for (const item of situations) {
 			const relapses = relapsesOf(entries, item.id);
 			if (relapses.length === 0) {
 				continue;
 			}
-			pdf.heading(`Rückfälle: ${item.situation}`);
+			pdf.heading(i18n.t(texts.pdfRelapses, { situation: item.situation }));
 			for (const relapse of relapses) {
-				pdf.subheading(`Analyse vom ${formatDay(relapse.entry.createdAt)}`);
-				writeRelapse(pdf, relapse);
+				pdf.subheading(i18n.t(texts.analysisOf, { date: formatDay(i18n, relapse.entry.createdAt) }));
+				writeRelapse(pdf, i18n, relapse);
 			}
 		}
 	},
 	clientExports: {
 		table: {
-			title: () => 'Meine Risikosituationen und Kontrollstrategien',
-			write(pdf, { entries }) {
+			title: ({ m }) => m.riskSituations.heading,
+			write(pdf, { entries, i18n }) {
 				const situations = situationsOf(entries);
 				if (situations.length === 0) {
-					pdf.paragraph('Noch keine Risikosituationen eingetragen.', { muted: true });
+					pdf.paragraph(i18n.m.riskSituations.noSituations, { muted: true });
 					return;
 				}
-				writeTable(pdf, situations, entries);
+				writeTable(pdf, i18n, situations, entries);
 			}
 		},
 		relapse: {
-			title: () => 'Rückfall analysieren',
-			write(pdf, { entries, params }) {
+			title: ({ m }) => m.riskSituations.analyseRelapse,
+			write(pdf, { entries, params, i18n }) {
+				const texts = i18n.m.riskSituations;
 				const relapse = entries.find((e) => e.kind === RELAPSE_KIND && e.id === params.id);
 				const data = relapse
 					? relapsesOf([relapse], (relapse.data as { situationId: string }).situationId)[0]
 					: undefined;
 				if (!data) {
-					pdf.paragraph('Diese Analyse ist nicht mehr vorhanden.', { muted: true });
+					pdf.paragraph(texts.analysisGone, { muted: true });
 					return;
 				}
 				const situation = situationsOf(entries).find((item) => item.id === data.situationId);
-				pdf.field('Meine Risikosituation', situation?.situation ?? 'Gelöscht');
-				pdf.paragraph(`Analyse vom ${formatDay(data.entry.createdAt)}`, { muted: true });
-				writeRelapse(pdf, data);
+				pdf.field(texts.mySituation, situation?.situation ?? texts.deleted);
+				pdf.paragraph(i18n.t(texts.analysisOf, { date: formatDay(i18n, data.entry.createdAt) }), {
+					muted: true
+				});
+				writeRelapse(pdf, i18n, data);
 			}
 		}
 	},
-	demo: () => [
-		{
+	demo: ({ m }) =>
+		m.riskSituations.demo.map((example, index) => ({
 			kind: SITUATION_KIND,
-			data: {
-				situation: 'Freitagabend nach der Arbeit, wenn die Kollegen noch etwas trinken gehen.',
-				difficulty: 'hard',
-				strategy: 'Ich verabrede mich vorher zum Sport und gehe direkt nach Hause.'
-			}
-		},
-		{
-			kind: SITUATION_KIND,
-			data: {
-				situation: 'Wenn ich allein zu Hause bin und mich langweile.',
-				difficulty: 'medium',
-				strategy: 'Ich rufe jemanden an oder gehe eine Runde spazieren.'
-			}
-		}
-	]
+			data: { ...example, difficulty: DEMO_DIFFICULTIES[index] ?? 'medium' }
+		}))
 };
