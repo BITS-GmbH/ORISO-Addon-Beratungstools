@@ -39,7 +39,7 @@ export const CSS = `
 .bt-pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .bt-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-.bt-linkbtn { font: inherit; font-size: 14px; font-weight: 600; color: var(--bt-primary); background: none; border: 0; padding: 4px 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+.bt-linkbtn { font: inherit; font-size: 14px; font-weight: 600; color: var(--bt-primary); background: none; border: 0; padding: 4px 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; width: fit-content; max-width: 100%; text-align: left; }
 .bt-linkbtn:hover { text-decoration: underline; }
 .bt-linkbtn svg, .bt-icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .bt :focus-visible:not(.MuiInputBase-input, .MuiInputBase-root *, .MuiPickersInputBase-root *) { outline: 3px solid color-mix(in srgb, var(--bt-primary) 45%, transparent); outline-offset: 2px; }

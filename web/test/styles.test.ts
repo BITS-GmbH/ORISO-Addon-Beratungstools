@@ -26,3 +26,10 @@ describe('focus ring', () => {
 		}
 	});
 });
+
+describe('link buttons', () => {
+	it('are only as wide as their text, also as items of a flex column or grid', () => {
+		const rule = CSS.split('\n').find((line) => line.startsWith('.bt-linkbtn {'))!;
+		expect(rule).toContain('width: fit-content;');
+	});
+});
