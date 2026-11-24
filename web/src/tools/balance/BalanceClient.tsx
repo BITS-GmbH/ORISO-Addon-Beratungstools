@@ -208,7 +208,7 @@ function Editor({ half, initialCategory, items, store, onClose }: EditorProps) {
 	const [text, setText] = useState('');
 	const [rating, setRating] = useState<string>('');
 	const [editingId, setEditingId] = useState<string | null>(null);
-	const [showExamples, setShowExamples] = useState(false);
+	const [showExamples, setShowExamples] = useState(true);
 	const [problem, setProblem] = useState<string | null>(null);
 	const [confirming, setConfirming] = useState<string | null>(null);
 	const formRef = useRef<HTMLDivElement>(null);

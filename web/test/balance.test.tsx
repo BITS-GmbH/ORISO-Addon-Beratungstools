@@ -106,11 +106,26 @@ describe('Motivationswaage', () => {
 			screen.getByText('If I reach my goal / change my behaviour, I will have the following …')
 		).toBeTruthy();
 		fireEvent.click(screen.getAllByText('Add')[0]!);
-		fireEvent.click(screen.getByText('Show examples'));
 		expect(screen.getByText('I can think clearly again.')).toBeTruthy();
 		fireEvent.click(screen.getByText('Add entry'));
 		expect(screen.getByRole('alert').textContent).toBe('Please enter an advantage.');
 		expect(screen.getByLabelText('very important (★★★)')).toBeTruthy();
 		expect(screen.getByText('The advantages you entered if you reach your goal:')).toBeTruthy();
+	});
+
+	it('shows the examples while adding arguments, and hides them on request', async () => {
+		const { host } = fakeHost({ 'GET /me/tools/balance': () => tool([]) });
+		renderWith(
+			host,
+			<ToolPage toolId="balance" mode="client" backLabel="Meine Tools" onBack={() => undefined} />
+		);
+		fireEvent.click((await screen.findAllByText('Hinzufügen'))[0]!);
+		expect(screen.getByText('Ich kann wieder klar denken.')).toBeTruthy();
+		const toggle = screen.getByText('Beispiele ausblenden');
+		expect(toggle.getAttribute('aria-expanded')).toBe('true');
+		fireEvent.click(toggle);
+		expect(screen.queryByText('Ich kann wieder klar denken.')).toBeNull();
+		fireEvent.click(screen.getByText('Beispiele anzeigen'));
+		expect(screen.getByText('Ich kann wieder klar denken.')).toBeTruthy();
 	});
 });
