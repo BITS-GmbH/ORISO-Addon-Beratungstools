@@ -75,9 +75,6 @@ export function DayView({
 					{askNo && phases.length > 0 && (
 						<div className="bt-confirm" role="alertdialog" aria-label={texts.day.deleteAll}>
 							<span style={{ flex: 1 }}>{text.deleteAllQuestion}</span>
-							<Button variant="secondary" onClick={() => setAskNo(false)}>
-								{texts.day.cancel}
-							</Button>
 							<DangerButton
 								onClick={() => {
 									setAskNo(false);
@@ -86,6 +83,9 @@ export function DayView({
 							>
 								{texts.day.deleteAll}
 							</DangerButton>
+							<Button variant="secondary" onClick={() => setAskNo(false)}>
+								{texts.day.cancel}
+							</Button>
 						</div>
 					)}
 					{consumed !== null && (
