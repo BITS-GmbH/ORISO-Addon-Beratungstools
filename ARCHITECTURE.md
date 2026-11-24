@@ -45,7 +45,9 @@ Links between tools go through the core, not through imports between tool module
 One app, `tools`:
 
 - `asker.navigation`: "Meine Tools", the released tools of the client. Visibility is dynamic:
-  hidden until a counsellor releases a tool.
+  hidden until a counsellor releases a tool. The navigation entry shows the app title ("Tools"):
+  the manifest has one title per app for all its slots, so the client's entry cannot read "Meine
+  Tools" without a per-slot label in the host or a separate app.
 - `consultant.session`: the tool overview of the case, tiles in two groups "Noch nicht
   freigeschaltet" and "Freigeschaltet", with release, "Einträge ansehen" (only with an effective
   share) and "User-Vorschau" (demo mode).
@@ -180,7 +182,9 @@ nothing server-only, it is bundled into the UI.
 - `demo(i18n)`: optional example entries for the counsellor's demo in the counsellor's language,
   applied on first use and reset.
 - `calendar({ releasedAt, shared, entries })`: optional reminders for the client's calendar, with
-  titles in every language (`localized`).
+  titles in every language (`localized`). The AddonService collects them for clients
+  (`GET /addons/calendar`); ORISO-Frontend (v2.0.17) shows them only in the timeline of the session
+  list ("Jetzt"), not in the calendar "Meine Termine", which does not query add-ons yet.
 
 The core does the rest for every tool: release and withdrawal, share, access checks, entry
 storage and validation, notifications, seen markers, demo, audit, statistics, deletion.
@@ -299,3 +303,9 @@ and `INTL_LOCALES` in `shared/i18n/index.ts` and a catalogue file.
 - Notifications by mail in addition to the platform.
 - Export formats besides PDF; storing exports in the documentation (Los 4).
 - Responsive behaviour on narrow screens and for archived cases.
+- The open tool is not in the URL, so a reload or the browser's back button returns to the tool
+  overview. The host passes no route, sub-path or query to add-ons, its route
+  `addons/:addonName/:appId` takes no sub-path, `navigate` is the host router's push and a change
+  of the URL alone does not call `update`. Needed from the host: a sub-path (or a query parameter
+  reserved for the add-on, also on the `?addon=` panel of the case view) passed as a prop, kept
+  in history entries, with `update` on every change.
