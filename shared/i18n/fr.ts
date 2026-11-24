@@ -1,21 +1,18 @@
 import type { Catalogue } from './types.ts';
 
-// TODO translate: still a copy of en.ts. Replace every English text with French; keep the keys,
-// the {placeholders} and the length of lists, and add the plural forms the language needs.
-// `npm test` (server/test/i18n.test.ts) lists what is missing; missing texts show in English.
 export const fr: Catalogue = {
 	common: {
-		saving: 'Saving …',
-		saved: 'Saved automatically',
-		notSaved: 'Not saved',
-		weekBack: 'Previous week',
-		weekForward: 'Next week',
-		tryLater: 'Please try again later.',
-		tryAgain: 'That did not work. Please try again.',
-		cancel: 'Cancel'
+		saving: 'Enregistrement …',
+		saved: 'Enregistré automatiquement',
+		notSaved: 'Non enregistré',
+		weekBack: 'Semaine précédente',
+		weekForward: 'Semaine suivante',
+		tryLater: 'Veuillez réessayer plus tard.',
+		tryAgain: 'Cela n’a pas fonctionné. Veuillez réessayer.',
+		cancel: 'Annuler'
 	},
 	days: {
-		period: '{from} to {to}',
+		period: 'du {from} au {to}',
 		minutes: '{minutes} min',
 		hours: '{hours} h',
 		hoursMinutes: '{hours} h {minutes} min',
@@ -23,1568 +20,1607 @@ export const fr: Catalogue = {
 	},
 	catalog: {
 		goals: {
-			title: 'Starting point and goals',
-			summary: 'Describe the situation and set a goal for the counselling',
+			title: 'Point de départ et objectifs',
+			summary: 'Décrire la situation et fixer un objectif pour l’accompagnement',
 			description:
-				'This tool lets you describe the current situation in your own words and name a clear goal for the counselling. Naming a personal goal precisely helps people work on improving their situation. At the same time, it gives the counsellor more options and starting points to shape the counselling well. The personal goal can be adjusted during the counselling.'
+				'Cet outil permet de décrire la situation actuelle avec ses propres mots et de formuler un objectif concret pour l’accompagnement. Nommer précisément son objectif personnel aide les personnes concernées à travailler à l’amélioration de leur situation. En même temps, la conseillère ou le conseiller dispose ainsi de plus de possibilités et de points d’appui pour adapter l’accompagnement. L’objectif personnel peut être ajusté au fil de l’accompagnement.'
 		},
 		'consumption-diary': {
-			title: 'Consumption diary',
-			summary: 'Record use or gambling day by day',
+			title: 'Journal de consommation',
+			summary: 'Noter jour après jour sa consommation ou sa pratique des jeux d’argent',
 			description:
-				'In the consumption diary, people can record their substance use and/or gambling. This includes how often, how much and how long they use or gamble, but also the thoughts and feelings connected with the addictive behaviour. If they decide to share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'Dans le journal de consommation, les personnes concernées peuvent noter leur consommation et/ou leur pratique des jeux d’argent et de hasard. Cela comprend la fréquence, la quantité et la durée de la consommation ou du jeu, mais aussi les pensées et les émotions liées au comportement addictif. Si elles souhaitent donner accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.'
 		},
 		'relatives-diary': {
-			title: 'Diary for relatives',
-			summary: 'Reflect on the day with three questions and a mood',
+			title: 'Journal pour les proches',
+			summary: 'Faire le point sur la journée avec trois questions et une humeur',
 			description:
-				'With this diary, relatives can reflect on the events of the day with the help of three questions. The questions help them sort out and write down their own thoughts and feelings about their family member’s addictive behaviour. If relatives share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'Grâce à ce journal, les proches ont la possibilité de revenir sur les événements de la journée à l’aide de trois questions. Ces questions les aident à mettre de l’ordre dans leurs pensées et leurs émotions liées au comportement addictif de leur proche et à les noter. Si les proches donnent accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.'
 		},
 		balance: {
-			title: 'Decisional balance',
-			summary: 'Weigh up the pros and cons of a change',
+			title: 'Balance décisionnelle',
+			summary: 'Peser les avantages et les inconvénients d’un changement',
 			description:
-				'The decisional balance helps people weigh up the pros and cons of overcoming their addictive behaviour. This can bring doubts and worries to light and make decisions clearer. If they want to, they can let their counsellor see their notes, so the counsellor can respond to their personal considerations.'
+				'La balance décisionnelle aide les personnes concernées à peser et à évaluer les avantages et les inconvénients d’un arrêt du comportement addictif. Cela permet de mettre au jour des incertitudes et des réticences et de prendre des décisions plus claires. Si elles le souhaitent, elles peuvent donner à leur conseillère ou à leur conseiller un aperçu de leurs notes, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur leurs réflexions personnelles.'
 		},
 		'emergency-kit': {
-			title: 'Emergency kit',
-			summary: 'Strategies and contacts for difficult situations',
+			title: 'Trousse d’urgence',
+			summary: 'Stratégies et contacts pour les situations critiques',
 			description:
-				'With this tool, people can put together their personal emergency kit, which helps them avoid a relapse in especially difficult situations. The emergency kit can hold contact details of counsellors or family members as well as concrete steps to take and sayings to remember.'
+				'Avec cet outil, les personnes concernées peuvent composer leur trousse d’urgence personnelle, qui les aide à éviter une rechute dans les situations particulièrement critiques. La trousse d’urgence peut contenir les coordonnées de conseillères et conseillers ou de proches, ainsi que des consignes concrètes et des phrases à retenir.'
 		},
 		active: {
-			title: 'Being active',
-			summary: 'Plan pleasant activities, also regularly',
+			title: 'Être actif ou active',
+			summary: 'Planifier des activités agréables, ponctuelles ou régulières',
 			description:
-				'This tool helps people make their everyday life more positive with pleasant activities, to improve their quality of life and reduce cravings. Activities can be entered freely or chosen from a list of suggestions, and planned once or on a regular basis.'
+				'Cet outil permet aux personnes concernées d’organiser leur quotidien de façon positive grâce à des activités agréables, afin d’améliorer leur qualité de vie et de réduire l’envie de consommer. Les activités peuvent être saisies librement ou choisies dans une liste de suggestions, et planifiées une seule fois ou de manière régulière.'
 		},
 		'risk-situations': {
-			title: 'Risk situations and control strategies',
-			summary: 'Record risk situations, strategies and relapses',
+			title: 'Situations à risque et stratégies de contrôle',
+			summary: 'Noter les situations à risque, les stratégies et les rechutes',
 			description:
-				'With this tool, people can look closely at their personal risk situations and work out suitable control strategies. If relapses happen, they can be recorded and the strategies revised. If they want to, they can make their notes available to their counsellor, so the counsellor can respond to the risk situations and control strategies.'
+				'Avec cet outil, les personnes concernées peuvent examiner de près leurs situations à risque personnelles et élaborer des stratégies de contrôle adaptées. Si des rechutes surviennent, elles peuvent être notées et les stratégies retravaillées. Si elles le souhaitent, les personnes concernées peuvent rendre leurs notes accessibles à leur conseillère ou à leur conseiller, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur les situations à risque et les stratégies de contrôle.'
 		},
 		'traffic-light': {
-			title: 'Traffic light model',
-			summary: 'Sort media activities by their risk',
+			title: 'Modèle des feux tricolores',
+			summary: 'Classer les activités médiatiques selon leur risque',
 			description:
-				'The traffic light model helps people assess the personal risk of individual media activities and strengthen their ability to use media in a healthy way. Like a traffic light, media activities can be sorted into “green” (safe), “yellow” (risky) and “red” (very risky) activities.'
+				'Le modèle des feux tricolores aide les personnes concernées à évaluer le risque personnel de chacune de leurs activités médiatiques et à renforcer leur capacité à utiliser les médias de façon maîtrisée. Comme pour un feu de circulation, les activités médiatiques peuvent être classées en activités « vertes » (sans danger), « orange » (à risque) et « rouges » (très risquées).'
 		},
 		'positive-perception': {
-			title: 'Seeing the positive',
-			summary: 'For parents: see the positive in the child’s behaviour',
+			title: 'Voir le positif',
+			summary: 'Pour les parents : voir le positif dans le comportement de l’enfant',
 			description:
-				'This tool helps parents notice the positive sides of their child’s behaviour more consciously, to improve how they interact and talk with their child. It explains the risks of negative communication and how positive reinforcement affects the child’s feelings and behaviour. Parents can reflect on how they use praise and plan positive communication.'
+				'Cet outil aide les parents à percevoir plus consciemment les aspects positifs du comportement de leur enfant, afin d’améliorer les échanges et la communication avec lui. Il informe sur les risques d’une communication négative et sur l’influence du renforcement positif sur les émotions et le comportement de l’enfant. Les parents peuvent réfléchir à la manière dont ils utilisent les compliments et planifier une communication positive.'
 		}
 	},
 	client: {
-		myTools: 'My tools',
+		myTools: 'Mes outils',
 		intro:
-			'Your counsellor has unlocked these exercises for you. Your counsellor only sees what you enter if you share it.',
-		loadError: 'Your tools could not be loaded.',
-		noneTitle: 'No tools unlocked yet',
-		noneText: 'Your counsellor can unlock tools for you. Feel free to ask them about it.',
-		new: 'New',
-		shared: 'Shared with your counsellor',
-		continue: 'Continue',
-		open: 'Open'
+			'Votre conseillère ou votre conseiller a activé ces exercices pour vous. Ce que vous y saisissez n’est visible pour elle ou lui que si vous le partagez.',
+		loadError: 'Vos outils n’ont pas pu être chargés.',
+		noneTitle: 'Aucun outil activé pour le moment',
+		noneText:
+			'Votre conseillère ou votre conseiller peut activer des outils pour vous. N’hésitez pas à lui en parler.',
+		new: 'Nouveau',
+		shared: 'Partagé avec le service de conseil',
+		continue: 'Continuer',
+		open: 'Ouvrir'
 	},
 	toolPage: {
-		loadError: '“{title}” could not be loaded.',
-		notReleased: 'This tool is no longer unlocked.',
-		notReleasedNotSaved: 'This tool is no longer unlocked. Your input was not saved.',
-		saveFailed: 'Saving did not work. Please try again.',
-		pdfFailed: 'The PDF could not be created. Please try again.',
-		sharedNow: 'Your counsellor can now see this content.',
-		privateAgain: 'The content is now only visible to you again.',
-		shareOverline: 'Visible to your counsellor',
-		shareLabel: 'Share with my counsellor',
-		shareOn: 'Your counsellor can see your entries and is told about new entries.',
-		shareOff: 'Your entries are only visible to you.',
-		notAvailable: 'This tool is not available yet.'
+		loadError: '« {title} » n’a pas pu être chargé.',
+		notReleased: 'Cet outil n’est plus activé.',
+		notReleasedNotSaved: 'Cet outil n’est plus activé. Votre saisie n’a pas été enregistrée.',
+		saveFailed: 'L’enregistrement n’a pas fonctionné. Veuillez réessayer.',
+		pdfFailed: 'Le PDF n’a pas pu être créé. Veuillez réessayer.',
+		sharedNow: 'Votre conseillère ou votre conseiller peut désormais consulter ces contenus.',
+		privateAgain: 'Les contenus sont de nouveau visibles uniquement par vous.',
+		shareOverline: 'Visibilité pour la conseillère ou le conseiller',
+		shareLabel: 'Partager avec ma conseillère ou mon conseiller',
+		shareOn:
+			'Votre conseillère ou votre conseiller peut consulter vos entrées et reçoit une notification en cas de nouvelles entrées.',
+		shareOff: 'Vos entrées sont visibles uniquement par vous.',
+		notAvailable: 'Cet outil n’est pas encore disponible.'
 	},
 	counsellor: {
-		loadError: 'The tools of this case could not be loaded.',
-		openFromCase: 'Please open the tools from within a case.',
-		tools: 'Tools',
-		released: 'Unlocked',
-		releasedTools: 'Unlocked tools',
-		notReleasedYet: 'Not unlocked yet',
-		notReleasedTools: 'Tools not unlocked yet',
-		noTools: 'No tools are switched on for this counselling centre.',
-		shared: 'Shared with you',
-		entriesNotShared: 'Has entries, not shared',
-		noEntries: 'No entries yet',
-		newEntries: { one: '{count} new entry', other: '{count} new entries' },
-		dpa: 'Unlocking is not possible right now: the organisation has not yet confirmed the current data processing agreement.',
-		releasedOn: 'Unlocked on {date}',
-		lastChangedOn: 'last edited on {date}',
-		allTools: 'All tools',
-		notReleased: 'Not unlocked',
-		release: 'Unlock',
-		releasedNotice: '“{title}” is unlocked. The client will be notified.',
-		viewEntries: 'View entries',
-		preview: 'User preview',
-		withdraw: 'Lock again',
-		previewHint: 'The user preview shows the tool as the client sees it, with test data.',
+		loadError: 'Les outils de ce dossier n’ont pas pu être chargés.',
+		openFromCase: 'Veuillez ouvrir les outils depuis un dossier.',
+		tools: 'Outils',
+		released: 'Activé',
+		releasedTools: 'Outils activés',
+		notReleasedYet: 'Pas encore activé',
+		notReleasedTools: 'Outils pas encore activés',
+		noTools: 'Aucun outil n’est disponible pour ce service de consultation.',
+		shared: 'Accès autorisé',
+		entriesNotShared: 'Entrées existantes, accès non autorisé',
+		noEntries: 'Pas encore d’entrées',
+		newEntries: { one: '{count} nouvelle entrée', other: '{count} nouvelles entrées' },
+		dpa: 'Activation impossible pour le moment : l’organisme gestionnaire n’a pas encore confirmé le contrat de sous-traitance des données en vigueur.',
+		releasedOn: 'Activé le {date}',
+		lastChangedOn: 'dernière modification le {date}',
+		allTools: 'Tous les outils',
+		notReleased: 'Non activé',
+		release: 'Activer',
+		releasedNotice: '« {title} » est activé. La personne accompagnée en sera informée.',
+		viewEntries: 'Voir les entrées',
+		preview: 'Aperçu utilisateur',
+		withdraw: 'Désactiver',
+		previewHint:
+			'L’aperçu utilisateur montre l’outil tel que la personne accompagnée le voit, avec des données de test.',
 		withdrawConfirm:
-			'Lock this tool again? The tool disappears for the client and you no longer see any content. The entries stay saved.',
-		withdrawButton: 'Lock',
-		withdrawn: 'The tool is locked again. The entries stay saved.'
+			'Désactiver l’outil ? L’outil disparaît pour la personne accompagnée et vous ne voyez plus aucun contenu. Les entrées restent enregistrées.',
+		withdrawButton: 'Désactiver',
+		withdrawn: 'L’outil est désactivé. Les entrées restent enregistrées.'
 	},
 	entries: {
-		back: 'Back to overview',
-		noAccess: 'Not shared',
-		loadError: 'The entries could not be loaded.',
-		revoked: 'The client has stopped sharing, or the tool is no longer unlocked.',
-		exportRevoked: 'The client has stopped sharing. Exporting is not possible.',
-		exportFailed: 'The export did not work. Please try again.',
-		readOnly: 'Entries, read only',
-		lastChangedOn: 'Last edited on {date}',
-		noEntries: 'No entries yet',
-		sharedSince: 'shared since {date}',
-		exporting: 'Creating export …',
-		createExport: 'Create export',
-		exportPdf: 'Export as PDF',
-		noView: 'There is no view for this tool yet.'
+		back: 'Retour à la vue d’ensemble',
+		noAccess: 'Accès non autorisé',
+		loadError: 'Les entrées n’ont pas pu être chargées.',
+		revoked: 'La personne accompagnée a retiré l’accès ou l’outil n’est plus activé.',
+		exportRevoked: 'La personne accompagnée a retiré l’accès. L’export n’est pas possible.',
+		exportFailed: 'L’export n’a pas fonctionné. Veuillez réessayer.',
+		readOnly: 'Entrées, en lecture seule',
+		lastChangedOn: 'Dernière modification le {date}',
+		noEntries: 'Pas encore d’entrées',
+		sharedSince: 'Accès autorisé depuis le {date}',
+		exporting: 'Création de l’export …',
+		createExport: 'Créer un export',
+		exportPdf: 'Exporter en PDF',
+		noView: 'Il n’existe pas encore de vue pour cet outil.'
 	},
 	demo: {
-		resetFailed: 'The demo could not be reset.',
-		banner: 'User preview / demo: nothing is saved in a real case',
+		resetFailed: 'La démo n’a pas pu être réinitialisée.',
+		banner: 'Aperçu utilisateur / démo : rien n’est enregistré dans un dossier réel',
 		bannerText:
-			'This is how clients see the tool. What you enter here is test data, separate from all cases, and stays for you until you reset the demo.',
-		reset: 'Reset demo',
-		end: 'End preview'
+			'Voici comment les personnes accompagnées voient l’outil. Ce que vous saisissez ici sont des données de test, séparées de tous les dossiers, qui sont conservées pour vous jusqu’à ce que vous réinitialisiez la démo.',
+		reset: 'Réinitialiser la démo',
+		end: 'Quitter l’aperçu'
 	},
 	prefs: {
 		button: 'Notifications',
-		saved: 'Your notification settings have been saved.',
-		saveFailed: 'The settings could not be saved.',
-		title: 'Notification settings',
+		saved: 'Vos paramètres de notification sont enregistrés.',
+		saveFailed: 'Les paramètres n’ont pas pu être enregistrés.',
+		title: 'Paramètres de notification',
 		intro:
-			'What would you like to be told about when clients share their tools with you? This applies to all your cases. Several changes made shortly after one another are combined.',
-		firstShare: 'Tool content shared for the first time',
-		newEntry: 'New entries in shared tools',
-		changedEntry: 'Changes to existing entries',
-		save: 'Save settings'
+			'Pour quels événements souhaitez-vous recevoir une notification lorsque des personnes accompagnées partagent leurs outils avec vous ? Cela s’applique à tous vos dossiers. Plusieurs modifications rapprochées sont regroupées.',
+		firstShare: 'Premier partage de contenus d’un outil',
+		newEntry: 'Nouvelles entrées dans les outils partagés',
+		changedEntry: 'Modifications d’entrées existantes',
+		save: 'Enregistrer les paramètres'
 	},
 	profile: {
-		loadError: 'The tools could not be loaded.',
-		none: 'No tools unlocked yet.',
-		newCount: '{count} new',
-		shared: 'Shared with you',
-		notShared: 'Not shared',
-		open: 'Open tools in the case'
+		loadError: 'Les outils n’ont pas pu être chargés.',
+		none: 'Aucun outil activé pour le moment.',
+		newCount: '{count} nouveau(x)',
+		shared: 'Accès autorisé',
+		notShared: 'Accès non autorisé',
+		open: 'Ouvrir les outils dans le dossier'
 	},
 	rangePicker: {
-		label: 'Period',
-		all: 'All entries',
-		from: 'from {day}',
-		until: 'until {day}',
-		choose: 'Choose {label}',
-		quick: 'Quick choice',
-		thisWeek: 'This week',
-		lastFourWeeks: 'Last 4 weeks',
-		previousMonth: 'Previous month',
-		nextMonth: 'Next month',
-		pickFirst: 'Choose the first day of the period.',
-		pickLast: 'From {day}: now choose the last day.'
+		label: 'Période',
+		all: 'Toutes les entrées',
+		from: 'à partir du {day}',
+		until: 'jusqu’au {day}',
+		choose: 'Choisir : {label}',
+		quick: 'Sélection rapide',
+		thisWeek: 'Cette semaine',
+		lastFourWeeks: '4 dernières semaines',
+		previousMonth: 'Mois précédent',
+		nextMonth: 'Mois suivant',
+		pickFirst: 'Choisissez le premier jour de la période.',
+		pickLast: 'À partir du {day} : choisissez maintenant le dernier jour.'
 	},
 	planned: {
-		title: 'Planned activities this week',
-		none: 'No activities are planned for this week.',
-		plan: 'Plan activities in “Being active”',
-		with: 'with {name}'
+		title: 'Activités prévues cette semaine',
+		none: 'Aucune activité n’est prévue pour cette semaine.',
+		plan: 'Planifier des activités dans « Être actif ou active »',
+		with: 'avec {name}'
 	},
 	pdf: {
-		brand: 'Counselling tools',
-		case: 'Case',
-		createdAt: 'Export created on',
-		period: 'Period of the entries',
+		brand: 'Outils de conseil',
+		case: 'Dossier',
+		createdAt: 'Export créé le',
+		period: 'Période des entrées',
 		confidential:
-			'Confidential. Content the client has chosen to share, for use in the counselling context only.',
-		personal: 'Personal document from the counselling tools.',
-		page: 'Page {page} of {pages}',
-		caseLabel: 'Case {id}',
-		caseWithoutId: 'Case without ID',
-		noEntries: 'No entries',
-		fileCase: 'case'
+			'Confidentiel. Contenus que la personne accompagnée a choisi de rendre accessibles, à utiliser uniquement dans le cadre de l’accompagnement.',
+		personal: 'Document personnel issu des outils de conseil.',
+		page: 'Page {page} sur {pages}',
+		caseLabel: 'Dossier {id}',
+		caseWithoutId: 'Dossier sans identifiant',
+		noEntries: 'Aucune entrée',
+		fileCase: 'dossier'
 	},
 	notifications: {
-		someone: 'A client',
-		sharedTitle: 'Tool shared with you',
-		entriesTitle: 'New entries in a tool',
-		shared: '{who} shared “{tool}” with you.',
-		sharedAnd: '{who} shared “{tool}” with you and {what}.',
-		changes: '{who} {what} in “{tool}”.',
-		added: 'added entries',
-		changed: 'changed entries',
-		addedAndChanged: 'added and changed entries',
-		releasedTitle: 'New tool unlocked',
-		released: '“{tool}” is now available in “My tools”.'
+		someone: 'Une personne accompagnée',
+		sharedTitle: 'Accès à un outil autorisé',
+		entriesTitle: 'Nouvelles entrées dans un outil',
+		shared: '{who} vous a donné accès à « {tool} ».',
+		sharedAnd: '{who} vous a donné accès à « {tool} » et y a {what}.',
+		changes: 'Dans « {tool} », {who} a {what}.',
+		added: 'ajouté de nouvelles entrées',
+		changed: 'modifié des entrées',
+		addedAndChanged: 'ajouté de nouvelles entrées et modifié des entrées',
+		releasedTitle: 'Nouvel outil activé',
+		released: '« {tool} » est désormais disponible dans « Mes outils ».'
 	},
 	audit: {
-		released: 'Released tool “{tool}”',
-		withdrawn: 'Withdrew tool “{tool}”',
-		exported: 'Exported “{tool}” as PDF',
-		shared: 'Shared “{tool}” with the counsellor',
-		unshared: 'Stopped sharing “{tool}”'
+		released: 'Outil « {tool} » activé',
+		withdrawn: 'Outil « {tool} » désactivé',
+		exported: 'Entrées de « {tool} » exportées en PDF',
+		shared: 'Accès à « {tool} » autorisé',
+		unshared: 'Accès à « {tool} » retiré'
 	},
 	manifest: {
-		title: 'Tools',
+		title: 'Outils',
 		description:
-			'Digital counselling tools: counsellors release exercises, clients work on them and may share them with their counsellor.',
-		screenshotOverview: 'Tools of a case',
-		screenshotEntries: 'Shared entries, read only',
-		screenshotBalance: 'The client’s decisional balance',
-		statReleased: '{tool}: released',
-		statStarted: '{tool}: started',
-		statShared: '{tool}: shared'
+			'Outils numériques de conseil : les conseillères et conseillers activent des exercices, les personnes accompagnées les remplissent et peuvent, si elles le souhaitent, les partager avec leur conseillère ou leur conseiller.',
+		screenshotOverview: 'Vue d’ensemble des outils dans le dossier',
+		screenshotEntries: 'Entrées partagées, en lecture seule',
+		screenshotBalance: 'Balance décisionnelle de la personne accompagnée',
+		statReleased: '{tool} : activé',
+		statStarted: '{tool} : rempli',
+		statShared: '{tool} : partagé'
 	},
 	goals: {
 		steps: {
 			situation: {
-				section: 'Current situation',
-				title: 'Question 1 of 4: What is your current situation?',
+				section: 'Situation actuelle',
+				title: 'Question 1 sur 4 : quelle est votre situation actuelle ?',
 				hint: [
-					'Please briefly describe',
-					'• your own substance use or gambling, or',
-					'• the main issues or conflicts in dealing with a family member who uses substances or gambles.'
+					'Veuillez décrire brièvement',
+					'• votre propre consommation ou pratique des jeux d’argent, ou',
+					'• les principaux sujets ou conflits dans votre relation avec un ou une proche qui consomme ou qui joue.'
 				],
-				summary: 'Your current situation',
-				counsellorLabel: 'Current situation'
+				summary: 'Votre situation actuelle',
+				counsellorLabel: 'Situation actuelle'
 			},
 			factors: {
-				section: 'What keeps things as they are',
-				title: 'Question 2 of 4: What are the positive sides of the current situation?',
+				section: 'Facteurs de maintien',
+				title: 'Question 2 sur 4 : quels sont les aspects positifs de la situation actuelle ?',
 				hint: [
-					'What positive effects does substance use, gambling or media use have for you? What do you think: which reasons play a part for you when you use or gamble? What reasons might there be to leave the current situation as it is?'
+					'Quels effets positifs la consommation de substances, les jeux d’argent ou l’usage des médias ont-ils pour vous ? Selon vous, quelles motivations jouent un rôle pour vous lorsque vous consommez ou jouez ? Quelles raisons pourrait-il y avoir de ne rien changer à la situation actuelle ?'
 				],
-				summary: 'Things that make a change difficult',
-				counsellorLabel: 'Things that make a change difficult'
+				summary: 'Facteurs qui rendent un changement difficile',
+				counsellorLabel: 'Facteurs qui rendent un changement difficile'
 			},
 			motivation: {
-				section: 'Motivation to change',
-				title: 'Question 3 of 4: Why do you want to change something about the current situation?',
-				hint: ['What bothers you or weighs on you? Which things are not going the way you would like?'],
-				summary: 'Reasons for changing the situation',
-				counsellorLabel: 'Reasons for changing the situation'
+				section: 'Motivation au changement',
+				title: 'Question 3 sur 4 : pourquoi voulez-vous changer quelque chose à la situation actuelle ?',
+				hint: [
+					'Qu’est-ce qui vous dérange ou vous pèse ? Quelles choses ne se passent pas comme vous le souhaiteriez ?'
+				],
+				summary: 'Raisons et motivations pour changer la situation',
+				counsellorLabel: 'Raisons et motivations pour changer la situation'
 			},
 			resources: {
-				section: 'Personal strengths',
-				title: 'Question 4 of 4: Who or what could help you with your plan?',
+				section: 'Ressources personnelles',
+				title: 'Question 4 sur 4 : qui ou qu’est-ce qui pourrait vous aider dans votre projet ?',
 				hint: [
-					'Do you have hobbies that take your mind off things, or friends or family who can support you?'
+					'Avez-vous des loisirs qui vous changent les idées, ou des amis ou des proches qui peuvent vous soutenir ?'
 				],
-				summary: 'Your personal strengths',
-				counsellorLabel: 'Personal strengths'
+				summary: 'Vos ressources personnelles',
+				counsellorLabel: 'Ressources personnelles'
 			},
 			goal: {
-				section: 'Setting a goal',
-				title: 'Before you start: set your goal',
+				section: 'Formulation de l’objectif',
+				title: 'Avant de commencer : formulez votre objectif',
 				hint: [
-					'To work steadily on improving your situation over the coming weeks, it is important to name your personal goal as precisely as possible. What would you like to achieve in the coming weeks? What should the counselling help you with?',
-					'What concrete goal are you aiming for? (You can change your answer later.)'
+					'Pour pouvoir travailler avec détermination à l’amélioration de votre situation au cours des prochaines semaines, il est important de nommer votre objectif personnel aussi précisément que possible. Que souhaitez-vous atteindre au cours des prochaines semaines ? Sur quoi l’accompagnement devrait-il vous soutenir ?',
+					'Quel objectif concret visez-vous ? (Vous pourrez encore modifier votre réponse plus tard.)'
 				],
-				summary: 'Your personal goal',
-				counsellorLabel: 'Personal goal'
+				summary: 'Votre objectif personnel',
+				counsellorLabel: 'Objectif personnel'
 			}
 		},
 		start:
-			'Please use the following questions to describe your current situation. Think about the reason you came to counselling. Your answers help to judge which exercises will be most helpful for you. Your counsellor’s feedback can then also respond better to your actual situation.',
-		startButton: 'Let’s start',
-		summaryTitle: 'Summary',
+			'Veuillez décrire votre situation actuelle à l’aide des questions suivantes. Pensez à la raison pour laquelle vous avez sollicité un accompagnement. Vos réponses aident à évaluer quels exercices vous seront particulièrement utiles. Les retours de votre conseillère ou de votre conseiller pourront aussi mieux tenir compte de votre situation réelle.',
+		startButton: 'C’est parti',
+		summaryTitle: 'Récapitulatif',
 		summaryText:
-			'You have looked closely at your current situation and set a concrete goal. This is an important first step towards improving the situation. You can revise your answers at any time if you need to. I am happy to support you with this.',
-		overview: 'Your answers at a glance:',
-		edit: 'Edit',
-		editLabel: 'Edit: {label}',
-		empty: 'No answer yet',
-		restart: 'Go through it again',
-		home: 'My start page',
-		autosave: 'Your answers are saved automatically.',
-		back: 'Back',
-		toSummary: 'Go to summary',
-		next: 'Next',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		noAnswer: 'No answer',
-		noAnswers: 'No answers yet.',
-		reminder: 'Fill in starting point and goals',
-		demoSituation: 'For a few months I have been drinking almost every evening, usually two or three beers.'
+			'Vous avez examiné en détail votre situation actuelle et formulé un objectif concret. C’est une première étape importante pour améliorer la situation. Si besoin, vous pouvez modifier vos réponses à tout moment. Je vous accompagne volontiers dans cette démarche.',
+		overview: 'Vos réponses en un coup d’œil :',
+		edit: 'Modifier',
+		editLabel: 'Modifier : {label}',
+		empty: 'Pas encore de réponse',
+		restart: 'Tout reprendre depuis le début',
+		home: 'Ma page d’accueil',
+		autosave: 'Vos réponses sont enregistrées automatiquement.',
+		back: 'Retour',
+		toSummary: 'Vers le récapitulatif',
+		next: 'Suivant',
+		new: 'Nouveau',
+		lastChanged: 'Dernière modification le {date}',
+		noAnswer: 'Pas de réponse',
+		noAnswers: 'Pas encore de réponses.',
+		reminder: 'Remplir « Point de départ et objectifs »',
+		demoSituation:
+			'Depuis quelques mois, je bois presque tous les soirs, le plus souvent deux ou trois bières.'
 	},
 	consumptionDiary: {
 		intro:
-			'The diary is for writing down every day everything connected with the change you are aiming for. It is important to keep at it and to record all relevant thoughts and feelings in detail. This helps you reach your goal! The clearer the picture your counsellor has of your situation, the better the counselling can support you. That is why we recommend sharing your entries with your counsellor.',
-		about: 'About the consumption diary',
+			'Le journal sert à noter chaque jour tout ce qui est lié au changement de comportement que vous visez. Il est important de le tenir régulièrement et d’y noter en détail toutes les pensées et émotions importantes. Cela vous aide à atteindre votre objectif ! Plus votre conseillère ou votre conseiller peut se faire une idée précise de votre situation, mieux elle ou il peut vous accompagner. C’est pourquoi nous vous recommandons de rendre vos entrées visibles pour votre conseillère ou votre conseiller.',
+		about: 'À propos du journal de consommation',
 		nav: {
-			label: 'Consumption diary',
-			week: 'My week',
-			entry: 'Diary entry',
-			settings: 'Settings'
+			label: 'Journal de consommation',
+			week: 'Ma semaine',
+			entry: 'Entrée du journal',
+			settings: 'Paramètres'
 		},
 		settings: {
-			title: 'Record these topics:',
-			addTopic: 'Add another topic',
-			pickTopic: 'Please choose at least one topic.',
-			save: 'Save',
-			start: 'Start diary'
+			title: 'Noter ces thèmes :',
+			addTopic: 'Ajouter un autre thème',
+			pickTopic: 'Veuillez choisir au moins un thème.',
+			save: 'Enregistrer',
+			start: 'Commencer le journal'
 		},
 		newEntry: {
-			title: 'Diary entry',
+			title: 'Entrée du journal',
 			date: 'Date',
-			add: 'Add entry: {topic}'
+			add: 'Ajouter une entrée : {topic}'
 		},
 		week: {
-			title: 'My week',
-			cell: '{day}: {question}'
+			title: 'Ma semaine',
+			cell: '{day} : {question}'
 		},
-		yes: 'yes',
-		no: 'no',
+		yes: 'oui',
+		no: 'non',
 		day: {
-			back: 'Back to the week',
-			overline: 'Diary | {topic}',
-			deleteAll: 'Delete entries',
-			cancel: 'Cancel',
-			moreAfterYes: 'More info',
-			moreAfterNo: 'More info',
-			logged: 'Recorded for this day:',
-			noPhase: 'No entry yet',
-			delete: 'Delete',
-			editTitle: 'Edit',
-			deleteTitle: 'Delete',
-			summary: 'Review of the day',
-			ratingHint: 'What went well for you today? What did not go so well? Think about your personal goal.',
-			planQuestion: 'What do you plan for tomorrow?',
-			done: 'Done',
-			save: 'Save'
+			back: 'Retour à la vue de la semaine',
+			overline: 'Journal | {topic}',
+			deleteAll: 'Supprimer les entrées',
+			cancel: 'Annuler',
+			moreAfterYes: 'Plus d’infos',
+			moreAfterNo: 'Plus d’infos',
+			logged: 'Noté pour ce jour :',
+			noPhase: 'Pas encore d’entrée',
+			delete: 'Supprimer',
+			editTitle: 'Modifier',
+			deleteTitle: 'Supprimer',
+			summary: 'Bilan de la journée',
+			ratingHint:
+				'Qu’est-ce qui s’est bien passé pour vous aujourd’hui ? Qu’est-ce qui s’est moins bien passé ? Pensez à votre objectif personnel.',
+			planQuestion: 'Que prévoyez-vous pour demain ?',
+			done: 'Terminé',
+			save: 'Enregistrer'
 		},
 		phase: {
-			back: 'Back to the day',
+			back: 'Retour à la vue du jour',
 			date: 'Date',
-			start: 'Time (start)',
-			end: 'Time (end)',
-			nothingYet: 'Nothing added yet.',
-			deleteItem: 'Delete item',
-			deleteItemLabel: 'Delete item: {item}',
+			start: 'Heure (début)',
+			end: 'Heure (fin)',
+			nothingYet: 'Rien de saisi pour le moment.',
+			deleteItem: 'Supprimer l’élément',
+			deleteItemLabel: 'Supprimer l’élément : {item}',
 			deviceQuestion:
-				'Which device did you use? (for example computer, smartphone, games console or handheld games device)',
-			missingItem: 'Please fill in at least one item and click “Add”.',
-			choose: 'Please choose',
-			group: '{group}:',
-			drink: 'Drink',
-			size: 'Size',
-			count: 'Number',
+				'Quel appareil avez-vous utilisé ? (par exemple ordinateur, smartphone, console de jeux ou console portable)',
+			missingItem: 'Veuillez saisir au moins un élément et cliquer sur « Ajouter ».',
+			choose: 'Veuillez choisir',
+			group: '{group} :',
+			drink: 'Boisson',
+			size: 'Taille',
+			count: 'Nombre',
 			joints: 'Joints',
-			bongs: 'Bongs',
-			otherKind: 'Other',
-			gambling: 'Gambling',
-			media: 'Media',
-			hours: 'Duration: hours',
+			bongs: 'Bangs',
+			otherKind: 'Autre',
+			gambling: 'Jeux d’argent',
+			media: 'Médias',
+			hours: 'Durée : heures',
 			minutes: 'Minutes',
-			add: 'Add',
-			cancel: 'Cancel',
-			timeRange: '{start} to {end}',
+			add: 'Ajouter',
+			cancel: 'Annuler',
+			timeRange: 'de {start} à {end}',
 			time: '{time}',
-			when: '{time}:',
-			noItems: 'No details about use'
+			when: '{time} :',
+			noItems: 'Aucune indication sur la consommation'
 		},
 		topics: {
 			alcohol: {
-				label: 'Alcohol',
-				weekQuestion: 'Did you drink alcohol?',
-				dayQuestion: 'Did you drink alcohol today?',
-				pastDayQuestion: 'Did you drink alcohol on this day?',
-				ratingQuestion: 'How would you rate today with regard to your drinking?',
-				pastRatingQuestion: 'How would you rate this day with regard to your drinking?',
+				label: 'Alcool',
+				weekQuestion: 'Avez-vous bu de l’alcool ?',
+				dayQuestion: 'Avez-vous bu de l’alcool aujourd’hui ?',
+				pastDayQuestion: 'Avez-vous bu de l’alcool ce jour-là ?',
+				ratingQuestion:
+					'Comment évaluez-vous la journée d’aujourd’hui au regard de votre consommation d’alcool ?',
+				pastRatingQuestion: 'Comment évaluez-vous cette journée au regard de votre consommation d’alcool ?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not drinking, getting a task done, doing something nice, etc.)',
+					'Vous fixez-vous une tâche ou un petit objectif pour le lendemain ? (Par exemple : ne pas boire, accomplir une tâche, faire une sortie agréable, etc.)',
 				yesIntro:
-					'Record your drinking here. Please make a new entry for each situation or phase in which you drank.',
+					'Notez ici votre consommation d’alcool. Veuillez faire une nouvelle entrée pour chaque situation ou phase de consommation.',
 				yesMore:
-					'For example, if you drank at lunchtime and in the evening, make two entries. If you had several drinks within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your drinking as precisely as possible, so that you can change it successfully.',
+					'Si, par exemple, vous avez bu à midi et le soir, faites deux entrées. Si vous avez bu plusieurs verres sur une même période, vous pouvez les saisir comme une seule phase de consommation. Le but du journal est que vous appreniez, avec votre conseillère ou votre conseiller, à comprendre votre consommation aussi précisément que possible, afin de pouvoir la changer avec succès.',
 				noIntro:
-					'You didn’t drink any alcohol today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Vous n’avez pas bu d’alcool aujourd’hui ? Formidable ! Notez absolument ce qui vous a aidé à rester sobre et comment vous l’avez vécu.',
 				pastNoIntro:
-					'You didn’t drink any alcohol on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Vous n’avez pas bu d’alcool ce jour-là ? Formidable ! Notez absolument ce qui vous a aidé à rester sobre et comment vous l’avez vécu.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you drink?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Alcohol: add a phase of drinking',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Drinks recorded:'
+					'Peut-être avez-vous réussi à appliquer vos stratégies de contrôle ? Vos notes dans le journal vous aident, vous et votre conseillère ou votre conseiller, à repérer les stratégies particulièrement efficaces pour un changement de comportement durable et une vie sobre. Si vous ne souhaitez rien noter, cliquez simplement sur « Enregistrer ».',
+				contextQuestion: 'Avec qui et où avez-vous bu ?',
+				triggerQuestion: 'Pourquoi ? Quelle a été la raison ou le déclencheur de la consommation ?',
+				phaseTitle: 'Alcool : saisir une phase de consommation',
+				newPhase: 'Saisir une nouvelle phase de consommation',
+				editPhase: 'Modifier la phase de consommation',
+				deletePhase: 'Supprimer la phase de consommation',
+				deletePhaseQuestion: 'Supprimer cette phase de consommation ?',
+				deleteAllQuestion:
+					'Toutes les phases de consommation saisies pour ce jour seront supprimées. Continuer quand même ?',
+				saveLabel: 'Enregistrer la phase de consommation',
+				loggedLabel: 'Boissons notées :'
 			},
 			cannabis: {
 				label: 'Cannabis',
-				weekQuestion: 'Did you use cannabis?',
-				dayQuestion: 'Did you use cannabis today?',
-				pastDayQuestion: 'Did you use cannabis on this day?',
-				ratingQuestion: 'How would you rate today with regard to your cannabis use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your cannabis use?',
+				weekQuestion: 'Avez-vous consommé du cannabis ?',
+				dayQuestion: 'Avez-vous consommé du cannabis aujourd’hui ?',
+				pastDayQuestion: 'Avez-vous consommé du cannabis ce jour-là ?',
+				ratingQuestion:
+					'Comment évaluez-vous la journée d’aujourd’hui au regard de votre consommation de cannabis ?',
+				pastRatingQuestion:
+					'Comment évaluez-vous cette journée au regard de votre consommation de cannabis ?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not smoking weed, getting a task done, doing something nice, etc.)',
+					'Vous fixez-vous une tâche ou un petit objectif pour le lendemain ? (Par exemple : ne pas fumer de cannabis, accomplir une tâche, faire une sortie agréable, etc.)',
 				yesIntro:
-					'Record your cannabis use here. Please make a new entry for each situation or phase in which you used.',
+					'Notez ici votre consommation de cannabis. Veuillez faire une nouvelle entrée pour chaque situation ou phase de consommation.',
 				yesMore:
-					'For example, if you smoked at lunchtime and in the evening, make two entries. If you used several times within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your use as precisely as possible, so that you can change it successfully.',
+					'Si, par exemple, vous avez fumé à midi et le soir, faites deux entrées. Si vous avez consommé plusieurs fois sur une même période, vous pouvez le saisir comme une seule phase de consommation. Le but du journal est que vous appreniez, avec votre conseillère ou votre conseiller, à comprendre votre consommation aussi précisément que possible, afin de pouvoir la changer avec succès.',
 				noIntro:
-					'You didn’t use today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Vous n’avez pas consommé aujourd’hui ? Formidable ! Notez absolument ce qui vous a aidé à rester sobre et comment vous l’avez vécu.',
 				pastNoIntro:
-					'You didn’t use on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Vous n’avez pas consommé ce jour-là ? Formidable ! Notez absolument ce qui vous a aidé à rester sobre et comment vous l’avez vécu.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you smoke?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Cannabis: add your use',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Use recorded:'
+					'Peut-être avez-vous réussi à appliquer vos stratégies de contrôle ? Vos notes dans le journal vous aident, vous et votre conseillère ou votre conseiller, à repérer les stratégies particulièrement efficaces pour un changement de comportement durable et une vie sobre. Si vous ne souhaitez rien noter, cliquez simplement sur « Enregistrer ».',
+				contextQuestion: 'Avec qui et où avez-vous fumé ?',
+				triggerQuestion: 'Pourquoi ? Quelle a été la raison ou le déclencheur de la consommation ?',
+				phaseTitle: 'Cannabis : saisir une consommation',
+				newPhase: 'Saisir une nouvelle phase de consommation',
+				editPhase: 'Modifier la phase de consommation',
+				deletePhase: 'Supprimer la phase de consommation',
+				deletePhaseQuestion: 'Supprimer cette phase de consommation ?',
+				deleteAllQuestion:
+					'Toutes les phases de consommation saisies pour ce jour seront supprimées. Continuer quand même ?',
+				saveLabel: 'Enregistrer la phase de consommation',
+				loggedLabel: 'Consommation notée :'
 			},
 			gambling: {
-				label: 'Gambling',
-				weekQuestion: 'Did you gamble?',
-				dayQuestion: 'Did you gamble today?',
-				pastDayQuestion: 'Did you gamble on this day?',
-				ratingQuestion: 'How would you rate today with regard to your gambling?',
-				pastRatingQuestion: 'How would you rate this day with regard to your gambling?',
+				label: 'Jeux d’argent',
+				weekQuestion: 'Avez-vous joué à des jeux d’argent ?',
+				dayQuestion: 'Avez-vous joué aujourd’hui ?',
+				pastDayQuestion: 'Avez-vous joué ce jour-là ?',
+				ratingQuestion:
+					'Comment évaluez-vous la journée d’aujourd’hui au regard de votre pratique des jeux d’argent ?',
+				pastRatingQuestion:
+					'Comment évaluez-vous cette journée au regard de votre pratique des jeux d’argent ?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gambling, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your gambling here. Please make a new entry for each period in which you gambled.',
+					'Vous fixez-vous une tâche ou un petit objectif pour le lendemain ? (Par exemple : ne pas jouer, accomplir une tâche, faire une sortie agréable, etc.)',
+				yesIntro:
+					'Notez ici votre pratique des jeux d’argent. Veuillez faire une nouvelle entrée pour chaque phase pendant laquelle vous avez joué.',
 				yesMore:
-					'For example, if you gambled at lunchtime and in the evening, make two entries. If you played several kinds of games within one period of time, you can enter them as one gambling session. The aim of the diary is for you and your counsellor to understand your behaviour as precisely as possible, so that you can change it successfully.',
+					'Si, par exemple, vous avez joué à midi et le soir, faites deux entrées. Si vous avez pratiqué plusieurs types de jeux d’argent sur une même période, vous pouvez les saisir dans une seule phase de jeu. Le but du journal est que vous appreniez, avec votre conseillère ou votre conseiller, à comprendre votre comportement aussi précisément que possible, afin de pouvoir le changer avec succès.',
 				noIntro:
-					'You didn’t gamble today? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'Vous n’avez pas joué à des jeux d’argent aujourd’hui ? Formidable ! Notez absolument ce qui vous a aidé à ne pas jouer et comment vous l’avez vécu.',
 				pastNoIntro:
-					'You didn’t gamble on this day? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'Vous n’avez pas joué à des jeux d’argent ce jour-là ? Formidable ! Notez absolument ce qui vous a aidé à ne pas jouer et comment vous l’avez vécu.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a gambling-free life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you gamble?',
-				triggerQuestion: 'Why? What was the reason or trigger for gambling?',
-				phaseTitle: 'Add gambling',
-				newPhase: 'Add a new gambling session',
-				editPhase: 'Edit gambling session',
-				deletePhase: 'Delete gambling session',
-				deletePhaseQuestion: 'Delete this gambling session?',
-				deleteAllQuestion: 'All gambling sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Gambling recorded:'
+					'Peut-être avez-vous réussi à appliquer vos stratégies de contrôle ? Vos notes dans le journal vous aident, vous et votre conseillère ou votre conseiller, à repérer les stratégies particulièrement efficaces pour un changement de comportement durable et une vie sans jeux d’argent. Si vous ne souhaitez rien noter, cliquez simplement sur « Enregistrer ».',
+				contextQuestion: 'Où et avec qui avez-vous joué ?',
+				triggerQuestion: 'Pourquoi ? Quelle a été la raison ou le déclencheur du jeu ?',
+				phaseTitle: 'Saisir des jeux d’argent',
+				newPhase: 'Saisir une nouvelle phase de jeu',
+				editPhase: 'Modifier la phase de jeu',
+				deletePhase: 'Supprimer la phase de jeu',
+				deletePhaseQuestion: 'Supprimer cette phase de jeu ?',
+				deleteAllQuestion:
+					'Toutes les phases de jeu saisies pour ce jour seront supprimées. Continuer quand même ?',
+				saveLabel: 'Enregistrer l’entrée',
+				loggedLabel: 'Jeux d’argent notés :'
 			},
 			media: {
-				label: 'Media',
-				weekQuestion: 'Did you use media?',
-				dayQuestion: 'Did you use media today?',
-				pastDayQuestion: 'Did you use media on this day?',
-				ratingQuestion: 'How would you rate today with regard to your media use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your media use?',
+				label: 'Médias',
+				weekQuestion: 'Avez-vous utilisé des médias ?',
+				dayQuestion: 'Avez-vous utilisé des médias aujourd’hui ?',
+				pastDayQuestion: 'Avez-vous utilisé des médias ce jour-là ?',
+				ratingQuestion: 'Comment évaluez-vous la journée d’aujourd’hui au regard de votre usage des médias ?',
+				pastRatingQuestion: 'Comment évaluez-vous cette journée au regard de votre usage des médias ?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gaming, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your media use here. Please make a new entry for each situation or phase of use.',
+					'Vous fixez-vous une tâche ou un petit objectif pour le lendemain ? (Par exemple : ne pas jouer, accomplir une tâche, faire une sortie agréable, etc.)',
+				yesIntro:
+					'Notez ici votre usage des médias. Veuillez faire une nouvelle entrée pour chaque situation ou phase d’utilisation.',
 				yesMore:
-					'For example, if you used media at lunchtime and in the evening, make two entries. If you used several media within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your media use as precisely as possible, so that you can change it successfully.',
+					'Si, par exemple, vous avez utilisé des médias à midi et le soir, faites deux entrées. Si vous avez utilisé plusieurs médias sur une même période, vous pouvez le saisir comme une seule phase. Le but du journal est que vous appreniez, avec votre conseillère ou votre conseiller, à comprendre votre usage des médias aussi précisément que possible, afin de pouvoir le changer avec succès.',
 				noIntro:
-					'You didn’t use any media today? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'Vous n’avez pas utilisé de médias aujourd’hui ? Formidable ! Notez absolument ce qui vous a aidé et comment vous l’avez vécu.',
 				pastNoIntro:
-					'You didn’t use any media on this day? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'Vous n’avez pas utilisé de médias ce jour-là ? Formidable ! Notez absolument ce qui vous a aidé et comment vous l’avez vécu.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you use media?',
-				triggerQuestion: 'Why? What was the reason or trigger for using media?',
-				phaseTitle: 'Add media use',
-				newPhase: 'Add a new media session',
-				editPhase: 'Edit media session',
-				deletePhase: 'Delete media session',
-				deletePhaseQuestion: 'Delete this media session?',
-				deleteAllQuestion: 'All media sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Media use recorded:'
+					'Peut-être avez-vous réussi à appliquer vos stratégies de contrôle ? Vos notes dans le journal vous aident, vous et votre conseillère ou votre conseiller, à repérer les stratégies particulièrement efficaces pour un changement de comportement durable. Si vous ne souhaitez rien noter, cliquez simplement sur « Enregistrer ».',
+				contextQuestion: 'Où et avec qui avez-vous utilisé des médias ?',
+				triggerQuestion: 'Pourquoi ? Quelle a été la raison ou le déclencheur de l’usage des médias ?',
+				phaseTitle: 'Saisir un usage des médias',
+				newPhase: 'Saisir une nouvelle phase d’usage des médias',
+				editPhase: 'Modifier la phase d’usage des médias',
+				deletePhase: 'Supprimer la phase d’usage des médias',
+				deletePhaseQuestion: 'Supprimer cette phase d’usage des médias ?',
+				deleteAllQuestion:
+					'Toutes les phases d’usage des médias saisies pour ce jour seront supprimées. Continuer quand même ?',
+				saveLabel: 'Enregistrer l’entrée',
+				loggedLabel: 'Usage des médias noté :'
 			}
 		},
 		drinks: {
-			beer: 'Beer',
-			wine: 'Wine / sparkling wine',
-			spirits: 'Spirits',
+			beer: 'Bière',
+			wine: 'Vin / vin mousseux',
+			spirits: 'Eau-de-vie / alcool fort',
 			liqueur: 'Liqueur',
-			'beer-mix': 'Beer mixed drinks',
-			alcopop: 'Alcopops'
+			'beer-mix': 'Boissons à base de bière',
+			alcopop: 'Prémix (alcopops)'
 		},
 		cannabisUnits: {
 			joint: 'joint',
-			bong: 'bong'
+			bong: 'bang'
 		},
 		gameGroups: {
-			local: 'Gambling in person',
-			online: 'Online / on the internet'
+			local: 'Jeux d’argent sur place',
+			online: 'En ligne / sur Internet'
 		},
 		games: {
-			'slot-arcade': 'Slot machines in amusement arcades',
-			'slot-gastro': 'Slot machines in bars and restaurants',
-			'casino-small': 'Slot machines in a casino',
-			'casino-large': 'Table games in a casino',
-			sports: 'Sports betting',
-			horses: 'Horse race betting',
-			lottery: 'Lotteries',
-			'other-local': 'Other gambling in person',
-			'online-slots': 'Online slot machines',
-			'online-casino': 'Online casino games (casino table games, except poker)',
-			'online-poker': 'Online poker',
-			'online-sports': 'Online sports betting',
-			'online-horses': 'Online horse race betting',
-			'online-lottery': 'Online lotteries',
-			'online-other': 'Other online gambling'
+			'slot-arcade': 'Machines à sous dans les salles de jeux',
+			'slot-gastro': 'Machines à sous dans les bars et restaurants',
+			'casino-small': 'Machines à sous au casino',
+			'casino-large': 'Jeux de table au casino',
+			sports: 'Paris sportifs',
+			horses: 'Paris hippiques',
+			lottery: 'Loteries',
+			'other-local': 'Autres jeux d’argent sur place',
+			'online-slots': 'Machines à sous en ligne',
+			'online-casino': 'Jeux de casino en ligne (jeux de table, à l’exception du poker)',
+			'online-poker': 'Poker en ligne',
+			'online-sports': 'Paris sportifs en ligne',
+			'online-horses': 'Paris hippiques en ligne',
+			'online-lottery': 'Loteries en ligne',
+			'online-other': 'Autres jeux d’argent en ligne'
 		},
 		mediaGroups: {
-			games: 'Online games',
-			communication: 'Communicating over the internet',
-			social: 'Social networks (for example TikTok, Instagram, WhatsApp, Telegram, Facebook)',
-			surfing: 'Surfing the internet',
-			more: 'Other media activities'
+			games: 'Jeux en ligne',
+			communication: 'Communication par Internet',
+			social: 'Réseaux sociaux (par exemple TikTok, Instagram, WhatsApp, Telegram, Facebook)',
+			surfing: 'Navigation sur Internet',
+			more: 'Autres activités médiatiques'
 		},
 		media: {
-			action: 'Action games (for example jump ’n’ run, beat ’em ups, action adventures)',
-			shooter: 'First-person shooters',
-			rpg: 'Role-playing games (for example MMORPGs, online and offline role-playing games)',
-			strategy: 'Strategy games (for example real-time strategy, building games)',
-			'sports-games': 'Sports games (for example manager games, sports simulations)',
-			simulation: 'Simulation games (for example flight, racing or life simulations)',
-			'music-games': 'Music and dance games (for example Just Dance Now, SingStar, Let’s Sing)',
-			skill: 'Skill games (for example Tetris)',
-			chat: 'Chatting',
-			mail: 'Writing emails',
-			'social-watch': 'Watching videos / looking at pictures',
-			'social-talk': 'Talking with other people',
-			research: 'Research',
-			shopping: 'Shopping',
-			magazines: 'Online magazines',
-			streaming: 'Online streaming (for example Netflix, TV channel apps, Amazon Prime)',
-			porn: 'Porn websites',
-			device: 'Optimising a computer / device',
-			'other-media': 'Other use of electronic media'
+			action: 'Jeux d’action (par exemple jeux de plateforme, beat ’em up, action-aventure)',
+			shooter: 'Jeux de tir à la première personne',
+			rpg: 'Jeux de rôle (par exemple MMORPG, jeux de rôle en ligne et hors ligne)',
+			strategy: 'Jeux de stratégie (par exemple stratégie en temps réel, jeux de construction)',
+			'sports-games': 'Jeux de sport (par exemple jeux de gestion, simulations sportives)',
+			simulation: 'Jeux de simulation (par exemple simulation de vol, de course automobile ou de vie)',
+			'music-games': 'Jeux de musique et de danse (par exemple Just Dance Now, SingStar, Let’s Sing)',
+			skill: 'Jeux d’adresse (par exemple Tetris)',
+			chat: 'Discuter par messagerie (chat)',
+			mail: 'Écrire des e-mails',
+			'social-watch': 'Regarder des vidéos / des images',
+			'social-talk': 'Échanger avec d’autres personnes',
+			research: 'Recherches',
+			shopping: 'Achats',
+			magazines: 'Magazines en ligne',
+			streaming: 'Streaming en ligne (par exemple Netflix, plateformes de replay, Amazon Prime)',
+			porn: 'Sites pornographiques',
+			device: 'Optimiser un ordinateur / un appareil',
+			'other-media': 'Autre utilisation des médias électroniques'
 		},
 		items: {
-			alcohol: '{count}x {size} {drink}',
-			cannabis: '{count}x {unit}',
-			otherKind: 'Other: {text}',
-			otherKindCount: 'Other: {count}x {text}',
+			alcohol: '{count} x {drink} ({size})',
+			cannabis: '{count} x {unit}',
+			otherKind: 'Autre : {text}',
+			otherKindCount: 'Autre : {count} x {text}',
 			duration: '{activity}, {duration}'
 		},
 		sums: {
 			phases: { one: '{count} phase', other: '{count} phases' },
-			drinks: { one: '{count} drink', other: '{count} drinks' },
-			alcohol: '{drinks}, about {grams} g of alcohol',
+			drinks: { one: '{count} boisson', other: '{count} boissons' },
+			alcohol: '{drinks}, environ {grams} g d’alcool',
 			joints: { one: '{count} joint', other: '{count} joints' },
-			bongs: { one: '{count} bong', other: '{count} bongs' },
-			otherKind: '{count}x other'
+			bongs: { one: '{count} bang', other: '{count} bangs' },
+			otherKind: '{count} x autre'
 		},
 		counsellor: {
-			noEntries: 'No entries yet.',
-			topics: 'Topics recorded: {topics}',
-			new: 'New',
-			noDayEntries: 'No entries',
-			tileTopic: '{topic}:',
-			noConsumption: 'No use recorded',
-			entriesOf: 'Entries from {day}',
-			answerYes: '{topic}: yes',
-			answerNo: '{topic}: no',
-			device: 'Device',
-			context: 'Where and with whom',
-			trigger: 'Reason or trigger',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow',
-			summaryNew: 'Review new'
+			noEntries: 'Pas encore d’entrées.',
+			topics: 'Thèmes notés : {topics}',
+			new: 'Nouveau',
+			noDayEntries: 'Aucune entrée',
+			tileTopic: '{topic} :',
+			noConsumption: 'Aucune consommation saisie',
+			entriesOf: 'Entrées du {day}',
+			answerYes: '{topic} : oui',
+			answerNo: '{topic} : non',
+			device: 'Appareil',
+			context: 'Où et avec qui',
+			trigger: 'Raison ou déclencheur',
+			rating: 'Évaluation de la journée',
+			plan: 'Projet pour demain',
+			summaryNew: 'Nouveau bilan'
 		},
 		pdf: {
-			noEntries: 'No entries in this period.',
-			topics: 'Topics recorded: {topics}',
-			answerYes: '{topic}: yes ({sum})',
-			answerNo: '{topic}: no',
-			device: 'Device: {device}',
-			context: 'Where and with whom: {context}',
-			trigger: 'Reason or trigger: {trigger}',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow'
+			noEntries: 'Aucune entrée sur cette période.',
+			topics: 'Thèmes notés : {topics}',
+			answerYes: '{topic} : oui ({sum})',
+			answerNo: '{topic} : non',
+			device: 'Appareil : {device}',
+			context: 'Où et avec qui : {context}',
+			trigger: 'Raison ou déclencheur : {trigger}',
+			rating: 'Évaluation de la journée',
+			plan: 'Projet pour demain'
 		},
 		demo: {
-			alcoholRating: 'After the argument I drank more than I had planned.',
-			alcoholPlan: 'Go straight home after work.',
-			alcoholContext: 'At home, alone',
-			alcoholTrigger: 'Argument on the phone',
-			gamblingRating: 'I didn’t take any money with me, that helped.',
-			soberRating: 'Did sport in the evening instead of having a beer.',
-			soberPlan: 'Go to sport again.',
-			gamblingContext: 'On the bus and at home',
-			gamblingTrigger: 'Boredom'
+			alcoholRating: 'Après la dispute, j’ai bu plus que prévu.',
+			alcoholPlan: 'Rentrer directement à la maison après le travail.',
+			alcoholContext: 'À la maison, seul',
+			alcoholTrigger: 'Dispute au téléphone',
+			gamblingRating: 'Je n’avais pas pris d’argent sur moi, cela m’a aidé.',
+			soberRating: 'Fait du sport le soir au lieu de boire une bière.',
+			soberPlan: 'Retourner au sport.',
+			gamblingContext: 'Dans le bus et à la maison',
+			gamblingTrigger: 'Ennui'
 		}
 	},
 	relativesDiary: {
-		title: 'My diary',
+		title: 'Mon journal',
 		intro: [
-			'The diary is a place to write down the moving, difficult or happy events and thoughts of your day. For your entries, you can use the three questions shown in the day view as a guide. For example, click on today to make an entry.',
-			'Writing down experiences and thoughts, sorting them and “getting them off your chest” is often a relief in itself. Your diary entries are also important for your personal counselling: the better your counsellor understands your situation, the better they can support you. That is why we recommend making your entries visible to your counsellor.'
+			'Le journal sert à noter les événements et les pensées de la journée, qu’ils soient émouvants, pesants ou agréables. Pour vos entrées, vous pouvez vous appuyer sur les trois questions affichées dans la vue du jour. Cliquez par exemple sur la journée d’aujourd’hui pour faire une entrée.',
+			'Souvent, le simple fait d’écrire ses expériences et ses pensées, de les mettre en ordre et de « s’en libérer » apporte déjà un soulagement. Vos entrées dans le journal sont aussi importantes pour votre accompagnement personnel : plus votre conseillère ou votre conseiller peut se faire une idée précise de votre situation, mieux elle ou il peut vous accompagner. C’est pourquoi nous vous recommandons de rendre vos entrées visibles pour votre conseillère ou votre conseiller.'
 		],
 		questionsToday: [
-			'What was important to you today?',
-			'How did communication with your relative go today?',
-			'How do you feel about it?'
+			'Qu’est-ce qui a été important pour vous aujourd’hui ?',
+			'Comment s’est passée la communication avec votre proche aujourd’hui ?',
+			'Comment vous sentez-vous par rapport à cela ?'
 		],
 		questionsOtherDay: [
-			'What was important to you on this day?',
-			'How did communication with your relative go on this day?',
-			'How do you feel about it?'
+			'Qu’est-ce qui a été important pour vous ce jour-là ?',
+			'Comment s’est passée la communication avec votre proche ce jour-là ?',
+			'Comment vous sentez-vous par rapport à cela ?'
 		],
-		moodQuestionToday: 'How would you rate today?',
-		moodQuestionOtherDay: 'How would you rate this day?',
+		moodQuestionToday: 'Comment évaluez-vous la journée d’aujourd’hui ?',
+		moodQuestionOtherDay: 'Comment évaluez-vous cette journée ?',
 		moods: {
-			'very-bad': 'very bad',
-			'rather-bad': 'quite bad',
-			average: 'okay',
-			'rather-good': 'quite good',
-			'very-good': 'very good'
+			'very-bad': 'très mauvaise',
+			'rather-bad': 'plutôt mauvaise',
+			average: 'moyenne',
+			'rather-good': 'plutôt bonne',
+			'very-good': 'très bonne'
 		},
-		noMood: 'not given',
-		weekEntriesHeading: 'Diary entries',
-		weekMoodHeading: 'Mood',
-		openEntry: 'Open',
-		openEntryLabel: 'Open entry: {day}',
-		createEntry: 'Create entry',
-		createEntryLabel: 'Create entry: {day}',
-		backToOverview: 'back to the overview',
-		entryLabel: 'Diary entry',
-		emptyEntry: 'Please write something down or rate the day.',
-		saveEntry: 'Save entry',
-		deleteEntry: 'Delete entry',
-		deleteConfirm: 'Delete this diary entry?',
-		deleteButton: 'Delete',
-		weekView: 'Week view',
-		allEntries: 'All entries',
-		new: 'New',
-		noEntryForDay: 'No entry',
-		noEntries: 'No entries yet.',
-		pdfNoEntries: 'No entries in this period.',
-		pdfMood: 'Rating of the day: {mood}',
-		pdfNoText: 'No text entered.',
+		noMood: 'non renseigné',
+		weekEntriesHeading: 'Entrées du journal',
+		weekMoodHeading: 'Humeur',
+		openEntry: 'Ouvrir',
+		openEntryLabel: 'Ouvrir l’entrée : {day}',
+		createEntry: 'Créer une entrée',
+		createEntryLabel: 'Créer une entrée : {day}',
+		backToOverview: 'retour à la vue d’ensemble',
+		entryLabel: 'Entrée du journal',
+		emptyEntry: 'Veuillez écrire quelque chose ou évaluer la journée.',
+		saveEntry: 'Enregistrer l’entrée',
+		deleteEntry: 'Supprimer l’entrée',
+		deleteConfirm: 'Supprimer cette entrée du journal ?',
+		deleteButton: 'Supprimer',
+		weekView: 'Vue de la semaine',
+		allEntries: 'Toutes les entrées',
+		new: 'Nouveau',
+		noEntryForDay: 'Aucune entrée',
+		noEntries: 'Pas encore d’entrées.',
+		pdfNoEntries: 'Aucune entrée sur cette période.',
+		pdfMood: 'Évaluation de la journée : {mood}',
+		pdfNoText: 'Aucun texte saisi.',
 		demoEntries: [
-			'Tonight there was another argument when he came home late. I tried to stay calm and not to blame him. Afterwards I was exhausted, but also a little proud.',
-			'A quiet day. We went for a walk together and talked about our holiday.'
+			'Ce soir, il y a encore eu une dispute quand il est rentré tard. J’ai essayé de rester calme et de ne pas lui faire de reproches. Après, j’étais épuisée, mais aussi un peu fière.',
+			'Une journée calme. Nous sommes allés nous promener ensemble et avons parlé des vacances.'
 		]
 	},
 	balance: {
 		intro:
-			'Changing your own habits is always a challenge. Every change takes effort, costs energy and needs staying power. The decisional balance helps you to get clear about the advantages and disadvantages of overcoming your addictive behaviour.',
-		howItWorks: 'How the decisional balance works',
-		howItWorksStep: '{title}:',
+			'Changer ses propres habitudes est toujours un défi. Tout changement est exigeant, demande de l’énergie et de la persévérance. La balance décisionnelle vous aide à y voir clair sur les avantages et les inconvénients d’un arrêt du comportement addictif.',
+		howItWorks: 'Comment fonctionne la balance décisionnelle',
+		howItWorksStep: '{title} :',
 		howItWorksSteps: [
 			{
-				title: 'Collect arguments',
-				text: 'Think about it for yourself: what will happen if I change my behaviour, for example if I stop drinking, gambling or smoking cannabis? What will happen if I carry on as before? Be honest with yourself!'
+				title: 'Rassembler des arguments',
+				text: 'Réfléchissez pour vous-même : quelles seront les conséquences si je change mon comportement, par exemple si j’arrête de boire, de jouer ou de fumer du cannabis ? Que se passera-t-il si je continue comme avant ? Soyez honnête avec vous-même !'
 			},
 			{
-				title: 'Rate them',
-				text: 'In both cases, the effects of a change can be positive or negative for you. Also think about whether these effects are especially important to you or less important.'
+				title: 'Évaluer',
+				text: 'Dans les deux cas, les effets d’un changement peuvent être positifs ou négatifs pour vous. Demandez-vous aussi si ces effets sont particulièrement importants pour vous ou plutôt moins importants.'
 			},
 			{
-				title: 'Look at the result',
-				text: 'Once you have entered and rated all the advantages and disadvantages, the decisional balance shows you your current inner attitude towards the chosen topic.'
+				title: 'Regarder le résultat',
+				text: 'Lorsque vous avez saisi et évalué tous les avantages et inconvénients, la balance décisionnelle vous montre votre attitude intérieure actuelle vis-à-vis du thème choisi.'
 			},
 			{
-				title: 'Draw a conclusion',
-				text: 'What is your conclusion? How would you rate your current motivation? Are you ready inside to change your behaviour? Or do you need more arguments?'
+				title: 'Tirer un bilan',
+				text: 'Quel est votre bilan ? Comment évaluez-vous votre motivation actuelle ? Êtes-vous intérieurement prêt ou prête à changer votre comportement ? Ou avez-vous besoin d’autres arguments ?'
 			}
 		],
 		howItWorksNote:
-			'You can work on the exercise again and add to it at any time when you think of new advantages and disadvantages. If you like, your counsellor can see your answers and so support you as well as possible with your plan.',
-		workOnExerciseFirst: 'Please work through the exercise first.',
-		sides: { pro: 'PRO', contra: 'CON' },
+			'Vous pouvez reprendre l’exercice et le compléter à tout moment lorsque de nouveaux avantages ou inconvénients vous viennent à l’esprit. Si vous le souhaitez, votre conseillère ou votre conseiller peut consulter vos réponses et ainsi vous soutenir au mieux dans votre projet.',
+		workOnExerciseFirst: 'Veuillez d’abord faire l’exercice.',
+		sides: { pro: 'POUR', contra: 'CONTRE' },
 		poles: [
-			{ contra: 'Against change', pro: 'For change' },
-			{ contra: 'No change', pro: 'I want to change something!' },
-			{ contra: 'Fine the way it is', pro: 'Something has to change!' }
+			{ contra: 'CONTRE le changement', pro: 'POUR le changement' },
+			{ contra: 'pas de changement', pro: 'Je veux changer quelque chose !' },
+			{ contra: 'c’est bien comme c’est', pro: 'il faut que quelque chose change !' }
 		],
 		ratings: {
-			very: 'very important',
-			quite: 'quite important',
-			some: 'a little important',
-			none: 'not important at all'
+			very: 'très important',
+			quite: 'assez important',
+			some: 'un peu important',
+			none: 'pas important du tout'
 		},
-		notImportant: 'not important',
+		notImportant: 'pas important',
 		ratingOption: '{label} ({stars})',
-		ratingQuestion: 'How important is this to you?',
+		ratingQuestion: 'Quelle importance cet aspect a-t-il pour vous ?',
 		halves: {
-			change: 'If I reach my goal / change my behaviour, I will have the following …',
-			keep: 'If I do not change my behaviour / do not reach my goal, I will have the following …'
+			change: 'Si j’atteins mon objectif / si je change mon comportement, j’aurai les …',
+			keep: 'Si je ne change pas mon comportement / si je n’atteins pas mon objectif, j’aurai les …'
 		},
 		categoryInHalf: '… {title}',
 		categoryWithSide: '{category} ({side})',
 		categories: {
 			A: {
-				title: 'advantages',
-				long: 'Advantages of changing my behaviour',
-				listTitle: 'The advantages you entered if you reach your goal:'
+				title: 'avantages suivants',
+				long: 'Avantages du changement de comportement',
+				listTitle: 'Les avantages que vous avez saisis si vous atteignez votre objectif :'
 			},
 			B: {
-				title: 'disadvantages',
-				long: 'Disadvantages of changing my behaviour',
-				listTitle: 'The disadvantages you entered if you reach your goal:'
+				title: 'inconvénients suivants',
+				long: 'Inconvénients du changement de comportement',
+				listTitle: 'Les inconvénients que vous avez saisis si vous atteignez votre objectif :'
 			},
 			C: {
-				title: 'advantages',
-				long: 'Advantages if nothing changes',
-				listTitle: 'The advantages you entered if you do not change your behaviour:'
+				title: 'avantages suivants',
+				long: 'Avantages si rien ne change',
+				listTitle: 'Les avantages que vous avez saisis si vous ne changez pas votre comportement :'
 			},
 			D: {
-				title: 'disadvantages',
-				long: 'Disadvantages if nothing changes',
-				listTitle: 'The disadvantages you entered if you do not change your behaviour:'
+				title: 'inconvénients suivants',
+				long: 'Inconvénients si rien ne change',
+				listTitle: 'Les inconvénients que vous avez saisis si vous ne changez pas votre comportement :'
 			}
 		},
 		argumentKinds: {
 			advantage: {
-				missing: 'Please enter an advantage.',
-				add: 'New advantage',
-				edit: 'Edit advantage',
-				placeholder: 'Enter an advantage here. Use a new entry for each advantage.'
+				missing: 'Veuillez saisir un avantage.',
+				add: 'Nouvel avantage',
+				edit: 'Modifier l’avantage',
+				placeholder: 'Saisissez un avantage ici. Faites une nouvelle entrée pour chaque avantage.'
 			},
 			disadvantage: {
-				missing: 'Please enter a disadvantage.',
-				add: 'New disadvantage',
-				edit: 'Edit disadvantage',
-				placeholder: 'Enter a disadvantage here. Use a new entry for each disadvantage.'
+				missing: 'Veuillez saisir un inconvénient.',
+				add: 'Nouvel inconvénient',
+				edit: 'Modifier l’inconvénient',
+				placeholder: 'Saisissez un inconvénient ici. Faites une nouvelle entrée pour chaque inconvénient.'
 			}
 		},
 		examples: {
 			A: [
-				'I get more done again.',
-				'I have time for hobbies again.',
-				'I can think clearly again.',
-				'More money / less debt.',
-				'My body is not under so much strain any more.',
-				'I feel better.',
-				'A good feeling because I am tackling the problem.',
-				'Less stress with friends / family.'
+				'J’arrive de nouveau mieux à gérer mon quotidien.',
+				'J’ai de nouveau du temps pour mes loisirs.',
+				'Je peux de nouveau penser clairement.',
+				'Plus d’argent / moins de dettes.',
+				'Mon corps n’est plus autant mis à rude épreuve.',
+				'Je me sens mieux.',
+				'Un bon sentiment, parce que je m’attaque au problème.',
+				'Moins de stress avec les amis / la famille.'
 			],
 			B: [
-				'It will be difficult with my old group of friends.',
-				'I will miss the high.',
-				'It could get pretty boring.',
-				'A lot of things will be much less fun.',
-				'Withdrawal / going without will be hard.',
-				'The hope of a big win is gone.'
+				'Ce sera difficile avec mon ancien cercle d’amis.',
+				'L’ivresse va me manquer.',
+				'Ça pourrait devenir assez ennuyeux.',
+				'Beaucoup de choses seront nettement moins amusantes.',
+				'Le sevrage / la privation sera dur.',
+				'L’espoir du gros gain disparaît.'
 			],
 			C: [
-				'I can fall asleep more easily.',
-				'More fun when I am with friends.',
-				'When I drink / gamble / smoke cannabis, I get some peace.',
-				'I can really get “wasted” sometimes and forget everything around me.',
-				'The chance of a win remains.'
+				'Je m’endors plus facilement.',
+				'Des moments plus drôles avec les amis.',
+				'Quand je bois / je joue / je fume du cannabis, j’ai la paix.',
+				'Je peux aussi parfois vraiment « me défoncer » et oublier tout ce qui m’entoure.',
+				'La chance de gagner reste intacte.'
 			],
 			D: [
-				'I hardly do anything else.',
-				'I let a lot of other things slide.',
-				'I get more and more annoyed with myself.',
-				'More trouble and arguments with my family.',
-				'I can hardly get out of bed in the morning.',
-				'My debts stay / keep growing.',
-				'My health keeps getting worse.',
-				'My life is still reduced to one problem.'
+				'Je ne fais presque rien d’autre.',
+				'Je néglige beaucoup d’autres choses.',
+				'Je m’en veux de plus en plus.',
+				'Toujours des tensions et des disputes avec ma famille.',
+				'J’ai du mal à sortir du lit le matin.',
+				'Les dettes restent / continuent d’augmenter.',
+				'Ma santé continue de se dégrader.',
+				'Ma vie reste réduite à un seul problème.'
 			]
 		},
 		tendency: {
-			pending: 'Cannot be calculated yet',
-			balanced: 'Balanced',
-			maximum: 'Maximum {side} tendency',
-			clear: '{side} tendency',
-			slight: 'Slight {side} tendency'
+			pending: 'Pas encore calculable',
+			balanced: 'Équilibrée',
+			maximum: 'Tendance {side} maximale',
+			clear: 'Tendance {side}',
+			slight: 'Légère tendance {side}'
 		},
-		resultLabel: 'Result of the decisional balance',
-		scaleTitle: 'Decisional balance: {value}, {tendency}',
-		scaleInactiveTitle: 'Decisional balance: not active yet',
-		allRatedZero: 'All arguments are rated “not important at all”, so the scale is not active yet.',
+		resultLabel: 'Résultat de la balance décisionnelle',
+		scaleTitle: 'Balance décisionnelle : {value}, {tendency}',
+		scaleInactiveTitle: 'Balance décisionnelle : pas encore active',
+		allRatedZero:
+			'Tous les arguments sont évalués comme « pas important du tout », c’est pourquoi la balance n’est pas encore active.',
 		sidePoints: { one: '{side} {count} point', other: '{side} {count} points' },
 		valueWithTendency: '{value}, {tendency}',
-		miniInactive: 'Scale not active yet',
-		conclusionTitle: 'My conclusion',
+		miniInactive: 'Balance pas encore active',
+		conclusionTitle: 'Mon bilan',
 		conclusionPrompt:
-			'What picture do you get after collecting all the arguments? What conclusions do you draw for yourself at the moment?',
-		saveConclusion: 'Save conclusion',
-		edit: 'Edit',
-		add: 'Add',
-		noEntriesYet: 'No entries yet.',
-		backToOverview: 'Back to the decisional balance overview',
-		argumentType: 'Type of argument',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		allExamplesUsed: 'All examples have already been entered.',
-		ratingMissing: 'Please rate how important this is to you.',
-		saveChange: 'Save change',
-		addEntry: 'Add entry',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		editItem: 'Edit: {text}',
-		deleteItem: 'Delete: {text}',
-		finish: 'Finish',
+			'Quelle image se dégage pour vous, maintenant que vous avez rassemblé tous les arguments ? Quelles conclusions en tirez-vous pour vous-même à ce stade ?',
+		saveConclusion: 'Enregistrer le bilan',
+		edit: 'Modifier',
+		add: 'Ajouter',
+		noEntriesYet: 'Pas encore d’entrées.',
+		backToOverview: 'Retour à la vue d’ensemble de la balance décisionnelle',
+		argumentType: 'Type d’argument',
+		showExamples: 'Afficher des exemples',
+		hideExamples: 'Masquer les exemples',
+		allExamplesUsed: 'Tous les exemples ont déjà été ajoutés.',
+		ratingMissing: 'Veuillez évaluer l’importance de cet aspect pour vous.',
+		saveChange: 'Enregistrer la modification',
+		addEntry: 'Ajouter une entrée',
+		confirmDelete: 'Supprimer cette entrée ?',
+		delete: 'Supprimer',
+		editItem: 'Modifier : {text}',
+		deleteItem: 'Supprimer : {text}',
+		finish: 'Terminer',
 		counsellor: {
-			noArguments: 'No arguments entered yet.',
-			conclusion: 'Conclusion',
-			new: 'New',
-			noConclusion: 'No conclusion entered yet.',
-			noEntries: 'No entries.',
-			open: 'Open',
-			close: 'Close',
-			category: 'Category',
+			noArguments: 'Aucun argument saisi pour le moment.',
+			conclusion: 'Bilan',
+			new: 'Nouveau',
+			noConclusion: 'Aucun bilan saisi pour le moment.',
+			noEntries: 'Aucune entrée.',
+			open: 'Ouvrir',
+			close: 'Fermer',
+			category: 'Catégorie',
 			relevance: 'Importance',
 			relevanceValue: { one: '{label} ({count} point)', other: '{label} ({count} points)' },
-			lastChanged: 'Last changed'
+			lastChanged: 'Dernière modification'
 		},
 		pdf: {
-			result: 'Result',
-			inactive: 'The scale is not active yet (no importance points).',
-			summary: 'Motivation score {value} ({tendency}), {pro}, {contra}, on a scale from −10 to +10.',
-			conclusion: 'Conclusion',
-			noConclusion: 'No conclusion entered.',
+			result: 'Résultat',
+			inactive: 'La balance n’est pas encore active (aucun point d’importance).',
+			summary: 'Score de motivation {value} ({tendency}), {pro}, {contra}, sur une échelle de −10 à +10.',
+			conclusion: 'Bilan',
+			noConclusion: 'Aucun bilan saisi.',
 			arguments: 'Arguments',
-			noEntries: 'No entries.',
+			noEntries: 'Aucune entrée.',
 			rating: '{label} ({count})'
 		}
 	},
 	emergencyKit: {
 		sections: {
 			motivation: {
-				title: 'My motivation: why I am sticking with it',
-				listLabel: 'This is why I want to change my behaviour / reach my goal:',
-				fieldLabel: 'This is why I want to change my behaviour / reach my goal',
-				cardTitle: 'Why I am sticking with it',
+				title: 'Ma motivation : voilà pourquoi je tiens bon',
+				listLabel: 'Voilà pourquoi je veux changer mon comportement / atteindre mon objectif :',
+				fieldLabel: 'Voilà pourquoi je veux changer mon comportement / atteindre mon objectif',
+				cardTitle: 'Voilà pourquoi je tiens bon',
 				intro:
-					'There are many good reasons why you are working towards your personal goal. Write down the reasons that matter most to you personally. This helps you to make your decision even firmer. Read your reasons again and again so that you always keep them in mind. We have collected some examples for you that you can use as a guide.',
+					'Il existe de nombreuses bonnes raisons pour lesquelles vous poursuivez votre objectif personnel. Notez ici les raisons qui sont les plus importantes pour vous personnellement. Cela vous aide à renforcer votre décision. Relisez régulièrement vos raisons pour les garder toujours à l’esprit. Nous avons rassemblé pour vous quelques exemples dont vous pouvez vous inspirer.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Exemples',
 						items: [
-							'I have time for other things again',
-							'Finally no more feelings of guilt',
-							'I want my partner to be able to trust me again',
-							'I want to feel myself again',
-							'I don’t want to have to think about it all the time',
-							'If I carry on like this, my relationship will be over',
-							'Finally being free again',
-							'I no longer have to lie to my family, my friends or my employer',
-							'No more secrets, no more double life',
-							'I can look my children in the eye again',
-							'Finally time and energy for other things again',
-							'No more criminal activities to get money',
-							'I can look myself in the eye again',
-							'Finally no more new debts',
-							'If I carry on like this, I will get deeper and deeper into trouble'
+							'J’ai de nouveau du temps pour d’autres choses',
+							'Enfin plus de sentiment de culpabilité',
+							'Je veux que ma ou mon partenaire puisse de nouveau me faire confiance',
+							'Je veux de nouveau me sentir moi-même',
+							'Je n’ai pas envie de devoir y penser tout le temps',
+							'Si je continue comme ça, c’en est fini de ma relation',
+							'Enfin être libre à nouveau',
+							'Je n’ai plus besoin de mentir à ma famille, à mes amis ou à mon employeur',
+							'Plus de cachotteries, plus de double vie',
+							'Je peux de nouveau regarder mes enfants dans les yeux',
+							'Enfin de nouveau du temps et de l’énergie pour d’autres choses',
+							'Plus d’activités illégales pour me procurer de l’argent',
+							'Je peux de nouveau me regarder dans la glace',
+							'Enfin plus de nouvelles dettes',
+							'Si je continue comme ça, je m’enfonce de plus en plus dans les problèmes'
 						]
 					}
 				]
 			},
 			strategy: {
-				title: 'My strategies for everyday life',
-				listLabel: 'This helps me reach my goal:',
-				fieldLabel: 'This helps me in everyday life',
-				cardTitle: 'This helps me in everyday life',
+				title: 'Mes stratégies pour le quotidien',
+				listLabel: 'Voilà ce qui m’aide à atteindre mon objectif :',
+				fieldLabel: 'Voilà ce qui m’aide au quotidien',
+				cardTitle: 'Voilà ce qui m’aide au quotidien',
 				intro:
-					'Write down everything that helps you reach your goal in everyday life. Simple rules of behaviour that you set for yourself are especially helpful. But hobbies and activities that you do regularly also help to take your mind off cravings, reduce stress and reach your goal in the long term. Below are some examples that you can use.',
+					'Notez ici tout ce qui vous aide, dans la vie de tous les jours, à atteindre votre objectif. Les règles de conduite simples que vous vous fixez à vous-même sont particulièrement utiles. Mais les loisirs et les activités pratiqués régulièrement aident aussi à se détourner de l’envie de consommer, à réduire le stress et à atteindre votre objectif sur le long terme. Vous trouverez ci-dessous quelques exemples que vous pouvez utiliser.',
 				examples: [
 					{
-						label: 'General',
+						label: 'Général',
 						items: [
-							'I keep getting help',
-							'I go to my self-help group regularly',
-							'I look after my friendships',
-							'I make sure I do active things in my free time',
-							'I don’t bottle up anger and frustration',
-							'I play it safe',
-							'I avoid my gambling or drinking friends',
-							'I avoid friends who use substances',
-							'I do sport regularly',
-							'I pay attention to risk situations and early warning signs of a possible relapse',
-							'I keep working on my goal of staying abstinent',
-							'I stand up for my needs',
-							'I reward myself now and then',
-							'I treat myself to something nice',
-							'I face my problems',
-							'I take care of my debts'
+							'Je continue à me faire aider',
+							'Je vais régulièrement à mon groupe d’entraide',
+							'J’entretiens mes amitiés',
+							'Je veille à avoir des loisirs actifs',
+							'Je ne garde pas ma colère et ma frustration pour moi',
+							'Je ne prends pas de risques',
+							'J’évite mes amis de jeu ou de boisson',
+							'J’évite mon cercle d’amis qui consomme',
+							'Je fais régulièrement du sport',
+							'Je fais attention aux situations à risque et aux signaux d’alerte d’une éventuelle rechute',
+							'Je travaille sans relâche à mon objectif de rester abstinent ou abstinente',
+							'Je défends mes besoins',
+							'Je me récompense de temps en temps',
+							'Je m’offre quelque chose d’agréable',
+							'J’affronte mes problèmes',
+							'Je m’occupe de mes dettes'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Jeux d’argent',
 						items: [
-							'I install a program that blocks access to online gambling sites',
-							'I stay away from places where people gamble',
-							'When I see an amusement arcade, I cross to the other side of the street',
-							'I set myself clear limits on how much money I spend each day / each week',
-							'I spend my money consciously on things I really need',
-							'I pay attention to how much cash I take with me'
+							'J’installe un programme qui bloque l’accès aux sites de jeux d’argent en ligne',
+							'Je me tiens à l’écart des lieux de jeu',
+							'Quand je vois une salle de jeux, je change de trottoir',
+							'Je me fixe des limites claires sur l’argent que je dépense par jour / par semaine',
+							'Je dépense consciemment mon argent pour des choses dont j’ai vraiment besoin',
+							'Je fais attention à la somme d’argent liquide que j’emporte'
 						]
 					}
 				]
 			},
 			support: {
-				title: 'This is where I get support'
+				title: 'Voilà où je trouve du soutien'
 			},
 			critical: {
-				title: 'Critical situations, moods and thoughts',
-				listLabel: '“Inner risk situations”: I have to be especially careful here!',
-				fieldLabel: 'Situations and moods in which I have to be careful',
-				cardTitle: 'I have to be careful here',
+				title: 'Situations, humeurs et pensées critiques',
+				listLabel:
+					'« Situations à risque intérieures » : ici, je dois être particulièrement vigilant ou vigilante !',
+				fieldLabel: 'Situations et humeurs dans lesquelles je dois faire attention',
+				cardTitle: 'Ici, je dois faire attention',
 				intro:
-					'In this exercise you learn to recognise the situations, moods and thoughts in which you are at risk of falling back into old patterns of behaviour. These are also called “inner risk situations”. Which thoughts and moods could put your decision and your goal at risk? So in which situations should you be especially careful? Have a look at our examples. At first glance, many moods or thoughts seem to have little to do with the actual problem behaviour. What are your very own “inner risk situations”?',
+					'Dans cet exercice, vous apprenez à reconnaître les situations, les humeurs et les pensées dans lesquelles vous risquez de retomber dans d’anciens schémas de comportement. On parle aussi de « situations à risque intérieures ». Quelles pensées et quelles humeurs pourraient mettre en danger votre décision et votre objectif ? Dans quelles situations devriez-vous donc être particulièrement attentif ou attentive ? Regardez nos exemples. À première vue, beaucoup d’humeurs ou de pensées n’ont que peu de lien avec le comportement problématique lui-même. Quelles sont vos « situations à risque intérieures » bien à vous ?',
 				examples: [
 					{
-						label: 'General',
+						label: 'Général',
 						items: [
-							'When I think about the “good old days”',
-							'When I think that not everything was so bad',
-							'When I think “once doesn’t count”',
-							'When I am with old acquaintances again',
-							'When I am in a bad mood and need something to “calm down”',
-							'When I am frustrated at work or in my relationship',
-							'When things are not going the way I want them to',
-							'When I am bored',
-							'When I am stressed and want to relax',
-							'When I think “nothing matters anyway now”',
-							'When I get careless because I think I have made it',
-							'When I think that I am not addicted at all',
-							'When I am arguing a lot with my partner again'
+							'Quand je pense au « bon vieux temps »',
+							'Quand je me dis que tout n’était pas si mal',
+							'Quand je me dis « une fois, ça ne compte pas »',
+							'Quand je me retrouve avec d’anciennes connaissances',
+							'Quand je ne vais pas bien et que j’ai besoin de quelque chose pour « redescendre »',
+							'Quand je suis frustré ou frustrée au travail ou dans mon couple',
+							'Quand rien ne se passe comme je l’imagine',
+							'Quand je m’ennuie',
+							'Quand je suis stressé ou stressée et que je veux me détendre',
+							'Quand je me dis « de toute façon, maintenant, plus rien n’a d’importance »',
+							'Quand je deviens imprudent ou imprudente parce que je pense avoir réussi',
+							'Quand je me dis que je ne suis pas du tout dépendant ou dépendante',
+							'Quand je me dispute de nouveau souvent avec ma ou mon partenaire'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Jeux d’argent',
 						items: [
-							'When I want to gamble again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by putting “just a few coins” into a slot machine',
-							'When I think I can solve my money problems that way',
-							'When I am carrying too much money',
-							'When I have been drinking alcohol',
-							'When I think about gambling more often again',
-							'When I think “one trip to the casino won’t hurt”'
+							'Quand je veux rejouer « juste par curiosité »',
+							'Quand je veux me récompenser de ce que j’ai accompli en mettant « juste quelques pièces » dans une machine à sous',
+							'Quand je pense pouvoir résoudre ainsi mes problèmes d’argent',
+							'Quand j’ai trop d’argent sur moi',
+							'Quand j’ai bu de l’alcool',
+							'Quand je pense de nouveau plus souvent au jeu',
+							'Quand je me dis « une fois au casino, ça ne peut pas faire de mal »'
 						]
 					},
 					{
-						label: 'Alcohol',
+						label: 'Alcool',
 						items: [
-							'When I want to drink again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by drinking “just a small beer”'
+							'Quand je veux reboire « juste par curiosité »',
+							'Quand je veux me récompenser de ce que j’ai accompli en buvant « juste une petite bière »'
 						]
 					},
 					{
 						label: 'Cannabis',
 						items: [
-							'When I want to smoke weed again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by taking “just one drag on a joint”'
+							'Quand je veux refumer du cannabis « juste par curiosité »',
+							'Quand je veux me récompenser de ce que j’ai accompli en tirant « juste une fois sur un joint »'
 						]
 					}
 				]
 			},
 			craving: {
-				title: 'What helps me with cravings',
-				listLabel: 'This helps me when I have cravings:',
-				fieldLabel: 'This helps me when I have cravings',
-				cardTitle: 'When I have cravings',
+				title: 'Ce qui m’aide en cas de craving (envie irrépressible de consommer)',
+				listLabel: 'Voilà ce qui m’aide quand j’ai une envie irrépressible de consommer (craving) :',
+				fieldLabel: 'Voilà ce qui m’aide quand j’ai une envie irrépressible de consommer (craving)',
+				cardTitle: 'En cas d’envie irrépressible',
 				intro:
-					'People who give up an addictive behaviour often feel a strong urge to go back to the old behaviour again and again over a long period of time. This is called “craving”. An intense craving usually only lasts a short time. Short “emergency instructions” can help you to get through the craving in such situations. The instructions should be very direct and concrete, like an order to yourself. They help you to keep a cool head and resist the craving. Make sure you keep the sentences short and very clear.',
+					'Lorsqu’on renonce à un comportement addictif, on ressent souvent, pendant une longue période, un désir intense et répété de reprendre l’ancien comportement. Ce phénomène est appelé « craving » (mot anglais qui signifie désir, avidité) ou envie irrépressible de consommer. En général, cette envie intense ne dure que peu de temps. De courtes « consignes d’urgence » peuvent vous aider, dans ces situations, à surmonter cette envie. Les consignes doivent être formulées de façon très directe et concrète (comme un ordre que l’on se donne à soi-même). Elles vous aident à garder la tête froide et à résister à l’envie. Veillez à formuler des phrases courtes et très claires.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Exemples',
 						items: [
-							'I take my mind off it straight away with other activities (do sport, go shopping, go to the cinema)',
-							'I call my trusted person straight away',
-							'I write an entry in my diary',
-							'I think about how much I have achieved so far',
-							'I send a message to my counsellor',
-							'I am proud of what I have achieved so far',
-							'I call an addiction counselling service',
-							'I go to a safe place and meet a trusted person',
-							'I won’t risk what I have achieved so far!',
-							'I think about how far I have come!',
-							'I think: “Don’t let your family down!”',
-							'I won’t put my relationship at risk!',
-							'I tell myself: “STOP! Get out of here! Now!”'
+							'Je me change immédiatement les idées avec d’autres activités (faire du sport, aller faire des courses, aller au cinéma)',
+							'J’appelle immédiatement ma personne de confiance',
+							'J’écris une entrée dans mon journal',
+							'Je pense à tout ce que j’ai déjà accompli',
+							'J’écris un message à ma conseillère ou à mon conseiller',
+							'Je suis fier ou fière de mes succès jusqu’ici',
+							'J’appelle un centre de consultation en addictologie',
+							'Je vais dans un lieu sûr, je retrouve une personne de confiance',
+							'Je ne mets pas en jeu ce que j’ai déjà accompli !',
+							'Je pense au chemin parcouru !',
+							'Je pense : « Ne laisse pas tomber ta famille ! »',
+							'Je ne mets pas ma relation en jeu !',
+							'Je me dis : « STOP ! Pars d’ici ! Tout de suite ! »'
 						]
 					}
 				]
 			},
 			risks: {
-				title: 'My most important risk situations and control strategies',
-				cardTitle: 'Risk situations and strategies'
+				title: 'Mes principales situations à risque et stratégies de contrôle',
+				cardTitle: 'Situations à risque et stratégies'
 			},
 			relapse: {
-				title: 'Relapse: what to do?',
-				listLabel: 'This is what I do if I relapse:',
-				fieldLabel: 'This is what I do if I relapse',
-				cardTitle: 'If I relapse',
+				title: 'Rechute : que faire ?',
+				listLabel: 'Voilà ce que je fais en cas de rechute :',
+				fieldLabel: 'Voilà ce que je fais en cas de rechute',
+				cardTitle: 'En cas de rechute',
 				intro:
-					'If you do relapse: don’t panic! Don’t give up on your plan. You can learn from relapses and improve your coping strategies later. But the most important command at first is STOP! Leave the situation as quickly as possible to avoid or limit further harm. How do you want to act if you relapse? What exactly can you do? Write down concrete instructions here that will help you personally in this case.',
+					'Si une rechute devait se produire : pas de panique ! N’abandonnez pas votre projet. Vous pouvez tirer des leçons des rechutes et améliorer ensuite vos stratégies pour y faire face. Mais la consigne la plus importante est d’abord : STOP ! Quittez la situation concrète le plus vite possible, afin d’éviter ou de limiter d’autres dommages. Comment souhaitez-vous agir en cas de rechute ? Que pouvez-vous faire concrètement ? Formulez ici des consignes concrètes et utiles pour vous personnellement dans ce cas.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Exemples',
 						items: [
-							'I stop gambling/drinking/smoking weed STRAIGHT AWAY and accept that I lost control!',
-							'I get out as fast as I can and leave!',
-							'I don’t hide the relapse, I confide in my family',
-							'Even if I feel ashamed, I call my trusted person straight away',
-							'I get support from …',
-							'I take my relapse seriously, but I don’t see it as a disaster',
-							'I use the situation as a reason to keep working on my goal',
-							'I use the relapse to improve my coping strategies',
-							'I won’t give up!'
+							'J’arrête IMMÉDIATEMENT de jouer/boire/fumer et j’accepte d’avoir perdu le contrôle !',
+							'Je sors au plus vite et je m’en vais !',
+							'Je ne cache pas la rechute, je me confie à ma famille',
+							'Même si j’ai honte, j’appelle immédiatement ma personne de confiance',
+							'Je me fais aider par …',
+							'Je prends ma rechute au sérieux, mais je ne la vois pas comme une catastrophe',
+							'Je profite de la situation pour continuer à travailler sur mon objectif',
+							'J’utilise la rechute pour améliorer mes stratégies pour y faire face',
+							'Je n’abandonne pas !'
 						]
 					}
 				]
 			}
 		},
-		importance: { veryImportant: 'very important', important: 'important' },
+		importance: { veryImportant: 'très important', important: 'important' },
 		start:
-			'Habits, routines and ways of thinking that have become fixed are hard to give up. This is especially true for addictions. It often takes a huge effort to resist cravings. In your personal “emergency kit” you collect important information that helps you to avoid relapses and be prepared for challenges.',
-		more: 'The risk of falling back into old habits is especially high in the first days, weeks and months. The aim of this exercise is to have helpful strategies ready for difficult situations and to be able to respond well to cravings. Use the questions and suggestions in this exercise to prepare your personal strategies and put together your “emergency kit”. If you like, your counsellor will support you with this.',
-		showInfo: 'Show more information',
-		hideInfo: 'Hide more information',
-		printTitle: 'Print your emergency kit',
-		confirmLabel: 'Continue anyway?',
-		confirmEmpty: 'At least one section has no entries. Continue anyway?',
-		proceed: 'Continue',
-		printKit: 'Download the whole emergency kit as a PDF',
-		printCard: 'Emergency kit in business card format',
+			'Il est difficile de se défaire de comportements, d’habitudes et de façons de penser bien ancrés. C’est particulièrement vrai pour les addictions. Il faut souvent un effort énorme pour résister à l’envie irrépressible de consommer (ce qu’on appelle le « craving »). Dans votre « trousse d’urgence » personnelle, vous rassemblez des informations importantes qui vous aident à éviter les rechutes et à être préparé ou préparée face aux difficultés.',
+		more: 'Le risque de retomber dans d’anciennes habitudes est particulièrement élevé pendant les premiers jours, les premières semaines et les premiers mois. Le but de cet exercice est d’avoir sous la main des stratégies utiles dans les situations difficiles et de pouvoir réagir de manière adaptée à l’envie de consommer. Utilisez les questions et les suggestions de cet exercice pour préparer vos stratégies personnelles et composer votre « trousse d’urgence ». Si vous le souhaitez, votre conseillère ou votre conseiller vous aidera à l’élaborer.',
+		showInfo: 'Afficher le texte d’information',
+		hideInfo: 'Masquer le texte d’information',
+		printTitle: 'Imprimer la trousse d’urgence',
+		confirmLabel: 'Continuer quand même ?',
+		confirmEmpty: 'Au moins une rubrique ne contient aucune entrée. Continuer quand même ?',
+		proceed: 'Continuer',
+		printKit: 'Télécharger toute la trousse d’urgence en PDF',
+		printCard: 'Trousse d’urgence au format carte de visite',
 		cardHint:
-			'Cut out, the business card format fits into any wallet, so you always have your emergency kit with you.',
-		missingImportance: 'Please choose for each entry how important it is to you.',
-		backToKit: 'Back to the emergency kit',
-		back: 'Back',
-		part: 'Emergency kit, part {number}',
-		entryLabel: 'Entry {number}',
-		importanceQuestion: 'How important?',
-		choose: 'Please choose',
-		deleteLabel: 'Delete: {text}',
-		addEntry: '+ New entry',
-		save: 'Save',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		examplesByTopic: 'Examples by topic',
-		allExamplesUsed: 'All examples have already been added.',
-		pickExample: 'Click on an example to add it as an entry.',
-		myTrusted: 'My trusted person(s)',
-		change: 'Change',
-		addTrusted: 'Add a trusted person',
-		myAgency: 'My counselling service',
-		showAgency: 'Show',
-		counsellorsLine: 'Counselling: {names}',
-		notStored: 'Not added yet',
-		mySelfHelp: 'My self-help group',
-		addSelfHelp: 'Add a self-help group',
-		requestedOn: 'Recommendation requested on {date}',
+			'Une fois découpé, le format carte de visite tient dans n’importe quel portefeuille : vous avez ainsi toujours votre trousse d’urgence sur vous.',
+		missingImportance: 'Veuillez indiquer pour chaque entrée quelle importance elle a pour vous.',
+		backToKit: 'Retour à la trousse d’urgence',
+		back: 'Retour',
+		part: 'Trousse d’urgence, partie {number}',
+		entryLabel: 'Entrée {number}',
+		importanceQuestion: 'Quelle importance ?',
+		choose: 'Veuillez choisir',
+		deleteLabel: 'Supprimer : {text}',
+		addEntry: '+ Nouvelle entrée',
+		save: 'Enregistrer',
+		showExamples: 'Afficher des exemples',
+		hideExamples: 'Masquer les exemples',
+		examplesByTopic: 'Exemples par thème',
+		allExamplesUsed: 'Tous les exemples ont déjà été ajoutés.',
+		pickExample: 'Cliquez sur un exemple pour l’ajouter comme entrée.',
+		myTrusted: 'Ma ou mes personnes de confiance',
+		change: 'Modifier',
+		addTrusted: 'Ajouter une personne de confiance',
+		myAgency: 'Mon service de consultation',
+		showAgency: 'Afficher',
+		counsellorsLine: 'Conseil : {names}',
+		notStored: 'Pas encore renseigné',
+		mySelfHelp: 'Mon groupe d’entraide',
+		addSelfHelp: 'Ajouter un groupe d’entraide',
+		requestedOn: 'Recommandation demandée le {date}',
 		trustedIntro: [
-			'Involving people who are close to you in your private life can take a lot of weight off your shoulders. Have you already told anyone about the problem? Then add their first names and/or their role (for example friend, brother, mother, grandad) to your support list.',
-			'If you have not told anyone so far, think about who you could involve as a trusted person in the future. Think of your friends, your family, your neighbours or other people close to you in your private life. Who could support you with your plan and help you in difficult situations?'
+			'Impliquer des personnes de votre entourage proche peut vous soulager énormément. Avez-vous déjà parlé du problème à certaines personnes ? Alors notez leur prénom et/ou leur rôle (par exemple amie, frère, mère, grand-père) sur votre liste de soutien.',
+			'Si vous n’en avez encore parlé à personne, réfléchissez à qui vous pourriez à l’avenir impliquer comme personne de confiance. Pensez à vos amis, à votre famille, à vos voisins ou à d’autres personnes proches de votre entourage. Qui pourrait vous soutenir dans votre projet et vous aider dans les situations difficiles ?'
 		],
-		trustedField: 'Name / role of trusted person {number}',
-		trustedPlaceholder: 'Enter a name',
-		rowLabel: 'Row {number}',
-		addRow: '+ Add a row',
-		saveEntries: 'Save entries',
+		trustedField: 'Nom / rôle de la personne de confiance {number}',
+		trustedPlaceholder: 'Saisir un nom',
+		rowLabel: 'Ligne {number}',
+		addRow: '+ Ajouter une ligne',
+		saveEntries: 'Enregistrer les entrées',
 		agencyIntro:
-			'Your counsellor is there for you not only online, but also in person. Give them a call, make an appointment for counselling in person or go to the open consultation hours.',
-		yourAgency: 'Your counselling service:',
+			'Votre conseillère ou votre conseiller est là pour vous non seulement en ligne, mais aussi sur place. Contactez-la ou contactez-le par téléphone, prenez rendez-vous pour un entretien sur place ou rendez-vous à la permanence sans rendez-vous.',
+		yourAgency: 'Votre service de consultation :',
 		agencyMissing:
-			'The contact details of your counselling service have not been added here yet. Your counsellor will be happy to give them to you.',
-		yourCounsellor: 'Your counsellor:',
+			'Les coordonnées de votre service de consultation ne sont pas encore renseignées ici. Votre conseillère ou votre conseiller vous les communiquera volontiers.',
+		yourCounsellor: 'Votre conseillère ou votre conseiller :',
 		selfHelpIntro: [
-			'Self-help groups make it possible for people affected and their family members to talk with each other. This does not only bring emotional relief. Members of the group also benefit from the experiences of the other participants. Self-help groups are organised through counselling services or self-help organisations.',
-			'Your counsellor will help you look for suitable groups near you or online.'
+			'Les groupes d’entraide permettent aux personnes concernées, ainsi qu’à leurs proches, d’échanger entre eux. Cela n’apporte pas seulement un soulagement émotionnel. Les membres du groupe profitent aussi de l’expérience des autres participantes et participants. Les groupes d’entraide sont organisés par des services de consultation ou des associations d’entraide.',
+			'Votre conseillère ou votre conseiller vous aide à trouver des groupes adaptés près de chez vous ou en ligne.'
 		],
-		requestButton: 'I would like a self-help group to be recommended to me.',
-		requestDone: 'I would like a self-help group to be recommended to me. (requested on {date})',
-		requestHint: 'Your counsellor will then get a message.',
+		requestButton: 'J’aimerais qu’on me recommande un groupe d’entraide.',
+		requestDone: 'J’aimerais qu’on me recommande un groupe d’entraide. (demandé le {date})',
+		requestHint: 'Votre conseillère ou votre conseiller recevra alors un message.',
 		nakosText:
-			'You can also use the following link to look for information about self-help groups near you yourself:',
+			'Grâce au lien suivant, vous pouvez aussi rechercher par vous-même des informations sur les groupes d’entraide près de chez vous :',
 		nakosLink:
-			'NAKOS (National Contact and Information Centre for the Encouragement and Support of Self-Help Groups, in German)',
-		selfHelpField: 'My self-help group:',
-		selfHelpPlaceholder: 'Enter the name of the group, date(s), contact person and phone number here',
+			'NAKOS (service national allemand de contact et d’information pour la création et le soutien de groupes d’entraide, en allemand)',
+		selfHelpField: 'Mon groupe d’entraide :',
+		selfHelpPlaceholder:
+			'Saisissez ici le nom du groupe, la ou les dates, la personne de contact et le numéro de téléphone',
 		risksIntro:
-			'Here you can find all the risk situations and control strategies that you worked out in the exercise “Risk situations and control strategies”. If you have learned other tips and strategies during counselling for dealing well with risk situations, you can write them in the text field below.',
+			'Vous trouverez ici toutes les situations à risque et les stratégies de contrôle correspondantes que vous avez élaborées dans l’exercice « Situations à risque et stratégies de contrôle ». Si, au cours de l’accompagnement, vous avez appris d’autres astuces et stratégies pour bien gérer les situations à risque, vous pouvez les noter dans le champ de texte ci-dessous.',
 		noRisks:
-			'You have not added any risk situations in the exercise “Risk situations and control strategies” yet.',
-		riskSituation: 'Risk situation',
-		rating: 'Rating',
-		controlStrategy: 'Control strategy',
-		noStrategy: 'No control strategy yet',
-		printRisk: 'Include in the printout?',
-		otherStrategies: 'Other strategies that I have learned and want to use consciously in the future:',
-		previewEmpty: 'No entries yet',
-		previewMore: 'and {count} more',
-		selfHelpLine: 'Self-help group: {text}',
-		new: 'New',
-		noEntries: 'No entries.',
-		trusted: 'Trusted person(s)',
-		selfHelp: 'Self-help group',
-		requestWanted: 'Recommendation wanted',
-		requestSince: 'since {date}',
-		noPrintedRisks: 'No risk situations selected for the printout.',
+			'Vous n’avez pas encore saisi de situation à risque dans l’exercice « Situations à risque et stratégies de contrôle ».',
+		riskSituation: 'Situation à risque',
+		rating: 'Évaluation',
+		controlStrategy: 'Stratégie de contrôle',
+		noStrategy: 'Pas encore de stratégie de contrôle',
+		printRisk: 'Inclure dans l’impression ?',
+		otherStrategies: 'Autres stratégies que j’ai apprises et que je veux utiliser consciemment à l’avenir :',
+		previewEmpty: 'Pas encore d’entrées',
+		previewMore: 'et {count} de plus',
+		selfHelpLine: 'Groupe d’entraide : {text}',
+		new: 'Nouveau',
+		noEntries: 'Aucune entrée.',
+		trusted: 'Personne(s) de confiance',
+		selfHelp: 'Groupe d’entraide',
+		requestWanted: 'Recommandation souhaitée',
+		requestSince: 'depuis le {date}',
+		noPrintedRisks: 'Aucune situation à risque sélectionnée pour l’impression.',
 		risksOnlyShared:
-			'The risk situations are only visible as long as “Risk situations and control strategies” is shared too.',
+			'Les situations à risque ne sont visibles que tant que « Situations à risque et stratégies de contrôle » est également partagé.',
 		pdf: {
-			title: 'My emergency kit',
-			noAnswer: 'Not given',
-			agencyMissing: 'The contact details of your counselling service have not been added here yet.',
-			myCounsellor: 'My counsellor',
-			requested: 'Recommendation of a self-help group requested on {date}.',
-			cardsTitle: 'My emergency kit in business card format',
-			cardsHint: 'Cut out along the dashed lines and take with you.',
-			cardsEmpty: 'No entries yet.',
-			cardRiskRated: '{situation} (rating: {rating})',
-			cardRiskStrategy: '{situation}: {strategy}'
+			title: 'Ma trousse d’urgence',
+			noAnswer: 'Non renseigné',
+			agencyMissing: 'Les coordonnées de votre service de consultation ne sont pas encore renseignées ici.',
+			myCounsellor: 'Ma conseillère ou mon conseiller',
+			requested: 'Recommandation d’un groupe d’entraide demandée le {date}.',
+			cardsTitle: 'Ma trousse d’urgence au format carte de visite',
+			cardsHint: 'À découper le long des pointillés et à emporter avec soi.',
+			cardsEmpty: 'Pas encore d’entrées.',
+			cardRiskRated: '{situation} (évaluation : {rating})',
+			cardRiskStrategy: '{situation} : {strategy}'
 		},
 		request: {
-			title: 'Self-help group requested',
-			text: '{name} would like a self-help group to be recommended to them. Please give {name} suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.',
+			title: 'Groupe d’entraide demandé',
+			text: '{name} souhaite qu’on lui recommande un groupe d’entraide. Veuillez communiquer à {name} les informations utiles (nom du groupe, date(s), personne de contact, numéro de téléphone) à noter dans l’exercice « Trousse d’urgence », à la rubrique « Mon groupe d’entraide », et, si nécessaire, prenez contact via la messagerie pour convenir de la suite. Ceci est un message généré automatiquement par les outils de conseil.',
 			textUnnamed:
-				'A client would like a self-help group to be recommended to them. Please give the client suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.'
+				'Une personne accompagnée souhaite qu’on lui recommande un groupe d’entraide. Veuillez lui communiquer les informations utiles (nom du groupe, date(s), personne de contact, numéro de téléphone) à noter dans l’exercice « Trousse d’urgence », à la rubrique « Mon groupe d’entraide », et, si nécessaire, prenez contact via la messagerie pour convenir de la suite. Ceci est un message généré automatiquement par les outils de conseil.'
 		},
 		demo: {
-			motivations: ['Finally being free again', 'I can look my children in the eye again'],
-			strategy: 'I do sport regularly',
-			trusted: 'Anna (sister)',
-			craving: 'I call my trusted person straight away',
-			relapse: 'I won’t give up!'
+			motivations: ['Enfin être libre à nouveau', 'Je peux de nouveau regarder mes enfants dans les yeux'],
+			strategy: 'Je fais régulièrement du sport',
+			trusted: 'Anna (sœur)',
+			craving: 'J’appelle immédiatement ma personne de confiance',
+			relapse: 'Je n’abandonne pas !'
 		}
 	},
 	active: {
 		intro: [
-			'Taking care of yourself plays a big part in a good quality of life. A good quality of life helps to reduce stress, to lessen cravings and to prevent relapses.',
-			'Sports, creative and social activities in particular can clearly lift your mood or ease withdrawal symptoms. Other positive activities that you plan firmly also help you to leave old habits and patterns behind, especially if you make them a regular part of your everyday life. What matters is that you feel good doing them. This exercise helps you to make your everyday life active and pleasant. Use our suggestions or enter your own ideas for activities.'
+			'Prendre soin de soi contribue largement à une bonne qualité de vie. Une bonne qualité de vie aide à réduire le stress, à diminuer l’envie irrépressible de consommer (ce qu’on appelle le craving) chez les personnes concernées et à éviter les rechutes.',
+			'Les activités sportives, créatives et sociales, en particulier, aident à améliorer nettement l’humeur ou à atténuer les symptômes de sevrage. D’autres activités positives, planifiées de manière fixe, aident aussi à surmonter d’anciennes habitudes ou d’anciens schémas de comportement, surtout si vous les intégrez régulièrement à votre quotidien. L’important est que vous vous y sentiez bien. Cet exercice vous aide à rendre votre quotidien actif et agréable. Utilisez nos suggestions ou saisissez vos propres idées d’activités.'
 		],
-		howToToggle: 'How does it work?',
+		howToToggle: 'Comment procéder ?',
 		howTo: [
-			'Enter your planned activities below. Click “Add activity” to save the entry.',
-			'Make sure your plans are doable. Think as precisely as you can about which activities you can realistically do and when.',
-			'If you like, use our suggestions to find an activity that suits you.',
-			'Planned activities are shown in your diary automatically. If you like, you can also add your entries to your personal calendar.'
+			'Saisissez ci-dessous les activités que vous prévoyez. Cliquez sur « Ajouter l’activité » pour enregistrer l’entrée.',
+			'Veillez à ce que vos projets soient réalisables. Réfléchissez aussi précisément que possible aux activités que vous pouvez réellement faire, et à quel moment.',
+			'Si besoin, utilisez nos suggestions pour trouver une activité qui vous convient.',
+			'Les activités prévues s’affichent automatiquement dans votre journal. Si vous le souhaitez, vous pouvez aussi reporter vos entrées dans votre agenda personnel.'
 		],
-		newTitle: 'Plan a new activity',
-		editTitle: 'Edit activity',
-		suggestionsButton: 'Ideas for activities',
-		titleLabel: 'Enter an activity',
-		titlePlaceholder: 'Name or description of the activity',
-		dateLabel: 'Choose a date (optional)',
-		timeLabel: 'Choose a time (optional)',
-		repeatLabel: 'Repeat the activity?',
+		newTitle: 'Planifier une nouvelle activité',
+		editTitle: 'Modifier l’activité',
+		suggestionsButton: 'Idées d’activités',
+		titleLabel: 'Saisir une activité',
+		titlePlaceholder: 'Nom ou description de l’activité',
+		dateLabel: 'Choisir une date (facultatif)',
+		timeLabel: 'Choisir une heure (facultatif)',
+		repeatLabel: 'Répéter l’activité ?',
 		repeatOptions: {
-			none: 'never',
-			daily: 'daily',
-			weekly: 'weekly',
-			custom: 'on chosen dates'
+			none: 'jamais',
+			daily: 'tous les jours',
+			weekly: 'toutes les semaines',
+			custom: 'dates choisies'
 		},
-		furtherDateLabel: 'Another date',
-		addDate: 'Add date',
-		furtherDatesLabel: 'Other dates',
-		removeDate: 'remove',
-		removeDateLabel: 'Remove date: {day}',
-		companionLabel: 'Company (optional)',
-		companionPlaceholder: 'Name of a person who joins you',
-		missingTitle: 'Please enter an activity.',
-		missingDate: 'Please also choose a date if you want to set a time or a repetition.',
-		add: 'Add activity',
-		saveChange: 'Save changes',
-		listTitle: 'Your activities',
-		addToCalendar: 'Add to my calendar',
-		calendarFileName: 'being-active.ics',
-		empty: 'No activities entered yet.',
-		editLabel: 'Edit: {title}',
-		deleteTitle: 'Delete activity',
-		deleteLabel: 'Delete: {title}',
-		confirmDelete: 'Delete this activity?',
-		delete: 'Delete',
-		noDate: 'no date',
-		noFurtherDate: 'no more dates',
+		furtherDateLabel: 'Autre date',
+		addDate: 'Ajouter une date',
+		furtherDatesLabel: 'Autres dates',
+		removeDate: 'retirer',
+		removeDateLabel: 'Retirer la date : {day}',
+		companionLabel: 'Accompagnement (facultatif)',
+		companionPlaceholder: 'Nom d’une personne qui vous accompagne',
+		missingTitle: 'Veuillez saisir une activité.',
+		missingDate: 'Pour indiquer une heure ou une répétition, veuillez aussi choisir une date.',
+		add: 'Ajouter l’activité',
+		saveChange: 'Enregistrer la modification',
+		listTitle: 'Activités saisies',
+		addToCalendar: 'Ajouter à mon agenda',
+		calendarFileName: 'etre-actif.ics',
+		empty: 'Aucune activité saisie pour le moment.',
+		editLabel: 'Modifier : {title}',
+		deleteTitle: 'Supprimer l’activité',
+		deleteLabel: 'Supprimer : {title}',
+		confirmDelete: 'Supprimer cette activité ?',
+		delete: 'Supprimer',
+		noDate: 'pas de date',
+		noFurtherDate: 'pas d’autre date',
 		dayAndTime: '{day}, {time}',
-		nextLine: 'Next date: {next}',
-		nextLineWithRepeat: 'Next date: {next} ({repeat})',
-		repeatLine: 'Repeats: {repeat}',
-		furtherDatesLine: 'Other dates: {dates}',
-		companionLine: 'Company: {companion}',
-		noCompanion: 'not given',
+		nextLine: 'Prochaine date : {next}',
+		nextLineWithRepeat: 'Prochaine date : {next} ({repeat})',
+		repeatLine: 'Répétition : {repeat}',
+		furtherDatesLine: 'Autres dates : {dates}',
+		companionLine: 'Accompagnement : {companion}',
+		noCompanion: 'non renseigné',
 		counsellor: {
-			next: 'Next date',
-			repeat: 'Repeats',
-			repeatWithDates: '{repeat}: {dates}',
-			companion: 'Company',
-			lastChanged: 'Last changed',
-			new: 'New'
+			next: 'Prochaine date',
+			repeat: 'Répétition',
+			repeatWithDates: '{repeat} : {dates}',
+			companion: 'Accompagnement',
+			lastChanged: 'Dernière modification',
+			new: 'Nouveau'
 		},
-		backToPlanning: 'Back to planning',
-		suggestionsTitle: 'Ideas for activities',
+		backToPlanning: 'Retour à la planification',
+		suggestionsTitle: 'Idées d’activités',
 		suggestionsHint:
-			'Use our suggestions as ideas for your own planning. It helps to describe your plan in even more detail.',
+			'Utilisez nos suggestions comme source d’inspiration pour votre planification personnelle. Le mieux est de formuler votre projet de façon encore plus concrète.',
 		suggestions: {
 			sport: {
-				title: 'Active and sporty',
+				title: 'Actif et sportif',
 				items: [
-					'Go for a walk',
-					'Go jogging',
-					'Play football',
-					'Play badminton',
-					'Play table tennis',
-					'Go to the gym',
-					'Dance',
-					'Cycle or go on a bike tour',
-					'Go on a day trip',
-					'Go hiking',
-					'Go to a climbing gym',
-					'Boxing',
-					'Go swimming',
-					'Play mini golf',
-					'Go bowling'
+					'Se promener',
+					'Faire du jogging',
+					'Jouer au football',
+					'Jouer au badminton',
+					'Jouer au tennis de table',
+					'Aller à la salle de sport',
+					'Danser',
+					'Faire du vélo ou une balade à vélo',
+					'Faire une excursion',
+					'Faire de la randonnée',
+					'Aller dans une salle d’escalade',
+					'Faire de la boxe',
+					'Nager',
+					'Jouer au minigolf',
+					'Aller au bowling'
 				]
 			},
 			relaxation: {
-				title: 'Relaxation',
+				title: 'Détente',
 				items: [
-					'Go to the sauna',
-					'Take a bath or a shower',
-					'Get a massage',
-					'Listen to music',
-					'Light some candles',
-					'Learn a relaxation technique',
-					'Meditate or do yoga',
-					'Kiss',
-					'Flirt',
-					'Cuddle',
-					'Listen to an audio drama'
+					'Aller au sauna',
+					'Prendre un bain ou une douche',
+					'Se faire masser',
+					'Écouter de la musique',
+					'Allumer des bougies',
+					'Apprendre une technique de relaxation',
+					'Méditer ou faire du yoga',
+					'S’embrasser',
+					'Flirter',
+					'Faire des câlins',
+					'Écouter une fiction audio'
 				]
 			},
 			inspiration: {
 				title: 'Inspiration',
 				items: [
-					'Read a book',
-					'Read a newspaper or magazine',
-					'Read cartoons or comics',
-					'Make a phone call',
-					'Write emails or letters',
-					'Go to the cinema',
-					'Have a film night',
-					'Go to the theatre',
-					'Go to a talk',
-					'Go to a club or disco',
-					'Go to a concert',
-					'Go away for the weekend',
-					'Go to an amusement park',
-					'Visit a museum or an exhibition',
-					'Stroll through shops and buy yourself a little treat',
-					'Go exploring somewhere you do not know yet'
+					'Lire un livre',
+					'Lire un journal ou un magazine',
+					'Lire des bandes dessinées',
+					'Téléphoner',
+					'Écrire des e-mails ou des lettres',
+					'Aller au cinéma',
+					'Organiser une soirée film',
+					'Aller au théâtre',
+					'Assister à une conférence',
+					'Aller en club ou en discothèque',
+					'Aller à un concert',
+					'Partir en week-end',
+					'Aller dans un parc de loisirs',
+					'Visiter un musée ou une exposition',
+					'Flâner dans les magasins et s’offrir un petit plaisir',
+					'Partir en exploration, découvrir un endroit inconnu'
 				]
 			},
 			treats: {
-				title: 'Treats',
+				title: 'Plaisirs gourmands',
 				items: [
-					'Have an ice cream',
-					'Have a piece of cake',
-					'Order a pizza',
-					'Cook or bake',
-					'Try new recipes',
-					'Take a cooking class',
-					'Cook for friends',
-					'Organise a barbecue or a picnic'
+					'Manger une glace',
+					'Manger une part de gâteau',
+					'Commander une pizza',
+					'Cuisiner ou faire de la pâtisserie',
+					'Essayer de nouvelles recettes',
+					'Suivre un cours de cuisine',
+					'Cuisiner pour des amis',
+					'Organiser un barbecue ou un pique-nique'
 				]
 			},
 			creative: {
-				title: 'Creative',
+				title: 'Créatif',
 				items: [
-					'Paint or draw',
-					'Do pottery',
-					'Sew or knit',
-					'Do crafts',
-					'Do a puzzle or a crossword',
-					'Learn a new language',
-					'Take photos',
-					'Take an adult education class',
-					'Read',
-					'Write a poem',
-					'Make music'
+					'Peindre ou dessiner',
+					'Faire de la poterie',
+					'Coudre ou tricoter',
+					'Bricoler',
+					'Faire un puzzle ou des mots croisés',
+					'Apprendre une nouvelle langue',
+					'Faire de la photo',
+					'Suivre un cours pour adultes (université populaire, cours du soir)',
+					'Lire',
+					'Écrire un poème',
+					'Faire de la musique'
 				]
 			}
 		},
 		demo: {
-			walk: 'Walk by the river',
-			cinema: 'Go to the cinema',
-			book: 'Read a book'
+			walk: 'Se promener au bord de la rivière',
+			cinema: 'Aller au cinéma',
+			book: 'Lire un livre'
 		}
 	},
 	riskSituations: {
 		start:
-			'In this exercise you take a close look at your risk situations and develop suitable control strategies.',
-		guideShow: 'How to fill this in',
-		guideHide: 'Hide instructions',
+			'Dans cet exercice, vous examinez de près vos situations à risque et élaborez des stratégies de contrôle adaptées.',
+		guideShow: 'Mode d’emploi',
+		guideHide: 'Masquer le mode d’emploi',
 		guideIntro:
-			'If you share your entries, your counsellor can read them and support you better. Of course you can change or delete your entries whenever you like. Go through it step by step like this:',
+			'Si vous partagez vos entrées, votre conseillère ou votre conseiller peut lire vos réponses et mieux vous soutenir. Vous pouvez bien sûr modifier ou supprimer vos entrées comme bon vous semble. Procédez étape par étape de la manière suivante :',
 		guideSteps: {
 			situation: {
-				title: 'Enter risk situations',
-				text: '{title} in which you have used substances or shown the problematic behaviour so far.'
+				title: 'Saisir des situations à risque',
+				text: '{title} : les situations dans lesquelles vous avez jusqu’ici consommé des substances ou adopté le comportement problématique.'
 			},
 			rating: {
-				title: 'Rate them',
-				text: '{title}: Some risk situations are harder to cope with than others. Rate each situation by how hard you think it will be for you to stay strong in it.'
+				title: 'Évaluer',
+				text: '{title} : certaines situations à risque sont plus difficiles à surmonter que d’autres. Évaluez chaque situation selon la difficulté que vous aurez probablement à tenir bon dans cette situation.'
 			},
 			strategies: {
-				title: 'Develop control strategies',
-				text: '{title}: Think about what you can do to stay in control in these situations and not fall back into old patterns. These can be certain actions or thoughts that take your mind off things.'
+				title: 'Élaborer des stratégies de contrôle',
+				text: '{title} : réfléchissez aux possibilités que vous avez de garder le contrôle dans ces situations et de ne pas retomber dans d’anciens schémas de comportement. Il peut s’agir de certaines actions ou de certaines pensées qui vous changent les idées.'
 			},
 			relapse: {
-				title: 'Improve after a relapse',
-				text: '{title}: If you fall back into old patterns and habits, use what you learn from it as an important lesson! Edit your control strategy to make it better. Your counsellor can support you with this.'
+				title: 'Améliorer après une rechute',
+				text: '{title} : si vous deviez retomber dans d’anciens schémas de comportement et d’anciennes habitudes, utilisez ce que vous en apprenez comme une leçon importante ! Retravaillez votre stratégie de contrôle pour l’améliorer. Votre conseillère ou votre conseiller peut vous soutenir dans cette démarche.'
 			}
 		},
-		heading: 'My risk situations and control strategies',
-		empty: 'You have not entered a risk situation yet.',
-		noSituations: 'No risk situations entered yet.',
-		deleteQuestion: 'Delete this risk situation with all its relapse analyses?',
-		delete: 'Delete',
+		heading: 'Mes situations à risque et stratégies de contrôle',
+		empty: 'Vous n’avez pas encore saisi de situation à risque.',
+		noSituations: 'Aucune situation à risque saisie pour le moment.',
+		deleteQuestion: 'Supprimer cette situation à risque avec toutes ses analyses de rechute ?',
+		delete: 'Supprimer',
 		columns: {
-			situation: 'Risk situation',
-			difficulty: 'Rating',
-			strategy: 'Control strategy',
-			relapse: 'Relapse'
+			situation: 'Situation à risque',
+			difficulty: 'Évaluation',
+			strategy: 'Stratégie de contrôle',
+			relapse: 'Rechute'
 		},
-		difficulty: { easy: 'easy', medium: 'medium', hard: 'hard', 'very-hard': 'very hard' },
-		analyseRelapse: 'Analyse a relapse',
-		relapseState: 'As of {date}',
-		notEdited: 'not done yet',
-		editLabel: 'Edit: {situation}',
-		deleteLabel: 'Delete: {situation}',
-		add: 'Enter a new risk situation',
-		tablePdf: 'Save table as PDF',
-		noStrategy: 'No strategy yet',
-		showMore: 'show more',
-		showLess: 'show less',
-		toOverview: 'Back to overview',
-		createTitle: 'Create a risk situation',
-		editTitle: 'Edit risk situation',
+		difficulty: { easy: 'facile', medium: 'moyen', hard: 'difficile', 'very-hard': 'très difficile' },
+		analyseRelapse: 'Analyser une rechute',
+		relapseState: 'État au {date}',
+		notEdited: 'pas encore rempli',
+		editLabel: 'Modifier : {situation}',
+		deleteLabel: 'Supprimer : {situation}',
+		add: 'Saisir une nouvelle situation à risque',
+		tablePdf: 'Télécharger le tableau en PDF',
+		noStrategy: 'Pas encore de stratégie',
+		showMore: 'afficher plus',
+		showLess: 'afficher moins',
+		toOverview: 'Retour à la vue d’ensemble',
+		createTitle: 'Créer une situation à risque',
+		editTitle: 'Modifier la situation à risque',
 		situationHint:
-			'Describe a typical situation in which you use substances or show the problematic behaviour, or in which it would be hard for you to do without.',
-		difficultyQuestion: 'How difficult is it for you to stay strong in this situation?',
-		choose: 'Please choose',
-		strategyLabel: 'Control or coping strategy',
-		strategyQuestion: 'How can you avoid falling back into old habits in this situation?',
-		missingSituation: 'Please describe the risk situation.',
-		missingDifficulty: 'Please choose a rating.',
-		save: 'Save',
-		relapseOverline: 'Analyse relapses',
-		relapseTitle: 'Improve your coping strategies',
+			'Décrivez une situation typique dans laquelle vous consommez des substances ou adoptez le comportement problématique, ou dans laquelle il vous serait difficile d’y renoncer.',
+		difficultyQuestion: 'À quel point est-il difficile pour vous de tenir bon dans cette situation ?',
+		choose: 'Veuillez choisir',
+		strategyLabel: 'Stratégie de contrôle ou d’adaptation',
+		strategyQuestion:
+			'Comment pouvez-vous éviter de retomber dans d’anciennes habitudes dans cette situation ?',
+		missingSituation: 'Veuillez décrire la situation à risque.',
+		missingDifficulty: 'Veuillez choisir une évaluation.',
+		save: 'Enregistrer',
+		relapseOverline: 'Analyser les rechutes',
+		relapseTitle: 'Affiner vos stratégies d’adaptation',
 		relapseIntro:
-			'Changing habits often takes a huge effort and rarely works without setbacks. If you have fallen back into old patterns, for example by drinking, smoking cannabis or gambling although you did not really want to, do not let this discourage you! Instead, use this concrete experience to prepare better for future challenges. Use the following questions to analyse the situation and learn for the future. Your counsellor can support you in analysing setbacks and working out coping strategies.',
-		mySituation: 'My risk situation',
-		editingAnalysis: 'You are editing the analysis from {date}.',
+			'Changer ses habitudes demande souvent un effort énorme et se fait rarement sans revers. Si vous êtes retombé ou retombée dans d’anciens schémas de comportement, par exemple si vous avez bu, fumé du cannabis ou joué alors que vous ne le vouliez pas vraiment, ne vous laissez pas décourager ! Utilisez plutôt cette expérience concrète pour mieux vous préparer aux défis à venir. Analysez la situation concrète à l’aide des questions suivantes, afin d’en tirer des leçons pour l’avenir. Votre conseillère ou votre conseiller peut vous soutenir dans l’analyse des revers et dans l’élaboration de stratégies d’adaptation.',
+		mySituation: 'Ma situation à risque',
+		editingAnalysis: 'Vous modifiez l’analyse du {date}.',
 		questions: {
 			circumstances:
-				'1. What circumstances and surroundings (place, event, people present) were part of the relapse?',
-			feelings: '2. What feelings or thoughts influenced your decision and triggered the relapse?',
-			mainReason: '3. What do you think was the main reason that led to the relapse?',
+				'1. Quelles circonstances et quels éléments (lieu, événement, personnes présentes) ont joué un rôle dans la rechute ?',
+			feelings:
+				'2. Quels sentiments ou quelles pensées ont influencé votre décision et déclenché la rechute ?',
+			mainReason: '3. Selon vous, quelle a été la raison principale qui a conduit à la rechute ?',
 			alternatives:
-				'4. What alternatives were there in this situation? (What exactly could you have done differently? Which thoughts could have helped? Who or what could have supported you?)',
+				'4. Quelles autres possibilités auriez-vous eues dans cette situation ? (Qu’auriez-vous pu faire concrètement autrement ? Quelles pensées auraient pu vous aider ? Qui ou qu’est-ce qui aurait pu vous soutenir ?)',
 			newStrategy:
-				'5. How could you master the situation in the future? (Your answer is automatically used as the new control strategy for this risk situation.)'
+				'5. Comment pourriez-vous faire face à cette situation à l’avenir ? (Votre réponse est automatiquement reprise comme nouvelle stratégie de contrôle pour cette situation à risque.)'
 		},
-		previousStrategyOverline: 'My previous control strategy:',
-		noPreviousStrategy: 'No strategy entered yet.',
-		newStrategyPlaceholder: 'Describe your new control strategy as precisely as you can',
-		missingAnswer: 'Please answer at least one of the questions.',
-		pagePdf: 'Save page as PDF',
-		allRelapses: 'All relapses',
-		analysisOf: 'Analysis from {date}',
-		open: 'Open',
-		close: 'Close',
-		edit: 'Edit',
+		previousStrategyOverline: 'Ma stratégie de contrôle saisie précédemment :',
+		noPreviousStrategy: 'Aucune stratégie saisie pour le moment.',
+		newStrategyPlaceholder: 'Décrivez aussi précisément que possible votre nouvelle stratégie de contrôle',
+		missingAnswer: 'Veuillez répondre à au moins une des questions.',
+		pagePdf: 'Télécharger la page en PDF',
+		allRelapses: 'Toutes les rechutes',
+		analysisOf: 'Analyse du {date}',
+		open: 'Ouvrir',
+		close: 'Fermer',
+		edit: 'Modifier',
 		answers: {
-			circumstances: 'Circumstances and surroundings',
-			feelings: 'Feelings and thoughts',
-			mainReason: 'Main reason',
-			alternatives: 'Alternatives'
+			circumstances: 'Circonstances et éléments',
+			feelings: 'Sentiments et pensées',
+			mainReason: 'Raison principale',
+			alternatives: 'Autres possibilités'
 		},
-		previousStrategy: 'Previous control strategy',
-		newStrategy: 'New control strategy',
-		noAnswer: 'No answer',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
+		previousStrategy: 'Stratégie de contrôle précédente',
+		newStrategy: 'Nouvelle stratégie de contrôle',
+		noAnswer: 'Pas de réponse',
+		new: 'Nouveau',
+		lastChanged: 'Dernière modification le {date}',
 		pages: 'Pages',
-		previousPage: 'Back',
-		nextPage: 'Next',
-		pageOf: 'Page {page} of {pages}',
-		noRelapse: 'No relapse recorded.',
-		lastRelapse: 'Last relapse, analysed on {date}',
-		showAllRelapses: 'All relapses ({count})',
-		hideEarlierRelapses: 'Hide earlier relapses',
-		analysedOn: 'Analysed on {date}',
-		pdfRelapses: 'Relapses: {situation}',
-		analysisGone: 'This analysis no longer exists.',
-		deleted: 'Deleted',
+		previousPage: 'Précédent',
+		nextPage: 'Suivant',
+		pageOf: 'Page {page} sur {pages}',
+		noRelapse: 'Aucune rechute notée.',
+		lastRelapse: 'Dernière rechute, analysée le {date}',
+		showAllRelapses: 'Toutes les rechutes ({count})',
+		hideEarlierRelapses: 'Masquer les rechutes précédentes',
+		analysedOn: 'Analysée le {date}',
+		pdfRelapses: 'Rechutes : {situation}',
+		analysisGone: 'Cette analyse n’existe plus.',
+		deleted: 'Supprimée',
 		demo: [
 			{
-				situation: 'Friday evening after work, when my colleagues go out for a drink.',
-				strategy: 'I arrange to do sport beforehand and go straight home.'
+				situation: 'Le vendredi soir après le travail, quand les collègues vont encore boire un verre.',
+				strategy:
+					'Je prévois à l’avance une séance de sport avec quelqu’un et je rentre directement à la maison.'
 			},
 			{
-				situation: 'When I am home alone and bored.',
-				strategy: 'I call someone or go for a walk.'
+				situation: 'Quand je suis seul à la maison et que je m’ennuie.',
+				strategy: 'J’appelle quelqu’un ou je vais faire un tour.'
 			}
 		]
 	},
 	trafficLight: {
 		levels: {
 			red: {
-				colourName: 'Red',
-				danger: 'great danger',
+				colourName: 'Rouge',
+				danger: 'danger élevé',
 				explanation:
-					'Hands off, risk of addiction! With this media activity, it is extremely likely that you will lose yourself in addiction.'
+					'Pas touche, risque d’addiction ! Avec cette activité médiatique, il est extrêmement probable de se perdre dans l’addiction.'
 			},
 			yellow: {
-				colourName: 'Yellow',
-				danger: 'possible danger',
+				colourName: 'Orange',
+				danger: 'danger possible',
 				explanation:
-					'Be careful! This media activity could become dangerous. You should keep a close eye on your use to avoid addiction.'
+					'Attention ! Cette activité médiatique pourrait devenir dangereuse. Vous devriez bien surveiller votre usage pour éviter une addiction.'
 			},
 			green: {
-				colourName: 'Green',
-				danger: 'no danger',
-				explanation: 'You can use this media activity without any problems.'
+				colourName: 'Vert',
+				danger: 'aucun danger',
+				explanation: 'Vous pouvez pratiquer cette activité médiatique sans problème.'
 			}
 		},
-		levelLabel: '{colour}: {danger}',
+		levelLabel: '{colour} : {danger}',
 		levelOption: '{danger} ({colour})',
 		intro:
-			'This exercise helps you to judge how dangerous individual media activities are for you personally, and so to strengthen your ability to handle media use. With the traffic light model, you can sort media activities into the categories “harmless”, “risky” and “not to be used under any circumstances”. The traffic light is not fixed: it should be adjusted again and again during counselling. The aim is for you and your counsellor to understand as precisely as possible how addictive individual activities can be for you.',
-		instructionsTitle: 'How to fill it in:',
+			'Cet exercice vous aide à évaluer la dangerosité de chaque activité médiatique pour vous personnellement, et ainsi à renforcer votre capacité à gérer votre usage des médias. Avec le modèle des feux tricolores, vous pouvez classer les activités médiatiques dans les catégories « sans danger », « à risque » et « à éviter absolument ». Le feu n’est pas figé : il devrait être ajusté régulièrement au cours de l’accompagnement. Le but est que vous appreniez, avec votre conseillère ou votre conseiller, à comprendre aussi précisément que possible le potentiel addictif personnel de chaque activité.',
+		instructionsTitle: 'Mode d’emploi :',
 		instructions: [
-			'Enter a media activity.',
-			'Rate how likely it is to lead to addiction by giving it a colour.',
-			'Click an entry to edit or delete it.'
+			'Saisissez une activité médiatique.',
+			'Évaluez son risque d’addiction en lui attribuant une couleur.',
+			'Cliquez sur une entrée pour la modifier ou la supprimer.'
 		],
-		explanationsTitle: 'What the colours mean:',
-		legendLabel: 'Legend',
-		lightLabel: 'Traffic light',
-		activityCount: { one: '{count} activity', other: '{count} activities' },
-		noActivities: 'No activities.',
-		editActivityLabel: '{text}, {danger}: edit or delete',
-		add: '+ Add a new activity',
-		newTitle: 'Enter a new media activity',
-		editTitle: 'Edit activity',
-		activityLabel: 'Media activity',
-		examplesLabel: 'Examples:',
-		examples: ['Playing a computer game', 'Writing emails', 'Watching a film', 'Online banking', 'Instagram'],
-		dangerQuestion: 'How great is the danger that this activity leads to addiction?',
-		missingActivity: 'Please enter a media activity.',
-		missingLevel: 'Please choose how great the danger is.',
-		cancel: 'Cancel',
-		save: 'Save',
-		delete: 'Delete',
-		confirmDeleteLabel: 'Confirm deletion',
-		confirmDelete: 'Delete this activity?',
-		empty: 'No activities entered yet.',
-		new: 'New',
-		pdfLevelHeading: '{colour}: {danger} ({level})',
+		explanationsTitle: 'Signification des couleurs :',
+		legendLabel: 'Légende',
+		lightLabel: 'Feu tricolore',
+		activityCount: { one: '{count} activité', other: '{count} activités' },
+		noActivities: 'Aucune activité.',
+		editActivityLabel: '{text}, {danger} : modifier ou supprimer',
+		add: '+ Saisir une nouvelle activité',
+		newTitle: 'Saisissez une nouvelle activité médiatique',
+		editTitle: 'Modifier l’activité',
+		activityLabel: 'Activité médiatique',
+		examplesLabel: 'Exemples :',
+		examples: [
+			'Jouer à un jeu vidéo',
+			'Écrire des e-mails',
+			'Regarder un film',
+			'Faire des opérations bancaires en ligne',
+			'Instagram'
+		],
+		dangerQuestion: 'Quel est le risque que cette activité mène à une addiction ?',
+		missingActivity: 'Veuillez saisir une activité médiatique.',
+		missingLevel: 'Veuillez indiquer le niveau de danger.',
+		cancel: 'Annuler',
+		save: 'Enregistrer',
+		delete: 'Supprimer',
+		confirmDeleteLabel: 'Confirmer la suppression',
+		confirmDelete: 'Supprimer cette activité ?',
+		empty: 'Aucune activité saisie pour le moment.',
+		new: 'Nouveau',
+		pdfLevelHeading: '{colour} : {danger} ({level})',
 		demo: {
-			red: 'Playing a computer game',
+			red: 'Jouer à un jeu vidéo',
 			yellow: 'Instagram',
-			green: 'Writing emails'
+			green: 'Écrire des e-mails'
 		}
 	},
 	positivePerception: {
-		pages: ['Introduction', 'Giving compliments', 'Giving compliments', 'Noticing the positive'],
-		pageOf: 'Page {page} of {count}',
-		back: 'Back',
-		next: 'Next',
+		pages: [
+			'Introduction',
+			'Faire des compliments',
+			'Faire des compliments',
+			'Percevoir les aspects positifs'
+		],
+		pageOf: 'Page {page} sur {count}',
+		back: 'Retour',
+		next: 'Suivant',
 		intro: [
-			'Conflicts and arguments are part of every healthy relationship. Still, constant disputes in a family can put a lot of strain on the relationship between parents and their children over time. This happens at the latest when little or no attention is paid to the good things any more. Often the family then only complains about what goes wrong, and positive moments hardly seem to exist at all.',
-			'This kind of “negative attention” can mean that we only notice the negative sides of our children’s behaviour. When something does not work, we criticise it straight away. What goes well, on the other hand, we often take for granted. We notice the negative things at once and react to them, while we may no longer notice the positive things at all.'
+			'Même si les conflits et les disputes font partie de toute relation saine, les affrontements au sein de la famille peuvent, à la longue, peser lourdement sur la relation entre les parents et leurs enfants. C’est le cas, au plus tard, lorsque l’on n’accorde plus que peu, voire plus du tout, d’attention aux choses positives. Souvent, on ne fait alors plus que se plaindre des aspects négatifs au sein de la famille, et les moments positifs semblent pratiquement ne plus exister.',
+			'Une « attention négative » peut nous amener à ne plus percevoir que les aspects négatifs du comportement de nos enfants : quand quelque chose ne va pas, on le critique aussitôt, alors que ce qui fonctionne bien est souvent considéré comme allant de soi. Tandis que nous remarquons immédiatement les aspects négatifs et que nous y réagissons, il se peut que nous ne percevions même plus les aspects positifs.'
 		],
 		schemeIntro: [
-			'That is why it helps to keep an eye on the things that go well. Paying attention to the positive builds self-confidence in children and young people and helps them protect themselves. Even small changes in how you treat each other can make a big difference to your relationship. Focusing on the positive can greatly improve the atmosphere in the family.',
-			'The diagram below shows what negative and positive comments can trigger in your child. Click on a comment to see how the child might react.'
+			'Il est pourtant utile de garder un œil sur ce qui fonctionne bien. Porter attention au positif renforce la confiance en soi des enfants et des adolescents et les aide à se protéger. Et de petits changements dans la manière d’être ensemble peuvent déjà avoir un grand effet sur la relation. L’ambiance familiale peut s’améliorer nettement lorsque l’on se concentre sur les aspects positifs.',
+			'Le schéma ci-dessous explique ce que les commentaires négatifs et positifs peuvent provoquer chez votre enfant. Cliquez sur les commentaires pour voir la réaction de l’enfant.'
 		],
-		remarksLabel: 'What the parent says',
-		quotedRemark: '“{remark}”',
+		remarksLabel: 'Remarque des parents',
+		quotedRemark: '« {remark} »',
 		tones: {
-			negative: 'negative',
-			positive: 'positive'
+			negative: 'négatif',
+			positive: 'positif'
 		},
 		remarks: {
 			clumsy: {
-				remark: 'You’re being totally stupid again.',
-				selfImage: 'I am stupid',
-				feeling: 'negative, bad',
-				behaviour: 'angry, difficult'
+				remark: 'Tu t’y prends encore vraiment comme un idiot.',
+				selfImage: 'je suis bête',
+				feeling: 'négatif, mal',
+				behaviour: 'en colère, pénible'
 			},
 			forgetful: {
-				remark: 'I knew you’d forget that again.',
-				selfImage: 'I am unreliable',
-				feeling: 'unhappy, ashamed',
-				behaviour: 'sad, still unreliable'
+				remark: 'C’était évident que tu allais encore oublier.',
+				selfImage: 'on ne peut pas compter sur moi',
+				feeling: 'insatisfait, honte',
+				behaviour: 'triste, toujours peu fiable'
 			},
 			kind: {
-				remark: 'How lovely that you did that.',
-				selfImage: 'I am kind',
+				remark: 'C’est super que tu aies fait ça.',
+				selfImage: 'je suis gentil',
 				feeling: 'content',
-				behaviour: 'kind, friendly'
+				behaviour: 'gentil, aimable'
 			},
 			skilful: {
-				remark: 'You’re so good at that.',
-				selfImage: 'I can do things',
+				remark: 'Comme tu es habile avec ça.',
+				selfImage: 'je sais faire des choses',
 				feeling: 'content',
-				behaviour: 'friendly'
+				behaviour: 'aimable'
 			}
 		},
-		selfImageLabel: 'How the child sees themselves',
-		feelingLabel: 'How the child feels',
-		behaviourLabel: 'How the child might behave',
-		chooseRemark: 'Choose a comment on the left.',
+		selfImageLabel: 'Image que l’enfant a de lui-même',
+		feelingLabel: 'Ressenti de l’enfant',
+		behaviourLabel: 'Comportement possible de l’enfant',
+		chooseRemark: 'Choisissez une remarque à gauche.',
 		explanationPoints: [
-			'“Negative attention” can put a heavy strain on the atmosphere in the family.',
-			'Negative comments can harm how your child sees themselves and how they behave.',
-			'Positive comments and praise, on the other hand, build your child’s self-confidence.'
+			'Une « attention négative » peut peser lourdement sur le climat familial.',
+			'Les commentaires négatifs peuvent avoir des conséquences négatives sur l’image que votre enfant a de lui-même et sur son comportement.',
+			'Les commentaires positifs et les compliments renforcent au contraire la confiance en soi de votre enfant.'
 		],
 		explanationClosing:
-			'This tool is here to bring these positive things back into focus. The aim is to improve your contact and your everyday life with your child through praise and appreciation.',
+			'Dans le cadre de cet outil, ces aspects positifs doivent donc être remis au premier plan. Le but est d’améliorer le contact et les échanges avec votre enfant grâce aux compliments et à la reconnaissance.',
 		aspectsIntro:
-			'The easiest way to give your child positive feedback is with praise or a compliment. Every time you praise your child or pay them a compliment, your own attention also turns to the good things your child does. So first, think about which of your child’s behaviours are pleasing and positive. What behaviour or activity of your child could you praise?',
-		hideHint: 'Hide tip',
-		showHint: 'Show tip',
+			'La façon la plus simple de faire un retour positif à votre enfant est de le féliciter ou de lui faire un compliment. Chaque fois que vous félicitez votre enfant ou lui faites un compliment, votre propre attention se porte aussi sur ce qu’il fait de positif. Commencez donc par réfléchir aux comportements de votre enfant qui sont réjouissants et positifs. Quel comportement, quelle activité de votre enfant pourriez-vous féliciter ?',
+		hideHint: 'Masquer le conseil',
+		showHint: 'Afficher le conseil',
 		aspectsHint:
-			'Keep in mind: a compliment is about something specific your child did, not about their whole personality. These may be simple, everyday things, or even things you take for granted. You can of course also praise a behaviour or an activity that your child enjoys. In fact, it is very worthwhile to encourage such activities so they can grow and become a possible alternative to the problem behaviour (for example gaming, smoking cannabis or drinking alcohol).',
-		examplesTitle: 'Positive behaviours could be:',
+			'Gardez à l’esprit qu’un compliment porte sur un comportement concret de votre enfant et non sur toute sa personnalité. Il s’agit peut-être de choses simples et quotidiennes, voire de choses qui, du moins à vos yeux, vont de soi. Vous pouvez bien sûr aussi féliciter un comportement ou une activité qui fait plaisir à votre enfant. En effet, il est très utile d’encourager ce genre d’activités, pour les développer et créer ainsi une alternative possible au comportement problématique (par exemple les jeux vidéo, la consommation de cannabis ou d’alcool, etc.).',
+		examplesTitle: 'Voici des exemples de comportements positifs :',
 		examples: [
-			'Helping at home (for example doing the washing-up)',
-			'Taking care of small tasks (for example running an errand)',
-			'Doing sport (or doing sport regularly)',
-			'Coming home on time',
-			'Doing their homework',
-			'Getting a good mark (or not getting a bad mark)',
-			'Remembering someone’s birthday'
+			'Aider à la maison (par exemple faire la vaisselle)',
+			'S’occuper de petites choses (par exemple faire une course)',
+			'Avoir fait du sport (ou faire du sport régulièrement)',
+			'Rentrer à l’heure à la maison',
+			'Faire ses devoirs',
+			'Avoir une bonne note (ou ne pas avoir eu de mauvaise note)',
+			'Penser à un anniversaire'
 		],
-		inputLabel: 'Please write down behaviours and activities of your child that you would like to praise:',
-		emptyInput: 'Please write something first.',
+		inputLabel:
+			'Veuillez noter ici les comportements et les activités de votre enfant que vous souhaitez féliciter :',
+		emptyInput: 'Veuillez d’abord saisir quelque chose.',
 		characterCount: '{length} / {max}',
-		save: 'Save',
-		saveChange: 'Save changes',
-		cancel: 'Cancel',
-		savedTitle: 'Your saved behaviours',
-		noEntries: 'No entries yet.',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		edit: 'Edit',
-		editLabel: 'Edit: {text}',
-		deleteLabel: 'Delete: {text}',
-		counsellorTitle: 'Behaviours and activities to praise',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		demoBehaviours: ['Cleared the table without being asked.', 'Went to football practice at the weekend.']
+		save: 'Enregistrer',
+		saveChange: 'Enregistrer la modification',
+		cancel: 'Annuler',
+		savedTitle: 'Vos comportements enregistrés',
+		noEntries: 'Pas encore d’entrées.',
+		confirmDelete: 'Supprimer cette entrée ?',
+		delete: 'Supprimer',
+		edit: 'Modifier',
+		editLabel: 'Modifier : {text}',
+		deleteLabel: 'Supprimer : {text}',
+		counsellorTitle: 'Comportements et activités à féliciter',
+		new: 'Nouveau',
+		lastChanged: 'Dernière modification le {date}',
+		demoBehaviours: [
+			'A débarrassé la table sans qu’on le lui demande.',
+			'Est allé à l’entraînement de football ce week-end.'
+		]
 	}
 };
