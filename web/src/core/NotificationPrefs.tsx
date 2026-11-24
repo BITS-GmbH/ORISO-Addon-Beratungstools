@@ -51,7 +51,11 @@ export function NotificationPrefsPanel({ onClose }: { onClose: () => void }) {
 	};
 
 	return (
-		<section id={PREFS_PANEL_ID} className="bt-entry bt-stack bt-stack--tight" aria-label="Benachrichtigungen">
+		<section
+			id={PREFS_PANEL_ID}
+			className="bt-entry bt-stack bt-stack--tight"
+			aria-label="Benachrichtigungen"
+		>
 			<h3 className="bt-title">Benachrichtigungseinstellungen</h3>
 			{prefs && (
 				<>

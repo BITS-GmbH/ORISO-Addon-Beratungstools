@@ -149,7 +149,9 @@ describe('Notfallkoffer', () => {
 			...input,
 			linked: { 'risk-situations': [situation, unrated] }
 		});
-		expect(kit.text()).toContain('Risikosituation | Bewertung | Kontrollstrategie\nFeier | schwer | Gehen\nStreit |  | Spazieren');
+		expect(kit.text()).toContain(
+			'Risikosituation | Bewertung | Kontrollstrategie\nFeier | schwer | Gehen\nStreit |  | Spazieren'
+		);
 		const card = cardsOf({ ...input, linked: { 'risk-situations': [situation, unrated] } }).find(
 			(candidate) => candidate.title === 'Risikosituationen & Strategien'
 		);
