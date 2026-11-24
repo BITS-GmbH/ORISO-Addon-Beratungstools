@@ -23,8 +23,9 @@ describe('manifest', () => {
 			'consultant.session',
 			'consultant.asker-profile'
 		]);
-		expect(value.apps[0]?.description.de.length).toBeLessThanOrEqual(200);
-		expect(value.apps[0]?.description.en.length).toBeLessThanOrEqual(200);
+		for (const [language, text] of Object.entries(value.apps[0]?.description ?? {})) {
+			expect(text.length, `description ${language}`).toBeLessThanOrEqual(200);
+		}
 	});
 
 	it('has statistics per tool', () => {

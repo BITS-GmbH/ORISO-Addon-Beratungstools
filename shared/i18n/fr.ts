@@ -233,7 +233,7 @@ export const fr: Catalogue = {
 	manifest: {
 		title: 'Outils',
 		description:
-			'Outils numériques de conseil : les conseillères et conseillers activent des exercices, les personnes accompagnées les remplissent et peuvent, si elles le souhaitent, les partager avec leur conseillère ou leur conseiller.',
+			'Outils numériques de conseil : les conseillères et conseillers activent des exercices, les personnes accompagnées les remplissent et les partagent si elles le souhaitent.',
 		screenshotOverview: 'Vue d’ensemble des outils dans le dossier',
 		screenshotEntries: 'Entrées partagées, en lecture seule',
 		screenshotBalance: 'Balance décisionnelle de la personne accompagnée',
