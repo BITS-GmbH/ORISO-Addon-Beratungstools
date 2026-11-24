@@ -41,55 +41,73 @@ export const fr: Catalogue = {
 			title: 'Point de départ et objectifs',
 			summary: 'Décrire la situation et fixer un objectif pour l’accompagnement',
 			description:
-				'Cet outil permet de décrire la situation actuelle avec ses propres mots et de formuler un objectif concret pour l’accompagnement. Nommer précisément son objectif personnel aide les personnes concernées à travailler à l’amélioration de leur situation. En même temps, la conseillère ou le conseiller dispose ainsi de plus de possibilités et de points d’appui pour adapter l’accompagnement. L’objectif personnel peut être ajusté au fil de l’accompagnement.'
+				'Cet outil permet de décrire la situation actuelle avec ses propres mots et de formuler un objectif concret pour l’accompagnement. Nommer précisément son objectif personnel aide les personnes concernées à travailler à l’amélioration de leur situation. En même temps, la conseillère ou le conseiller dispose ainsi de plus de possibilités et de points d’appui pour adapter l’accompagnement. L’objectif personnel peut être ajusté au fil de l’accompagnement.',
+			clientDescription:
+				'Décrivez votre situation actuelle avec vos propres mots et fixez un objectif personnel pour l’accompagnement. Vous pouvez adapter votre objectif à tout moment.'
 		},
 		'consumption-diary': {
 			title: 'Journal de consommation',
 			summary: 'Noter jour après jour sa consommation ou sa pratique des jeux d’argent',
 			description:
-				'Dans le journal de consommation, les personnes concernées peuvent noter leur consommation et/ou leur pratique des jeux d’argent et de hasard. Cela comprend la fréquence, la quantité et la durée de la consommation ou du jeu, mais aussi les pensées et les émotions liées au comportement addictif. Si elles souhaitent donner accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.'
+				'Dans le journal de consommation, les personnes concernées peuvent noter leur consommation et/ou leur pratique des jeux d’argent et de hasard. Cela comprend la fréquence, la quantité et la durée de la consommation ou du jeu, mais aussi les pensées et les émotions liées au comportement addictif. Si elles souhaitent donner accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.',
+			clientDescription:
+				'Notez jour après jour quand, combien et combien de temps vous avez consommé ou joué, et ce que vous avez pensé et ressenti.'
 		},
 		'relatives-diary': {
 			title: 'Journal pour les proches',
 			summary: 'Faire le point sur la journée avec trois questions et une humeur',
 			description:
-				'Grâce à ce journal, les proches ont la possibilité de revenir sur les événements de la journée à l’aide de trois questions. Ces questions les aident à mettre de l’ordre dans leurs pensées et leurs émotions liées au comportement addictif de leur proche et à les noter. Si les proches donnent accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.'
+				'Grâce à ce journal, les proches ont la possibilité de revenir sur les événements de la journée à l’aide de trois questions. Ces questions les aident à mettre de l’ordre dans leurs pensées et leurs émotions liées au comportement addictif de leur proche et à les noter. Si les proches donnent accès au journal à leur conseillère ou à leur conseiller, celle-ci ou celui-ci peut leur faire un retour sur les entrées.',
+			clientDescription:
+				'Faites le point sur votre journée avec trois questions : ce qui était important, comment s’est passée la communication avec votre proche et comment vous le vivez.'
 		},
 		balance: {
 			title: 'Balance décisionnelle',
 			summary: 'Peser les avantages et les inconvénients d’un changement',
 			description:
-				'La balance décisionnelle aide les personnes concernées à peser et à évaluer les avantages et les inconvénients d’un arrêt du comportement addictif. Cela permet de mettre au jour des incertitudes et des réticences et de prendre des décisions plus claires. Si elles le souhaitent, elles peuvent donner à leur conseillère ou à leur conseiller un aperçu de leurs notes, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur leurs réflexions personnelles.'
+				'La balance décisionnelle aide les personnes concernées à peser et à évaluer les avantages et les inconvénients d’un arrêt du comportement addictif. Cela permet de mettre au jour des incertitudes et des réticences et de prendre des décisions plus claires. Si elles le souhaitent, elles peuvent donner à leur conseillère ou à leur conseiller un aperçu de leurs notes, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur leurs réflexions personnelles.',
+			clientDescription:
+				'Pesez les avantages et les inconvénients d’un changement et évaluez leur importance. La balance montre de quel côté penchent vos raisons.'
 		},
 		'emergency-kit': {
 			title: 'Trousse d’urgence',
 			summary: 'Stratégies et contacts pour les situations critiques',
 			description:
-				'Avec cet outil, les personnes concernées peuvent composer leur trousse d’urgence personnelle, qui les aide à éviter une rechute dans les situations particulièrement critiques. La trousse d’urgence peut contenir les coordonnées de conseillères et conseillers ou de proches, ainsi que des consignes concrètes et des phrases à retenir.'
+				'Avec cet outil, les personnes concernées peuvent composer leur trousse d’urgence personnelle, qui les aide à éviter une rechute dans les situations particulièrement critiques. La trousse d’urgence peut contenir les coordonnées de conseillères et conseillers ou de proches, ainsi que des consignes concrètes et des phrases à retenir.',
+			clientDescription:
+				'Composez votre trousse d’urgence personnelle : ce qui vous motive, qui vous soutient et ce qui vous aide à éviter une rechute dans les situations critiques.'
 		},
 		active: {
 			title: 'Être actif ou active',
 			summary: 'Planifier des activités agréables, ponctuelles ou régulières',
 			description:
-				'Cet outil permet aux personnes concernées d’organiser leur quotidien de façon positive grâce à des activités agréables, afin d’améliorer leur qualité de vie et de réduire l’envie de consommer. Les activités peuvent être saisies librement ou choisies dans une liste de suggestions, et planifiées une seule fois ou de manière régulière.'
+				'Cet outil permet aux personnes concernées d’organiser leur quotidien de façon positive grâce à des activités agréables, afin d’améliorer leur qualité de vie et de réduire l’envie de consommer. Les activités peuvent être saisies librement ou choisies dans une liste de suggestions, et planifiées une seule fois ou de manière régulière.',
+			clientDescription:
+				'Planifiez des activités agréables pour votre quotidien, ponctuelles ou régulières, selon vos idées ou parmi des suggestions.'
 		},
 		'risk-situations': {
 			title: 'Situations à risque et stratégies de contrôle',
 			summary: 'Noter les situations à risque, les stratégies et les rechutes',
 			description:
-				'Avec cet outil, les personnes concernées peuvent examiner de près leurs situations à risque personnelles et élaborer des stratégies de contrôle adaptées. Si des rechutes surviennent, elles peuvent être notées et les stratégies retravaillées. Si elles le souhaitent, les personnes concernées peuvent rendre leurs notes accessibles à leur conseillère ou à leur conseiller, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur les situations à risque et les stratégies de contrôle.'
+				'Avec cet outil, les personnes concernées peuvent examiner de près leurs situations à risque personnelles et élaborer des stratégies de contrôle adaptées. Si des rechutes surviennent, elles peuvent être notées et les stratégies retravaillées. Si elles le souhaitent, les personnes concernées peuvent rendre leurs notes accessibles à leur conseillère ou à leur conseiller, afin que celle-ci ou celui-ci puisse revenir de manière ciblée sur les situations à risque et les stratégies de contrôle.',
+			clientDescription:
+				'Notez vos situations à risque personnelles et réfléchissez à la manière d’y garder le contrôle. Après une rechute, une courte analyse vous aide à améliorer votre stratégie.'
 		},
 		'traffic-light': {
 			title: 'Modèle des feux tricolores',
 			summary: 'Classer les activités médiatiques selon leur risque',
 			description:
-				'Le modèle des feux tricolores aide les personnes concernées à évaluer le risque personnel de chacune de leurs activités médiatiques et à renforcer leur capacité à utiliser les médias de façon maîtrisée. Comme pour un feu de circulation, les activités médiatiques peuvent être classées en activités « vertes » (sans danger), « orange » (à risque) et « rouges » (très risquées).'
+				'Le modèle des feux tricolores aide les personnes concernées à évaluer le risque personnel de chacune de leurs activités médiatiques et à renforcer leur capacité à utiliser les médias de façon maîtrisée. Comme pour un feu de circulation, les activités médiatiques peuvent être classées en activités « vertes » (sans danger), « orange » (à risque) et « rouges » (très risquées).',
+			clientDescription:
+				'Classez vos activités médiatiques comme sur un feu tricolore : vert pour sans danger, orange pour risqué, rouge pour très risqué.'
 		},
 		'positive-perception': {
 			title: 'Voir le positif',
 			summary: 'Pour les parents : voir le positif dans le comportement de l’enfant',
 			description:
-				'Cet outil aide les parents à percevoir plus consciemment les aspects positifs du comportement de leur enfant, afin d’améliorer les échanges et la communication avec lui. Il informe sur les risques d’une communication négative et sur l’influence du renforcement positif sur les émotions et le comportement de l’enfant. Les parents peuvent réfléchir à la manière dont ils utilisent les compliments et planifier une communication positive.'
+				'Cet outil aide les parents à percevoir plus consciemment les aspects positifs du comportement de leur enfant, afin d’améliorer les échanges et la communication avec lui. Il informe sur les risques d’une communication négative et sur l’influence du renforcement positif sur les émotions et le comportement de l’enfant. Les parents peuvent réfléchir à la manière dont ils utilisent les compliments et planifier une communication positive.',
+			clientDescription:
+				'Percevez plus consciemment le positif dans le comportement de votre enfant et réfléchissez à ce pour quoi vous souhaitez le féliciter.'
 		}
 	},
 	client: {
@@ -369,8 +387,7 @@ export const fr: Catalogue = {
 			overline: 'Journal | {topic}',
 			deleteAll: 'Supprimer les entrées',
 			cancel: 'Annuler',
-			moreAfterYes: 'Plus d’infos',
-			moreAfterNo: 'Plus d’infos',
+			more: 'Plus d’infos',
 			logged: 'Noté pour ce jour :',
 			noPhase: 'Pas encore d’entrée',
 			delete: 'Supprimer',
@@ -380,7 +397,6 @@ export const fr: Catalogue = {
 			ratingHint:
 				'Qu’est-ce qui s’est bien passé pour vous aujourd’hui ? Qu’est-ce qui s’est moins bien passé ? Pensez à votre objectif personnel.',
 			planQuestion: 'Que prévoyez-vous pour demain ?',
-			done: 'Terminé',
 			save: 'Enregistrer'
 		},
 		phase: {

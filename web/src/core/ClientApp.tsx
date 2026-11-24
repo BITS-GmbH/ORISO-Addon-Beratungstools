@@ -65,7 +65,7 @@ export function ClientApp() {
 											</div>
 										</div>
 									</div>
-									<p className="bt-muted bt-small bt-clamp">{info.description}</p>
+									<p className="bt-muted bt-small bt-clamp">{info.clientDescription}</p>
 									<div className="bt-tile__actions">
 										<Button onClick={() => setOpen(tool.id)}>
 											{tool.hasEntries ? m.client.continue : m.client.open}

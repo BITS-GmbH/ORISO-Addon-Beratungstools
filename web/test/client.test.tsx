@@ -32,6 +32,8 @@ describe('Meine Tools', () => {
 		});
 		renderWith(host, <ClientApp />);
 		expect(await screen.findByText('Neu')).toBeTruthy();
+		expect(screen.getByText(/^Beschreiben Sie Ihre aktuelle Situation in eigenen Worten/)).toBeTruthy();
+		expect(screen.queryByText(/Betroffene/)).toBeNull();
 		fireEvent.click(screen.getByText('Öffnen'));
 		expect(await screen.findByText(/Bitte beschreiben Sie anhand der folgenden Fragen/)).toBeTruthy();
 		fireEvent.click(screen.getByRole('switch'));

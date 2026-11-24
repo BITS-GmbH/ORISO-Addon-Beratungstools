@@ -45,55 +45,109 @@ export const de = {
 			title: 'Ausgangssituation und Ziele',
 			summary: 'Situation beschreiben und ein Ziel für die Beratung festlegen',
 			description:
-				'Dieses Tool ermöglicht es, die aktuelle Situation in eigenen Worten zu beschreiben und ein konkretes Ziel für die Beratung zu benennen. Die genaue Benennung des persönlichen Ziels hilft Betroffenen dabei, an einer Verbesserung ihrer Situation zu arbeiten. Gleichzeitig bekommt die Beraterin / der Berater mehr Möglichkeiten und Ansatzpunkte, um den Beratungsprozess angemessen zu gestalten. Das persönliche Ziel kann im Laufe der Beratung angepasst werden.'
+				'Dieses Tool ermöglicht es, die aktuelle Situation in eigenen Worten zu beschreiben und ein konkretes Ziel für die Beratung zu benennen. Die genaue Benennung des persönlichen Ziels hilft Betroffenen dabei, an einer Verbesserung ihrer Situation zu arbeiten. Gleichzeitig bekommt die Beraterin / der Berater mehr Möglichkeiten und Ansatzpunkte, um den Beratungsprozess angemessen zu gestalten. Das persönliche Ziel kann im Laufe der Beratung angepasst werden.',
+			clientDescription: {
+				formal:
+					'Beschreiben Sie Ihre aktuelle Situation in eigenen Worten und legen Sie ein persönliches Ziel für die Beratung fest. Ihr Ziel können Sie jederzeit anpassen.',
+				informal:
+					'Beschreibe deine aktuelle Situation in eigenen Worten und lege ein persönliches Ziel für die Beratung fest. Dein Ziel kannst du jederzeit anpassen.'
+			}
 		},
 		'consumption-diary': {
 			title: 'Konsumtagebuch',
 			summary: 'Konsum oder Glücksspiel Tag für Tag festhalten',
 			description:
-				'Im Konsumtagebuch können Betroffene ihr Konsum- und/oder Glücksspielverhalten dokumentieren. Dazu gehören Häufigkeit, Menge und Dauer des Konsums oder Glücksspielens, aber auch Gedanken und Gefühle, die mit dem Suchtverhalten zusammenhängen. Wenn Betroffene das Tagebuch ihrer Beraterin / ihrem Berater freischalten wollen, können diese Rückmeldungen zu den Einträgen geben.'
+				'Im Konsumtagebuch können Betroffene ihr Konsum- und/oder Glücksspielverhalten dokumentieren. Dazu gehören Häufigkeit, Menge und Dauer des Konsums oder Glücksspielens, aber auch Gedanken und Gefühle, die mit dem Suchtverhalten zusammenhängen. Wenn Betroffene das Tagebuch ihrer Beraterin / ihrem Berater freischalten wollen, können diese Rückmeldungen zu den Einträgen geben.',
+			clientDescription: {
+				formal:
+					'Halten Sie Tag für Tag fest, wann, wie viel und wie lange Sie konsumiert oder gespielt haben und was Sie dabei gedacht und gefühlt haben.',
+				informal:
+					'Halte Tag für Tag fest, wann, wie viel und wie lange du konsumiert oder gespielt hast und was du dabei gedacht und gefühlt hast.'
+			}
 		},
 		'relatives-diary': {
 			title: 'Tagebuch für Angehörige',
 			summary: 'Den Tag mit drei Fragen und einer Stimmung reflektieren',
 			description:
-				'Mit diesem Tagebuch haben Angehörige die Möglichkeit, die Erlebnisse des Tages anhand von drei Fragen zu reflektieren. Die Fragen helfen dabei, die eigenen Gedanken und Gefühle in Bezug auf das Suchtverhalten des Angehörigen einzuordnen und zu dokumentieren. Sofern Angehörige das Tagebuch ihrem Berater / ihrer Beraterin freischalten, können diese Rückmeldungen zu den Einträgen geben.'
+				'Mit diesem Tagebuch haben Angehörige die Möglichkeit, die Erlebnisse des Tages anhand von drei Fragen zu reflektieren. Die Fragen helfen dabei, die eigenen Gedanken und Gefühle in Bezug auf das Suchtverhalten des Angehörigen einzuordnen und zu dokumentieren. Sofern Angehörige das Tagebuch ihrem Berater / ihrer Beraterin freischalten, können diese Rückmeldungen zu den Einträgen geben.',
+			clientDescription: {
+				formal:
+					'Denken Sie mit drei Fragen über Ihren Tag nach: was wichtig war, wie die Kommunikation mit Ihrer oder Ihrem Angehörigen lief und wie es Ihnen damit geht.',
+				informal:
+					'Denk mit drei Fragen über deinen Tag nach: was wichtig war, wie die Kommunikation mit deiner oder deinem Angehörigen lief und wie es dir damit geht.'
+			}
 		},
 		balance: {
 			title: 'Motivationswaage',
 			summary: 'Vor- und Nachteile einer Veränderung abwägen',
 			description:
-				'Die Motivationswaage hilft Betroffenen, Vor- und Nachteile der Überwindung des Suchtverhaltens abzuwägen und zu gewichten. Damit können Unsicherheiten und Bedenken aufgedeckt und klarere Entscheidungen getroffen werden. Sofern Betroffene wollen, können sie ihrer Beraterin / ihrem Berater Einblick in ihre Notizen geben, sodass diese gezielt auf die individuellen Abwägungen eingehen können.'
+				'Die Motivationswaage hilft Betroffenen, Vor- und Nachteile der Überwindung des Suchtverhaltens abzuwägen und zu gewichten. Damit können Unsicherheiten und Bedenken aufgedeckt und klarere Entscheidungen getroffen werden. Sofern Betroffene wollen, können sie ihrer Beraterin / ihrem Berater Einblick in ihre Notizen geben, sodass diese gezielt auf die individuellen Abwägungen eingehen können.',
+			clientDescription: {
+				formal:
+					'Wägen Sie Vor- und Nachteile einer Veränderung ab und gewichten Sie sie. Die Waage zeigt, wohin Ihre Gründe ausschlagen.',
+				informal:
+					'Wäge Vor- und Nachteile einer Veränderung ab und gewichte sie. Die Waage zeigt, wohin deine Gründe ausschlagen.'
+			}
 		},
 		'emergency-kit': {
 			title: 'Notfallkoffer',
 			summary: 'Strategien und Kontakte für kritische Situationen',
 			description:
-				'Mit diesem Tool können Betroffene ihren persönlichen Notfallkoffer zusammenstellen, der ihnen dabei hilft, in besonders kritischen Situationen einen Rückfall zu vermeiden. Im Notfallkoffer können Kontaktadressen von Berater:innen oder Angehörigen sowie konkrete Handlungsanweisungen und Merksätze hinterlegt werden.'
+				'Mit diesem Tool können Betroffene ihren persönlichen Notfallkoffer zusammenstellen, der ihnen dabei hilft, in besonders kritischen Situationen einen Rückfall zu vermeiden. Im Notfallkoffer können Kontaktadressen von Berater:innen oder Angehörigen sowie konkrete Handlungsanweisungen und Merksätze hinterlegt werden.',
+			clientDescription: {
+				formal:
+					'Stellen Sie Ihren persönlichen Notfallkoffer zusammen: was Sie motiviert, wer Sie unterstützt und was Ihnen in kritischen Situationen hilft, einen Rückfall zu vermeiden.',
+				informal:
+					'Stell deinen persönlichen Notfallkoffer zusammen: was dich motiviert, wer dich unterstützt und was dir in kritischen Situationen hilft, einen Rückfall zu vermeiden.'
+			}
 		},
 		active: {
 			title: 'Aktiv sein',
 			summary: 'Angenehme Aktivitäten planen, auch regelmäßig',
 			description:
-				'Dieses Tool ermöglicht es Betroffenen, ihren Alltag mit Hilfe von angenehmen Aktivitäten positiv zu gestalten, um die Lebensqualität zu verbessern und den Suchtdruck zu verringern. Aktivitäten können selbst eingetragen oder aus einer Liste mit Vorschlägen gewählt und sowohl einmalig als auch regelmäßig geplant werden.'
+				'Dieses Tool ermöglicht es Betroffenen, ihren Alltag mit Hilfe von angenehmen Aktivitäten positiv zu gestalten, um die Lebensqualität zu verbessern und den Suchtdruck zu verringern. Aktivitäten können selbst eingetragen oder aus einer Liste mit Vorschlägen gewählt und sowohl einmalig als auch regelmäßig geplant werden.',
+			clientDescription: {
+				formal:
+					'Planen Sie angenehme Aktivitäten für Ihren Alltag, einmalig oder regelmäßig, selbst ausgedacht oder aus Vorschlägen gewählt.',
+				informal:
+					'Plane angenehme Aktivitäten für deinen Alltag, einmalig oder regelmäßig, selbst ausgedacht oder aus Vorschlägen gewählt.'
+			}
 		},
 		'risk-situations': {
 			title: 'Risikosituationen und Kontrollstrategien',
 			summary: 'Risikosituationen, Strategien und Rückfälle festhalten',
 			description:
-				'Mit diesem Tool können sich Betroffene gezielt mit ihren persönlichen Risikosituationen auseinandersetzen und geeignete Kontrollstrategien erarbeiten. Sollten Rückfälle passieren, können diese dokumentiert und die Strategien überarbeitet werden. Sofern Betroffene wollen, können sie ihre Notizen ihrer Beraterin / ihrem Berater zugänglich machen, sodass diese gezielt auf die Risikosituationen und Kontrollstrategien eingehen können.'
+				'Mit diesem Tool können sich Betroffene gezielt mit ihren persönlichen Risikosituationen auseinandersetzen und geeignete Kontrollstrategien erarbeiten. Sollten Rückfälle passieren, können diese dokumentiert und die Strategien überarbeitet werden. Sofern Betroffene wollen, können sie ihre Notizen ihrer Beraterin / ihrem Berater zugänglich machen, sodass diese gezielt auf die Risikosituationen und Kontrollstrategien eingehen können.',
+			clientDescription: {
+				formal:
+					'Notieren Sie Ihre persönlichen Risikosituationen und überlegen Sie, wie Sie darin die Kontrolle behalten. Nach einem Rückfall hilft eine kurze Analyse, Ihre Strategie zu verbessern.',
+				informal:
+					'Notiere deine persönlichen Risikosituationen und überlege, wie du darin die Kontrolle behältst. Nach einem Rückfall hilft eine kurze Analyse, deine Strategie zu verbessern.'
+			}
 		},
 		'traffic-light': {
 			title: 'Ampelmodell',
 			summary: 'Medienaktivitäten nach ihrer Gefahr einordnen',
 			description:
-				'Das Ampelmodell hilft Betroffenen dabei, die persönliche Gefahr einzelner Medienaktivitäten einzuschätzen und ihre Konsumkompetenz zu stärken. Einzelne Medienaktivitäten können, analog zu einer Ampel, in „grüne“ (unbedenkliche), „gelbe“ (riskante) und „rote“ (sehr riskante) Aktivitäten eingeordnet werden.'
+				'Das Ampelmodell hilft Betroffenen dabei, die persönliche Gefahr einzelner Medienaktivitäten einzuschätzen und ihre Konsumkompetenz zu stärken. Einzelne Medienaktivitäten können, analog zu einer Ampel, in „grüne“ (unbedenkliche), „gelbe“ (riskante) und „rote“ (sehr riskante) Aktivitäten eingeordnet werden.',
+			clientDescription: {
+				formal:
+					'Ordnen Sie Ihre Medienaktivitäten wie in einer Ampel ein: grün für unbedenklich, gelb für riskant, rot für sehr riskant.',
+				informal:
+					'Ordne deine Medienaktivitäten wie in einer Ampel ein: grün für unbedenklich, gelb für riskant, rot für sehr riskant.'
+			}
 		},
 		'positive-perception': {
 			title: 'Positives Wahrnehmen',
 			summary: 'Für Eltern: Positives im Verhalten des Kindes sehen',
 			description:
-				'Dieses Tool hilft Eltern, positive Aspekte im Verhalten ihres Kindes bewusster wahrzunehmen, um die Interaktion und Kommunikation mit ihrem Kind zu verbessern. Es informiert über Risiken negativer Kommunikation und über den Einfluss von positiven Verstärkern auf die Gefühle und das Verhalten des Kindes. Eltern können den eigenen Einsatz von Lob reflektieren und positive Kommunikation planen.'
+				'Dieses Tool hilft Eltern, positive Aspekte im Verhalten ihres Kindes bewusster wahrzunehmen, um die Interaktion und Kommunikation mit ihrem Kind zu verbessern. Es informiert über Risiken negativer Kommunikation und über den Einfluss von positiven Verstärkern auf die Gefühle und das Verhalten des Kindes. Eltern können den eigenen Einsatz von Lob reflektieren und positive Kommunikation planen.',
+			clientDescription: {
+				formal:
+					'Nehmen Sie das Positive im Verhalten Ihres Kindes bewusster wahr und überlegen Sie, wofür Sie es loben möchten.',
+				informal:
+					'Nimm das Positive im Verhalten deines Kindes bewusster wahr und überlege, wofür du es loben möchtest.'
+			}
 		}
 	},
 	client: {
@@ -456,8 +510,7 @@ export const de = {
 			overline: 'Tagebuch | {topic}',
 			deleteAll: 'Einträge löschen',
 			cancel: 'Abbrechen',
-			moreAfterYes: 'mehr Info',
-			moreAfterNo: 'Mehr Infos',
+			more: 'Mehr Infos',
 			logged: 'Für diesen Tag protokolliert:',
 			noPhase: 'bisher kein Eintrag',
 			delete: 'Löschen',
@@ -474,8 +527,7 @@ export const de = {
 				formal: 'Was nehmen Sie sich für morgen vor?',
 				informal: 'Was nimmst du dir für morgen vor?'
 			},
-			done: 'Fertig',
-			save: 'speichern'
+			save: 'Speichern'
 		},
 		phase: {
 			back: 'Zurück zur Tagesübersicht',

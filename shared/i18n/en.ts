@@ -41,55 +41,73 @@ export const en: Complete = {
 			title: 'Starting point and goals',
 			summary: 'Describe the situation and set a goal for the counselling',
 			description:
-				'This tool lets you describe the current situation in your own words and name a clear goal for the counselling. Naming a personal goal precisely helps people work on improving their situation. At the same time, it gives the counsellor more options and starting points to shape the counselling well. The personal goal can be adjusted during the counselling.'
+				'This tool lets you describe the current situation in your own words and name a clear goal for the counselling. Naming a personal goal precisely helps people work on improving their situation. At the same time, it gives the counsellor more options and starting points to shape the counselling well. The personal goal can be adjusted during the counselling.',
+			clientDescription:
+				'Describe your current situation in your own words and set a personal goal for your counselling. You can adjust your goal at any time.'
 		},
 		'consumption-diary': {
 			title: 'Consumption diary',
 			summary: 'Record use or gambling day by day',
 			description:
-				'In the consumption diary, people can record their substance use and/or gambling. This includes how often, how much and how long they use or gamble, but also the thoughts and feelings connected with the addictive behaviour. If they decide to share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'In the consumption diary, people can record their substance use and/or gambling. This includes how often, how much and how long they use or gamble, but also the thoughts and feelings connected with the addictive behaviour. If they decide to share the diary with their counsellor, the counsellor can give feedback on the entries.',
+			clientDescription:
+				'Record day by day when, how much and how long you used or gambled, and what you thought and felt.'
 		},
 		'relatives-diary': {
 			title: 'Diary for relatives',
 			summary: 'Reflect on the day with three questions and a mood',
 			description:
-				'With this diary, relatives can reflect on the events of the day with the help of three questions. The questions help them sort out and write down their own thoughts and feelings about their family member’s addictive behaviour. If relatives share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'With this diary, relatives can reflect on the events of the day with the help of three questions. The questions help them sort out and write down their own thoughts and feelings about their family member’s addictive behaviour. If relatives share the diary with their counsellor, the counsellor can give feedback on the entries.',
+			clientDescription:
+				'Reflect on your day with three questions: what was important, how communication with your relative went and how you feel about it.'
 		},
 		balance: {
 			title: 'Decisional balance',
 			summary: 'Weigh up the pros and cons of a change',
 			description:
-				'The decisional balance helps people weigh up the pros and cons of overcoming their addictive behaviour. This can bring doubts and worries to light and make decisions clearer. If they want to, they can let their counsellor see their notes, so the counsellor can respond to their personal considerations.'
+				'The decisional balance helps people weigh up the pros and cons of overcoming their addictive behaviour. This can bring doubts and worries to light and make decisions clearer. If they want to, they can let their counsellor see their notes, so the counsellor can respond to their personal considerations.',
+			clientDescription:
+				'Weigh up the pros and cons of a change and rate how important they are. The scale shows which way your reasons tip.'
 		},
 		'emergency-kit': {
 			title: 'Emergency kit',
 			summary: 'Strategies and contacts for difficult situations',
 			description:
-				'With this tool, people can put together their personal emergency kit, which helps them avoid a relapse in especially difficult situations. The emergency kit can hold contact details of counsellors or family members as well as concrete steps to take and sayings to remember.'
+				'With this tool, people can put together their personal emergency kit, which helps them avoid a relapse in especially difficult situations. The emergency kit can hold contact details of counsellors or family members as well as concrete steps to take and sayings to remember.',
+			clientDescription:
+				'Put together your personal emergency kit: what motivates you, who supports you and what helps you avoid a relapse in critical situations.'
 		},
 		active: {
 			title: 'Being active',
 			summary: 'Plan pleasant activities, also regularly',
 			description:
-				'This tool helps people make their everyday life more positive with pleasant activities, to improve their quality of life and reduce cravings. Activities can be entered freely or chosen from a list of suggestions, and planned once or on a regular basis.'
+				'This tool helps people make their everyday life more positive with pleasant activities, to improve their quality of life and reduce cravings. Activities can be entered freely or chosen from a list of suggestions, and planned once or on a regular basis.',
+			clientDescription:
+				'Plan pleasant activities for your everyday life, once or regularly, your own ideas or picked from suggestions.'
 		},
 		'risk-situations': {
 			title: 'Risk situations and control strategies',
 			summary: 'Record risk situations, strategies and relapses',
 			description:
-				'With this tool, people can look closely at their personal risk situations and work out suitable control strategies. If relapses happen, they can be recorded and the strategies revised. If they want to, they can make their notes available to their counsellor, so the counsellor can respond to the risk situations and control strategies.'
+				'With this tool, people can look closely at their personal risk situations and work out suitable control strategies. If relapses happen, they can be recorded and the strategies revised. If they want to, they can make their notes available to their counsellor, so the counsellor can respond to the risk situations and control strategies.',
+			clientDescription:
+				'Note your personal risk situations and think about how to stay in control in them. After a relapse, a short analysis helps you improve your strategy.'
 		},
 		'traffic-light': {
 			title: 'Traffic light model',
 			summary: 'Sort media activities by their risk',
 			description:
-				'The traffic light model helps people assess the personal risk of individual media activities and strengthen their ability to use media in a healthy way. Like a traffic light, media activities can be sorted into “green” (safe), “yellow” (risky) and “red” (very risky) activities.'
+				'The traffic light model helps people assess the personal risk of individual media activities and strengthen their ability to use media in a healthy way. Like a traffic light, media activities can be sorted into “green” (safe), “yellow” (risky) and “red” (very risky) activities.',
+			clientDescription:
+				'Sort your media activities like a traffic light: green for harmless, yellow for risky, red for very risky.'
 		},
 		'positive-perception': {
 			title: 'Seeing the positive',
 			summary: 'For parents: see the positive in the child’s behaviour',
 			description:
-				'This tool helps parents notice the positive sides of their child’s behaviour more consciously, to improve how they interact and talk with their child. It explains the risks of negative communication and how positive reinforcement affects the child’s feelings and behaviour. Parents can reflect on how they use praise and plan positive communication.'
+				'This tool helps parents notice the positive sides of their child’s behaviour more consciously, to improve how they interact and talk with their child. It explains the risks of negative communication and how positive reinforcement affects the child’s feelings and behaviour. Parents can reflect on how they use praise and plan positive communication.',
+			clientDescription:
+				'Notice the positive in your child’s behaviour more consciously and think about what you would like to praise them for.'
 		}
 	},
 	client: {
@@ -363,8 +381,7 @@ export const en: Complete = {
 			overline: 'Diary | {topic}',
 			deleteAll: 'Delete entries',
 			cancel: 'Cancel',
-			moreAfterYes: 'More info',
-			moreAfterNo: 'More info',
+			more: 'More info',
 			logged: 'Recorded for this day:',
 			noPhase: 'No entry yet',
 			delete: 'Delete',
@@ -373,7 +390,6 @@ export const en: Complete = {
 			summary: 'Review of the day',
 			ratingHint: 'What went well for you today? What did not go so well? Think about your personal goal.',
 			planQuestion: 'What do you plan for tomorrow?',
-			done: 'Done',
 			save: 'Save'
 		},
 		phase: {

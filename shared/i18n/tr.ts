@@ -41,55 +41,73 @@ export const tr: Catalogue = {
 			title: 'Başlangıç durumu ve hedefler',
 			summary: 'Durumu anlatın ve danışmanlık için bir hedef belirleyin',
 			description:
-				'Bu araç, mevcut durumu kendi sözlerinizle anlatmanızı ve danışmanlık için somut bir hedef belirlemenizi sağlar. Kişisel hedefi açıkça adlandırmak, durumunu iyileştirmek için çalışan kişiye yardımcı olur. Aynı zamanda danışmana, danışmanlık sürecini uygun şekilde planlamak için daha fazla olanak ve başlangıç noktası sunar. Kişisel hedef, danışmanlık süresince değiştirilebilir.'
+				'Bu araç, mevcut durumu kendi sözlerinizle anlatmanızı ve danışmanlık için somut bir hedef belirlemenizi sağlar. Kişisel hedefi açıkça adlandırmak, durumunu iyileştirmek için çalışan kişiye yardımcı olur. Aynı zamanda danışmana, danışmanlık sürecini uygun şekilde planlamak için daha fazla olanak ve başlangıç noktası sunar. Kişisel hedef, danışmanlık süresince değiştirilebilir.',
+			clientDescription:
+				'Mevcut durumunuzu kendi sözlerinizle anlatın ve danışmanlık için kişisel bir hedef belirleyin. Hedefinizi istediğiniz zaman değiştirebilirsiniz.'
 		},
 		'consumption-diary': {
 			title: 'Kullanım günlüğü',
 			summary: 'Madde kullanımını veya kumar oynamayı gün gün kaydedin',
 			description:
-				'Kullanım günlüğünde kişiler madde kullanımlarını ve/veya kumar oynama davranışlarını kaydedebilir. Buna kullanımın veya kumar oynamanın sıklığı, miktarı ve süresi, ayrıca bağımlılık davranışıyla bağlantılı düşünce ve duygular da dahildir. Kişiler günlüğü danışmanlarıyla paylaşmak isterlerse, danışman kayıtlara geri bildirim verebilir.'
+				'Kullanım günlüğünde kişiler madde kullanımlarını ve/veya kumar oynama davranışlarını kaydedebilir. Buna kullanımın veya kumar oynamanın sıklığı, miktarı ve süresi, ayrıca bağımlılık davranışıyla bağlantılı düşünce ve duygular da dahildir. Kişiler günlüğü danışmanlarıyla paylaşmak isterlerse, danışman kayıtlara geri bildirim verebilir.',
+			clientDescription:
+				'Ne zaman, ne kadar ve ne kadar süre madde kullandığınızı veya kumar oynadığınızı, bu sırada neler düşündüğünüzü ve hissettiğinizi gün gün kaydedin.'
 		},
 		'relatives-diary': {
 			title: 'Yakınlar için günlük',
 			summary: 'Günü üç soru ve bir ruh hâli ile değerlendirin',
 			description:
-				'Bu günlük, yakınlara günün yaşantılarını üç soru yardımıyla düşünme olanağı verir. Sorular, yakınlarının bağımlılık davranışıyla ilgili kendi düşünce ve duygularını anlamlandırmalarına ve yazmalarına yardımcı olur. Yakınlar günlüğü danışmanlarıyla paylaşırsa, danışman kayıtlara geri bildirim verebilir.'
+				'Bu günlük, yakınlara günün yaşantılarını üç soru yardımıyla düşünme olanağı verir. Sorular, yakınlarının bağımlılık davranışıyla ilgili kendi düşünce ve duygularını anlamlandırmalarına ve yazmalarına yardımcı olur. Yakınlar günlüğü danışmanlarıyla paylaşırsa, danışman kayıtlara geri bildirim verebilir.',
+			clientDescription:
+				'Gününüzü üç soruyla değerlendirin: neyin önemli olduğu, yakınınızla iletişimin nasıl geçtiği ve bununla ilgili nasıl hissettiğiniz.'
 		},
 		balance: {
 			title: 'Motivasyon terazisi',
 			summary: 'Bir değişikliğin artılarını ve eksilerini tartın',
 			description:
-				'Motivasyon terazisi, kişilerin bağımlılık davranışını bırakmanın artılarını ve eksilerini tartmalarına ve önem sırasına koymalarına yardımcı olur. Böylece belirsizlikler ve kaygılar ortaya çıkabilir ve kararlar daha net verilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman kişisel değerlendirmelere özel olarak değinebilir.'
+				'Motivasyon terazisi, kişilerin bağımlılık davranışını bırakmanın artılarını ve eksilerini tartmalarına ve önem sırasına koymalarına yardımcı olur. Böylece belirsizlikler ve kaygılar ortaya çıkabilir ve kararlar daha net verilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman kişisel değerlendirmelere özel olarak değinebilir.',
+			clientDescription:
+				'Bir değişikliğin artılarını ve eksilerini tartın ve ne kadar önemli olduklarını değerlendirin. Terazi, gerekçelerinizin hangi yöne ağır bastığını gösterir.'
 		},
 		'emergency-kit': {
 			title: 'Acil durum çantası',
 			summary: 'Zor durumlar için stratejiler ve iletişim bilgileri',
 			description:
-				'Bu araçla kişiler, özellikle zor durumlarda nüksü önlemeye yardımcı olan kişisel acil durum çantalarını hazırlayabilir. Acil durum çantasına danışmanların veya yakınların iletişim bilgileri, somut yapılacaklar ve akılda tutulacak cümleler eklenebilir.'
+				'Bu araçla kişiler, özellikle zor durumlarda nüksü önlemeye yardımcı olan kişisel acil durum çantalarını hazırlayabilir. Acil durum çantasına danışmanların veya yakınların iletişim bilgileri, somut yapılacaklar ve akılda tutulacak cümleler eklenebilir.',
+			clientDescription:
+				'Kişisel acil durum çantanızı hazırlayın: sizi neyin motive ettiği, size kimin destek olduğu ve kritik durumlarda nüksten kaçınmanıza neyin yardımcı olduğu.'
 		},
 		active: {
 			title: 'Aktif olmak',
 			summary: 'Hoş etkinlikler planlayın, düzenli olarak da',
 			description:
-				'Bu araç, kişilerin yaşam kalitesini artırmak ve yoğun madde isteğini (craving) azaltmak için günlük hayatlarını hoş etkinliklerle olumlu biçimde düzenlemelerine yardımcı olur. Etkinlikler serbestçe yazılabilir veya öneri listesinden seçilebilir; bir kez ya da düzenli olarak planlanabilir.'
+				'Bu araç, kişilerin yaşam kalitesini artırmak ve yoğun madde isteğini (craving) azaltmak için günlük hayatlarını hoş etkinliklerle olumlu biçimde düzenlemelerine yardımcı olur. Etkinlikler serbestçe yazılabilir veya öneri listesinden seçilebilir; bir kez ya da düzenli olarak planlanabilir.',
+			clientDescription:
+				'Günlük hayatınız için hoş etkinlikler planlayın: bir kez veya düzenli olarak, kendi fikirlerinizle ya da önerilerden seçerek.'
 		},
 		'risk-situations': {
 			title: 'Risk durumları ve kontrol stratejileri',
 			summary: 'Risk durumlarını, stratejileri ve nüksleri kaydedin',
 			description:
-				'Bu araçla kişiler kendi risk durumlarını yakından inceleyebilir ve uygun kontrol stratejileri geliştirebilir. Nüks olursa bu kaydedilebilir ve stratejiler gözden geçirilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman risk durumlarına ve kontrol stratejilerine özel olarak değinebilir.'
+				'Bu araçla kişiler kendi risk durumlarını yakından inceleyebilir ve uygun kontrol stratejileri geliştirebilir. Nüks olursa bu kaydedilebilir ve stratejiler gözden geçirilebilir. Kişiler isterlerse notlarını danışmanlarıyla paylaşabilir; böylece danışman risk durumlarına ve kontrol stratejilerine özel olarak değinebilir.',
+			clientDescription:
+				'Kişisel risk durumlarınızı not edin ve bu durumlarda kontrolü nasıl koruyabileceğinizi düşünün. Bir nüksten sonra kısa bir analiz, stratejinizi geliştirmenize yardımcı olur.'
 		},
 		'traffic-light': {
 			title: 'Trafik ışığı modeli',
 			summary: 'Medya etkinliklerini risklerine göre sınıflandırın',
 			description:
-				'Trafik ışığı modeli, kişilerin tek tek medya etkinliklerinin kendileri için ne kadar riskli olduğunu değerlendirmelerine ve medyayı sağlıklı kullanma becerilerini güçlendirmelerine yardımcı olur. Medya etkinlikleri, bir trafik ışığında olduğu gibi “yeşil” (zararsız), “sarı” (riskli) ve “kırmızı” (çok riskli) olarak sınıflandırılabilir.'
+				'Trafik ışığı modeli, kişilerin tek tek medya etkinliklerinin kendileri için ne kadar riskli olduğunu değerlendirmelerine ve medyayı sağlıklı kullanma becerilerini güçlendirmelerine yardımcı olur. Medya etkinlikleri, bir trafik ışığında olduğu gibi “yeşil” (zararsız), “sarı” (riskli) ve “kırmızı” (çok riskli) olarak sınıflandırılabilir.',
+			clientDescription:
+				'Medya etkinliklerinizi bir trafik ışığı gibi sınıflandırın: zararsız olanlar yeşil, riskli olanlar sarı, çok riskli olanlar kırmızı.'
 		},
 		'positive-perception': {
 			title: 'Olumluyu fark etmek',
 			summary: 'Ebeveynler için: çocuğun davranışındaki olumlu yanları görmek',
 			description:
-				'Bu araç, ebeveynlerin çocuklarıyla etkileşimlerini ve iletişimlerini iyileştirmek için çocuklarının davranışlarındaki olumlu yanları daha bilinçli fark etmelerine yardımcı olur. Olumsuz iletişimin risklerini ve olumlu pekiştireçlerin çocuğun duyguları ve davranışı üzerindeki etkisini anlatır. Ebeveynler övgüyü nasıl kullandıklarını düşünebilir ve olumlu iletişimi planlayabilir.'
+				'Bu araç, ebeveynlerin çocuklarıyla etkileşimlerini ve iletişimlerini iyileştirmek için çocuklarının davranışlarındaki olumlu yanları daha bilinçli fark etmelerine yardımcı olur. Olumsuz iletişimin risklerini ve olumlu pekiştireçlerin çocuğun duyguları ve davranışı üzerindeki etkisini anlatır. Ebeveynler övgüyü nasıl kullandıklarını düşünebilir ve olumlu iletişimi planlayabilir.',
+			clientDescription:
+				'Çocuğunuzun davranışlarındaki olumlu yönleri daha bilinçli fark edin ve onu ne için övmek istediğinizi düşünün.'
 		}
 	},
 	client: {
@@ -364,8 +382,7 @@ export const tr: Catalogue = {
 			overline: 'Günlük | {topic}',
 			deleteAll: 'Kayıtları sil',
 			cancel: 'İptal',
-			moreAfterYes: 'daha fazla bilgi',
-			moreAfterNo: 'Daha fazla bilgi',
+			more: 'Daha fazla bilgi',
 			logged: 'Bu gün için kaydedilenler:',
 			noPhase: 'henüz kayıt yok',
 			delete: 'Sil',
@@ -375,8 +392,7 @@ export const tr: Catalogue = {
 			ratingHint:
 				'Bugün neyi iyi başardınız? Ne o kadar iyi gitmedi? Bunu yaparken kişisel hedefinizi düşünün.',
 			planQuestion: 'Yarın için ne planlıyorsunuz?',
-			done: 'Bitti',
-			save: 'kaydet'
+			save: 'Kaydet'
 		},
 		phase: {
 			back: 'Günlük görünüme dön',

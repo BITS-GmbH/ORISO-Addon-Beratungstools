@@ -102,7 +102,7 @@ describe('Konsumtagebuch', () => {
 		fireEvent.change(screen.getByLabelText('Was nehmen Sie sich für morgen vor?'), {
 			target: { value: 'Laufen gehen' }
 		});
-		fireEvent.click(screen.getByText('speichern'));
+		fireEvent.click(screen.getByText('Speichern'));
 		await waitFor(() =>
 			expect(saved).toEqual({ data: { topic: 'alcohol', consumed: false, plan: 'Laufen gehen' }, day: today })
 		);

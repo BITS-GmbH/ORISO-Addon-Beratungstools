@@ -39,12 +39,15 @@ export const CATALOG: ToolInfo[] = [
 
 export const toolInfo = (id: string): ToolInfo | undefined => CATALOG.find((tool) => tool.id === id);
 
-/** Title, summary and tile text of a tool in the language of `m`. */
+/**
+ * Title, summary and tile texts of a tool in the language of `m`: `description` for counsellors,
+ * `clientDescription` addressed to the client.
+ */
 export const toolTexts = (
 	m: Messages,
 	id: string
-): { title: string; summary: string; description: string } =>
-	isToolId(id) ? m.catalog[id] : { title: id, summary: '', description: '' };
+): { title: string; summary: string; description: string; clientDescription: string } =>
+	isToolId(id) ? m.catalog[id] : { title: id, summary: '', description: '', clientDescription: '' };
 
 export const isToolId = (id: string): id is ToolId => (TOOL_IDS as readonly string[]).includes(id);
 

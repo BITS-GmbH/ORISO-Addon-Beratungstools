@@ -98,7 +98,7 @@ export function DayView({
 									aria-expanded={more}
 									onClick={() => setMore(!more)}
 								>
-									{consumed ? texts.day.moreAfterYes : texts.day.moreAfterNo}
+									{texts.day.more}
 								</button>
 							</div>
 							{more && <p className="bt-muted">{consumed ? text.yesMore : text.noMore}</p>}
@@ -187,7 +187,7 @@ export function DayView({
 							onChange={setPlan}
 						/>
 						<div>
-							<Button onClick={finish}>{consumed ? texts.day.done : texts.day.save}</Button>
+							<Button onClick={finish}>{texts.day.save}</Button>
 						</div>
 					</div>
 				</Card>
