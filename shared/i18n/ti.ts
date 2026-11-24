@@ -214,6 +214,8 @@ export const ti: Catalogue = {
 		someone: 'ሓደ ደላዪ ምኽሪ',
 		sharedTitle: 'መሳርሒ ምሳኹም ተኻፊሉ',
 		entriesTitle: 'ኣብ ሓደ መሳርሒ ሓደስቲ ምዝገባታት',
+		changedTitle: 'ኣብ ሓደ መሳርሒ ምዝገባታት ተቐይሮም',
+		addedAndChangedTitle: 'ኣብ ሓደ መሳርሒ ሓደስትን ዝተቐየሩን ምዝገባታት',
 		shared: '{who} «{tool}» ምሳኹም ኣካፊሎም።',
 		sharedAnd: '{who} «{tool}» ምሳኹም ኣካፊሎም፣ ከምኡ እውን {what}።',
 		changes: '{who} ኣብ «{tool}» {what}።',

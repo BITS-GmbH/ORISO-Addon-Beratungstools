@@ -269,6 +269,8 @@ export const de = {
 		someone: 'Eine ratsuchende Person',
 		sharedTitle: 'Tool zur Einsicht freigegeben',
 		entriesTitle: 'Neue Einträge in einem Tool',
+		changedTitle: 'Einträge in einem Tool geändert',
+		addedAndChangedTitle: 'Neue und geänderte Einträge in einem Tool',
 		shared: '{who} hat „{tool}“ zur Einsicht freigegeben.',
 		sharedAnd: '{who} hat „{tool}“ zur Einsicht freigegeben und darin {what}.',
 		changes: '{who} hat in „{tool}“ {what}.',

@@ -27,7 +27,15 @@ export const counsellorNotification = (
 		recipient: 'counsellors',
 		appId: APP_ID,
 		important: false,
-		title: localized(({ m }) => (shared ? m.notifications.sharedTitle : m.notifications.entriesTitle)),
+		title: localized(({ m }) =>
+			shared
+				? m.notifications.sharedTitle
+				: added && changed
+					? m.notifications.addedAndChangedTitle
+					: changed
+						? m.notifications.changedTitle
+						: m.notifications.entriesTitle
+		),
 		text: localized(({ m, t }) => {
 			const what =
 				added && changed

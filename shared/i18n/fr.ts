@@ -232,6 +232,8 @@ export const fr: Catalogue = {
 		someone: 'Une personne accompagnée',
 		sharedTitle: 'Accès à un outil autorisé',
 		entriesTitle: 'Nouvelles entrées dans un outil',
+		changedTitle: 'Entrées modifiées dans un outil',
+		addedAndChangedTitle: 'Entrées nouvelles et modifiées dans un outil',
 		shared: '{who} vous a donné accès à « {tool} ».',
 		sharedAnd: '{who} vous a donné accès à « {tool} » et y a {what}.',
 		changes: 'Dans « {tool} », {who} a {what}.',

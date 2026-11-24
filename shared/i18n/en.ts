@@ -229,6 +229,8 @@ export const en: Complete = {
 		someone: 'A client',
 		sharedTitle: 'Tool shared with you',
 		entriesTitle: 'New entries in a tool',
+		changedTitle: 'Entries changed in a tool',
+		addedAndChangedTitle: 'New and changed entries in a tool',
 		shared: '{who} shared “{tool}” with you.',
 		sharedAnd: '{who} shared “{tool}” with you and {what}.',
 		changes: '{who} {what} in “{tool}”.',

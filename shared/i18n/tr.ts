@@ -230,6 +230,8 @@ export const tr: Catalogue = {
 		someone: 'Bir danışan',
 		sharedTitle: 'Araç görüntülemenize açıldı',
 		entriesTitle: 'Bir araçta yeni kayıtlar',
+		changedTitle: 'Bir araçta kayıtlar değiştirildi',
+		addedAndChangedTitle: 'Bir araçta yeni ve değiştirilmiş kayıtlar',
 		shared: '{who}, “{tool}” aracını görüntülemenize açtı.',
 		sharedAnd: '{who}, “{tool}” aracını görüntülemenize açtı ve bu araçta {what}.',
 		changes: '{who}, “{tool}” aracında {what}.',

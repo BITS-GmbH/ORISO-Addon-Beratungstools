@@ -1,3 +1,4 @@
+import { LANGS } from '../../shared/i18n/index.ts';
 import { describe, expect, it } from 'vitest';
 import { manifest } from '../src/core/manifest.ts';
 import { counsellorNotification } from '../src/core/notifications.ts';
@@ -124,5 +125,23 @@ describe('counsellor notifications', () => {
 			important: false,
 			target: { slot: 'consultant.session' }
 		});
+	});
+
+	it('have a title that matches the bundled events, in every language', () => {
+		const titles = (kinds: Parameters<typeof counsellorNotification>[2]) =>
+			counsellorNotification('x', 'goals', kinds).title;
+		expect(titles(['newEntry']).de).toBe('Neue Einträge in einem Tool');
+		expect(titles(['changedEntry']).de).toBe('Einträge in einem Tool geändert');
+		expect(titles(['newEntry', 'changedEntry']).de).toBe('Neue und geänderte Einträge in einem Tool');
+		expect(titles(['firstShare', 'changedEntry']).de).toBe('Tool zur Einsicht freigegeben');
+		expect(titles(['changedEntry']).en).toBe('Entries changed in a tool');
+		for (const lang of LANGS) {
+			const distinct = new Set(
+				[['newEntry'], ['changedEntry'], ['newEntry', 'changedEntry'], ['firstShare']].map(
+					(kinds) => titles(kinds as never)[lang]
+				)
+			);
+			expect(distinct.size).toBe(4);
+		}
 	});
 });

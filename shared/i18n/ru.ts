@@ -234,6 +234,8 @@ export const ru: Catalogue = {
 		someone: 'Клиент',
 		sharedTitle: 'Предоставлен доступ к инструменту',
 		entriesTitle: 'Новые записи в инструменте',
+		changedTitle: 'Изменены записи в инструменте',
+		addedAndChangedTitle: 'Новые и изменённые записи в инструменте',
 		shared: '{who} предоставляет Вам доступ к инструменту «{tool}».',
 		sharedAnd: '{who} предоставляет Вам доступ к инструменту «{tool}» и {what}.',
 		changes: '{who} {what} в инструменте «{tool}».',
