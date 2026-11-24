@@ -16,7 +16,7 @@ const latest = (entries: Entry[]) =>
 export function EntriesView({ toolId, onBack }: { toolId: string; onBack: () => void }) {
 	const host = useHost();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
-	const { data, error } = useLoad(() => api.entries(toolId));
+	const { data, error } = useLoad(() => api.entries(toolId), [api, toolId]);
 	const { m } = useI18n();
 	const title = toolTexts(m, toolId).title;
 

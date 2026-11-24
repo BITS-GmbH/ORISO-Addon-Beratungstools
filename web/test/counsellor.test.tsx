@@ -176,6 +176,35 @@ describe('tool overview', () => {
 		);
 	});
 
+	it('opens the demo of "Aktiv sein" from the demo of a diary', async () => {
+		const demoTool = (id: string, linked = {}) => ({
+			id,
+			demo: true,
+			shared: false,
+			allowSharing: true,
+			options: { intro: '' },
+			entries: [],
+			linked
+		});
+		const { host, calls } = fakeHost(
+			{
+				'GET /case/tools': () => ({ sessionId: 4711, tools: [tile('relatives-diary'), tile('active')] }),
+				'GET /demo/tools/relatives-diary': () => demoTool('relatives-diary', { active: [] }),
+				'GET /demo/tools/active': () => demoTool('active'),
+				'POST /demo/tools/active/entries': (body) => entry(body.kind, body.data)
+			},
+			counsellor
+		);
+		renderWith(host, <CounsellorApp />);
+		fireEvent.click(await screen.findByText('Tagebuch für Angehörige'));
+		fireEvent.click(await screen.findByText('User-Vorschau'));
+		fireEvent.click(await screen.findByText('Aktivitäten in „Aktiv sein“ planen'));
+		fireEvent.change(await screen.findByLabelText('Aktivität eintragen'), { target: { value: 'Joggen' } });
+		fireEvent.click(screen.getByText('Aktivität hinzufügen'));
+		await waitFor(() => expect(calls.some((c) => c.path === '/demo/tools/active/entries')).toBe(true));
+		expect(screen.getByText('User-Vorschau / Demo: keine Speicherung im realen Fall')).toBeTruthy();
+	});
+
 	it('stores the counsellor’s notification preferences', async () => {
 		const { host, calls } = fakeHost(
 			{

@@ -24,7 +24,7 @@ export function ToolPage({ toolId, mode, onBack, backLabel, onOpenTool }: Props)
 		() => ownerApi(host.api, mode === 'client' ? '/me' : '/demo', toolId, lang),
 		[host.api, mode, toolId, lang]
 	);
-	const { data, error } = useLoad(api.load);
+	const { data, error } = useLoad(api.load, [api]);
 	const title = toolTexts(m, toolId).title;
 
 	if (error && !data) {
@@ -37,12 +37,12 @@ export function ToolPage({ toolId, mode, onBack, backLabel, onOpenTool }: Props)
 			</div>
 		);
 	}
-	if (!data) {
+	if (!data || data.id !== toolId) {
 		return <Spinner />;
 	}
 	return (
 		<LoadedTool
-			key={toolId}
+			key={`${toolId}:${mode}`}
 			tool={data}
 			api={api}
 			title={title}

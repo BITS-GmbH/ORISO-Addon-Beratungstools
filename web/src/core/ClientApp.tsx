@@ -13,11 +13,12 @@ export function ClientApp() {
 	const host = useHost();
 	const { m } = useI18n();
 	const [open, setOpen] = useState<string | null>(null);
-	const { data, error, reload } = useLoad(() => clientTools(host.api));
+	const { data, error, reload } = useLoad(() => clientTools(host.api), [host.api]);
 
 	if (open) {
 		return (
 			<ToolPage
+				key={open}
 				toolId={open}
 				mode="client"
 				backLabel={m.client.myTools}

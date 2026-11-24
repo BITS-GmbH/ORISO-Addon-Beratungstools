@@ -145,28 +145,63 @@ interface Loaded<T> {
 	reload: () => Promise<void>;
 }
 
-/** Loads data once and on `reload`; keeps the last data while reloading. */
-export const useLoad = <T,>(load: () => Promise<T>): Loaded<T> => {
-	const [state, setState] = useState<{ data: T | null; error: Error | null; loading: boolean }>({
-		data: null,
-		error: null,
-		loading: true
-	});
+interface LoadState<T> {
+	deps: readonly unknown[];
+	data: T | null;
+	error: Error | null;
+	loading: boolean;
+}
+
+const sameDeps = (a: readonly unknown[], b: readonly unknown[]) =>
+	a.length === b.length && a.every((value, index) => Object.is(value, b[index]));
+
+/**
+ * Loads data when mounted, whenever `deps` change and on `reload`; keeps the last data while
+ * reloading. Data loaded for other `deps` is never returned, and an answer that arrives after a newer
+ * load started (or after `deps` changed) is dropped.
+ */
+export const useLoad = <T,>(load: () => Promise<T>, deps: readonly unknown[] = []): Loaded<T> => {
+	const [state, setState] = useState<LoadState<T>>({ deps, data: null, error: null, loading: true });
 	const loadRef = useRef(load);
 	loadRef.current = load;
+	const depsRef = useRef(deps);
+	depsRef.current = deps;
+	const generation = useRef(0);
 	const reload = useCallback(async () => {
-		setState((previous) => ({ ...previous, loading: true }));
+		const current = ++generation.current;
+		const forDeps = depsRef.current;
+		setState((previous) =>
+			sameDeps(previous.deps, forDeps)
+				? { ...previous, loading: true }
+				: { deps: forDeps, data: null, error: null, loading: true }
+		);
 		try {
 			const data = await loadRef.current();
-			setState({ data, error: null, loading: false });
+			if (current === generation.current) {
+				setState({ deps: forDeps, data, error: null, loading: false });
+			}
 		} catch (error) {
-			setState((previous) => ({ data: previous.data, error: error as Error, loading: false }));
+			if (current === generation.current) {
+				setState((previous) => ({
+					deps: forDeps,
+					data: sameDeps(previous.deps, forDeps) ? previous.data : null,
+					error: error as Error,
+					loading: false
+				}));
+			}
 		}
 	}, []);
 	useEffect(() => {
 		void reload();
-	}, [reload]);
-	return { ...state, reload };
+		return () => {
+			generation.current += 1;
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [reload, ...deps]);
+	if (!sameDeps(state.deps, deps)) {
+		return { data: null, error: null, loading: true, reload };
+	}
+	return { data: state.data, error: state.error, loading: state.loading, reload };
 };
 
 /** Scrolls a detail opened below its trigger into view and moves the focus there; `key` names what is open. */

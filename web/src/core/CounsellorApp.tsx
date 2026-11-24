@@ -25,7 +25,7 @@ export function CounsellorApp() {
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [view, setView] = useState<View>({ type: 'overview' });
 	const [prefsOpen, setPrefsOpen] = useState(false);
-	const overview = useLoad(api.overview);
+	const overview = useLoad(api.overview, [api]);
 	const show = (next: View) => {
 		setView(next);
 		if (next.type === 'overview' || next.type === 'detail') {
@@ -34,7 +34,14 @@ export function CounsellorApp() {
 	};
 
 	if (view.type === 'demo') {
-		return <DemoView toolId={view.tool} onClose={() => show({ type: 'detail', tool: view.tool })} />;
+		return (
+			<DemoView
+				key={view.tool}
+				toolId={view.tool}
+				onClose={() => show({ type: 'detail', tool: view.tool })}
+				onOpenTool={(tool) => show({ type: 'demo', tool })}
+			/>
+		);
 	}
 	if (view.type === 'entries') {
 		return <EntriesView toolId={view.tool} onBack={() => show({ type: 'detail', tool: view.tool })} />;

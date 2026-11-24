@@ -12,7 +12,7 @@ export function ProfileTile() {
 	const host = useHost();
 	const { m, t } = useI18n();
 	const api = useMemo(() => caseApi(host.api), [host.api]);
-	const { data, error } = useLoad(api.overview);
+	const { data, error } = useLoad(api.overview, [api]);
 
 	if (error && !data) {
 		return <Notice type="error" title={m.profile.loadError} />;

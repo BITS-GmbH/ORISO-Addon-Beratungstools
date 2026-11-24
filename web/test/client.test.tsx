@@ -87,3 +87,43 @@ describe('Ausgangssituation und Ziele', () => {
 		await waitFor(() => expect(calls.some((c) => c.method === 'DELETE')).toBe(true));
 	});
 });
+
+describe('switching from a diary to "Aktiv sein"', () => {
+	const diary = {
+		id: 'relatives-diary',
+		demo: false,
+		shared: false,
+		allowSharing: true,
+		options: { intro: '' },
+		entries: [],
+		linked: { active: [] }
+	};
+	const active = { ...diary, id: 'active', shared: true, linked: {} };
+
+	it('shows, saves and shares in the tool that was opened', async () => {
+		const { host, calls } = fakeHost({
+			'GET /me/tools': () => ({
+				tools: [{ id: 'relatives-diary', releasedAt: '', opened: true, shared: false, hasEntries: false }]
+			}),
+			'GET /me/tools/relatives-diary': () => diary,
+			'GET /me/tools/active': () => active,
+			'POST /me/tools/active/entries': (body) => entry(body.kind, body.data),
+			'PUT /me/tools/active/share': (body) => body
+		});
+		renderWith(host, <ClientApp />);
+		fireEvent.click(await screen.findByText('Öffnen'));
+		fireEvent.click(await screen.findByText('Aktivitäten in „Aktiv sein“ planen'));
+		fireEvent.change(await screen.findByLabelText('Aktivität eintragen'), { target: { value: 'Joggen' } });
+		expect(screen.queryByText('Mein Tagebuch')).toBeNull();
+		expect((screen.getByRole('switch') as HTMLInputElement).checked).toBe(true);
+		fireEvent.click(screen.getByText('Aktivität hinzufügen'));
+		await waitFor(() => expect(calls.some((c) => c.method === 'POST')).toBe(true));
+		fireEvent.click(screen.getByRole('switch'));
+		await waitFor(() => expect(calls.some((c) => c.path === '/me/tools/active/share')).toBe(true));
+		expect(calls.filter((c) => c.method !== 'GET').map((c) => `${c.method} ${c.path}`)).toEqual([
+			'POST /me/tools/active/entries',
+			'PUT /me/tools/active/share'
+		]);
+		expect(host.notify).not.toHaveBeenCalledWith(expect.objectContaining({ type: 'error' }));
+	});
+});

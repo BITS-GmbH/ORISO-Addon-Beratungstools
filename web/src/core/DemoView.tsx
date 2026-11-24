@@ -1,11 +1,20 @@
 import { Button } from '@oriso/web-kit';
 import { useMemo, useState } from 'react';
+import type { ToolId } from '../../../shared/catalog.ts';
 import { ownerApi } from '../api.ts';
 import { useHost, useI18n } from '../host.ts';
 import { ToolPage } from './ToolPage.tsx';
 
 /** "User-Vorschau": the client view of a tool on the counsellor's own test data. */
-export function DemoView({ toolId, onClose }: { toolId: string; onClose: () => void }) {
+export function DemoView({
+	toolId,
+	onClose,
+	onOpenTool
+}: {
+	toolId: string;
+	onClose: () => void;
+	onOpenTool?: (id: ToolId) => void;
+}) {
 	const host = useHost();
 	const { m, lang } = useI18n();
 	const api = useMemo(() => ownerApi(host.api, '/demo', toolId, lang), [host.api, toolId, lang]);
@@ -40,7 +49,14 @@ export function DemoView({ toolId, onClose }: { toolId: string; onClose: () => v
 					</Button>
 				</div>
 			</div>
-			<ToolPage key={run} toolId={toolId} mode="demo" backLabel={m.entries.back} onBack={onClose} />
+			<ToolPage
+				key={`${toolId}:${run}`}
+				toolId={toolId}
+				mode="demo"
+				backLabel={m.entries.back}
+				onBack={onClose}
+				onOpenTool={onOpenTool}
+			/>
 		</div>
 	);
 }
