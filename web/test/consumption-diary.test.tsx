@@ -169,6 +169,29 @@ describe('Konsumtagebuch', () => {
 		expect(screen.getByText('19:00 Uhr:')).toBeTruthy();
 	});
 
+	it('limits the minutes of a duration to 0 to 59', async () => {
+		const { host } = fakeHost({
+			'GET /me/tools/consumption-diary': () =>
+				tool([
+					topics(['gambling']),
+					record('day-summary', { topic: 'gambling', consumed: true }, today, `${today}_gambling`)
+				])
+		});
+		open(host);
+		const group = await screen.findByRole('radiogroup', {
+			name: `${formatDayShort(today)}: Haben Sie Glücksspiele gespielt?`
+		});
+		fireEvent.click(within(group).getByText('ja'));
+		fireEvent.click(await screen.findByText('neue Spielphase eintragen'));
+		const minutes = screen.getByLabelText('Minuten') as HTMLInputElement;
+		fireEvent.change(minutes, { target: { value: '75' } });
+		expect(minutes.value).toBe('59');
+		fireEvent.change(minutes, { target: { value: '-3' } });
+		expect(minutes.value).toBe('0');
+		fireEvent.change(minutes, { target: { value: '45' } });
+		expect(minutes.value).toBe('45');
+	});
+
 	it('shows counsellors the week with sums per topic and the details of a day', () => {
 		const monday = weekStart(today);
 		render(

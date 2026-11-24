@@ -338,7 +338,7 @@ function ItemEditor({
 							value={minutes}
 							min={0}
 							max={59}
-							onChange={(value) => update({ minutes: value })}
+							onChange={(value) => update({ minutes: clampWhole(value, 0, 59) })}
 						/>
 					</>
 				)}
@@ -351,3 +351,6 @@ function ItemEditor({
 		</div>
 	);
 }
+
+const clampWhole = (value: number | null, min: number, max: number): number | null =>
+	value === null ? null : Math.min(max, Math.max(min, Math.trunc(value)));
