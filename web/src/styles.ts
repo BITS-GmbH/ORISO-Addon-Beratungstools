@@ -248,6 +248,20 @@ export const CSS = `
 	.bt-week__topic { display: none; }
 	.bt-week__cell { justify-content: flex-start; }
 }
+.bt-relweek { display: flex; flex-direction: column; }
+.bt-relweek__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'day action' 'text text' 'mood mood'; gap: 0 12px; padding: 10px 0; border-top: 1px solid var(--bt-outline-soft); align-items: center; }
+.bt-relweek__row--head { display: none; }
+.bt-relweek__day { grid-area: day; font-weight: 700; }
+.bt-relweek__day.is-today { color: var(--bt-primary); }
+.bt-relweek__text { grid-area: text; min-width: 0; }
+.bt-relweek__mood { grid-area: mood; min-width: 0; }
+.bt-relweek__text:not(:empty), .bt-relweek__mood:not(:empty) { margin-top: 4px; }
+.bt-relweek__action { grid-area: action; justify-self: end; }
+@container (min-width: 600px) {
+	.bt-relweek__row { grid-template-columns: 7.5em minmax(0, 1fr) 10em 9em; grid-template-areas: 'day text mood action'; gap: 12px; }
+	.bt-relweek__row--head { display: grid; border-top: 0; font-size: 13px; font-weight: 700; color: var(--bt-muted); }
+	.bt-relweek__text:not(:empty), .bt-relweek__mood:not(:empty) { margin-top: 0; }
+}
 .bt-yesno { display: inline-flex; border: 1px solid var(--bt-outline); border-radius: 999px; overflow: hidden; flex: none; }
 .bt-yesno button { font: inherit; font-size: 13px; font-weight: 600; padding: 4px 14px; border: 0; background: var(--bt-surface); color: var(--bt-text); cursor: pointer; }
 .bt-yesno button + button { border-left: 1px solid var(--bt-outline); }

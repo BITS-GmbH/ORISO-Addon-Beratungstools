@@ -74,35 +74,37 @@ export function RelativesClient({ tool, entries, store, informal, openTool }: Cl
 						onNext={() => setMonday(addDays(monday, 7))}
 						nextDisabled={addDays(monday, 7) > today}
 					/>
-					<div className="bt-week" style={{ ['--bt-cols' as string]: 2 }}>
-						<div className="bt-week__row bt-week__row--head" aria-hidden>
+					<div className="bt-relweek">
+						<div className="bt-relweek__row bt-relweek__row--head" aria-hidden>
 							<span />
 							<span>Tagebucheinträge</span>
+							<span>Stimmung</span>
+							<span />
 						</div>
 						{weekDays(monday).map((day) => {
 							const entry = byDay.get(day);
 							const future = day > today;
 							return (
-								<div key={day} className="bt-week__row">
-									<span className={`bt-week__day${day === today ? ' is-today' : ''}`}>
+								<div key={day} className="bt-relweek__row">
+									<span className={`bt-relweek__day${day === today ? ' is-today' : ''}`}>
 										{formatDayShort(day)}
 									</span>
-									<div className="bt-week__cell">
-										<div className="bt-stack bt-stack--tight" style={{ flex: 1, minWidth: 0 }}>
-											{entry?.data.text && <span className="bt-snippet">{snippet(entry.data.text)}</span>}
-											<MoodIndicator mood={entry?.data.mood} />
-										</div>
-										{!future && (
-											<button
-												type="button"
-												className="bt-linkbtn"
-												aria-label={`${entry ? 'Eintrag öffnen' : 'Eintrag erstellen'}: ${formatDayLong(day)}`}
-												onClick={() => setOpenDay(day)}
-											>
-												{entry ? 'Öffnen' : 'Eintrag erstellen'}
-											</button>
-										)}
-									</div>
+									<span className="bt-relweek__text bt-snippet">
+										{entry?.data.text && snippet(entry.data.text)}
+									</span>
+									<span className="bt-relweek__mood">
+										<MoodIndicator mood={entry?.data.mood} />
+									</span>
+									{!future && (
+										<button
+											type="button"
+											className="bt-linkbtn bt-relweek__action"
+											aria-label={`${entry ? 'Eintrag öffnen' : 'Eintrag erstellen'}: ${formatDayLong(day)}`}
+											onClick={() => setOpenDay(day)}
+										>
+											{entry ? 'Öffnen' : 'Eintrag erstellen'}
+										</button>
+									)}
 								</div>
 							);
 						})}

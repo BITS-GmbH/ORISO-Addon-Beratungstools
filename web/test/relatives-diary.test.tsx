@@ -55,7 +55,12 @@ describe('Tagebuch für Angehörige', () => {
 		open(host);
 		expect(await screen.findByText('Mein Tagebuch')).toBeTruthy();
 		expect(screen.getByText(/^Heute war ein langer Tag\..* …$/)).toBeTruthy();
-		expect(screen.getByText('eher gut')).toBeTruthy();
+		const snippet = screen.getByText(/^Heute war ein langer Tag\./);
+		const mood = screen.getByText('eher gut');
+		const action = screen.getByLabelText(`Eintrag öffnen: ${formatDayLong(today)}`);
+		expect(mood.closest('.bt-relweek__mood')).toBeTruthy();
+		expect(snippet.compareDocumentPosition(mood) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+		expect(mood.compareDocumentPosition(action) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 		expect(screen.getByText('Geplante Aktivitäten diese Woche')).toBeTruthy();
 		expect(screen.getByText('Joggen (mit Marie)')).toBeTruthy();
 		expect((screen.getByLabelText('Woche vor') as HTMLButtonElement).disabled).toBe(true);
