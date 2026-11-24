@@ -293,6 +293,32 @@ export const CSS = `
 .bt-moods input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bt-moods input:checked + label { border-color: var(--bt-primary); background: var(--bt-primary-soft); font-weight: 700; }
 .bt-moods input:focus-visible + label { outline: 3px solid color-mix(in srgb, var(--bt-primary) 45%, transparent); outline-offset: 2px; }
+/* Zeitraum */
+.bt-range { position: relative; display: inline-block; max-width: 100%; }
+.bt-range__field { font: inherit; color: var(--bt-text); background: var(--bt-surface); border: 1px solid var(--bt-outline); border-radius: 4px; min-height: 56px; min-width: 260px; max-width: 100%; padding: 6px 12px 6px 16px; display: flex; align-items: center; gap: 12px; text-align: left; cursor: pointer; }
+.bt-range__field:hover { border-color: var(--bt-text); }
+.bt-range__field[aria-expanded='true'] { border: 2px solid var(--bt-primary); padding: 5px 11px 5px 15px; }
+.bt-range__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.bt-range__label { font-size: 12px; line-height: 16px; color: var(--bt-muted); }
+.bt-range__field[aria-expanded='true'] .bt-range__label { color: var(--bt-primary); }
+.bt-range__value { font-size: 16px; line-height: 24px; }
+.bt-range__field svg { width: 24px; height: 24px; fill: var(--bt-muted); flex: none; }
+.bt-range__popover { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; width: 328px; max-width: calc(100vw - 32px); padding: 12px; border-radius: 16px; background: var(--bt-surface); border: 1px solid var(--bt-outline-soft); box-shadow: 0 4px 12px rgba(0, 0, 0, .16); display: flex; flex-direction: column; gap: 8px; }
+.bt-range__quick { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--bt-outline-soft); }
+.bt-range__month { display: flex; align-items: center; justify-content: space-between; }
+.bt-range__monthlabel { font-weight: 700; }
+.bt-range__grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.bt-range__grid th { font-size: 12px; font-weight: 600; color: var(--bt-muted); padding: 4px 0; }
+.bt-range__day { padding: 2px 0; text-align: center; }
+.bt-range__day.is-in-range { background: var(--bt-primary-soft); }
+.bt-range__day.is-start { border-radius: 999px 0 0 999px; }
+.bt-range__day.is-end { border-radius: 0 999px 999px 0; }
+.bt-range__day.is-start.is-end { border-radius: 999px; }
+.bt-range__day button { font: inherit; font-size: 14px; width: 36px; height: 36px; border-radius: 999px; border: 1px solid transparent; background: transparent; color: var(--bt-text); cursor: pointer; }
+.bt-range__day button:hover { background: var(--bt-surface-high); }
+.bt-range__day.is-today button { border-color: var(--bt-primary); color: var(--bt-primary); }
+.bt-range__day.is-edge button { background: var(--bt-primary); color: var(--bt-on-primary); }
+.bt-range__day button:disabled { color: var(--bt-outline); cursor: default; background: transparent; }
 @media (prefers-reduced-motion: reduce) {
 	.bt-scale .bt-beam, .bt-scale .bt-pan, .bt-scale .bt-needle, .bt-mini__dot { transition: none; }
 }

@@ -1,11 +1,13 @@
-import { Button, DatePicker, Headline, Notice, Spinner } from '@oriso/web-kit';
+import { Button, Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useEffect, useMemo, useState } from 'react';
 import { isNewSince, type CaseEntries, type Entry } from '../../../shared/api.ts';
 import { toolInfo } from '../../../shared/catalog.ts';
+import { localToday } from '../../../shared/days.ts';
 import { ApiError, caseApi } from '../api.ts';
 import { useHost } from '../host.ts';
 import { webTool } from '../tools/index.ts';
 import { BackButton, downloadBlob, formatDate, useLoad } from '../ui.tsx';
+import { DateRangePicker, type DayRange } from './DateRangePicker.tsx';
 
 const latest = (entries: Entry[]) =>
 	entries.reduce<string | undefined>((max, e) => (!max || e.updatedAt > max ? e.updatedAt : max), undefined);
@@ -47,7 +49,7 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const module = webTool(data.id);
 	const [exporting, setExporting] = useState(false);
-	const [range, setRange] = useState({ from: '', to: '' });
+	const [range, setRange] = useState<DayRange>({ from: '', to: '' });
 	const { exportRange } = data;
 	const lastChange = latest(data.entries);
 
@@ -87,22 +89,7 @@ function Loaded({ data, title, onBack }: { data: CaseEntries; title: string; onB
 				</p>
 			</div>
 			<div className="bt-row" style={{ alignItems: 'flex-end' }}>
-				{exportRange && (
-					<>
-						<DatePicker
-							label="Von"
-							value={range.from}
-							max={range.to || undefined}
-							onChange={(from) => setRange({ ...range, from })}
-						/>
-						<DatePicker
-							label="Bis"
-							value={range.to}
-							min={range.from || undefined}
-							onChange={(to) => setRange({ ...range, to })}
-						/>
-					</>
-				)}
+				{exportRange && <DateRangePicker value={range} onChange={setRange} today={localToday()} />}
 				<Button variant="secondary" disabled={exporting} onClick={exportPdf}>
 					{exporting ? 'Export wird erstellt …' : exportRange ? 'Export erstellen' : 'Als PDF exportieren'}
 				</Button>
