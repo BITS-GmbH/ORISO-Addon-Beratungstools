@@ -33,3 +33,14 @@ describe('link buttons', () => {
 		expect(rule).toContain('width: fit-content;');
 	});
 });
+
+describe('radio options', () => {
+	it('are clickable on the radio and its label only, not across the whole row', () => {
+		const rule = CSS.split('\n').find((line) => line.startsWith('.bt .MuiFormControlLabel-root {'))!;
+		expect(rule).toContain('width: fit-content;');
+		expect(rule).toContain('align-self: flex-start;');
+		document.body.innerHTML = `
+			<div class="bt"><div class="MuiFormGroup-root"><label id="option" class="MuiFormControlLabel-root"><input type="radio" />nein</label></div></div>`;
+		expect(document.getElementById('option')!.matches(rule.slice(0, rule.indexOf('{')).trim())).toBe(true);
+	});
+});

@@ -46,6 +46,7 @@ export const CSS = `
 .bt-tonalbtn svg { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .bt-linkbtn svg, .bt-icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
 .bt :focus-visible:not(.MuiInputBase-input, .MuiInputBase-root *, .MuiPickersInputBase-root *) { outline: 3px solid color-mix(in srgb, var(--bt-primary) 45%, transparent); outline-offset: 2px; }
+.bt .MuiFormControlLabel-root { align-self: flex-start; width: fit-content; max-width: 100%; }
 
 .bt-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
 @container (min-width: 560px) { .bt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -223,22 +223,31 @@ export const RadioGroup = ({
 	return (
 		<fieldset style={{ border: 0, padding: 0, margin: 0 }}>
 			<legend style={{ ...label, padding: 0 }}>{text}</legend>
-			{options.map((option) => (
-				<label
-					key={option.value}
-					style={{ display: 'flex', gap: 8, alignItems: 'center', margin: '4px 0', cursor: 'pointer' }}
-				>
-					<input
-						type="radio"
-						name={name}
-						value={option.value}
-						checked={value === option.value}
-						disabled={disabled || option.disabled}
-						onChange={() => onChange(option.value)}
-					/>
-					{option.label}
-				</label>
-			))}
+			<div className="MuiFormGroup-root" style={{ display: 'flex', flexDirection: 'column' }}>
+				{options.map((option) => (
+					<label
+						key={option.value}
+						className="MuiFormControlLabel-root"
+						style={{
+							display: 'inline-flex',
+							gap: 8,
+							alignItems: 'center',
+							margin: '4px 0',
+							cursor: 'pointer'
+						}}
+					>
+						<input
+							type="radio"
+							name={name}
+							value={option.value}
+							checked={value === option.value}
+							disabled={disabled || option.disabled}
+							onChange={() => onChange(option.value)}
+						/>
+						{option.label}
+					</label>
+				))}
+			</div>
 			{helperText && <div style={helper(error)}>{helperText}</div>}
 		</fieldset>
 	);
