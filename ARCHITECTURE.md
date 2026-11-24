@@ -90,9 +90,11 @@ Further core services:
   switched off is neither offered for release nor shown, and its shared entries are closed.
 - **Statistics** per tool: released, started, shared (counts, no personal data), with the ids
   `<tool>.released`, `<tool>.started`, `<tool>.shared`. Demo data is never counted.
-- **Form of address**: the client UI follows the host's `informal` prop. Server texts go to
-  counsellors (formal) or, for the release notification to the client, are worded without
-  address, because the counsellor's request does not carry the client's form of address.
+- **Form of address**: the client UI follows the host's `informal` prop (or the locale
+  `de@informal`). Server texts go to counsellors (formal) or, for the release notification to the
+  client, are worded without address, because the counsellor's request does not carry the
+  client's form of address.
+- **Languages**: all texts come from one catalogue per language; see "Languages" below.
 
 ## Storage
 
@@ -150,8 +152,9 @@ A tool is added without touching the core: write the three parts below, add the 
 to `server/src/tools/index.ts` and the web module to `web/src/tools/index.ts`, and the catalogue
 entry in `shared/catalog.ts` already exists.
 
-**Shared** (`shared/tools/<id>.ts`): texts (formal and informal), constants, calculations used by
-both sides. No zod and nothing server-only, it is bundled into the UI.
+**Shared** (`shared/tools/<id>.ts`): ids, constants, calculations used by both sides; the tool's
+texts are in the catalogue under its namespace (`goals`, `consumptionDiary`, ...). No zod and
+nothing server-only, it is bundled into the UI.
 
 **Server** (`ServerTool` in `server/src/tools/types.ts`):
 
@@ -159,21 +162,25 @@ both sides. No zod and nothing server-only, it is bundled into the UI.
 - `kinds`: record types with a zod `schema` for `data`; optional `keys(key)` for keyed kinds (one
   record per key, written with `PUT .../keyed/<kind>/<key>`), `max` per client, `dated` (needs
   `day`), `announce(username)` for requests to the counsellors (creating such an entry notifies
-  them at once, shared or not, never in demo mode; the text carries no tool content).
+  them at once, shared or not, never in demo mode; the text carries no tool content; in every
+  language, built with `localized`).
 - `options`: settings per Träger and agency (JSON Schema subset); the core prefixes the keys and
   hands the tool its values as `options` (client and counsellor views, export).
-- `exportPdf(pdf, { entries, options, linked, counsellors })`: the tool's part of the PDF below
+- `exportPdf(pdf, { entries, options, linked, counsellors, i18n })`: the tool's part of the PDF below
   the common header, through `PdfWriter` (`heading`, `subheading`, `paragraph`, `field`, `item`,
   `table`, `spacer`, and `drawing` for pdfkit graphics). `exportRange: true` lets counsellors pick a period (diaries);
-  dated entries are then filtered by `day`.
+  dated entries are then filtered by `day`. `i18n` is the language of the PDF (formal German for
+  `de`).
 - `clientExports`: PDFs the client makes of their own entries (`GET /me/tools/<tool>/export/<format>`,
-  query parameters as `params`), with the common header or `bare` for an own layout.
+  query parameters as `params`), with the common header or `bare` for an own layout; `title(i18n)`.
 - `reads`: other tools whose entries this tool shows. The core hands them over as `linked`: to the
   client while that tool is released (in demo mode the counsellor's demo data), to counsellors
   only while the client shares that tool as well. Tools never import each other.
 - `counsellorNames`: the names of the client's counsellors from the host context, as `counsellors`.
-- `demo()`: optional example entries for the counsellor's demo, applied on first use and reset.
-- `calendar({ releasedAt, shared, entries })`: optional reminders for the client's calendar.
+- `demo(i18n)`: optional example entries for the counsellor's demo in the counsellor's language,
+  applied on first use and reset.
+- `calendar({ releasedAt, shared, entries })`: optional reminders for the client's calendar, with
+  titles in every language (`localized`).
 
 The core does the rest for every tool: release and withdrawal, share, access checks, entry
 storage and validation, notifications, seen markers, demo, audit, statistics, deletion.
@@ -209,6 +216,62 @@ Generic API used by the modules through the core (`/api` behind the AddonService
 
 Besides the API: `/.well-known/oriso-addon.json`, `/schema/settings.json`, `/health`, `/ui/**`,
 and for the AddonService `/visibility`, `/stats`, `/events`, `/calendar`.
+
+## Languages
+
+ORISO's languages are German (formal "Sie", and informal "du" as `de@informal`), English,
+French, Russian, Tigrinya and Turkish. The add-on ships its own translations (ADR-034); the host
+only passes the locale.
+
+**Catalogue** (`shared/i18n`): one file per language. `de.ts` is the source and defines every
+key; its type is the schema. A value is a text with `{placeholders}`, a pair
+`{ formal, informal }` (German only), a plural `{ one, other }` (plus `few`, `many`, ... as the
+language needs, chosen by `count`), a list or a nested namespace: `common`, `days`, `catalog`
+(title, summary and tile text per tool), the core views (`client`, `toolPage`, `counsellor`,
+`entries`, `demo`, `prefs`, `profile`, `rangePicker`, `planned`), the server texts (`pdf`,
+`notifications`, `audit`, `manifest`) and one namespace per tool. `en.ts` is typed `Complete`,
+so a missing key is a type error; `fr.ts`, `ru.ts`, `ti.ts` and `tr.ts` are typed `Catalogue`
+(partial). `server/test/i18n.test.ts` lists, per language, missing keys, wrong list lengths,
+unknown placeholders and missing plural forms, and fails on em dashes.
+
+**Lookup** (`shared/i18n/index.ts`): `i18n(lang, informal)` gives `m` (the catalogue of that
+language with English, then German, filling in what it lacks, forms of address resolved),
+`t(text, vars)` for placeholders and plurals, and `number`/`date` formatting with `Intl` for the
+language (`de-DE`, `en-GB`, `fr-FR`, `ru-RU`, `ti`, `tr-TR`). `shared/days.ts` formats days,
+weeks, months and durations the same way. `localized(fn)` builds a text in every language for the
+host.
+
+**Where the language comes from:**
+
+- Web: the host's `locale` prop (`langOf`: `de@informal` and `en-GB` map to `de` and `en`; unknown
+  languages fall back to German) and `informal`; views call `useI18n()`.
+- PDFs: the web adds `?lang=` to every export (`/case/tools/<tool>/export`,
+  `/me/tools/<tool>/export/<format>`); without it the PDF is German. The add-on token carries no
+  locale.
+- Demo: the web adds `?lang=` when it loads or resets a demo, so the example entries are seeded in
+  the counsellor's language. They are stored like the client's entries and keep that language.
+- Notifications, audit summaries, calendar entries, statistics labels and the manifest: sent in
+  all languages (the host's localized text accepts any language code and shows the recipient's
+  language, else German). The add-on does not need to know the recipient's language.
+- ORISO-Admin settings (titles and descriptions of the settings schema) stay German, as
+  ORISO-Admin is German; so do the stored values of settings such as the Motivationswaage's pole
+  labels (shown translated by their position).
+
+**Not translated:** what users or admins write (entries, picked suggestions once saved, the
+agency's contact details, custom intro texts from the settings) and the example entries of a demo
+once seeded.
+
+**PDF font:** pdfkit embeds one font per text run and has no fallback, so the PDFs use
+`server/fonts/BeratungstoolsSans-*.ttf`: Noto Sans (Latin, Greek, Cyrillic) merged with Noto Sans
+Ethiopic (Ge'ez), both under the SIL Open Font License (`server/fonts/OFL.txt`), built with
+`tooling/fonts/merge.py`. The web UI uses the host's fonts.
+
+**Adding a translation:** translate the values in `shared/i18n/<lang>.ts` (a copy of `en.ts` to
+start from), keeping the keys, the `{placeholders}` and the length of lists; add the plural forms
+the language needs; run `npm test` until `server/test/i18n.test.ts` passes. New texts are added
+to `de.ts` first; TypeScript then asks for them in `en.ts`, and the test lists them for the other
+languages, which show English until they are translated. A new language needs an entry in `LANGS`
+and `INTL_LOCALES` in `shared/i18n/index.ts` and a catalogue file.
 
 ## Stack
 

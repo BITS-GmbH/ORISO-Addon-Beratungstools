@@ -49,6 +49,14 @@ notifications and audit entries; "Beispieldaten" fills in a released, shared cas
 Images: `harbor.mybits.dev/digisucht/addon-beratungstools:0.1.0-<sha7>`, built by
 `.github/workflows/build.yml` on pushes to main.
 
+## Languages
+
+German (formal and informal), English, French, Russian, Tigrinya and Turkish, following the
+user's ORISO locale. All texts are in `shared/i18n/<lang>.ts`, one file per language; `de.ts` is
+the source. To translate, edit the values in your language's file (keep keys, `{placeholders}` and
+list lengths) and run `npm test`: `server/test/i18n.test.ts` lists what is missing. Missing texts
+show in English. Details: [ARCHITECTURE.md](ARCHITECTURE.md#languages).
+
 ## License
 
 AGPL-3.0, see [LICENSE](LICENSE).
