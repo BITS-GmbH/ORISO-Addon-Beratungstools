@@ -27,6 +27,7 @@ const notify = ({ type, text }: { type: string; text: string }) => {
 
 const element = (id: string) => document.getElementById(id) as HTMLElement;
 const informal = () => (element('informal') as HTMLInputElement).checked;
+const locale = () => (element('locale') as HTMLSelectElement).value;
 
 const props = (slot: string, id: string, as: string, counsellor: boolean) => ({
 	contract: 'oriso-addon/v1',
@@ -36,7 +37,7 @@ const props = (slot: string, id: string, as: string, counsellor: boolean) => ({
 	slot,
 	user: { id: as, username: as, roles: [counsellor ? 'consultant' : 'user'] },
 	tenant: { id: 1 },
-	locale: 'de',
+	locale: counsellor || locale() !== 'de' || !informal() ? locale() : 'de@informal',
 	informal: counsellor ? false : informal(),
 	theme: {},
 	...(counsellor ? { sessionId: 4711, agencyId: 1, askerId: 'preview-asker' } : {}),
@@ -81,6 +82,7 @@ const saveSettings = async () => {
 };
 
 element('informal').onchange = renderAll;
+element('locale').onchange = renderAll;
 element('sharing').onchange = saveSettings;
 element('poles').onchange = saveSettings;
 element('sample').onclick = async () => {
