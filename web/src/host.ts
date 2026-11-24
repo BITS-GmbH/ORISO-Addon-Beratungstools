@@ -29,12 +29,6 @@ export const useHost = (): HostProps => {
 	return host;
 };
 
-/** Formal or informal text for the person using the add-on. */
-export const useTx = () => {
-	const { informal } = useHost();
-	return (sie: string, du: string) => (informal ? du : sie);
-};
-
 /** The catalogue and formatting for the user's language and form of address. */
 export const useI18n = (): I18n => {
 	const host = useContext(HostContext);
