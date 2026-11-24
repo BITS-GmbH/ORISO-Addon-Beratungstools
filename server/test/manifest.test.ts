@@ -1,5 +1,5 @@
-import { LANGS } from '../../shared/i18n/index.ts';
 import { describe, expect, it } from 'vitest';
+import { LANGS } from '../../shared/i18n/index.ts';
 import { manifest } from '../src/core/manifest.ts';
 import { counsellorNotification } from '../src/core/notifications.ts';
 import { optionsOf, settingsSchema, withDefaults } from '../src/core/settings.ts';
