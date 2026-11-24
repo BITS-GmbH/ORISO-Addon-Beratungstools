@@ -222,7 +222,7 @@ export const ti: Catalogue = {
 		caseLabel: 'ጉዳይ {id}',
 		caseWithoutId: 'መለለዪ ቁጽሪ ዘይብሉ ጉዳይ',
 		noEntries: 'ምዝገባ የለን',
-		fileCase: 'case'
+		fileCase: 'guday'
 	},
 	notifications: {
 		someone: 'ሓደ ደላዪ ምኽሪ',

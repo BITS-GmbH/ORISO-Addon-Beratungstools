@@ -17,7 +17,7 @@ import {
 	type SituationItem
 } from '../../../../shared/tools/risk-situations.ts';
 import { useI18n } from '../../host.ts';
-import { BackButton, IconButton } from '../../ui.tsx';
+import { BackButton, DangerButton, IconButton } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 import { DifficultyBadge, RelapseDetails, WithTitle } from './parts.tsx';
 
@@ -136,14 +136,14 @@ function Overview({
 										{confirming === item.id ? (
 											<div className="bt-confirm" style={{ gridColumn: '1 / -1' }}>
 												<span style={{ flex: 1 }}>{texts.deleteQuestion}</span>
-												<Button
+												<DangerButton
 													onClick={() => {
 														setConfirming(null);
 														onDelete(item);
 													}}
 												>
 													{texts.delete}
-												</Button>
+												</DangerButton>
 												<Button variant="secondary" onClick={() => setConfirming(null)}>
 													{i18n.m.common.cancel}
 												</Button>
@@ -490,7 +490,7 @@ function RelapsePage({
 									return (
 										<li key={relapse.id} className="bt-confirm">
 											<span style={{ flex: 1 }}>{texts.deleteAnalysisQuestion}</span>
-											<Button onClick={() => remove(relapse)}>{texts.delete}</Button>
+											<DangerButton onClick={() => remove(relapse)}>{texts.delete}</DangerButton>
 											<Button variant="secondary" onClick={() => setConfirming(null)}>
 												{i18n.m.common.cancel}
 											</Button>

@@ -6,7 +6,7 @@ import type { I18n } from '../../../shared/i18n/index.ts';
 import { ApiError, caseApi } from '../api.ts';
 import { useHost, useI18n } from '../host.ts';
 import { webTool } from '../tools/index.ts';
-import { Pill, useLoad } from '../ui.tsx';
+import { DangerButton, Pill, useLoad } from '../ui.tsx';
 import { DemoView } from './DemoView.tsx';
 import { EntriesView } from './EntriesView.tsx';
 import { NotificationPrefsButton, NotificationPrefsPanel } from './NotificationPrefs.tsx';
@@ -237,9 +237,12 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 			{confirmWithdraw && (
 				<div className="bt-confirm" role="group" aria-label={m.counsellor.withdraw}>
 					<span style={{ flex: '1 1 220px' }}>{m.counsellor.withdrawConfirm}</span>
-					<Button disabled={busy} onClick={() => act(() => api.withdraw(tool.id), m.counsellor.withdrawn)}>
+					<DangerButton
+						disabled={busy}
+						onClick={() => act(() => api.withdraw(tool.id), m.counsellor.withdrawn)}
+					>
 						{m.counsellor.withdrawButton}
-					</Button>
+					</DangerButton>
 					<Button variant="secondary" onClick={() => setConfirmWithdraw(false)}>
 						{m.common.cancel}
 					</Button>

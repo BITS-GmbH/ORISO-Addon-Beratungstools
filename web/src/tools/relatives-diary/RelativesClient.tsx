@@ -19,7 +19,7 @@ import {
 } from '../../../../shared/tools/relatives-diary.ts';
 import { PlannedActivities } from '../../core/PlannedActivities.tsx';
 import { useI18n } from '../../host.ts';
-import { BackButton, WeekNav } from '../../ui.tsx';
+import { BackButton, DangerButton, WeekNav } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 import { MoodIndicator, MoodPicker } from './Mood.tsx';
 
@@ -200,14 +200,14 @@ function DayEntry({
 					{confirming && (
 						<div className="bt-confirm" role="alertdialog" aria-label={texts.deleteEntry}>
 							<span style={{ flex: 1 }}>{texts.deleteConfirm}</span>
-							<Button
+							<DangerButton
 								onClick={() => {
 									void store.removeKeyed(ENTRY_KIND, day);
 									onClose();
 								}}
 							>
 								{texts.deleteButton}
-							</Button>
+							</DangerButton>
 							<Button variant="secondary" onClick={() => setConfirming(false)}>
 								{m.common.cancel}
 							</Button>

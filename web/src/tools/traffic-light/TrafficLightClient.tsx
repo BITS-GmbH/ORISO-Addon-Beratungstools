@@ -10,6 +10,7 @@ import {
 import { useI18n } from '../../host.ts';
 import type { ClientViewProps } from '../types.ts';
 import { activitiesOf, TrafficLight, type Item } from './parts.tsx';
+import { DangerButton } from '../../ui.tsx';
 
 type Editing = { item: Item | null };
 
@@ -186,14 +187,14 @@ function Editor({ item, store, onClose }: EditorProps) {
 				{item && confirming && (
 					<div className="bt-confirm" role="group" aria-label={texts.confirmDeleteLabel}>
 						<span style={{ flex: 1 }}>{texts.confirmDelete}</span>
-						<Button
+						<DangerButton
 							onClick={() => {
 								void store.remove(item.id);
 								onClose();
 							}}
 						>
 							{texts.delete}
-						</Button>
+						</DangerButton>
 						<Button variant="secondary" onClick={() => setConfirming(false)}>
 							{texts.cancel}
 						</Button>

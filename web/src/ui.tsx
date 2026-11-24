@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { Button } from '@oriso/web-kit';
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode, type ComponentProps } from 'react';
 import { i18nFor } from '../../shared/i18n/index.ts';
 import { useI18n } from './host.ts';
 
@@ -286,3 +287,10 @@ export const WeekNav = ({
 		</div>
 	);
 };
+
+/** The confirming button of a destructive action; the web kit has no danger variant. */
+export const DangerButton = (props: ComponentProps<typeof Button>) => (
+	<span className="bt-danger">
+		<Button {...props} />
+	</span>
+);

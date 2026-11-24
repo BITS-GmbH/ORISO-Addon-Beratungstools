@@ -9,7 +9,7 @@ import {
 	type TopicId
 } from '../../../../shared/tools/consumption-diary.ts';
 import { useI18n } from '../../host.ts';
-import { BackButton, Icon } from '../../ui.tsx';
+import { BackButton, DangerButton, Icon } from '../../ui.tsx';
 import type { DiaryActions } from './ConsumptionClient.tsx';
 import { PhaseSnippet } from './parts.tsx';
 
@@ -78,14 +78,14 @@ export function DayView({
 							<Button variant="secondary" onClick={() => setAskNo(false)}>
 								{texts.day.cancel}
 							</Button>
-							<Button
+							<DangerButton
 								onClick={() => {
 									setAskNo(false);
 									void actions.deletePhases(day, topic);
 								}}
 							>
 								{texts.day.deleteAll}
-							</Button>
+							</DangerButton>
 						</div>
 					)}
 					{consumed !== null && (

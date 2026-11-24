@@ -72,6 +72,9 @@ export const CSS = `
 .bt-pill--neutral { background: var(--bt-surface-high); color: var(--bt-muted); }
 .bt-pill--new { background: var(--bt-new-soft); color: var(--bt-new); }
 
+.bt-danger { display: contents; }
+.bt .bt-danger button { background: var(--bt-error); border-color: var(--bt-error); color: #fff; }
+.bt .bt-danger button:hover { background: color-mix(in srgb, var(--bt-error) 88%, #000); }
 .bt-confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 10px 12px; border-radius: 10px; background: var(--bt-surface-low); border: 1px solid var(--bt-outline-soft); font-size: 14px; }
 
 .bt-switch { display: flex; gap: 16px; align-items: center; justify-content: space-between; cursor: pointer; }
@@ -235,9 +238,9 @@ export const CSS = `
 .bt-timefield input { box-sizing: border-box; display: block; width: 100%; height: 56px; padding: 16px; border: 0; border-radius: 4px; background: var(--bt-surface); color: var(--bt-text); font: inherit; font-size: 16px; line-height: 24px; letter-spacing: .5px; }
 .bt .bt-timefield input:focus-visible { outline: none; }
 .bt-timefield label { position: absolute; top: -8px; left: 12px; max-width: calc(100% - 24px); padding: 0 4px; overflow: hidden; color: var(--bt-muted); font-size: 12px; line-height: 16px; letter-spacing: .4px; white-space: nowrap; text-overflow: ellipsis; pointer-events: none; }
-.bt-timefield fieldset { position: absolute; inset: -5px 0 0; margin: 0; padding: 0 8px; min-width: 0; border: 1px solid var(--bt-outline); border-radius: 4px; pointer-events: none; text-align: left; }
-.bt-timefield legend { float: unset; width: auto; max-width: 100%; height: 11px; padding: 0; overflow: hidden; visibility: hidden; font-size: 12px; letter-spacing: .4px; white-space: nowrap; }
-.bt-timefield legend span { display: inline-block; padding: 0 5px; }
+.bt-timefield fieldset { position: absolute; inset: -5px 0 0; box-sizing: border-box; margin: 0; padding: 0 8px; min-width: 0; overflow: hidden; border: 1px solid var(--bt-outline); border-radius: 4px; pointer-events: none; text-align: left; }
+.bt-timefield legend { display: block; float: unset; box-sizing: content-box; width: auto; max-width: 100%; height: 11px; margin: 0; padding: 0; line-height: 11px; overflow: hidden; visibility: hidden; font-size: 12px; letter-spacing: .4px; white-space: nowrap; }
+.bt-timefield legend span { display: inline-block; padding: 0 5px; line-height: 11px; opacity: 0; visibility: visible; }
 .bt-timefield:focus-within fieldset { border: 3px solid var(--bt-primary); padding: 0 6px; }
 .bt-timefield:focus-within label { color: var(--bt-primary); }
 .bt-fields { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: end; }
