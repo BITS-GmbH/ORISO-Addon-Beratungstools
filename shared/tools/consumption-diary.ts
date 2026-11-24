@@ -1,6 +1,6 @@
-import { tx } from '../address.ts';
 import type { Entry } from '../api.ts';
 import { formatMinutes } from '../days.ts';
+import type { I18n, Messages } from '../i18n/index.ts';
 
 export const TOPIC_IDS = ['alcohol', 'cannabis', 'gambling', 'media'] as const;
 export type TopicId = (typeof TOPIC_IDS)[number];
@@ -65,11 +65,11 @@ export type Phase =
 	| (PhaseBase & { topic: 'gambling'; items: DurationItem[] })
 	| (PhaseBase & { topic: 'media'; items: DurationItem[]; device?: string });
 
-// Table 1 of the tool description: drinks, sizes and grams of alcohol.
+// Table 1 of the tool description: drinks, sizes and grams of alcohol. Sizes are stored as written
+// here (German decimal comma); `sizeLabel` shows them for the language.
 export const DRINKS = [
 	{
 		id: 'beer',
-		label: 'Bier',
 		percent: '4,8',
 		sizes: [
 			['0,2 l', 8],
@@ -80,7 +80,6 @@ export const DRINKS = [
 	},
 	{
 		id: 'wine',
-		label: 'Wein / Sekt',
 		percent: '11',
 		sizes: [
 			['0,1 l', 9],
@@ -91,7 +90,6 @@ export const DRINKS = [
 	},
 	{
 		id: 'spirits',
-		label: 'Schnaps',
 		percent: '38',
 		sizes: [
 			['0,02 l / 2 cl', 6],
@@ -106,7 +104,6 @@ export const DRINKS = [
 	},
 	{
 		id: 'liqueur',
-		label: 'Likör',
 		percent: '20',
 		sizes: [
 			['0,02 l / 2 cl', 3],
@@ -121,17 +118,15 @@ export const DRINKS = [
 	},
 	{
 		id: 'beer-mix',
-		label: 'Biermixgetränke',
 		percent: '2,5',
 		sizes: [
 			['0,33 l', 7],
 			['0,5 l', 14]
 		]
 	},
-	{ id: 'alcopop', label: 'Alkopops', percent: '5,6', sizes: [['0,275 l', 12]] }
+	{ id: 'alcopop', percent: '5,6', sizes: [['0,275 l', 12]] }
 ] as const satisfies ReadonlyArray<{
 	id: string;
-	label: string;
 	percent: string;
 	sizes: ReadonlyArray<readonly [string, number]>;
 }>;
@@ -148,120 +143,97 @@ export const gramsOf = (drink: string, size: string): number | null =>
 		([label]) => label === size
 	)?.[1] ?? null;
 
-export interface ChoiceGroup {
-	title: string;
-	options: Array<{ id: string; label: string }>;
+/** A stored size such as "0,5 l" with the decimals of the language ("0.5 l" in English). */
+export const sizeLabel = (size: string, { number }: I18n): string =>
+	size.replace(/\d+(?:,\d+)?/g, (digits) =>
+		number(Number(digits.replace(',', '.')), {
+			minimumFractionDigits: digits.split(',')[1]?.length ?? 0
+		})
+	);
+
+export interface ChoiceGroup<Group extends string = string> {
+	id: Group;
+	options: string[];
 }
 
-// Table 2 of the tool description.
-export const GAMES: ChoiceGroup[] = [
+// Table 2 of the tool description; labels in `consumptionDiary.gameGroups` and `.games`.
+export const GAMES = [
 	{
-		title: 'Glücksspiele vor Ort',
+		id: 'local',
 		options: [
-			{ id: 'slot-arcade', label: 'Geldspielautomaten in Spielhallen' },
-			{ id: 'slot-gastro', label: 'Geldspielautomaten in der Gastronomie' },
-			{ id: 'casino-small', label: 'Kleines Spiel in der Spielbank' },
-			{ id: 'casino-large', label: 'Großes Spiel in der Spielbank' },
-			{ id: 'sports', label: 'Sportwetten' },
-			{ id: 'horses', label: 'Pferdewetten' },
-			{ id: 'lottery', label: 'Lotterien' },
-			{ id: 'other-local', label: 'Andere Glücksspiele vor Ort' }
+			'slot-arcade',
+			'slot-gastro',
+			'casino-small',
+			'casino-large',
+			'sports',
+			'horses',
+			'lottery',
+			'other-local'
 		]
 	},
 	{
-		title: 'Online / über das Internet',
+		id: 'online',
 		options: [
-			{ id: 'online-slots', label: 'Online-Automatenspiel (Geld-/Glücksspielautomaten)' },
-			{
-				id: 'online-casino',
-				label: 'Online-Casinospiele (großes Spiel in der Spielbank, mit Ausnahme von Poker)'
-			},
-			{ id: 'online-poker', label: 'Online-Poker' },
-			{ id: 'online-sports', label: 'Online-Sportwetten' },
-			{ id: 'online-horses', label: 'Online-Pferdewetten' },
-			{ id: 'online-lottery', label: 'Online-Lotterien' },
-			{ id: 'online-other', label: 'Andere Onlineglücksspiele' }
+			'online-slots',
+			'online-casino',
+			'online-poker',
+			'online-sports',
+			'online-horses',
+			'online-lottery',
+			'online-other'
 		]
 	}
-];
+] as const satisfies ReadonlyArray<ChoiceGroup<keyof Messages['consumptionDiary']['gameGroups']>>;
 
-export const MEDIA: ChoiceGroup[] = [
+// Labels in `consumptionDiary.mediaGroups` and `.media`.
+export const MEDIA = [
 	{
-		title: 'Onlinespiele',
-		options: [
-			{ id: 'action', label: 'Actionspiele (z. B. Jump ’n’ Run, Beat’em ups, Action-Adventure)' },
-			{ id: 'shooter', label: 'Ego-Shooter' },
-			{ id: 'rpg', label: 'Rollenspiele (z. B. MMORPGs, Online- und Offline-Rollenspiele)' },
-			{ id: 'strategy', label: 'Strategiespiele (z. B. Echtzeit-Strategiespiele, Aufbauspiele)' },
-			{ id: 'sports-games', label: 'Sportspiele (z. B. Managerspiele, Sportsimulation)' },
-			{
-				id: 'simulation',
-				label: 'Simulationsspiele (z. B. Flugsimulation, Autorennsimulation, Lebenssimulation)'
-			},
-			{ id: 'music-games', label: 'Musik- und Tanzspiele (z. B. Just Dance Now, SingStar, Let’s Sing)' },
-			{ id: 'skill', label: 'Geschicklichkeitsspiele (z. B. Tetris)' }
-		]
+		id: 'games',
+		options: ['action', 'shooter', 'rpg', 'strategy', 'sports-games', 'simulation', 'music-games', 'skill']
 	},
-	{
-		title: 'Kommunikation übers Internet',
-		options: [
-			{ id: 'chat', label: 'Chatten' },
-			{ id: 'mail', label: 'Emails schreiben' }
-		]
-	},
-	{
-		title: 'Soziale Netzwerke (z. B. TikTok, Instagram, WhatsApp, Telegram, Facebook)',
-		options: [
-			{ id: 'social-watch', label: 'Videos / Bilder angucken' },
-			{ id: 'social-talk', label: 'Austausch mit anderen Personen' }
-		]
-	},
-	{
-		title: 'Surfen im Internet',
-		options: [
-			{ id: 'research', label: 'Recherche' },
-			{ id: 'shopping', label: 'Einkaufen' },
-			{ id: 'magazines', label: 'Online-Magazine' }
-		]
-	},
-	{
-		title: 'Weitere Medienaktivitäten',
-		options: [
-			{ id: 'streaming', label: 'Online-Streaming (z. B. Netflix, Mediatheken, Amazon Prime)' },
-			{ id: 'porn', label: 'Porno-Websites' },
-			{ id: 'device', label: 'Computer / Gerät optimieren' },
-			{ id: 'other-media', label: 'andere Nutzung elektronischer Medien' }
-		]
-	}
-];
+	{ id: 'communication', options: ['chat', 'mail'] },
+	{ id: 'social', options: ['social-watch', 'social-talk'] },
+	{ id: 'surfing', options: ['research', 'shopping', 'magazines'] },
+	{ id: 'more', options: ['streaming', 'porn', 'device', 'other-media'] }
+] as const satisfies ReadonlyArray<ChoiceGroup<keyof Messages['consumptionDiary']['mediaGroups']>>;
 
-const choiceIds = (groups: ChoiceGroup[]) => groups.flatMap((group) => group.options.map((o) => o.id));
-export const GAME_IDS = choiceIds(GAMES);
-export const MEDIA_IDS = choiceIds(MEDIA);
+export const GAME_IDS: string[] = GAMES.flatMap((group) => group.options);
+export const MEDIA_IDS: string[] = MEDIA.flatMap((group) => group.options);
 
-const choiceLabel = (groups: ChoiceGroup[], id: string) =>
-	groups.flatMap((group) => group.options).find((option) => option.id === id)?.label ?? id;
-
-export const CANNABIS_UNITS = {
-	joint: ['Joint', 'Joints'],
-	bong: ['Bong', 'Bongs'],
-	other: ['Anderes', 'Anderes']
+/** The label of a game or media activity; the id for an unknown one. */
+export const activityLabel = (topic: 'gambling' | 'media', id: string, m: Messages): string => {
+	const labels: Record<string, string> =
+		topic === 'gambling' ? m.consumptionDiary.games : m.consumptionDiary.media;
+	return labels[id] ?? id;
 };
 
 /** "5x 0,5 l Bier", "2x Joint", "Spielhalle, 1 Std. 30 Min." */
-export const itemLabel = (topic: TopicId, item: AlcoholItem | CannabisItem | DurationItem): string => {
+export const itemLabel = (
+	topic: TopicId,
+	item: AlcoholItem | CannabisItem | DurationItem,
+	i18n: I18n
+): string => {
+	const { m, t, lang } = i18n;
+	const texts = m.consumptionDiary;
 	if (topic === 'alcohol') {
 		const { drink, size, count } = item as AlcoholItem;
-		return `${count}x ${size} ${drinkOf(drink)?.label ?? drink}`;
+		const drinks: Record<string, string> = texts.drinks;
+		return t(texts.items.alcohol, { count, size: sizeLabel(size, i18n), drink: drinks[drink] ?? drink });
 	}
 	if (topic === 'cannabis') {
-		const { unit, count, text } = item as CannabisItem;
-		return unit === 'other'
-			? `Anderes: ${count > 1 ? `${count}x ` : ''}${text ?? ''}`.trim()
-			: `${count}x ${CANNABIS_UNITS[unit][0]}`;
+		const { unit, count, text = '' } = item as CannabisItem;
+		if (unit === 'other') {
+			return (
+				count > 1 ? t(texts.items.otherKindCount, { count, text }) : t(texts.items.otherKind, { text })
+			).trim();
+		}
+		return t(texts.items.cannabis, { count, unit: texts.cannabisUnits[unit] });
 	}
 	const { activity, minutes } = item as DurationItem;
-	return `${choiceLabel(topic === 'gambling' ? GAMES : MEDIA, activity)}, ${formatMinutes(minutes)}`;
+	return t(texts.items.duration, {
+		activity: activityLabel(topic, activity, m),
+		duration: formatMinutes(minutes, lang)
+	});
 };
 
 export const phaseGrams = (phase: Phase): number =>
@@ -269,20 +241,34 @@ export const phaseGrams = (phase: Phase): number =>
 		? phase.items.reduce((sum, item) => sum + (gramsOf(item.drink, item.size) ?? 0) * item.count, 0)
 		: 0;
 
-const plural = (count: number, one: string, many: string) => `${count} ${count === 1 ? one : many}`;
+/** "19:00 bis 22:30 Uhr" or nothing. */
+export const timeRange = (phase: Phase, { m, t }: I18n): string => {
+	const texts = m.consumptionDiary.phase;
+	const { start, end } = phase;
+	if (start && end) {
+		return t(texts.timeRange, { start, end });
+	}
+	const time = start || end;
+	return time ? t(texts.time, { time }) : '';
+};
 
 /** The day's sum for one topic, as counsellors see it in the week grid. */
-export const daySum = (topic: TopicId, phases: Phase[]): string => {
+export const daySum = (topic: TopicId, phases: Phase[], i18n: I18n): string => {
+	const { m, t, number, lang } = i18n;
+	const sums = m.consumptionDiary.sums;
 	const items = phases
 		.filter((phase) => phase.topic === topic)
 		.flatMap((phase): Array<AlcoholItem | CannabisItem | DurationItem> => phase.items);
 	if (items.length === 0) {
-		return plural(phases.filter((phase) => phase.topic === topic).length, 'Phase', 'Phasen');
+		return t(sums.phases, { count: phases.filter((phase) => phase.topic === topic).length });
 	}
 	if (topic === 'alcohol') {
 		const drinks = (items as AlcoholItem[]).reduce((sum, item) => sum + item.count, 0);
 		const grams = phases.reduce((sum, phase) => sum + (phase.topic === topic ? phaseGrams(phase) : 0), 0);
-		return `${plural(drinks, 'Getränk', 'Getränke')}, ca. ${grams} g Alkohol`;
+		return t(sums.alcohol, {
+			drinks: t(sums.drinks, { count: drinks }),
+			grams: number(grams, { useGrouping: false })
+		});
 	}
 	if (topic === 'cannabis') {
 		const count = (unit: CannabisItem['unit']) =>
@@ -290,225 +276,16 @@ export const daySum = (topic: TopicId, phases: Phase[]): string => {
 				.filter((item) => item.unit === unit)
 				.reduce((sum, item) => sum + item.count, 0);
 		return [
-			count('joint') && plural(count('joint'), 'Joint', 'Joints'),
-			count('bong') && plural(count('bong'), 'Bong', 'Bongs'),
-			count('other') && `${count('other')}x Anderes`
+			count('joint') && t(sums.joints, { count: count('joint') }),
+			count('bong') && t(sums.bongs, { count: count('bong') }),
+			count('other') && t(sums.otherKind, { count: count('other') })
 		]
 			.filter(Boolean)
 			.join(', ');
 	}
 	const minutes = (items as DurationItem[]).reduce((sum, item) => sum + item.minutes, 0);
-	return formatMinutes(minutes);
+	return formatMinutes(minutes, lang);
 };
-
-interface TopicText {
-	label: string;
-	/** Column of the week view. */
-	weekQuestion: (informal: boolean) => string;
-	dayQuestion: (informal: boolean) => string;
-	phaseName: string;
-	/** In the summary: "im Hinblick auf Ihren Alkoholkonsum". */
-	regarding: (informal: boolean) => string;
-	planExample: string;
-	yesIntro: (informal: boolean) => string;
-	yesMore: (informal: boolean) => string;
-	noIntro: (informal: boolean) => string;
-	noMore: (informal: boolean) => string;
-	contextQuestion: (informal: boolean) => string;
-	triggerQuestion: string;
-	saveLabel: string;
-	loggedLabel: string;
-}
-
-const yesMore = (i: boolean, example: string, several: string) =>
-	tx(
-		i,
-		`Wenn Sie zum Beispiel mittags und abends ${example}, machen Sie zwei Einträge. ${several} Das Ziel des Tagebuchs ist es, dass Sie, gemeinsam mit Ihrer Beraterin / Ihrem Berater, Ihr Konsumverhalten möglichst genau verstehen lernen, um es erfolgreich zu verändern.`,
-		`Wenn du zum Beispiel mittags und abends ${example}, mach zwei Einträge. ${several} Das Ziel des Tagebuchs ist es, dass du, gemeinsam mit deiner Beraterin / deinem Berater, dein Konsumverhalten möglichst genau verstehen lernst, um es erfolgreich zu verändern.`
-	);
-
-const noIntro = (i: boolean, what: string, stay: string) =>
-	tx(
-		i,
-		`Sie haben heute ${what}? Wunderbar! Schreiben Sie unbedingt auf, was Ihnen geholfen hat, ${stay} und wie es Ihnen dabei ergangen ist.`,
-		`Du hast heute ${what}? Wunderbar! Schreib unbedingt auf, was dir geholfen hat, ${stay} und wie es dir dabei ergangen ist.`
-	);
-
-const noMore = (i: boolean, life: string) =>
-	tx(
-		i,
-		`Vielleicht konnten Sie erfolgreich Ihre Kontrollstrategien anwenden? Ihre Notizen im Tagebuch helfen Ihnen und Ihrer Beraterin / Ihrem Berater, besonders erfolgreiche Strategien für eine nachhaltige Verhaltensänderung${life} zu erkennen. Wenn Sie nichts eintragen wollen, klicken Sie einfach auf speichern.`,
-		`Vielleicht konntest du erfolgreich deine Kontrollstrategien anwenden? Deine Notizen im Tagebuch helfen dir und deiner Beraterin / deinem Berater, besonders erfolgreiche Strategien für eine nachhaltige Verhaltensänderung${life} zu erkennen. Wenn du nichts eintragen willst, klick einfach auf speichern.`
-	);
-
-const consumptionTrigger = 'Warum? Was war der Grund/Auslöser des Konsums?';
-
-export const TOPICS: Record<TopicId, TopicText> = {
-	alcohol: {
-		label: 'Alkohol',
-		weekQuestion: (i) => tx(i, 'Haben Sie Alkohol getrunken?', 'Hast du Alkohol getrunken?'),
-		dayQuestion: (i) => tx(i, 'Haben Sie heute Alkohol getrunken?', 'Hast du heute Alkohol getrunken?'),
-		phaseName: 'Konsumphase',
-		regarding: (i) => tx(i, 'Ihren Alkoholkonsum', 'deinen Alkoholkonsum'),
-		planExample: 'nicht trinken',
-		yesIntro: (i) =>
-			tx(
-				i,
-				'Protokollieren Sie hier Ihren Alkoholkonsum. Bitte nutzen Sie für jede Konsumsituation/Konsumphase einen neuen Eintrag.',
-				'Protokolliere hier deinen Alkoholkonsum. Bitte nutze für jede Konsumsituation/Konsumphase einen neuen Eintrag.'
-			),
-		yesMore: (i) =>
-			yesMore(
-				i,
-				tx(i, 'getrunken haben', 'getrunken hast'),
-				tx(
-					i,
-					'Wenn Sie in einem Zeitraum mehrere Getränke konsumiert haben, können Sie dies als eine Konsumphase eintragen.',
-					'Wenn du in einem Zeitraum mehrere Getränke konsumiert hast, kannst du dies als eine Konsumphase eintragen.'
-				)
-			),
-		noIntro: (i) =>
-			noIntro(i, tx(i, 'keinen Alkohol getrunken', 'keinen Alkohol getrunken'), 'nüchtern zu bleiben'),
-		noMore: (i) => noMore(i, ' und ein nüchternes Leben'),
-		contextQuestion: (i) => tx(i, 'Mit wem und wo haben Sie getrunken?', 'Mit wem und wo hast du getrunken?'),
-		triggerQuestion: consumptionTrigger,
-		saveLabel: 'Konsumphase speichern',
-		loggedLabel: 'Protokollierte Getränke'
-	},
-	cannabis: {
-		label: 'Cannabis',
-		weekQuestion: (i) => tx(i, 'Haben Sie Cannabis konsumiert?', 'Hast du Cannabis konsumiert?'),
-		dayQuestion: (i) => tx(i, 'Haben Sie heute Cannabis konsumiert?', 'Hast du heute Cannabis konsumiert?'),
-		phaseName: 'Konsumphase',
-		regarding: (i) => tx(i, 'Ihren Cannabiskonsum', 'deinen Cannabiskonsum'),
-		planExample: 'nicht kiffen',
-		yesIntro: (i) =>
-			tx(
-				i,
-				'Protokollieren Sie hier Ihren Cannabiskonsum. Bitte nutzen Sie für jede Konsumsituation/Konsumphase einen neuen Eintrag.',
-				'Protokolliere hier deinen Cannabiskonsum. Bitte nutze für jede Konsumsituation/Konsumphase einen neuen Eintrag.'
-			),
-		yesMore: (i) =>
-			yesMore(
-				i,
-				tx(i, 'gekifft haben', 'gekifft hast'),
-				tx(
-					i,
-					'Wenn Sie in einem Zeitraum mehrfach konsumiert haben, können Sie dies als eine Konsumphase eintragen.',
-					'Wenn du in einem Zeitraum mehrfach konsumiert hast, kannst du dies als eine Konsumphase eintragen.'
-				)
-			),
-		noIntro: (i) => noIntro(i, 'nicht konsumiert', 'nüchtern zu bleiben'),
-		noMore: (i) => noMore(i, ' und ein nüchternes Leben'),
-		contextQuestion: (i) => tx(i, 'Mit wem und wo haben Sie gekifft?', 'Mit wem und wo hast du gekifft?'),
-		triggerQuestion: consumptionTrigger,
-		saveLabel: 'Konsumphase speichern',
-		loggedLabel: 'Protokollierter Konsum'
-	},
-	gambling: {
-		label: 'Glücksspiel',
-		weekQuestion: (i) => tx(i, 'Haben Sie Glücksspiele gespielt?', 'Hast du Glücksspiele gespielt?'),
-		dayQuestion: (i) => tx(i, 'Haben Sie heute gespielt?', 'Hast du heute gespielt?'),
-		phaseName: 'Spielphase',
-		regarding: (i) => tx(i, 'Ihr Glücksspielverhalten', 'dein Glücksspielverhalten'),
-		planExample: 'nicht spielen',
-		yesIntro: (i) =>
-			tx(
-				i,
-				'Protokollieren Sie hier Ihr Glücksspielverhalten. Bitte nutzen Sie für jede Phase in der Sie gespielt haben einen neuen Eintrag.',
-				'Protokolliere hier dein Glücksspielverhalten. Bitte nutze für jede Phase, in der du gespielt hast, einen neuen Eintrag.'
-			),
-		yesMore: (i) =>
-			yesMore(
-				i,
-				tx(i, 'gespielt haben', 'gespielt hast'),
-				tx(
-					i,
-					'Wenn Sie in einem Zeitraum mehrere Glücksspielarten genutzt haben, können Sie diese in einer Spielphase eintragen.',
-					'Wenn du in einem Zeitraum mehrere Glücksspielarten genutzt hast, kannst du diese in einer Spielphase eintragen.'
-				)
-			),
-		noIntro: (i) => noIntro(i, 'keine Glücksspiele gespielt', 'spielfrei zu bleiben'),
-		noMore: (i) => noMore(i, ' und ein spielfreies Leben'),
-		contextQuestion: (i) => tx(i, 'Wo und mit wem haben Sie gespielt?', 'Wo und mit wem hast du gespielt?'),
-		triggerQuestion: 'Warum? Was war der Grund/Auslöser für das Glücksspielen?',
-		saveLabel: 'Eintrag speichern',
-		loggedLabel: 'Protokollierte Glücksspiele'
-	},
-	media: {
-		label: 'Medien',
-		weekQuestion: (i) => tx(i, 'Haben Sie Medien genutzt?', 'Hast du Medien genutzt?'),
-		dayQuestion: (i) => tx(i, 'Haben Sie heute Medien genutzt?', 'Hast du heute Medien genutzt?'),
-		phaseName: 'Medienphase',
-		regarding: (i) => tx(i, 'Ihren Medienkonsum', 'deinen Medienkonsum'),
-		planExample: 'nicht spielen',
-		yesIntro: (i) =>
-			tx(
-				i,
-				'Protokollieren Sie hier Ihren Medienkonsum. Bitte nutzen Sie für jede Konsumsituation/Konsumphase einen neuen Eintrag.',
-				'Protokolliere hier deinen Medienkonsum. Bitte nutze für jede Konsumsituation/Konsumphase einen neuen Eintrag.'
-			),
-		yesMore: (i) =>
-			tx(
-				i,
-				'Wenn Sie zum Beispiel mittags und abends Medien genutzt haben, machen Sie zwei Einträge. Wenn Sie in einem Zeitraum mehrere Medien konsumiert haben, können Sie dies als eine Konsumphase eintragen. Das Ziel des Tagebuchs ist es, dass Sie, gemeinsam mit Ihrer Beraterin / Ihrem Berater, Ihr Mediennutzungsverhalten möglichst genau verstehen lernen, um es erfolgreich zu verändern.',
-				'Wenn du zum Beispiel mittags und abends Medien genutzt hast, mach zwei Einträge. Wenn du in einem Zeitraum mehrere Medien konsumiert hast, kannst du dies als eine Konsumphase eintragen. Das Ziel des Tagebuchs ist es, dass du, gemeinsam mit deiner Beraterin / deinem Berater, dein Mediennutzungsverhalten möglichst genau verstehen lernst, um es erfolgreich zu verändern.'
-			),
-		noIntro: (i) =>
-			tx(
-				i,
-				'Sie haben heute keine Medien genutzt? Wunderbar! Schreiben Sie unbedingt auf, was Ihnen dabei geholfen hat und wie es Ihnen dabei ergangen ist.',
-				'Du hast heute keine Medien genutzt? Wunderbar! Schreib unbedingt auf, was dir dabei geholfen hat und wie es dir dabei ergangen ist.'
-			),
-		noMore: (i) => noMore(i, ''),
-		contextQuestion: (i) =>
-			tx(i, 'Wo und mit wem haben Sie Medien genutzt?', 'Wo und mit wem hast du Medien genutzt?'),
-		triggerQuestion: 'Warum? Was war der Grund/Auslöser für die Mediennutzung?',
-		saveLabel: 'Eintrag speichern',
-		loggedLabel: 'Protokollierter Konsum von Medien'
-	}
-};
-
-export const deviceQuestion = (informal: boolean): string =>
-	tx(
-		informal,
-		'Welches Endgerät haben Sie genutzt? (z. B. Computer, Smartphone, Computerspielkonsole/tragbares Computerspielgerät)',
-		'Welches Endgerät hast du genutzt? (z. B. Computer, Smartphone, Computerspielkonsole/tragbares Computerspielgerät)'
-	);
-
-export const ratingQuestion = (topic: TopicId, informal: boolean): string =>
-	tx(
-		informal,
-		`Wie bewerten Sie den heutigen Tag im Hinblick auf ${TOPICS[topic].regarding(informal)}?`,
-		`Wie bewertest du den heutigen Tag im Hinblick auf ${TOPICS[topic].regarding(informal)}?`
-	);
-
-export const ratingHint = (informal: boolean): string =>
-	tx(
-		informal,
-		'Was ist Ihnen heute gut gelungen? Was lief nicht so optimal? Denken Sie dabei an Ihr persönliches Ziel.',
-		'Was ist dir heute gut gelungen? Was lief nicht so optimal? Denk dabei an dein persönliches Ziel.'
-	);
-
-export const planQuestion = (informal: boolean): string =>
-	tx(informal, 'Was nehmen Sie sich für morgen vor?', 'Was nimmst du dir für morgen vor?');
-
-export const planHint = (topic: TopicId, informal: boolean): string =>
-	tx(
-		informal,
-		`Setzen Sie sich für den nächsten Tag eine Aufgabe bzw. ein Kleinziel? (Beispiel: ${TOPICS[topic].planExample}, eine Aufgabe erledigen, eine schöne Unternehmung etc.)`,
-		`Setzt du dir für den nächsten Tag eine Aufgabe bzw. ein Kleinziel? (Beispiel: ${TOPICS[topic].planExample}, eine Aufgabe erledigen, eine schöne Unternehmung etc.)`
-	);
-
-export const deleteQuestion = (topic: TopicId): string =>
-	`Alle für diesen Tag eingetragenen ${TOPICS[topic].phaseName === 'Spielphase' ? 'Spielphasen' : TOPICS[topic].phaseName === 'Medienphase' ? 'Medienphasen' : 'Konsumphasen'} werden gelöscht. Trotzdem fortfahren?`;
-
-export const startMessage = (informal: boolean): string =>
-	tx(
-		informal,
-		'Das Tagebuch dient dazu, alle Aspekte im Zusammenhang mit der angezielten Verhaltensänderung täglich zu notieren. Wichtig ist es, kontinuierlich dabei zu bleiben und alle relevanten Gedanken und Gefühle ausführlich im Tagebuch zu dokumentieren. Das hilft Ihnen, Ihr Ziel zu erreichen! Je genauer Ihre Beraterin / Ihr Berater sich ein Bild von Ihrer Situation machen kann, desto besser können Sie beraten werden. Deshalb empfehlen wir Ihnen, Ihre Einträge für Ihre Beraterin / Ihren Berater sichtbar zu machen.',
-		'Das Tagebuch dient dazu, alle Aspekte im Zusammenhang mit der angezielten Verhaltensänderung täglich zu notieren. Wichtig ist es, kontinuierlich dabei zu bleiben und alle relevanten Gedanken und Gefühle ausführlich im Tagebuch zu dokumentieren. Das hilft dir, dein Ziel zu erreichen! Je genauer deine Beraterin / dein Berater sich ein Bild von deiner Situation machen kann, desto besser kannst du beraten werden. Deshalb empfehlen wir dir, deine Einträge für deine Beraterin / deinen Berater sichtbar zu machen.'
-	);
 
 /** The client's diary, grouped for the views and the export. */
 export interface DiaryData {

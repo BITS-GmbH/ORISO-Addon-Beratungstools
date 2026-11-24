@@ -20,8 +20,8 @@ import {
 	phasesOn,
 	SUMMARY_KIND,
 	summaryKey,
+	timeRange,
 	TOPIC_IDS,
-	TOPICS,
 	TOPICS_KEY,
 	TOPICS_KIND,
 	type TopicId
@@ -106,7 +106,9 @@ export const consumptionDiary: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const { m, t, lang } = i18n;
+		const texts = m.consumptionDiary;
 		const diary = diaryOf(entries);
 		const days = [
 			...new Set([...[...diary.summaries.values()].map((e) => e.day), ...diary.phases.map((e) => e.day)])
@@ -114,42 +116,46 @@ export const consumptionDiary: ServerTool = {
 			.filter((day): day is string => Boolean(day))
 			.sort();
 		if (days.length === 0) {
-			pdf.paragraph('Keine Einträge in diesem Zeitraum.', { muted: true });
+			pdf.paragraph(texts.pdf.noEntries, { muted: true });
 			return;
 		}
 		if (diary.chosen.length) {
-			pdf.paragraph(`Dokumentierte Themen: ${diary.chosen.map((id) => TOPICS[id].label).join(', ')}`, {
-				muted: true
-			});
+			pdf.paragraph(
+				t(texts.pdf.topics, { topics: diary.chosen.map((id) => texts.topics[id].label).join(', ') }),
+				{ muted: true }
+			);
 		}
 		for (const day of days) {
-			pdf.heading(formatDayLong(day));
+			pdf.heading(formatDayLong(day, lang));
 			for (const topic of diary.topics) {
 				const consumed = consumedOn(diary, day, topic);
 				if (consumed === null) {
 					continue;
 				}
 				const phases = phasesOn(diary, day, topic);
+				const label = texts.topics[topic].label;
 				pdf.subheading(
-					`${TOPICS[topic].label}: ${
-						consumed
-							? `ja (${daySum(
+					consumed
+						? t(texts.pdf.answerYes, {
+								topic: label,
+								sum: daySum(
 									topic,
-									phases.map((p) => p.data)
-								)})`
-							: 'nein'
-					}`
+									phases.map((p) => p.data),
+									i18n
+								)
+							})
+						: t(texts.pdf.answerNo, { topic: label })
 				);
 				for (const { data: phase } of phases) {
-					const when = [phase.start, phase.end].filter(Boolean).join(' bis ');
+					const when = timeRange(phase, i18n);
 					pdf.item(
-						phase.items.map((item) => itemLabel(topic, item)).join('; ') || 'Keine Angaben zum Konsum',
-						when ? `${when} Uhr` : undefined
+						phase.items.map((item) => itemLabel(topic, item, i18n)).join('; ') || texts.phase.noItems,
+						when || undefined
 					);
 					const details = [
-						phase.topic === 'media' && phase.device ? `Endgerät: ${phase.device}` : '',
-						phase.context ? `Wo und mit wem: ${phase.context}` : '',
-						phase.trigger ? `Grund/Auslöser: ${phase.trigger}` : ''
+						phase.topic === 'media' && phase.device ? t(texts.pdf.device, { device: phase.device }) : '',
+						phase.context ? t(texts.pdf.context, { context: phase.context }) : '',
+						phase.trigger ? t(texts.pdf.trigger, { trigger: phase.trigger }) : ''
 					].filter(Boolean);
 					if (details.length) {
 						pdf.paragraph(details.join('\n'));
@@ -157,15 +163,16 @@ export const consumptionDiary: ServerTool = {
 				}
 				const summary = diary.summaries.get(summaryKey(day, topic))?.data;
 				if (summary?.rating) {
-					pdf.field('Bewertung des Tages', summary.rating);
+					pdf.field(texts.pdf.rating, summary.rating);
 				}
 				if (summary?.plan) {
-					pdf.field('Vorhaben für morgen', summary.plan);
+					pdf.field(texts.pdf.plan, summary.plan);
 				}
 			}
 		}
 	},
-	demo: () => {
+	demo: ({ m }) => {
+		const texts = m.consumptionDiary.demo;
 		const today = new Date().toISOString().slice(0, 10);
 		const summary = (offset: number, topic: TopicId, consumed: boolean, rating?: string, plan?: string) => {
 			const day = addDays(today, offset);
@@ -178,13 +185,7 @@ export const consumptionDiary: ServerTool = {
 		};
 		const seeds: SeedEntry[] = [
 			{ kind: TOPICS_KIND, key: TOPICS_KEY, data: { topics: ['alcohol', 'gambling'] } },
-			summary(
-				-1,
-				'alcohol',
-				true,
-				'Nach dem Streit habe ich mehr getrunken als geplant.',
-				'Nach der Arbeit direkt nach Hause gehen.'
-			),
+			summary(-1, 'alcohol', true, texts.alcoholRating, texts.alcoholPlan),
 			{
 				kind: PHASE_KIND,
 				day: addDays(today, -1),
@@ -196,12 +197,12 @@ export const consumptionDiary: ServerTool = {
 						{ drink: 'beer', size: '0,5 l', count: 3 },
 						{ drink: 'spirits', size: '0,02 l / 2 cl', count: 1 }
 					],
-					context: 'Zu Hause, allein',
-					trigger: 'Streit am Telefon'
+					context: texts.alcoholContext,
+					trigger: texts.alcoholTrigger
 				}
 			},
-			summary(-1, 'gambling', false, 'Kein Geld eingesteckt, das hat geholfen.'),
-			summary(-2, 'alcohol', false, 'Abends Sport gemacht statt Bier.', 'Wieder zum Sport gehen.'),
+			summary(-1, 'gambling', false, texts.gamblingRating),
+			summary(-2, 'alcohol', false, texts.soberRating, texts.soberPlan),
 			summary(-2, 'gambling', true),
 			{
 				kind: PHASE_KIND,
@@ -211,8 +212,8 @@ export const consumptionDiary: ServerTool = {
 					start: '17:30',
 					end: '19:00',
 					items: [{ activity: 'online-sports', minutes: 90 }],
-					context: 'Im Bus und zu Hause',
-					trigger: 'Langeweile'
+					context: texts.gamblingContext,
+					trigger: texts.gamblingTrigger
 				}
 			}
 		];

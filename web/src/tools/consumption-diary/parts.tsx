@@ -1,12 +1,6 @@
 import type { Entry } from '../../../../shared/api.ts';
-import { itemLabel, type Phase, type TopicId } from '../../../../shared/tools/consumption-diary.ts';
-
-export const PHASE_TITLES: Record<TopicId, string> = {
-	alcohol: 'Alkohol: Konsumphase eintragen',
-	cannabis: 'Cannabis: Konsum eintragen',
-	gambling: 'Glücksspiele eintragen',
-	media: 'Medienkonsum eintragen'
-};
+import { itemLabel, timeRange, type Phase } from '../../../../shared/tools/consumption-diary.ts';
+import { useI18n } from '../../host.ts';
 
 /** "nein / ja" as two radio buttons, compact enough for the week grid. */
 export function YesNo({
@@ -20,16 +14,17 @@ export function YesNo({
 	onChange: (value: boolean) => void;
 	disabled?: boolean;
 }) {
+	const { m } = useI18n();
 	return (
 		<span className="bt-yesno" role="radiogroup" aria-label={label}>
 			{(
 				[
-					[false, 'nein'],
-					[true, 'ja']
+					[false, m.consumptionDiary.no],
+					[true, m.consumptionDiary.yes]
 				] as const
 			).map(([option, text]) => (
 				<button
-					key={text}
+					key={String(option)}
 					type="button"
 					role="radio"
 					aria-checked={value === option}
@@ -43,20 +38,16 @@ export function YesNo({
 	);
 }
 
-/** "19:00 bis 22:30 Uhr" or nothing. */
-export const timeRange = (phase: Phase): string => {
-	const range = [phase.start, phase.end].filter(Boolean).join(' bis ');
-	return range ? `${range} Uhr` : '';
-};
-
 /** One phase in a few words: time and what was consumed. */
 export function PhaseSnippet({ phase }: { phase: Entry<Phase> }) {
+	const i18n = useI18n();
+	const texts = i18n.m.consumptionDiary.phase;
 	const { data } = phase;
-	const when = timeRange(data);
+	const when = timeRange(data, i18n);
 	return (
 		<span className="bt-item__text">
-			{when && <strong>{when}: </strong>}
-			{data.items.map((item) => itemLabel(data.topic, item)).join('; ') || 'Keine Angaben zum Konsum'}
+			{when && <strong>{i18n.t(texts.when, { time: when })} </strong>}
+			{data.items.map((item) => itemLabel(data.topic, item, i18n)).join('; ') || texts.noItems}
 		</span>
 	);
 }

@@ -1,6 +1,5 @@
 import { Button, Card, DatePicker, Headline } from '@oriso/web-kit';
 import { useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
 import {
 	addDays,
 	formatDayShort,
@@ -13,11 +12,9 @@ import {
 	consumedOn,
 	diaryOf,
 	phasesOn,
-	startMessage,
 	SUMMARY_KIND,
 	summaryKey,
 	TOPIC_IDS,
-	TOPICS,
 	TOPICS_KEY,
 	TOPICS_KIND,
 	type DaySummary,
@@ -25,6 +22,7 @@ import {
 	type TopicId
 } from '../../../../shared/tools/consumption-diary.ts';
 import { PlannedActivities } from '../../core/PlannedActivities.tsx';
+import { useI18n } from '../../host.ts';
 import { Switch, WeekNav } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 import { DayView } from './DayView.tsx';
@@ -39,7 +37,6 @@ export type Screen =
 export interface DiaryActions {
 	diary: DiaryData;
 	store: ClientViewProps['store'];
-	informal: boolean;
 	today: string;
 	/** Stores the yes/no answer and keeps the day's summary texts. */
 	answer(day: string, topic: TopicId, consumed: boolean, texts?: Pick<DaySummary, 'rating' | 'plan'>): void;
@@ -49,20 +46,19 @@ export interface DiaryActions {
 }
 
 /** The consumption diary (section 2.2): topics, "Meine Woche", day overviews with phases and the day's summary. */
-export function ConsumptionClient({ tool, entries, store, informal, openTool }: ClientViewProps) {
+export function ConsumptionClient({ tool, entries, store, openTool }: ClientViewProps) {
+	const { m } = useI18n();
+	const texts = m.consumptionDiary;
 	const diary = diaryOf(entries);
 	const today = localToday();
 	const [screen, setScreen] = useState<Screen>(() => ({ name: diary.chosen.length ? 'week' : 'settings' }));
 	const [monday, setMonday] = useState(() => weekStart(today));
 	const intro =
-		typeof tool.options.intro === 'string' && tool.options.intro
-			? tool.options.intro
-			: startMessage(informal);
+		typeof tool.options.intro === 'string' && tool.options.intro ? tool.options.intro : texts.intro;
 
 	const actions: DiaryActions = {
 		diary,
 		store,
-		informal,
 		today,
 		answer(day, topic, consumed, texts) {
 			const current = diary.summaries.get(summaryKey(day, topic))?.data;
@@ -107,14 +103,8 @@ export function ConsumptionClient({ tool, entries, store, informal, openTool }: 
 	return (
 		<div className="bt-stack">
 			{!firstUse && (
-				<nav className="bt-navtabs" aria-label="Konsumtagebuch">
-					{(
-						[
-							['week', 'Meine Woche'],
-							['entry', 'Tagebucheintrag'],
-							['settings', 'Einstellungen']
-						] as const
-					).map(([name, label]) => (
+				<nav className="bt-navtabs" aria-label={texts.nav.label}>
+					{(['week', 'entry', 'settings'] as const).map((name) => (
 						<button
 							key={name}
 							type="button"
@@ -122,7 +112,7 @@ export function ConsumptionClient({ tool, entries, store, informal, openTool }: 
 							aria-current={screen.name === name ? 'page' : undefined}
 							onClick={() => setScreen({ name })}
 						>
-							{label}
+							{texts.nav[name]}
 						</button>
 					))}
 				</nav>
@@ -132,7 +122,6 @@ export function ConsumptionClient({ tool, entries, store, informal, openTool }: 
 					key={diary.chosen.join()}
 					chosen={diary.chosen}
 					intro={firstUse ? intro : null}
-					informal={informal}
 					onSave={(topics) => {
 						void store.putKeyed(TOPICS_KIND, TOPICS_KEY, { topics });
 						setScreen({ name: 'week' });
@@ -147,7 +136,6 @@ export function ConsumptionClient({ tool, entries, store, informal, openTool }: 
 			) : (
 				<Week
 					diary={diary}
-					informal={informal}
 					intro={intro}
 					today={today}
 					monday={monday}
@@ -164,14 +152,14 @@ export function ConsumptionClient({ tool, entries, store, informal, openTool }: 
 function TopicSettings({
 	chosen,
 	intro,
-	informal,
 	onSave
 }: {
 	chosen: TopicId[];
 	intro: string | null;
-	informal: boolean;
 	onSave: (topics: TopicId[]) => void;
 }) {
+	const { m } = useI18n();
+	const texts = m.consumptionDiary;
 	const [selected, setSelected] = useState<TopicId[]>(chosen);
 	const [showAll, setShowAll] = useState(chosen.length === 0);
 	const [problem, setProblem] = useState(false);
@@ -182,19 +170,19 @@ function TopicSettings({
 			{intro && (
 				<Card>
 					<div className="bt-stack bt-stack--tight">
-						<Headline level={3}>Über das Konsumtagebuch</Headline>
+						<Headline level={3}>{texts.about}</Headline>
 						<p className="bt-pre">{intro}</p>
 					</div>
 				</Card>
 			)}
 			<Card>
 				<div className="bt-stack">
-					<h3 className="bt-title">Diese Themen dokumentieren:</h3>
+					<h3 className="bt-title">{texts.settings.title}</h3>
 					<div className="bt-stack bt-stack--tight">
 						{visible.map((id) => (
 							<div key={id} className="bt-entry">
 								<Switch
-									label={TOPICS[id].label}
+									label={texts.topics[id].label}
 									checked={selected.includes(id)}
 									onChange={(on) => {
 										setProblem(false);
@@ -207,18 +195,18 @@ function TopicSettings({
 					{moreTopics && (
 						<div>
 							<button type="button" className="bt-linkbtn" onClick={() => setShowAll(true)}>
-								weiteres Thema hinzufügen
+								{texts.settings.addTopic}
 							</button>
 						</div>
 					)}
 					{problem && (
 						<p role="alert" style={{ color: 'var(--bt-error)' }}>
-							{tx(informal, 'Bitte wählen Sie mindestens ein Thema.', 'Bitte wähle mindestens ein Thema.')}
+							{texts.settings.pickTopic}
 						</p>
 					)}
 					<div>
 						<Button onClick={() => (selected.length ? onSave(selected) : setProblem(true))}>
-							{chosen.length ? 'Speichern' : 'Tagebuch starten'}
+							{chosen.length ? texts.settings.save : texts.settings.start}
 						</Button>
 					</div>
 				</div>
@@ -236,16 +224,23 @@ function NewEntry({
 	today: string;
 	onOpen: (day: string, topic: TopicId) => void;
 }) {
+	const { m, t } = useI18n();
+	const texts = m.consumptionDiary;
 	const [day, setDay] = useState(today);
 	return (
 		<Card>
 			<div className="bt-stack">
-				<Headline level={3}>Tagebucheintrag</Headline>
-				<DatePicker label="Datum" value={day} max={today} onChange={(value) => setDay(value || today)} />
+				<Headline level={3}>{texts.newEntry.title}</Headline>
+				<DatePicker
+					label={texts.newEntry.date}
+					value={day}
+					max={today}
+					onChange={(value) => setDay(value || today)}
+				/>
 				<div className="bt-row">
 					{topics.map((topic) => (
 						<Button key={topic} variant="secondary" onClick={() => onOpen(day > today ? today : day, topic)}>
-							{`${TOPICS[topic].label} Eintrag hinzufügen`}
+							{t(texts.newEntry.add, { topic: texts.topics[topic].label })}
 						</Button>
 					))}
 				</div>
@@ -256,7 +251,6 @@ function NewEntry({
 
 function Week({
 	diary,
-	informal,
 	intro,
 	today,
 	monday,
@@ -266,7 +260,6 @@ function Week({
 	onPlan
 }: {
 	diary: DiaryData;
-	informal: boolean;
 	intro: string;
 	today: string;
 	monday: string;
@@ -275,25 +268,27 @@ function Week({
 	linked: NonNullable<ClientViewProps['tool']['linked']>;
 	onPlan?: () => void;
 }) {
+	const { m, t, lang } = useI18n();
+	const texts = m.consumptionDiary;
 	const [showIntro, setShowIntro] = useState(false);
 	const topics = diary.chosen;
 	return (
 		<Card>
 			<div className="bt-stack">
 				<div className="bt-row bt-row--between">
-					<Headline level={3}>Meine Woche</Headline>
+					<Headline level={3}>{texts.week.title}</Headline>
 					<button
 						type="button"
 						className="bt-linkbtn"
 						aria-expanded={showIntro}
 						onClick={() => setShowIntro(!showIntro)}
 					>
-						Über das Konsumtagebuch
+						{texts.about}
 					</button>
 				</div>
 				{showIntro && <p className="bt-pre bt-muted">{intro}</p>}
 				<WeekNav
-					label={formatWeek(monday)}
+					label={formatWeek(monday, lang)}
 					onPrevious={() => onWeek(addDays(monday, -7))}
 					onNext={() => onWeek(addDays(monday, 7))}
 					nextDisabled={addDays(monday, 7) > today}
@@ -302,17 +297,22 @@ function Week({
 					<div className="bt-week__row bt-week__row--head" aria-hidden>
 						<span />
 						{topics.map((topic) => (
-							<span key={topic}>{TOPICS[topic].weekQuestion(informal)}</span>
+							<span key={topic}>{texts.topics[topic].weekQuestion}</span>
 						))}
 					</div>
 					{weekDays(monday).map((day) => (
 						<div key={day} className="bt-week__row">
-							<span className={`bt-week__day${day === today ? ' is-today' : ''}`}>{formatDayShort(day)}</span>
+							<span className={`bt-week__day${day === today ? ' is-today' : ''}`}>
+								{formatDayShort(day, lang)}
+							</span>
 							{topics.map((topic) => (
 								<div key={topic} className="bt-week__cell">
-									<span className="bt-week__topic">{TOPICS[topic].weekQuestion(informal)}</span>
+									<span className="bt-week__topic">{texts.topics[topic].weekQuestion}</span>
 									<YesNo
-										label={`${formatDayShort(day)}: ${TOPICS[topic].weekQuestion(informal)}`}
+										label={t(texts.week.cell, {
+											day: formatDayShort(day, lang),
+											question: texts.topics[topic].weekQuestion
+										})}
 										value={consumedOn(diary, day, topic)}
 										disabled={day > today}
 										onChange={(consumed) => onChoose(day, topic, consumed)}

@@ -6,8 +6,7 @@ import {
 	diaryOf,
 	gramsOf,
 	itemLabel,
-	ratingQuestion,
-	TOPICS,
+	sizeLabel,
 	type Phase
 } from '../../shared/tools/consumption-diary.ts';
 import {
@@ -105,11 +104,19 @@ describe('consumption-diary', () => {
 				]
 			}
 		];
-		expect(daySum('alcohol', phases)).toBe('4 Getränke, ca. 75 g Alkohol');
-		expect(daySum('cannabis', phases)).toBe('2 Joints, 1 Bong');
-		expect(daySum('gambling', phases)).toBe('1 Std. 15 Min.');
-		expect(itemLabel('alcohol', { drink: 'beer', size: '0,5 l', count: 5 })).toBe('5x 0,5 l Bier');
-		expect(itemLabel('cannabis', { unit: 'other', count: 1, text: 'Kekse' })).toBe('Anderes: Kekse');
+		const de = i18n('de');
+		expect(daySum('alcohol', phases, de)).toBe('4 Getränke, ca. 75 g Alkohol');
+		expect(daySum('cannabis', phases, de)).toBe('2 Joints, 1 Bong');
+		expect(daySum('gambling', phases, de)).toBe('1 Std. 15 Min.');
+		expect(itemLabel('alcohol', { drink: 'beer', size: '0,5 l', count: 5 }, de)).toBe('5x 0,5 l Bier');
+		expect(itemLabel('cannabis', { unit: 'other', count: 1, text: 'Kekse' }, de)).toBe('Anderes: Kekse');
+		const en = i18n('en');
+		expect(daySum('alcohol', phases, en)).toBe('4 drinks, about 75 g of alcohol');
+		expect(daySum('cannabis', phases, en)).toBe('2 joints, 1 bong');
+		expect(itemLabel('alcohol', { drink: 'spirits', size: '0,02 l / 2 cl', count: 1 }, en)).toBe(
+			'1x 0.02 l / 2 cl Spirits'
+		);
+		expect(itemLabel('gambling', { activity: 'sports', minutes: 45 }, en)).toMatch(/^Sports betting, /);
 	});
 
 	it('reads yes from phases when the day has no answer', () => {
@@ -125,20 +132,22 @@ describe('consumption-diary', () => {
 		expect(consumedOn(diary, '2026-11-18', 'alcohol')).toBeNull();
 	});
 
+	it('formats sizes for the language', () => {
+		expect(sizeLabel('0,375 l', i18n('de'))).toBe('0,375 l');
+		expect(sizeLabel('1,0 l', i18n('de'))).toBe('1,0 l');
+		expect(sizeLabel('0,375 l', i18n('en'))).toBe('0.375 l');
+		expect(sizeLabel('1,0 l', i18n('en'))).toBe('1.0 l');
+	});
+
 	it('addresses the client formally or informally', () => {
-		expect(ratingQuestion('alcohol', false)).toBe(
+		expect(i18n('de').m.consumptionDiary.topics.alcohol.ratingQuestion).toBe(
 			'Wie bewerten Sie den heutigen Tag im Hinblick auf Ihren Alkoholkonsum?'
 		);
-		expect(ratingQuestion('cannabis', true)).toBe(
+		expect(i18n('de', true).m.consumptionDiary.topics.cannabis.ratingQuestion).toBe(
 			'Wie bewertest du den heutigen Tag im Hinblick auf deinen Cannabiskonsum?'
 		);
-		for (const topic of Object.values(TOPICS)) {
-			for (const text of [
-				topic.yesIntro(true),
-				topic.yesMore(true),
-				topic.noIntro(true),
-				topic.noMore(true)
-			]) {
+		for (const topic of Object.values(i18n('de', true).m.consumptionDiary.topics)) {
+			for (const text of [topic.yesIntro, topic.yesMore, topic.noIntro, topic.pastNoIntro, topic.noMore]) {
 				expect(text).not.toMatch(/\b(Sie|Ihre?[nm]?|Ihnen)\b/);
 			}
 		}
@@ -167,5 +176,26 @@ describe('consumption-diary', () => {
 		expect(out).toContain('## Glücksspiel: nein');
 		expect(out).toContain('Vorhaben für morgen: Wieder zum Sport gehen.');
 		expect(out.indexOf('## Glücksspiel: ja')).toBeLessThan(out.indexOf('## Alkohol: ja'));
+	});
+
+	it('writes the export in English', () => {
+		const en = i18n('en');
+		const demo = consumptionDiary.demo?.(en) ?? [];
+		const { writer, text } = createWriter();
+		consumptionDiary.exportPdf(writer, {
+			entries: demo.map((seed) => entry(seed.kind, seed.data, seed.day ?? null, seed.key ?? null)),
+			options: {},
+			linked: {},
+			counsellors: [],
+			i18n: en
+		});
+		const out = text();
+		expect(out).toContain('Topics recorded: Alcohol, Gambling');
+		expect(out).toContain('## Alcohol: yes (4 drinks, about 63 g of alcohol)');
+		expect(out).toContain('- 3x 0.5 l Beer; 1x 0.02 l / 2 cl Spirits (19:00 to 22:30)');
+		expect(out).toContain('## Gambling: no');
+		expect(out).toContain('Plan for tomorrow: Go to sport again.');
+		expect(out).toContain('Reason or trigger: Argument on the phone');
+		expect(out).not.toMatch(/[äöüß]|Uhr\b/);
 	});
 });

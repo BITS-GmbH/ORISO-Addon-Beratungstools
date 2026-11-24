@@ -3,23 +3,15 @@ import { useState } from 'react';
 import { formatDayLong } from '../../../../shared/days.ts';
 import {
 	consumedOn,
-	deleteQuestion,
 	MAX_TEXT_LENGTH,
 	phasesOn,
-	planHint,
-	planQuestion,
-	ratingHint,
-	ratingQuestion,
 	summaryKey,
-	TOPICS,
 	type TopicId
 } from '../../../../shared/tools/consumption-diary.ts';
+import { useI18n } from '../../host.ts';
 import { BackButton, Icon } from '../../ui.tsx';
 import type { DiaryActions } from './ConsumptionClient.tsx';
 import { PhaseSnippet } from './parts.tsx';
-
-const onDay = (text: string, isToday: boolean) =>
-	isToday ? text : text.replace('heute ', 'an diesem Tag ').replace('den heutigen Tag', 'diesen Tag');
 
 /** "Tagebuch | Alkohol" of one day: the yes/no answer, the phases (on yes) and the day's summary. */
 export function DayView({
@@ -35,8 +27,10 @@ export function DayView({
 	actions: DiaryActions;
 	onChoose: (day: string, topic: TopicId, consumed: boolean) => void;
 }) {
-	const { diary, informal, today, store } = actions;
-	const text = TOPICS[topic];
+	const { m, t, lang } = useI18n();
+	const texts = m.consumptionDiary;
+	const { diary, today, store } = actions;
+	const text = texts.topics[topic];
 	const isToday = day === today;
 	const consumed = consumedOn(diary, day, topic);
 	const phases = phasesOn(diary, day, topic);
@@ -56,19 +50,19 @@ export function DayView({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={() => actions.go({ name: 'week' })}>Zur Wochenübersicht</BackButton>
+			<BackButton onClick={() => actions.go({ name: 'week' })}>{texts.day.back}</BackButton>
 			<Card>
 				<div className="bt-stack">
 					<div>
-						<p className="bt-overline">Tagebuch | {text.label}</p>
-						<Headline level={3}>{formatDayLong(day)}</Headline>
+						<p className="bt-overline">{t(texts.day.overline, { topic: text.label })}</p>
+						<Headline level={3}>{formatDayLong(day, lang)}</Headline>
 					</div>
 					<RadioGroup
-						label={onDay(text.dayQuestion(informal), isToday)}
+						label={isToday ? text.dayQuestion : text.pastDayQuestion}
 						value={consumed === null ? '' : consumed ? 'yes' : 'no'}
 						options={[
-							{ value: 'no', label: 'nein' },
-							{ value: 'yes', label: 'ja' }
+							{ value: 'no', label: texts.no },
+							{ value: 'yes', label: texts.yes }
 						]}
 						onChange={(value) => {
 							if (value === 'no' && phases.length > 0) {
@@ -79,10 +73,10 @@ export function DayView({
 						}}
 					/>
 					{askNo && phases.length > 0 && (
-						<div className="bt-confirm" role="alertdialog" aria-label="Einträge löschen">
-							<span style={{ flex: 1 }}>{deleteQuestion(topic)}</span>
+						<div className="bt-confirm" role="alertdialog" aria-label={texts.day.deleteAll}>
+							<span style={{ flex: 1 }}>{text.deleteAllQuestion}</span>
 							<Button variant="tertiary" onClick={() => setAskNo(false)}>
-								Abbrechen
+								{texts.day.cancel}
 							</Button>
 							<Button
 								onClick={() => {
@@ -90,13 +84,13 @@ export function DayView({
 									void actions.deletePhases(day, topic);
 								}}
 							>
-								Einträge löschen
+								{texts.day.deleteAll}
 							</Button>
 						</div>
 					)}
 					{consumed !== null && (
 						<div className="bt-stack bt-stack--tight">
-							<p>{consumed ? text.yesIntro(informal) : onDay(text.noIntro(informal), isToday)}</p>
+							<p>{consumed ? text.yesIntro : isToday ? text.noIntro : text.pastNoIntro}</p>
 							<div>
 								<button
 									type="button"
@@ -104,12 +98,10 @@ export function DayView({
 									aria-expanded={more}
 									onClick={() => setMore(!more)}
 								>
-									{consumed ? 'mehr Info' : 'Mehr Infos'}
+									{consumed ? texts.day.moreAfterYes : texts.day.moreAfterNo}
 								</button>
 							</div>
-							{more && (
-								<p className="bt-muted">{consumed ? text.yesMore(informal) : text.noMore(informal)}</p>
-							)}
+							{more && <p className="bt-muted">{consumed ? text.yesMore : text.noMore}</p>}
 						</div>
 					)}
 				</div>
@@ -117,26 +109,26 @@ export function DayView({
 			{consumed && (
 				<Card>
 					<div className="bt-stack bt-stack--tight">
-						<h3 className="bt-title">Für diesen Tag protokolliert:</h3>
+						<h3 className="bt-title">{texts.day.logged}</h3>
 						{phases.length === 0 ? (
-							<p className="bt-muted">bisher kein Eintrag</p>
+							<p className="bt-muted">{texts.day.noPhase}</p>
 						) : (
 							<ul className="bt-list">
 								{phases.map((phase) => (
 									<li key={phase.id} className="bt-item">
 										{deleting === phase.id ? (
 											<div className="bt-row" style={{ flex: 1 }}>
-												<span style={{ flex: 1 }}>Diese {text.phaseName} löschen?</span>
+												<span style={{ flex: 1 }}>{text.deletePhaseQuestion}</span>
 												<Button
 													onClick={() => {
 														setDeleting(null);
 														void store.remove(phase.id);
 													}}
 												>
-													Löschen
+													{texts.day.delete}
 												</Button>
 												<Button variant="tertiary" onClick={() => setDeleting(null)}>
-													Abbrechen
+													{texts.day.cancel}
 												</Button>
 											</div>
 										) : (
@@ -145,8 +137,8 @@ export function DayView({
 												<button
 													type="button"
 													className="bt-iconbtn"
-													title="bearbeiten"
-													aria-label={`${text.phaseName} bearbeiten`}
+													title={texts.day.editTitle}
+													aria-label={text.editPhase}
 													onClick={() => actions.go({ name: 'phase', day, topic, id: phase.id })}
 												>
 													<Icon name="edit" />
@@ -154,8 +146,8 @@ export function DayView({
 												<button
 													type="button"
 													className="bt-iconbtn"
-													title="löschen"
-													aria-label={`${text.phaseName} löschen`}
+													title={texts.day.deleteTitle}
+													aria-label={text.deletePhase}
 													onClick={() => setDeleting(phase.id)}
 												>
 													<Icon name="delete" />
@@ -168,7 +160,7 @@ export function DayView({
 						)}
 						<div>
 							<Button variant="secondary" onClick={() => actions.go({ name: 'phase', day, topic })}>
-								{`neue ${text.phaseName} eintragen`}
+								{text.newPhase}
 							</Button>
 						</div>
 					</div>
@@ -177,25 +169,25 @@ export function DayView({
 			{consumed !== null && (
 				<Card>
 					<div className="bt-stack">
-						<p className="bt-overline">Resümee des Tages</p>
+						<p className="bt-overline">{texts.day.summary}</p>
 						<Textarea
 							id="consumption-rating"
-							label={onDay(ratingQuestion(topic, informal), isToday)}
-							placeholder={ratingHint(informal)}
+							label={isToday ? text.ratingQuestion : text.pastRatingQuestion}
+							placeholder={texts.day.ratingHint}
 							value={rating}
 							maxLength={MAX_TEXT_LENGTH}
 							onChange={setRating}
 						/>
 						<Textarea
 							id="consumption-plan"
-							label={planQuestion(informal)}
-							placeholder={planHint(topic, informal)}
+							label={texts.day.planQuestion}
+							placeholder={text.planHint}
 							value={plan}
 							maxLength={MAX_TEXT_LENGTH}
 							onChange={setPlan}
 						/>
 						<div>
-							<Button onClick={finish}>{consumed ? 'Fertig' : 'speichern'}</Button>
+							<Button onClick={finish}>{consumed ? texts.day.done : texts.day.save}</Button>
 						</div>
 					</div>
 				</Card>

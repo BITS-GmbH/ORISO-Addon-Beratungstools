@@ -238,4 +238,73 @@ describe('Konsumtagebuch', () => {
 		expect(screen.getByText('Weniger')).toBeTruthy();
 		expect(screen.queryByText('neue Konsumphase eintragen')).toBeNull();
 	});
+
+	it('speaks English', async () => {
+		const { host } = fakeHost(
+			{
+				'GET /me/tools/consumption-diary': () =>
+					tool([
+						topics(['alcohol']),
+						record('day-summary', { topic: 'alcohol', consumed: true }, today, `${today}_alcohol`),
+						record(
+							'phase',
+							{ topic: 'alcohol', start: '19:00', items: [{ drink: 'beer', size: '0,5 l', count: 2 }] },
+							today
+						)
+					])
+			},
+			{ locale: 'en' }
+		);
+		open(host);
+		const group = await screen.findByRole('radiogroup', {
+			name: `${formatDayShort(today, 'en')}: Did you drink alcohol?`
+		});
+		expect(screen.getByText('My week', { selector: 'h3' })).toBeTruthy();
+		fireEvent.click(within(group).getByText('yes'));
+		expect(await screen.findByText('Did you drink alcohol today?')).toBeTruthy();
+		expect(screen.getByText('19:00:')).toBeTruthy();
+		expect(screen.getByText('2x 0.5 l Beer')).toBeTruthy();
+		expect(screen.getByText('How would you rate today with regard to your drinking?')).toBeTruthy();
+		fireEvent.click(screen.getByText('Add a new phase'));
+		expect(screen.getByText('Alcohol: add a phase of drinking')).toBeTruthy();
+		fireEvent.change(screen.getByLabelText('Drink'), { target: { value: 'wine' } });
+		expect(screen.getByRole('option', { name: '0.375 l' })).toBeTruthy();
+	});
+
+	it('addresses the client informally in German', async () => {
+		const { host } = fakeHost(
+			{
+				'GET /me/tools/consumption-diary': () => tool([topics(['gambling'])]),
+				[`PUT /me/tools/consumption-diary/keyed/day-summary/${today}_gambling`]: (body) =>
+					record('day-summary', body.data, today, `${today}_gambling`)
+			},
+			{ informal: true }
+		);
+		open(host);
+		const group = await screen.findByRole('radiogroup', {
+			name: `${formatDayShort(today)}: Hast du Glücksspiele gespielt?`
+		});
+		fireEvent.click(within(group).getByText('nein'));
+		expect(await screen.findByText(/^Du hast heute keine Glücksspiele gespielt\? Wunderbar!/)).toBeTruthy();
+		expect(screen.getByLabelText('Was nimmst du dir für morgen vor?')).toBeTruthy();
+	});
+
+	it('shows counsellors the week in English', () => {
+		const monday = weekStart(today);
+		renderWith(
+			fakeHost({}, { locale: 'en' }).host,
+			<ConsumptionCounsellor
+				entries={[
+					topics(['alcohol']),
+					record('phase', { topic: 'alcohol', items: [{ drink: 'beer', size: '0,5 l', count: 3 }] }, monday)
+				]}
+				linked={{}}
+				options={{}}
+				locale="en"
+				isNew={() => false}
+			/>
+		);
+		expect(screen.getByText('Topics recorded: Alcohol')).toBeTruthy();
+		expect(screen.getByText('3 drinks, about 57 g of alcohol')).toBeTruthy();
+	});
 });

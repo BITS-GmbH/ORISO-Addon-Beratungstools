@@ -1,9 +1,9 @@
 import { Button, Card, DatePicker, Headline, NumberField, Select, Textarea, TextField } from '@oriso/web-kit';
 import { useState } from 'react';
-import { tx } from '../../../../shared/address.ts';
+import type { I18n } from '../../../../shared/i18n/index.ts';
 import {
+	activityLabel,
 	consumedOn,
-	deviceQuestion,
 	DRINKS,
 	drinkOf,
 	GAMES,
@@ -13,17 +13,16 @@ import {
 	MAX_TEXT_LENGTH,
 	MEDIA,
 	PHASE_KIND,
-	TOPICS,
+	sizeLabel,
 	type AlcoholItem,
 	type CannabisItem,
-	type ChoiceGroup,
 	type DurationItem,
 	type Phase,
 	type TopicId
 } from '../../../../shared/tools/consumption-diary.ts';
+import { useI18n } from '../../host.ts';
 import { BackButton, Icon, TimeField } from '../../ui.tsx';
 import type { DiaryActions } from './ConsumptionClient.tsx';
-import { PHASE_TITLES } from './parts.tsx';
 
 type Item = AlcoholItem | CannabisItem | DurationItem;
 
@@ -39,10 +38,12 @@ export function PhaseForm({
 	id?: string;
 	actions: DiaryActions;
 }) {
-	const { diary, informal, store, today } = actions;
+	const i18n = useI18n();
+	const texts = i18n.m.consumptionDiary;
+	const { diary, store, today } = actions;
 	const existing = id ? diary.phases.find((phase) => phase.id === id) : undefined;
 	const initial = existing?.data;
-	const text = TOPICS[topic];
+	const text = texts.topics[topic];
 	const [date, setDate] = useState(existing?.day ?? day);
 	const [start, setStart] = useState(initial?.start ?? '');
 	const [end, setEnd] = useState(initial?.end ?? '');
@@ -51,19 +52,13 @@ export function PhaseForm({
 	const [trigger, setTrigger] = useState(initial?.trigger ?? '');
 	const [device, setDevice] = useState(initial?.topic === 'media' ? (initial.device ?? '') : '');
 	const [pending, setPending] = useState<Item[]>([]);
-	const [problem, setProblem] = useState<string | null>(null);
+	const [problem, setProblem] = useState(false);
 	const back = () => actions.go({ name: 'day', day, topic });
 
 	const save = () => {
 		const all = [...items, ...pending].slice(0, MAX_ITEMS);
 		if (all.length === 0) {
-			setProblem(
-				tx(
-					informal,
-					'Bitte tragen Sie mindestens eine Angabe ein und klicken Sie auf „eintragen“.',
-					'Bitte trage mindestens eine Angabe ein und klicke auf „eintragen“.'
-				)
-			);
+			setProblem(true);
 			return;
 		}
 		const data = {
@@ -84,37 +79,44 @@ export function PhaseForm({
 
 	return (
 		<div className="bt-stack">
-			<BackButton onClick={back}>Zurück zur Tagesübersicht</BackButton>
+			<BackButton onClick={back}>{texts.phase.back}</BackButton>
 			<Card>
 				<div className="bt-stack">
-					<Headline level={3}>{PHASE_TITLES[topic]}</Headline>
+					<Headline level={3}>{text.phaseTitle}</Headline>
 					<div className="bt-fields">
-						<DatePicker label="Datum" value={date} max={today} onChange={(value) => setDate(value || day)} />
-						<TimeField label="Uhrzeit (Beginn)" value={start} onChange={setStart} />
-						<TimeField label="Uhrzeit (Ende)" value={end} onChange={setEnd} />
+						<DatePicker
+							label={texts.phase.date}
+							value={date}
+							max={today}
+							onChange={(value) => setDate(value || day)}
+						/>
+						<TimeField label={texts.phase.start} value={start} onChange={setStart} />
+						<TimeField label={texts.phase.end} value={end} onChange={setEnd} />
 					</div>
 					<ItemEditor
 						topic={topic}
 						onPending={setPending}
 						onAdd={(item) => {
-							setProblem(null);
+							setProblem(false);
 							setItems((list) => (list.length < MAX_ITEMS ? [...list, item] : list));
 						}}
 					/>
 					<div className="bt-stack bt-stack--tight">
-						<strong>{text.loggedLabel}:</strong>
+						<strong>{text.loggedLabel}</strong>
 						{items.length === 0 ? (
-							<p className="bt-muted bt-small">Noch nichts eingetragen.</p>
+							<p className="bt-muted bt-small">{texts.phase.nothingYet}</p>
 						) : (
 							<ul className="bt-list">
 								{items.map((item, index) => (
 									<li key={index} className="bt-item">
-										<span className="bt-item__text">{itemLabel(topic, item)}</span>
+										<span className="bt-item__text">{itemLabel(topic, item, i18n)}</span>
 										<button
 											type="button"
 											className="bt-iconbtn"
-											title="Eintrag löschen"
-											aria-label={`Eintrag löschen: ${itemLabel(topic, item)}`}
+											title={texts.phase.deleteItem}
+											aria-label={i18n.t(texts.phase.deleteItemLabel, {
+												item: itemLabel(topic, item, i18n)
+											})}
 											onClick={() => setItems(items.filter((_, i) => i !== index))}
 										>
 											<Icon name="delete" />
@@ -126,14 +128,14 @@ export function PhaseForm({
 					</div>
 					{topic === 'media' && (
 						<TextField
-							label={deviceQuestion(informal)}
+							label={texts.phase.deviceQuestion}
 							value={device}
 							maxLength={MAX_TEXT_LENGTH}
 							onChange={setDevice}
 						/>
 					)}
 					<Textarea
-						label={text.contextQuestion(informal)}
+						label={text.contextQuestion}
 						value={context}
 						maxLength={MAX_TEXT_LENGTH}
 						onChange={setContext}
@@ -146,13 +148,13 @@ export function PhaseForm({
 					/>
 					{problem && (
 						<p role="alert" style={{ color: 'var(--bt-error)' }}>
-							{problem}
+							{texts.phase.missingItem}
 						</p>
 					)}
 					<div className="bt-row">
 						<Button onClick={save}>{text.saveLabel}</Button>
 						<Button variant="tertiary" onClick={back}>
-							Abbrechen
+							{texts.phase.cancel}
 						</Button>
 					</div>
 				</div>
@@ -161,13 +163,22 @@ export function PhaseForm({
 	);
 }
 
-const choiceOptions = (groups: ChoiceGroup[]) => [
-	{ value: '', label: 'Bitte auswählen' },
-	...groups.flatMap((group, index) => [
-		{ value: `group-${index}`, label: `${group.title}:`, disabled: true },
-		...group.options.map((option) => ({ value: option.id, label: option.label }))
-	])
-];
+const choiceOptions = (topic: 'gambling' | 'media', { m, t }: I18n) => {
+	const texts = m.consumptionDiary;
+	const groups = topic === 'gambling' ? GAMES : MEDIA;
+	const titles: Record<string, string> = topic === 'gambling' ? texts.gameGroups : texts.mediaGroups;
+	return [
+		{ value: '', label: texts.phase.choose },
+		...groups.flatMap((group, index) => [
+			{
+				value: `group-${index}`,
+				label: t(texts.phase.group, { group: titles[group.id] ?? group.id }),
+				disabled: true
+			},
+			...group.options.map((option) => ({ value: option, label: activityLabel(topic, option, m) }))
+		])
+	];
+};
 
 /**
  * The topic's input for one item with "eintragen". Complete but not yet added input is reported
@@ -182,6 +193,8 @@ function ItemEditor({
 	onAdd: (item: Item) => void;
 	onPending: (items: Item[]) => void;
 }) {
+	const i18n = useI18n();
+	const texts = i18n.m.consumptionDiary;
 	const [drink, setDrink] = useState('');
 	const [size, setSize] = useState('');
 	const [count, setCount] = useState<number | null>(1);
@@ -267,26 +280,29 @@ function ItemEditor({
 				{topic === 'alcohol' && (
 					<>
 						<Select
-							label="Getränk"
+							label={texts.phase.drink}
 							value={drink}
 							options={[
-								{ value: '', label: 'Bitte auswählen' },
-								...DRINKS.map((option) => ({ value: option.id, label: option.label }))
+								{ value: '', label: texts.phase.choose },
+								...DRINKS.map((option) => ({ value: option.id, label: texts.drinks[option.id] }))
 							]}
 							onChange={(value) => update({ drink: value, size: '' })}
 						/>
 						<Select
-							label="Größe"
+							label={texts.phase.size}
 							value={size}
 							disabled={!drink}
 							options={[
-								{ value: '', label: 'Bitte auswählen' },
-								...(drinkOf(drink)?.sizes ?? []).map(([label]) => ({ value: label, label }))
+								{ value: '', label: texts.phase.choose },
+								...(drinkOf(drink)?.sizes ?? []).map(([value]) => ({
+									value,
+									label: sizeLabel(value, i18n)
+								}))
 							]}
 							onChange={(value) => update({ size: value })}
 						/>
 						<NumberField
-							label="Anzahl"
+							label={texts.phase.count}
 							value={count}
 							min={1}
 							max={MAX_COUNT}
@@ -297,21 +313,21 @@ function ItemEditor({
 				{topic === 'cannabis' && (
 					<>
 						<NumberField
-							label="Joints"
+							label={texts.phase.joints}
 							value={joints}
 							min={0}
 							max={MAX_COUNT}
 							onChange={(value) => update({ joints: value })}
 						/>
 						<NumberField
-							label="Bongs"
+							label={texts.phase.bongs}
 							value={bongs}
 							min={0}
 							max={MAX_COUNT}
 							onChange={(value) => update({ bongs: value })}
 						/>
 						<TextField
-							label="Anderes"
+							label={texts.phase.otherKind}
 							value={other}
 							maxLength={200}
 							onChange={(value) => update({ other: value })}
@@ -321,20 +337,20 @@ function ItemEditor({
 				{(topic === 'gambling' || topic === 'media') && (
 					<>
 						<Select
-							label={topic === 'gambling' ? 'Glücksspiel' : 'Medien'}
+							label={topic === 'gambling' ? texts.phase.gambling : texts.phase.media}
 							value={activity}
-							options={choiceOptions(topic === 'gambling' ? GAMES : MEDIA)}
+							options={choiceOptions(topic, i18n)}
 							onChange={(value) => update({ activity: value })}
 						/>
 						<NumberField
-							label="Dauer: Stunden"
+							label={texts.phase.hours}
 							value={hours}
 							min={0}
 							max={24}
 							onChange={(value) => update({ hours: value })}
 						/>
 						<NumberField
-							label="Minuten"
+							label={texts.phase.minutes}
 							value={minutes}
 							min={0}
 							max={59}
@@ -345,7 +361,7 @@ function ItemEditor({
 			</div>
 			<div>
 				<Button variant="secondary" disabled={ready.length === 0} onClick={add}>
-					eintragen
+					{texts.phase.add}
 				</Button>
 			</div>
 		</div>
