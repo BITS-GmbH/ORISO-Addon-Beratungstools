@@ -1413,6 +1413,8 @@ export const en: Complete = {
 		noPreviousStrategy: 'No strategy entered yet.',
 		newStrategyPlaceholder: 'Describe your new control strategy as precisely as you can',
 		missingAnswer: 'Please answer at least one of the questions.',
+		newAnalysis: 'Analyse another relapse',
+		deleteAnalysisQuestion: 'Delete this relapse analysis?',
 		pagePdf: 'Save page as PDF',
 		allRelapses: 'All relapses',
 		analysisOf: 'Analysis from {date}',

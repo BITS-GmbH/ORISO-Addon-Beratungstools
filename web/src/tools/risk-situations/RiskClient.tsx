@@ -337,10 +337,13 @@ function RelapsePage({
 	const [answers, setAnswers] = useState(EMPTY_ANSWERS);
 	const [problem, setProblem] = useState<string | null>(null);
 	const [open, setOpen] = useState<string | null>(null);
+	const [formOpen, setFormOpen] = useState(relapses.length === 0);
+	const [confirming, setConfirming] = useState<string | null>(null);
 	const previousStrategy = editing ? editing.previousStrategy : situation.strategy;
 
 	const startEdit = (relapse: RelapseItem | null) => {
 		setEditing(relapse);
+		setFormOpen(true);
 		setAnswers(
 			relapse
 				? {
@@ -374,9 +377,25 @@ function RelapsePage({
 			});
 		}
 		if (saved) {
-			startEdit(null);
+			closeForm();
+			setOpen(saved.id);
 		}
 		return saved?.id ?? null;
+	};
+
+	const closeForm = () => {
+		setEditing(null);
+		setAnswers(EMPTY_ANSWERS);
+		setProblem(null);
+		setFormOpen(false);
+	};
+
+	const remove = (relapse: RelapseItem) => {
+		setConfirming(null);
+		if (editing?.id === relapse.id) {
+			closeForm();
+		}
+		void store.remove(relapse.id);
 	};
 
 	return (
@@ -393,61 +412,71 @@ function RelapsePage({
 						<span className="bt-overline">{texts.mySituation}</span>
 						<p className="bt-pre">{situation.situation}</p>
 					</div>
-					{editing && (
-						<p className="bt-muted bt-small">
-							{i18n.t(texts.editingAnalysis, { date: i18n.date(editing.entry.createdAt) })}
-						</p>
-					)}
-					{RELAPSE_ANSWERS.map((id) => (
-						<Textarea
-							key={id}
-							id={`relapse-${id}`}
-							label={texts.questions[id]}
-							value={answers[id]}
-							maxLength={MAX_ANSWER_LENGTH}
-							minRows={3}
-							onChange={(value) => setAnswers({ ...answers, [id]: value })}
-						/>
-					))}
-					<div className="bt-quote">
-						<span className="bt-overline">{texts.previousStrategyOverline}</span>
-						<p className={`bt-pre${previousStrategy ? '' : ' bt-muted'}`}>
-							{previousStrategy || texts.noPreviousStrategy}
-						</p>
-					</div>
-					<Textarea
-						id="relapse-newStrategy"
-						label={texts.questions.newStrategy}
-						placeholder={texts.newStrategyPlaceholder}
-						value={answers.newStrategy}
-						maxLength={MAX_STRATEGY_LENGTH}
-						minRows={4}
-						onChange={(value) => setAnswers({ ...answers, newStrategy: value })}
-					/>
-					{problem && (
-						<p role="alert" className="bt-alert">
-							{problem}
-						</p>
-					)}
-					<div className="bt-row">
-						<Button onClick={() => void save()}>{texts.save}</Button>
-						<Button
-							variant="secondary"
-							onClick={async () => {
-								const id = await save();
-								if (id) {
-									await download('relapse', { id });
-								}
-							}}
-						>
-							{texts.pagePdf}
-						</Button>
-						{editing && (
-							<Button variant="tertiary" onClick={() => startEdit(null)}>
-								{i18n.m.common.cancel}
+					{formOpen ? (
+						<>
+							{editing && (
+								<p className="bt-muted bt-small">
+									{i18n.t(texts.editingAnalysis, { date: i18n.date(editing.entry.createdAt) })}
+								</p>
+							)}
+							{RELAPSE_ANSWERS.map((id) => (
+								<Textarea
+									key={id}
+									id={`relapse-${id}`}
+									label={texts.questions[id]}
+									value={answers[id]}
+									maxLength={MAX_ANSWER_LENGTH}
+									minRows={3}
+									onChange={(value) => setAnswers({ ...answers, [id]: value })}
+								/>
+							))}
+							<div className="bt-quote">
+								<span className="bt-overline">{texts.previousStrategyOverline}</span>
+								<p className={`bt-pre${previousStrategy ? '' : ' bt-muted'}`}>
+									{previousStrategy || texts.noPreviousStrategy}
+								</p>
+							</div>
+							<Textarea
+								id="relapse-newStrategy"
+								label={texts.questions.newStrategy}
+								placeholder={texts.newStrategyPlaceholder}
+								value={answers.newStrategy}
+								maxLength={MAX_STRATEGY_LENGTH}
+								minRows={4}
+								onChange={(value) => setAnswers({ ...answers, newStrategy: value })}
+							/>
+							{problem && (
+								<p role="alert" className="bt-alert">
+									{problem}
+								</p>
+							)}
+							<div className="bt-row">
+								<Button onClick={() => void save()}>{texts.save}</Button>
+								<Button
+									variant="secondary"
+									onClick={async () => {
+										const id = await save();
+										if (id) {
+											await download('relapse', { id });
+										}
+									}}
+								>
+									{texts.pagePdf}
+								</Button>
+								{(editing || relapses.length > 0) && (
+									<Button variant="tertiary" onClick={closeForm}>
+										{i18n.m.common.cancel}
+									</Button>
+								)}
+							</div>
+						</>
+					) : (
+						<div>
+							<Button onClick={() => startEdit(null)}>
+								{relapses.length > 0 ? texts.newAnalysis : texts.analyseRelapse}
 							</Button>
-						)}
-					</div>
+						</div>
+					)}
 				</div>
 			</Card>
 			{relapses.length > 0 && (
@@ -457,6 +486,17 @@ function RelapsePage({
 						<ul className="bt-list">
 							{relapses.map((relapse) => {
 								const expanded = open === relapse.id;
+								if (confirming === relapse.id) {
+									return (
+										<li key={relapse.id} className="bt-confirm">
+											<span style={{ flex: 1 }}>{texts.deleteAnalysisQuestion}</span>
+											<Button onClick={() => remove(relapse)}>{texts.delete}</Button>
+											<Button variant="tertiary" onClick={() => setConfirming(null)}>
+												{i18n.m.common.cancel}
+											</Button>
+										</li>
+									);
+								}
 								return (
 									<li key={relapse.id} className="bt-entry">
 										<div className="bt-row bt-row--between">
@@ -485,6 +525,13 @@ function RelapsePage({
 													onClick={() => void download('relapse', { id: relapse.id })}
 												>
 													{texts.pagePdf}
+												</button>
+												<button
+													type="button"
+													className="bt-linkbtn bt-small"
+													onClick={() => setConfirming(relapse.id)}
+												>
+													{texts.delete}
 												</button>
 											</div>
 										</div>

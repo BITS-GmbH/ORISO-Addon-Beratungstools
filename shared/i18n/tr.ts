@@ -1416,6 +1416,8 @@ export const tr: Catalogue = {
 		noPreviousStrategy: 'Henüz strateji girilmedi.',
 		newStrategyPlaceholder: 'Yeni kontrol stratejinizi olabildiğince ayrıntılı anlatın',
 		missingAnswer: 'Lütfen sorulardan en az birini cevaplayın.',
+		newAnalysis: 'Başka bir nüksü analiz et',
+		deleteAnalysisQuestion: 'Bu nüks analizi silinsin mi?',
 		pagePdf: 'Sayfayı PDF olarak al',
 		allRelapses: 'Tüm nüksler',
 		analysisOf: 'Analiz tarihi: {date}',

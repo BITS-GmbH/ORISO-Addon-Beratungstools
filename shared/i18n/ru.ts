@@ -1450,6 +1450,8 @@ export const ru: Catalogue = {
 		noPreviousStrategy: 'Стратегия пока не внесена.',
 		newStrategyPlaceholder: 'Опишите свою новую стратегию контроля как можно точнее',
 		missingAnswer: 'Пожалуйста, ответьте хотя бы на один из вопросов.',
+		newAnalysis: 'Проанализировать ещё один срыв',
+		deleteAnalysisQuestion: 'Удалить этот анализ срыва?',
 		pagePdf: 'Сохранить страницу в PDF',
 		allRelapses: 'Все срывы',
 		analysisOf: 'Анализ от {date}',

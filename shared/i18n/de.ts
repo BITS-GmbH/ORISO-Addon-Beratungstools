@@ -1987,6 +1987,8 @@ export const de = {
 			formal: 'Bitte beantworten Sie mindestens eine der Fragen.',
 			informal: 'Bitte beantworte mindestens eine der Fragen.'
 		},
+		newAnalysis: 'Weiteren Rückfall analysieren',
+		deleteAnalysisQuestion: 'Diese Rückfallanalyse löschen?',
 		pagePdf: 'Seite als PDF ausgeben',
 		allRelapses: 'Alle Rückfälle',
 		analysisOf: 'Analyse vom {date}',

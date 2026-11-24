@@ -95,6 +95,39 @@ describe('Risikosituationen und Kontrollstrategien', () => {
 			strategy: 'Gar nicht hingehen'
 		});
 		expect(await screen.findByText('Alle Rückfälle')).toBeTruthy();
+		expect(screen.queryByLabelText(/^1\. Welche Umstände/)).toBeNull();
+		expect(screen.getByText('Geburtstag')).toBeTruthy();
+		expect(screen.getByText('Weiteren Rückfall analysieren')).toBeTruthy();
+	});
+
+	it('deletes an analysis after asking', async () => {
+		const item = situation('Feier');
+		const analysis = entry('relapse', {
+			situationId: item.id,
+			circumstances: 'Geburtstag',
+			feelings: '',
+			mainReason: '',
+			alternatives: '',
+			previousStrategy: 'Früh gehen',
+			newStrategy: ''
+		});
+		const { host, calls } = fakeHost({
+			'GET /me/tools/risk-situations': () => tool([item, analysis]),
+			[`DELETE /me/tools/risk-situations/entries/${analysis.id}`]: () => undefined
+		});
+		renderWith(host, page());
+		fireEvent.click(await screen.findByText('Rückfall analysieren'));
+		expect(screen.queryByLabelText(/^1\. Welche Umstände/)).toBeNull();
+		fireEvent.click(screen.getByText('Löschen'));
+		expect(screen.getByText('Diese Rückfallanalyse löschen?')).toBeTruthy();
+		fireEvent.click(screen.getByText('Abbrechen'));
+		expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
+		fireEvent.click(screen.getByText('Löschen'));
+		fireEvent.click(screen.getByText('Löschen'));
+		await waitFor(() => expect(screen.queryByText('Alle Rückfälle')).toBeNull());
+		expect(calls.filter((c) => c.method === 'DELETE').map((c) => c.path)).toEqual([
+			`/me/tools/risk-situations/entries/${analysis.id}`
+		]);
 	});
 
 	it('shows counsellors cards with the last relapse, new markers and pages of five', () => {

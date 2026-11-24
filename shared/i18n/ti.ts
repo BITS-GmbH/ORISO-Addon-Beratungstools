@@ -1365,6 +1365,8 @@ export const ti: Catalogue = {
 		noPreviousStrategy: 'ገና ዝኣተወ ሜላ የለን።',
 		newStrategyPlaceholder: 'ሓድሽ ሜላ ምቁጽጻርኩም ብዝተኻእለ መጠን ብንጹር ግለጹ',
 		missingAnswer: 'በጃኹም እንተ ወሓደ ንሓደ ካብቶም ሕቶታት መልሱ።',
+		newAnalysis: 'ካልእ ምምላስ ተንትን',
+		deleteAnalysisQuestion: 'እዚ ትንተና ምምላስ ይደምሰስ ዶ?',
 		pagePdf: 'ገጽ ከም PDF ዓቅብ',
 		allRelapses: 'ኩሎም ምምላሳት',
 		analysisOf: 'ትንተና ናይ ዕለት {date}',

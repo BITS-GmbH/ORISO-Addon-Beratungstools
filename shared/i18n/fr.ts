@@ -1436,6 +1436,8 @@ export const fr: Catalogue = {
 		noPreviousStrategy: 'Aucune stratégie saisie pour le moment.',
 		newStrategyPlaceholder: 'Décrivez aussi précisément que possible votre nouvelle stratégie de contrôle',
 		missingAnswer: 'Veuillez répondre à au moins une des questions.',
+		newAnalysis: 'Analyser une autre rechute',
+		deleteAnalysisQuestion: 'Supprimer cette analyse de rechute ?',
 		pagePdf: 'Télécharger la page en PDF',
 		allRelapses: 'Toutes les rechutes',
 		analysisOf: 'Analyse du {date}',
