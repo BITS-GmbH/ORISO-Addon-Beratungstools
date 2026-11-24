@@ -116,7 +116,9 @@ describe('catalogues', () => {
 
 	for (const lang of LANGS) {
 		it(`${lang} has no em dashes`, () => {
-			expect(allTexts(CATALOGUES[lang]).filter((text) => text.includes('—'))).toEqual([]);
+			expect(allTexts(CATALOGUES[lang]).filter((text) => text.includes(String.fromCharCode(0x2014)))).toEqual(
+				[]
+			);
 		});
 	}
 });
