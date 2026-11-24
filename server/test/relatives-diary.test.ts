@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { i18n } from '../../shared/i18n/index.ts';
-import { snippet } from '../../shared/tools/relatives-diary.ts';
+import { moodLabel, MOODS, snippet } from '../../shared/tools/relatives-diary.ts';
 import { entrySchema, relativesDiary } from '../src/tools/relatives-diary/index.ts';
 import { createWriter } from './pdfWriter.ts';
 
@@ -50,5 +50,50 @@ describe('relatives-diary', () => {
 		expect(text()).toBe(
 			'## Mittwoch, 18.11.2026\nBewertung des Tages: eher schlecht\nFrüher\n## Freitag, 20.11.2026\nBewertung des Tages: keine Angabe\nSpäter'
 		);
+	});
+
+	it('exports in English', () => {
+		const { writer, text } = createWriter();
+		const entry = (day: string, data: unknown) => ({
+			id: day,
+			kind: 'entry',
+			key: day,
+			day,
+			data,
+			createdAt: '',
+			updatedAt: ''
+		});
+		relativesDiary.exportPdf(writer, {
+			entries: [entry('2026-11-18', { mood: 4 })],
+			options: {},
+			linked: {},
+			counsellors: [],
+			i18n: i18n('en')
+		});
+		expect(text()).toBe('## Wednesday, 18/11/2026\nRating of the day: quite good\nNo text entered.');
+		const empty = createWriter();
+		relativesDiary.exportPdf(empty.writer, {
+			entries: [],
+			options: {},
+			linked: {},
+			counsellors: [],
+			i18n: i18n('en')
+		});
+		expect(empty.text()).toBe('No entries in this period.');
+	});
+
+	it('names moods by id and seeds the demo in the counsellor’s language', () => {
+		expect(MOODS.map((mood) => moodLabel(i18n('de').m, mood.value))).toEqual([
+			'sehr schlecht',
+			'eher schlecht',
+			'mittelmäßig',
+			'eher gut',
+			'sehr gut'
+		]);
+		expect(moodLabel(i18n('en').m, undefined)).toBe('not given');
+		const [german] = relativesDiary.demo?.(i18n('de')) ?? [];
+		expect((german?.data as { text: string }).text).toMatch(/^Heute Abend gab es wieder Streit/);
+		const [english] = relativesDiary.demo?.(i18n('en')) ?? [];
+		expect((english?.data as { text: string }).text).toMatch(/^Tonight there was another argument/);
 	});
 });

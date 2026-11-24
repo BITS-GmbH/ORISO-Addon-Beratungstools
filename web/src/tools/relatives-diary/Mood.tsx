@@ -1,4 +1,5 @@
 import { moodLabel, MOODS } from '../../../../shared/tools/relatives-diary.ts';
+import { useI18n } from '../../host.ts';
 
 const MOUTHS: Record<number, string> = {
 	1: 'M8 17c1.2-2.2 6.8-2.2 8 0',
@@ -33,19 +34,19 @@ export const MoodFace = ({ mood }: { mood: number }) => (
 );
 
 /** The mood of a day as a face with its label, or nothing. */
-export const MoodIndicator = ({
-	mood,
-	withLabel = true
-}: {
-	mood: number | undefined;
-	withLabel?: boolean;
-}) =>
-	mood ? (
-		<span className="bt-mood" title={moodLabel(mood)}>
+export function MoodIndicator({ mood, withLabel = true }: { mood: number | undefined; withLabel?: boolean }) {
+	const { m } = useI18n();
+	if (!mood) {
+		return null;
+	}
+	const label = moodLabel(m, mood);
+	return (
+		<span className="bt-mood" title={label}>
 			<MoodFace mood={mood} />
-			{withLabel ? moodLabel(mood) : <span className="bt-visually-hidden">{moodLabel(mood)}</span>}
+			{withLabel ? label : <span className="bt-visually-hidden">{label}</span>}
 		</span>
-	) : null;
+	);
+}
 
 /** Five faces from "sehr schlecht" to "sehr gut" as radio buttons. */
 export function MoodPicker({
@@ -59,6 +60,7 @@ export function MoodPicker({
 	onChange: (mood: number | undefined) => void;
 	name: string;
 }) {
+	const { m } = useI18n();
 	return (
 		<fieldset className="bt-moods">
 			<legend>{legend}</legend>
@@ -77,7 +79,7 @@ export function MoodPicker({
 						/>
 						<label htmlFor={id}>
 							<MoodFace mood={option.value} />
-							{option.label}
+							{m.relativesDiary.moods[option.id]}
 						</label>
 					</span>
 				);

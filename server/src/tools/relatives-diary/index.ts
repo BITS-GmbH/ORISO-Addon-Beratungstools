@@ -38,37 +38,31 @@ export const relativesDiary: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const { m, t, lang } = i18n;
+		const texts = m.relativesDiary;
 		const days = entries
 			.filter((e) => e.kind === ENTRY_KIND && e.day)
 			.sort((a, b) => (a.day as string).localeCompare(b.day as string));
 		if (days.length === 0) {
-			pdf.paragraph('Keine Einträge in diesem Zeitraum.', { muted: true });
+			pdf.paragraph(texts.pdfNoEntries, { muted: true });
 			return;
 		}
 		for (const entry of days) {
 			const data = entry.data as DiaryEntry;
-			pdf.subheading(formatDayLong(entry.day as string));
-			pdf.paragraph(`Bewertung des Tages: ${moodLabel(data.mood)}`, { muted: !data.mood });
-			pdf.paragraph(data.text ?? 'Kein Text eingetragen.', { muted: !data.text });
+			pdf.subheading(formatDayLong(entry.day as string, lang));
+			pdf.paragraph(t(texts.pdfMood, { mood: moodLabel(m, data.mood) }), { muted: !data.mood });
+			pdf.paragraph(data.text ?? texts.pdfNoText, { muted: !data.text });
 			pdf.spacer(4);
 		}
 	},
-	demo: () => {
+	demo: ({ m }) => {
+		const [yesterday, earlier] = m.relativesDiary.demoEntries;
 		const today = new Date().toISOString().slice(0, 10);
 		const seed = (offset: number, data: DiaryEntry) => {
 			const day = addDays(today, offset);
 			return { kind: ENTRY_KIND, key: day, day, data };
 		};
-		return [
-			seed(-1, {
-				text: 'Heute Abend gab es wieder Streit, als er spät nach Hause kam. Ich habe versucht, ruhig zu bleiben und nichts vorzuwerfen. Danach war ich erschöpft, aber auch ein bisschen stolz.',
-				mood: 2
-			}),
-			seed(-3, {
-				text: 'Ein ruhiger Tag. Wir waren zusammen spazieren und haben über den Urlaub gesprochen.',
-				mood: 4
-			})
-		];
+		return [seed(-1, { text: yesterday, mood: 2 }), seed(-3, { text: earlier, mood: 4 })];
 	}
 };

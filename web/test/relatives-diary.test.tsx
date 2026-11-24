@@ -129,4 +129,58 @@ describe('Tagebuch für Angehörige', () => {
 		expect(items[1]).toContain('Älterer Eintrag');
 		expect(screen.getAllByText('Neu')).toHaveLength(1);
 	});
+
+	it('speaks English', async () => {
+		const { host } = fakeHost(
+			{ 'GET /me/tools/relatives-diary': () => tool([dayEntry(today, { text: 'A good day.', mood: 2 })]) },
+			{ locale: 'en' }
+		);
+		open(host);
+		expect(await screen.findByText('My diary')).toBeTruthy();
+		expect(screen.getByText(/^The diary is a place to write down/)).toBeTruthy();
+		expect(screen.getByText('Diary entries')).toBeTruthy();
+		expect(screen.getByText('quite bad')).toBeTruthy();
+		fireEvent.click(screen.getByLabelText(`Open entry: ${formatDayLong(today, 'en')}`));
+		expect(screen.getByText('What was important to you today?')).toBeTruthy();
+		expect(screen.getByText('How did communication with your relative go today?')).toBeTruthy();
+		expect(screen.getByText('How would you rate today?')).toBeTruthy();
+		expect(screen.getByLabelText('very good')).toBeTruthy();
+		expect(screen.getByText('Save entry')).toBeTruthy();
+		fireEvent.click(screen.getByText('Delete entry'));
+		expect(screen.getByText('Delete this diary entry?')).toBeTruthy();
+		expect(screen.getByText('Cancel')).toBeTruthy();
+	});
+
+	it('asks about a past day without "heute"', async () => {
+		const yesterday = addDays(today, -1);
+		const { host } = fakeHost({ 'GET /me/tools/relatives-diary': () => tool([]) });
+		open(host);
+		await screen.findByText('Mein Tagebuch');
+		if (weekStart(today) === today) {
+			fireEvent.click(screen.getByLabelText('Woche zurück'));
+		}
+		fireEvent.click(screen.getByLabelText(`Eintrag erstellen: ${formatDayLong(yesterday)}`));
+		expect(screen.getByText('Was war an diesem Tag für Sie wichtig?')).toBeTruthy();
+		expect(screen.getByText('Wie bewerten Sie den Tag?')).toBeTruthy();
+	});
+
+	it('shows counsellors the entries in English', () => {
+		const { host } = fakeHost({}, { locale: 'en' });
+		renderWith(
+			host,
+			<RelativesCounsellor
+				entries={[dayEntry(today, { text: 'Fresh', mood: 5 })]}
+				linked={{}}
+				options={{}}
+				locale="en"
+				isNew={() => true}
+			/>
+		);
+		expect(screen.getByRole('tab', { name: 'Week view' })).toBeTruthy();
+		expect(screen.getByText('very good')).toBeTruthy();
+		expect(screen.getByText('New')).toBeTruthy();
+		expect(screen.getAllByText('No entry').length).toBeGreaterThan(0);
+		fireEvent.click(screen.getByRole('tab', { name: 'All entries' }));
+		expect(screen.getByText(formatDayLong(today, 'en'))).toBeTruthy();
+	});
 });
