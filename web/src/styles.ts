@@ -209,8 +209,11 @@ export const CSS = `
 .bt-risk { display: grid; gap: 8px 16px; grid-template-columns: 1fr; padding: 12px; border: 1px solid var(--bt-outline-soft); border-radius: 10px; background: var(--bt-surface); }
 .bt-risk__cell { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .bt-risk__actions { display: flex; justify-content: flex-end; }
+.bt-risk--kit .bt-risk__cell:empty { display: none; }
 @container (min-width: 760px) {
 	.bt-risk { grid-template-columns: minmax(0, 3fr) minmax(110px, 1fr) minmax(0, 3fr) minmax(150px, 1.4fr) auto; align-items: start; }
+	.bt-risk--kit { grid-template-columns: minmax(0, 3fr) minmax(100px, 1fr) minmax(0, 3fr) minmax(150px, 1.4fr); }
+	.bt-risk--kit .bt-risk__cell:empty { display: flex; }
 }
 .bt-level { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; white-space: nowrap; }
 .bt-level__bars { display: inline-flex; gap: 2px; align-items: flex-end; }

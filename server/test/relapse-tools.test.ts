@@ -3,7 +3,8 @@ import type { Entry } from '../../shared/api.ts';
 import { emptySections, isPrinted, selfHelpRequest } from '../../shared/tools/emergency-kit.ts';
 import { relapsesOf, situationsOf } from '../../shared/tools/risk-situations.ts';
 import { renderPdf } from '../src/core/pdf.ts';
-import { emergencyKit, motivationSchema } from '../src/tools/emergency-kit/index.ts';
+import { createWriter } from './pdfWriter.ts';
+import { cardsOf, emergencyKit, motivationSchema } from '../src/tools/emergency-kit/index.ts';
 import { relapseSchema, riskSituations, situationSchema } from '../src/tools/risk-situations/index.ts';
 
 let counter = 0;
@@ -142,6 +143,17 @@ describe('Notfallkoffer', () => {
 			counsellors: ['Maria Beispiel'],
 			params: {}
 		};
+		const unrated = entry('situation', { situation: 'Streit', strategy: 'Spazieren' });
+		const kit = createWriter();
+		emergencyKit.clientExports?.kit?.write(kit.writer, {
+			...input,
+			linked: { 'risk-situations': [situation, unrated] }
+		});
+		expect(kit.text()).toContain('Risikosituation | Bewertung | Kontrollstrategie\nFeier | schwer | Gehen\nStreit |  | Spazieren');
+		const card = cardsOf({ ...input, linked: { 'risk-situations': [situation, unrated] } }).find(
+			(candidate) => candidate.title === 'Risikosituationen & Strategien'
+		);
+		expect(card?.lines).toEqual(['Feier (Bewertung: schwer): Gehen', 'Streit: Spazieren', 'Atmen']);
 		expect(await pdfText((pdf) => emergencyKit.clientExports?.kit?.write(pdf, input))).toEqual(
 			Buffer.from('%PDF-')
 		);

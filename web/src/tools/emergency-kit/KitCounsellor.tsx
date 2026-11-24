@@ -130,11 +130,18 @@ export function KitCounsellor({ entries, isNew, locale, linked }: CounsellorView
 							<ul className="bt-list">
 								{printed.map((risk) => (
 									<li key={risk.id} className="bt-item">
-										<span className="bt-item__text">
-											<strong>{risk.situation}</strong> ({difficultyOf(risk.difficulty)?.label})
-											<br />
-											{risk.strategy}
-										</span>
+										<dl className="bt-details bt-item__text">
+											<dt>Risikosituation</dt>
+											<dd>{risk.situation}</dd>
+											{difficultyOf(risk.difficulty) && (
+												<>
+													<dt>Bewertung</dt>
+													<dd>{difficultyOf(risk.difficulty)?.label}</dd>
+												</>
+											)}
+											<dt>Kontrollstrategie</dt>
+											<dd>{risk.strategy || '–'}</dd>
+										</dl>
 									</li>
 								))}
 							</ul>

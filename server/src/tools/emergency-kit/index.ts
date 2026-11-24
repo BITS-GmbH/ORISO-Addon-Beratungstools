@@ -134,7 +134,7 @@ interface Card {
 	lines: string[];
 }
 
-const cardsOf = (input: ExportInput): Card[] => {
+export const cardsOf = (input: ExportInput): Card[] => {
 	const { entries } = input;
 	const list = (kind: ListKind): Card => {
 		const items = itemsOf(entries, kind);
@@ -156,9 +156,11 @@ const cardsOf = (input: ExportInput): Card[] => {
 	const risks: Card = {
 		title: 'Risikosituationen & Strategien',
 		lines: [
-			...(printedRisks(input) ?? []).map((risk) =>
-				risk.strategy ? `${risk.situation}: ${risk.strategy}` : risk.situation
-			),
+			...(printedRisks(input) ?? []).map((risk) => {
+				const rating = difficultyOf(risk.difficulty)?.label;
+				const situation = rating ? `${risk.situation} (Bewertung: ${rating})` : risk.situation;
+				return risk.strategy ? `${situation}: ${risk.strategy}` : situation;
+			}),
 			...(keyedText(entries, OTHER_STRATEGIES_KIND) ? [keyedText(entries, OTHER_STRATEGIES_KIND)] : [])
 		]
 	};

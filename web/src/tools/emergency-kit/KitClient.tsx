@@ -829,19 +829,32 @@ function RisksEditor({
 					) : (
 						<ul className="bt-list">
 							{risks.map((risk) => (
-								<li key={risk.id} className="bt-entry bt-stack bt-stack--tight">
-									<div className="bt-row bt-row--between" style={{ alignItems: 'flex-start' }}>
-										<strong className="bt-item__text">{risk.situation}</strong>
-										<span className="bt-pill bt-pill--neutral">{difficultyOf(risk.difficulty)?.label}</span>
+								<li key={risk.id} className="bt-risk bt-risk--kit">
+									<div className="bt-risk__cell">
+										<span className="bt-overline">Risikosituation</span>
+										<span className="bt-item__text">{risk.situation}</span>
 									</div>
-									<p className={`bt-pre${risk.strategy ? '' : ' bt-muted'}`}>
-										{risk.strategy || 'Noch keine Kontrollstrategie'}
-									</p>
-									<Checkbox
-										label="Für Ausdruck übernehmen?"
-										checked={print[risk.id] ?? true}
-										onChange={(checked) => setPrint({ ...print, [risk.id]: checked })}
-									/>
+									<div className="bt-risk__cell">
+										{difficultyOf(risk.difficulty) && (
+											<>
+												<span className="bt-overline">Bewertung</span>
+												<span>{difficultyOf(risk.difficulty)?.label}</span>
+											</>
+										)}
+									</div>
+									<div className="bt-risk__cell">
+										<span className="bt-overline">Kontrollstrategie</span>
+										<span className={`bt-pre${risk.strategy ? '' : ' bt-muted'}`}>
+											{risk.strategy || 'Noch keine Kontrollstrategie'}
+										</span>
+									</div>
+									<div className="bt-risk__cell">
+										<Checkbox
+											label="Für Ausdruck übernehmen?"
+											checked={print[risk.id] ?? true}
+											onChange={(checked) => setPrint({ ...print, [risk.id]: checked })}
+										/>
+									</div>
 								</li>
 							))}
 						</ul>

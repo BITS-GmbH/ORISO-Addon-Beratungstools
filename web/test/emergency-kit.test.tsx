@@ -36,6 +36,22 @@ describe('Notfallkoffer', () => {
 		expect(await screen.findByText('Meine wichtigsten Risikosituationen & Kontrollstrategien')).toBeTruthy();
 	});
 
+	it('shows each risk situation with its rating, and no rating where there is none', async () => {
+		const unrated = entry('situation', { situation: 'Streit', strategy: 'Spazieren' });
+		const { host } = fakeHost({
+			'GET /me/tools/emergency-kit': () => tool([], { linked: { 'risk-situations': [risk, unrated] } })
+		});
+		renderWith(host, page());
+		fireEvent.click(await screen.findByText('Meine wichtigsten Risikosituationen & Kontrollstrategien'));
+		const rated = screen.getByText('Feier').closest('li') as HTMLElement;
+		expect(within(rated).getByText('Bewertung')).toBeTruthy();
+		expect(within(rated).getByText('schwer')).toBeTruthy();
+		expect(within(rated).getByText('Früh gehen')).toBeTruthy();
+		const other = screen.getByText('Streit').closest('li') as HTMLElement;
+		expect(within(other).queryByText('Bewertung')).toBeNull();
+		expect(other.textContent).not.toContain('undefined');
+	});
+
 	it('saves motivations only with their importance and takes examples over', async () => {
 		const created: unknown[] = [];
 		const { host } = fakeHost({
@@ -130,7 +146,13 @@ describe('Notfallkoffer', () => {
 		expect(within(tile).getByText('sehr wichtig')).toBeTruthy();
 		expect(screen.getByText(/nur sichtbar, solange auch/)).toBeTruthy();
 		unmount();
-		view({ 'risk-situations': [risk] });
-		expect(screen.getByText('Feier')).toBeTruthy();
+		view({ 'risk-situations': [risk, entry('situation', { situation: 'Streit', strategy: 'Spazieren' })] });
+		const rated = screen.getByText('Feier').closest('li') as HTMLElement;
+		expect(within(rated).getByText('Bewertung')).toBeTruthy();
+		expect(within(rated).getByText('schwer')).toBeTruthy();
+		expect(within(rated).getByText('Früh gehen')).toBeTruthy();
+		const unrated = screen.getByText('Streit').closest('li') as HTMLElement;
+		expect(within(unrated).queryByText('Bewertung')).toBeNull();
+		expect(unrated.textContent).not.toContain('undefined');
 	});
 });
