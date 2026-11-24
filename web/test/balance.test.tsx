@@ -72,4 +72,45 @@ describe('Motivationswaage', () => {
 		await waitFor(() => expect(calls.some((c) => c.method === 'DELETE')).toBe(true));
 		await waitFor(() => expect(screen.queryByText('Weg damit')).toBeNull());
 	});
+
+	it('addresses the client informally', async () => {
+		const { host } = fakeHost({ 'GET /me/tools/balance': () => tool([]) }, { informal: true });
+		renderWith(
+			host,
+			<ToolPage toolId="balance" mode="client" backLabel="Meine Tools" onBack={() => undefined} />
+		);
+		expect(await screen.findAllByText('Bitte bearbeite zunächst die Übung.')).toHaveLength(2);
+		fireEvent.click(screen.getAllByText('Hinzufügen')[0]!);
+		fireEvent.click(screen.getByText('Eintrag hinzufügen'));
+		expect(screen.getByRole('alert').textContent).toBe('Bitte trage einen Vorteil ein.');
+		expect(screen.getByText('Deine eingetragenen Vorteile, wenn du dein Ziel erreichst:')).toBeTruthy();
+	});
+
+	it('shows the exercise in English', async () => {
+		const { host } = fakeHost(
+			{
+				'GET /me/tools/balance': () =>
+					tool([entry('argument', { category: 'B', text: 'Der Rausch wird mir fehlen.', rating: 1 })])
+			},
+			{ locale: 'en' }
+		);
+		renderWith(
+			host,
+			<ToolPage toolId="balance" mode="client" backLabel="My tools" onBack={() => undefined} />
+		);
+		expect(await screen.findByText('−10.0')).toBeTruthy();
+		expect(screen.getByText('Maximum CON tendency')).toBeTruthy();
+		expect(screen.getByText('I want to change something!')).toBeTruthy();
+		expect(screen.getByText('CON 1 point')).toBeTruthy();
+		expect(
+			screen.getByText('If I reach my goal / change my behaviour, I will have the following …')
+		).toBeTruthy();
+		fireEvent.click(screen.getAllByText('Add')[0]!);
+		fireEvent.click(screen.getByText('Show examples'));
+		expect(screen.getByText('I can think clearly again.')).toBeTruthy();
+		fireEvent.click(screen.getByText('Add entry'));
+		expect(screen.getByRole('alert').textContent).toBe('Please enter an advantage.');
+		expect(screen.getByLabelText('very important (★★★)')).toBeTruthy();
+		expect(screen.getByText('The advantages you entered if you reach your goal:')).toBeTruthy();
+	});
 });

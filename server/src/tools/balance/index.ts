@@ -54,13 +54,15 @@ export const balance: ServerTool = {
 			default: POLE_VARIANTS[0]
 		}
 	},
-	exportPdf(pdf, { entries, options }) {
+	exportPdf(pdf, { entries, options, i18n }) {
+		const { m, t } = i18n;
+		const texts = m.balance;
 		const args = entries.filter((e) => e.kind === ARGUMENT_KIND).map((e) => e.data as Argument);
 		const conclusion = entries.find((e) => e.kind === CONCLUSION_KIND)?.data as { text: string } | undefined;
 		const result = calculate(args);
-		const poles = polesOf(options.poles);
+		const poles = polesOf(options.poles, m);
 
-		pdf.heading('Ergebnis');
+		pdf.heading(texts.pdf.result);
 		pdf.drawing(64, (doc, { x, y, width }) => {
 			const barY = y + 22;
 			const gradient = doc.linearGradient(x, 0, x + width, 0);
@@ -70,10 +72,11 @@ export const balance: ServerTool = {
 				.font('bold')
 				.fontSize(9)
 				.fillColor(PRO_COLOR)
-				.text(withSide(poles.pro, 'PRO'), x, y, { width: width / 2 });
-			doc
-				.fillColor(CONTRA_COLOR)
-				.text(withSide(poles.contra, 'CONTRA'), x + width / 2, y, { width: width / 2, align: 'right' });
+				.text(withSide(poles.pro, texts.sides.pro), x, y, { width: width / 2 });
+			doc.fillColor(CONTRA_COLOR).text(withSide(poles.contra, texts.sides.contra), x + width / 2, y, {
+				width: width / 2,
+				align: 'right'
+			});
 			doc.font('regular').fontSize(8).fillColor('#545f63');
 			doc.text('+10', x, barY + 14, { width: 40 });
 			doc.text('0', x + width / 2 - 20, barY + 14, { width: 40, align: 'center' });
@@ -88,23 +91,32 @@ export const balance: ServerTool = {
 		});
 		pdf.paragraph(
 			result.value === null
-				? 'Die Waage ist noch inaktiv (keine Relevanzpunkte).'
-				: `Motivationswert ${formatValue(result.value)} (${tendency(result.value)}), PRO ${result.pro} Punkte, CONTRA ${result.contra} Punkte, Skala von −10 bis +10.`
+				? texts.pdf.inactive
+				: t(texts.pdf.summary, {
+						value: formatValue(result.value, i18n),
+						tendency: tendency(result.value, i18n),
+						pro: t(texts.sidePoints, { side: texts.sides.pro, count: result.pro }),
+						contra: t(texts.sidePoints, { side: texts.sides.contra, count: result.contra })
+					})
 		);
 
-		pdf.heading('Fazit');
-		pdf.paragraph(conclusion?.text ?? 'Kein Fazit eingetragen.', { muted: !conclusion });
+		pdf.heading(texts.pdf.conclusion);
+		pdf.paragraph(conclusion?.text ?? texts.pdf.noConclusion, { muted: !conclusion });
 
-		pdf.heading('Argumente');
+		pdf.heading(texts.pdf.arguments);
 		for (const category of CATEGORY_IDS) {
-			const { long, side } = CATEGORIES[category];
-			pdf.subheading(`${long} (${side === 'pro' ? 'PRO' : 'CONTRA'})`);
+			pdf.subheading(
+				t(texts.categoryWithSide, {
+					category: texts.categories[category].long,
+					side: texts.sides[CATEGORIES[category].side]
+				})
+			);
 			const items = args.filter((arg) => arg.category === category);
 			if (items.length === 0) {
-				pdf.paragraph('Keine Einträge.', { muted: true });
+				pdf.paragraph(texts.pdf.noEntries, { muted: true });
 			}
 			for (const item of items) {
-				pdf.item(item.text, `${ratingLabel(item.rating)} (${item.rating})`);
+				pdf.item(item.text, t(texts.pdf.rating, { label: ratingLabel(item.rating, m), count: item.rating }));
 			}
 			pdf.spacer(4);
 		}

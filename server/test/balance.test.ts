@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
+import type { Entry } from '../../shared/api.ts';
+import { i18n } from '../../shared/i18n/index.ts';
 import type { CategoryId } from '../../shared/tools/balance.ts';
 import { calculate, formatValue, polesOf, tendency } from '../../shared/tools/balance.ts';
-import { argumentSchema, conclusionSchema } from '../src/tools/balance/index.ts';
+import { argumentSchema, balance, conclusionSchema } from '../src/tools/balance/index.ts';
+import { createWriter } from './pdfWriter.ts';
+
+const de = i18n('de');
+const en = i18n('en');
 
 /** Arguments giving the wanted PRO and CONTRA sums (ratings of 3, then the rest). */
 const withSums = (pro: number, contra: number) => {
@@ -28,8 +34,8 @@ describe('calculation (tool description 2.4.5)', () => {
 		const result = calculate(withSums(pro, contra));
 		expect(result.pro).toBe(pro);
 		expect(result.contra).toBe(contra);
-		expect(formatValue(result.value)).toBe(shown);
-		expect(tendency(result.value)).toBe(reading);
+		expect(formatValue(result.value, de)).toBe(shown);
+		expect(tendency(result.value, de)).toBe(reading);
 	});
 
 	it('uses the ratio, not the number of arguments', () => {
@@ -56,8 +62,8 @@ describe('calculation (tool description 2.4.5)', () => {
 				{ category: 'C', rating: 0 }
 			]).value
 		).toBeNull();
-		expect(formatValue(null)).toBe('–');
-		expect(tendency(null)).toBe('Noch nicht berechenbar');
+		expect(formatValue(null, de)).toBe('–');
+		expect(tendency(null, de)).toBe('Noch nicht berechenbar');
 	});
 
 	it('rounds only for display', () => {
@@ -87,10 +93,58 @@ describe('input', () => {
 	});
 
 	it('falls back to the first pole variant', () => {
-		expect(polesOf('unbekannt')).toEqual({ contra: 'CONTRA Veränderung', pro: 'PRO Veränderung' });
-		expect(polesOf('gut so, wie es ist / es muss sich was ändern!')).toEqual({
+		expect(polesOf('unbekannt', de.m)).toEqual({ contra: 'CONTRA Veränderung', pro: 'PRO Veränderung' });
+		expect(polesOf('gut so, wie es ist / es muss sich was ändern!', de.m)).toEqual({
 			contra: 'gut so, wie es ist',
 			pro: 'es muss sich was ändern!'
 		});
+	});
+
+	it('keeps the German variants as the stored setting and shows them translated', () => {
+		expect(balance.options?.poles?.enum).toContain('keine Veränderung / Ich möchte etwas ändern!');
+		expect(polesOf('keine Veränderung / Ich möchte etwas ändern!', en.m)).toEqual({
+			contra: 'No change',
+			pro: 'I want to change something!'
+		});
+	});
+});
+
+describe('in English', () => {
+	it('formats the value with a point and reads the tendency', () => {
+		expect(formatValue(calculate(withSums(20, 15)).value, en)).toBe('+1.4');
+		expect(formatValue(calculate(withSums(5, 15)).value, en)).toBe('−5.0');
+		expect(tendency(calculate(withSums(20, 15)).value, en)).toBe('Slight PRO tendency');
+		expect(tendency(calculate(withSums(0, 12)).value, en)).toBe('Maximum CON tendency');
+		expect(tendency(null, en)).toBe('Cannot be calculated yet');
+	});
+
+	it('writes the PDF in the language of the export', () => {
+		const entry = (kind: string, data: unknown) => ({ kind, data }) as Entry;
+		const input = {
+			entries: [
+				entry('argument', { category: 'A', text: 'More money', rating: 3 }),
+				entry('argument', { category: 'C', text: 'Peace', rating: 1 })
+			],
+			options: { poles: 'CONTRA Veränderung / PRO Veränderung' },
+			linked: {},
+			counsellors: []
+		};
+		const english = createWriter();
+		balance.exportPdf(english.writer, { ...input, i18n: en });
+		expect(english.text()).toContain('# Result');
+		expect(english.text()).toContain(
+			'Motivation score +5.0 (PRO tendency), PRO 3 points, CON 1 point, on a scale from −10 to +10.'
+		);
+		expect(english.text()).toContain('## Advantages if nothing changes (CON)');
+		expect(english.text()).toContain('- More money (very important (3))');
+		expect(english.text()).toContain('No conclusion entered.');
+
+		const german = createWriter();
+		balance.exportPdf(german.writer, { ...input, i18n: de });
+		expect(german.text()).toContain(
+			'Motivationswert +5,0 (PRO-Tendenz), PRO 3 Punkte, CONTRA 1 Punkt, Skala von −10 bis +10.'
+		);
+		expect(german.text()).toContain('## Vorteile, wenn sich nichts ändert (CONTRA)');
+		expect(german.text()).toContain('- More money (sehr wichtig (3))');
 	});
 });

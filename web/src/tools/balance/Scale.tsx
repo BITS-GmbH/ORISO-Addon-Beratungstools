@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import type { BalanceResult } from '../../../../shared/tools/balance.ts';
+import { useI18n } from '../../host.ts';
 
 const PIVOT = { x: 320, y: 70 };
 const HALF_BEAM = 210;
@@ -71,6 +72,7 @@ export function Scale({
 	poles: { contra: string; pro: string };
 	title: string;
 }) {
+	const { sides } = useI18n().m.balance;
 	const id = useId().replace(/[^a-zA-Z0-9_-]/g, '');
 	const active = result.value !== null;
 	const value = result.value ?? 0;
@@ -150,7 +152,7 @@ export function Scale({
 				fontWeight={700}
 				fill="var(--bt-primary)"
 			>
-				PRO
+				{sides.pro}
 			</text>
 			<text
 				x={DIAL.x + DIAL.r + 8}
@@ -160,7 +162,7 @@ export function Scale({
 				fontWeight={700}
 				fill="var(--bt-contra)"
 			>
-				CONTRA
+				{sides.contra}
 			</text>
 			{[-10, -5, 0, 5, 10].map((v) => (
 				<line
