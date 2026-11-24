@@ -162,9 +162,6 @@ const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 	};
 };
 
-const formatDateTime = (date: Date, timeZone: string, { locales }: I18n) =>
-	new Intl.DateTimeFormat(locales, { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(date);
-
 const PAGE_NUMBER_WIDTH = 90;
 
 /** The note on the left, wrapped upwards if it is long, and the page number on the right of the last line. */
@@ -190,7 +187,7 @@ const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: st
 	doc.moveDown(0.4);
 	const rows: Array<[string, string]> = [
 		...(header.caseLabel ? [[m.pdf.case, header.caseLabel] as [string, string]] : []),
-		[m.pdf.createdAt, formatDateTime(header.createdAt, timeZone, i18n)],
+		[m.pdf.createdAt, i18n.date(header.createdAt, { withTime: true, timeZone })],
 		...(header.period ? [[m.pdf.period, header.period] as [string, string]] : [])
 	];
 	for (const [label, value] of rows) {

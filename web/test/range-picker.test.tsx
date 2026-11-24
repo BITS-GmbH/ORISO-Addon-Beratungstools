@@ -46,7 +46,7 @@ describe('Zeitraum', () => {
 		fireEvent.click(day('Dienstag, 03.11.2026'));
 		expect(onChange).toHaveBeenCalledWith({ from: '2026-11-03', to: '2026-11-10' });
 		expect(screen.queryByRole('dialog')).toBeNull();
-		expect(field().textContent).toContain('03.11.2026 bis 10.11.2026');
+		expect(field().textContent).toContain('03.11. bis 10.11.2026');
 	});
 
 	it('offers quick choices and no days after today', () => {

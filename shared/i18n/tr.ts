@@ -16,7 +16,25 @@ export const tr: Catalogue = {
 		minutes: '{minutes} dk.',
 		hours: '{hours} sa.',
 		hoursMinutes: '{hours} sa. {minutes} dk.',
-		time: 'saat {time}'
+		time: 'saat {time}',
+		weekdays: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],
+		weekdaysShort: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+		months: [
+			'Ocak',
+			'Şubat',
+			'Mart',
+			'Nisan',
+			'Mayıs',
+			'Haziran',
+			'Temmuz',
+			'Ağustos',
+			'Eylül',
+			'Ekim',
+			'Kasım',
+			'Aralık'
+		],
+		weekdayDate: '{date} {weekday}',
+		monthYear: '{month} {year}'
 	},
 	catalog: {
 		goals: {

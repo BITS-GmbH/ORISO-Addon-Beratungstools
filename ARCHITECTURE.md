@@ -236,10 +236,15 @@ unknown placeholders and missing plural forms, and fails on em dashes.
 
 **Lookup** (`shared/i18n/index.ts`): `i18n(lang, informal)` gives `m` (the catalogue of that
 language with English, then German, filling in what it lacks, forms of address resolved),
-`t(text, vars)` for placeholders and plurals, and `number`/`date` formatting with `Intl` for the
-language (`de-DE`, `en-GB`, `fr-FR`, `ru-RU`, `ti`, `tr-TR`). `shared/days.ts` formats days,
-weeks, months and durations the same way. `localized(fn)` builds a text in every language for the
-host.
+`t(text, vars)` for placeholders and plurals, and `number` formatting with `Intl` for the language
+(`de-DE`, `en-GB`, `fr-FR`, `ru-RU`, `ti`, `tr-TR`). Every date, in the web and in PDFs, goes
+through one helper (`shared/i18n/dates.ts`, used by `i18n.date`/`formatDate` and by
+`shared/days.ts` for days, weeks, periods and months): `Intl` per language, with the separator of
+the full date also for day and month alone (Turkish `23.11`, not `23/11`), and periods built the
+same way everywhere (`days.period`). Browsers mostly have no Tigrinya dates, so Tigrinya uses the
+numeric order `dd/MM/yyyy` with weekday and month names from the catalogue (`days.weekdays`,
+`days.weekdaysShort`, `days.months`, `days.weekdayDate`, `days.monthYear`). `localized(fn)` builds
+a text in every language for the host.
 
 **Where the language comes from:**
 

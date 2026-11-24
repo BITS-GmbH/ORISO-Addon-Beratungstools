@@ -20,7 +20,25 @@ export const de = {
 		minutes: '{minutes} Min.',
 		hours: '{hours} Std.',
 		hoursMinutes: '{hours} Std. {minutes} Min.',
-		time: '{time} Uhr'
+		time: '{time} Uhr',
+		weekdays: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+		weekdaysShort: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+		months: [
+			'Januar',
+			'Februar',
+			'März',
+			'April',
+			'Mai',
+			'Juni',
+			'Juli',
+			'August',
+			'September',
+			'Oktober',
+			'November',
+			'Dezember'
+		],
+		weekdayDate: '{weekday}, {date}',
+		monthYear: '{month} {year}'
 	},
 	catalog: {
 		goals: {

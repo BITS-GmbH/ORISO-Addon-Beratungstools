@@ -16,7 +16,12 @@ export const ti: Catalogue = {
 		minutes: '{minutes} ደቒቕ',
 		hours: '{hours} ሰዓት',
 		hoursMinutes: '{hours} ሰዓት {minutes} ደቒቕ',
-		time: 'ሰዓት {time}'
+		time: 'ሰዓት {time}',
+		weekdays: ['ሰኑይ', 'ሰሉስ', 'ረቡዕ', 'ሓሙስ', 'ዓርቢ', 'ቀዳም', 'ሰንበት'],
+		weekdaysShort: ['ሰኑ', 'ሰሉ', 'ረቡ', 'ሓሙ', 'ዓር', 'ቀዳ', 'ሰን'],
+		months: ['ጥሪ', 'ለካቲት', 'መጋቢት', 'ሚያዝያ', 'ጉንበት', 'ሰነ', 'ሓምለ', 'ነሓሰ', 'መስከረም', 'ጥቅምቲ', 'ሕዳር', 'ታሕሳስ'],
+		weekdayDate: '{weekday}፣ {date}',
+		monthYear: '{month} {year}'
 	},
 	catalog: {
 		goals: {

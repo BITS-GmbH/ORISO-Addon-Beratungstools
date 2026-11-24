@@ -4,6 +4,7 @@ import {
 	formatDay,
 	formatDayLong,
 	formatMonth,
+	formatPeriod,
 	weekdayNames,
 	weekStart
 } from '../../../shared/days.ts';
@@ -49,9 +50,7 @@ export const rangeLabel = ({ from, to }: DayRange, lang: Lang = 'de'): string =>
 		return m.rangePicker.all;
 	}
 	if (from && to) {
-		return from === to
-			? formatDay(from, lang)
-			: t(m.days.period, { from: formatDay(from, lang), to: formatDay(to, lang) });
+		return formatPeriod(from, to, lang);
 	}
 	return from
 		? t(m.rangePicker.from, { day: formatDay(from, lang) })

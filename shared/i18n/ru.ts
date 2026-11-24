@@ -16,7 +16,25 @@ export const ru: Catalogue = {
 		minutes: '{minutes} мин.',
 		hours: '{hours} ч',
 		hoursMinutes: '{hours} ч {minutes} мин.',
-		time: '{time}'
+		time: '{time}',
+		weekdays: ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье'],
+		weekdaysShort: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
+		months: [
+			'январь',
+			'февраль',
+			'март',
+			'апрель',
+			'май',
+			'июнь',
+			'июль',
+			'август',
+			'сентябрь',
+			'октябрь',
+			'ноябрь',
+			'декабрь'
+		],
+		weekdayDate: '{weekday}, {date}',
+		monthYear: '{month} {year} г.'
 	},
 	catalog: {
 		goals: {

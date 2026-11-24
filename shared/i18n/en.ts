@@ -16,7 +16,25 @@ export const en: Complete = {
 		minutes: '{minutes} min',
 		hours: '{hours} h',
 		hoursMinutes: '{hours} h {minutes} min',
-		time: '{time}'
+		time: '{time}',
+		weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+		weekdaysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+		months: [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December'
+		],
+		weekdayDate: '{weekday}, {date}',
+		monthYear: '{month} {year}'
 	},
 	catalog: {
 		goals: {

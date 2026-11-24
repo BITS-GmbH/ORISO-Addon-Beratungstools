@@ -1,3 +1,4 @@
+import { dateFormatter, type DateStyle } from './dates.ts';
 import { de } from './de.ts';
 import { en } from './en.ts';
 import { fr } from './fr.ts';
@@ -7,6 +8,7 @@ import { tr } from './tr.ts';
 import type { Messages, Plural } from './types.ts';
 
 export type { Catalogue, Complete, Messages, Plural, Schema } from './types.ts';
+export type { DateStyle } from './dates.ts';
 
 /** ORISO's languages; German also has the informal form ("de@informal"). */
 export const LANGS = ['de', 'en', 'fr', 'ru', 'ti', 'tr'] as const;
@@ -24,6 +26,12 @@ const INTL_LOCALES: Record<Lang, string[]> = {
 	ti: ['ti', 'en-GB'],
 	tr: ['tr-TR']
 };
+
+/**
+ * Locales for dates. Browsers mostly lack Tigrinya dates and ICU's own Tigrinya data mixes day and
+ * month orders, so Tigrinya dates use the British numeric order with names from the catalogue.
+ */
+const DATE_LOCALES: Partial<Record<Lang, string[]>> = { ti: ['en-GB'] };
 
 export const isLang = (value: unknown): value is Lang => (LANGS as readonly unknown[]).includes(value);
 
@@ -121,6 +129,8 @@ export interface I18n {
 	 */
 	t: (text: string | Plural, vars?: Vars) => string;
 	number: (value: number, options?: Intl.NumberFormatOptions) => string;
+	/** A date in one of the styles of `dates.ts`; every date shown or exported goes through it. */
+	formatDate: (date: Date, style: DateStyle, timeZone?: string) => string;
 	/** Date (and time) of an ISO timestamp; empty for none. */
 	date: (
 		iso: string | Date | null | undefined,
@@ -149,17 +159,13 @@ export const i18n = (lang: Lang = DEFAULT_LANG, informal = false): I18n => {
 			return value === undefined ? match : typeof value === 'number' ? number(value) : value;
 		});
 	};
+	const m = messages(lang, informal);
+	const formatDate = dateFormatter(lang, DATE_LOCALES[lang] ?? locales, m.days);
 	const date: I18n['date'] = (iso, { withTime = false, timeZone } = {}) =>
 		iso
-			? new Intl.DateTimeFormat(locales, {
-					day: '2-digit',
-					month: '2-digit',
-					year: 'numeric',
-					...(withTime ? { hour: '2-digit', minute: '2-digit' } : {}),
-					...(timeZone ? { timeZone } : {})
-				}).format(typeof iso === 'string' ? new Date(iso) : iso)
+			? formatDate(typeof iso === 'string' ? new Date(iso) : iso, withTime ? 'dateTime' : 'date', timeZone)
 			: '';
-	const created: I18n = { lang, informal, locales, m: messages(lang, informal), t, number, date };
+	const created: I18n = { lang, informal, locales, m, t, number, formatDate, date };
 	i18nCache.set(cacheKey, created);
 	return created;
 };

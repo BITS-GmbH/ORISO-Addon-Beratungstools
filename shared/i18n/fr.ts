@@ -16,7 +16,25 @@ export const fr: Catalogue = {
 		minutes: '{minutes} min',
 		hours: '{hours} h',
 		hoursMinutes: '{hours} h {minutes} min',
-		time: '{time}'
+		time: '{time}',
+		weekdays: ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'],
+		weekdaysShort: ['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'],
+		months: [
+			'janvier',
+			'février',
+			'mars',
+			'avril',
+			'mai',
+			'juin',
+			'juillet',
+			'août',
+			'septembre',
+			'octobre',
+			'novembre',
+			'décembre'
+		],
+		weekdayDate: '{weekday} {date}',
+		monthYear: '{month} {year}'
 	},
 	catalog: {
 		goals: {
