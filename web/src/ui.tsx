@@ -167,6 +167,21 @@ export const useLoad = <T,>(load: () => Promise<T>): Loaded<T> => {
 	return { ...state, reload };
 };
 
+/** Scrolls a detail opened below its trigger into view and moves the focus there; `key` names what is open. */
+export const useReveal = <T extends HTMLElement>(key: unknown) => {
+	const ref = useRef<T>(null);
+	useEffect(() => {
+		const element = ref.current;
+		if (key == null || !element) {
+			return;
+		}
+		const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+		element.scrollIntoView?.({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+		element.focus({ preventScroll: true });
+	}, [key]);
+	return ref;
+};
+
 /** A time of day (`HH:MM` or `''`); the web kit has no time field. */
 export const TimeField = ({
 	label,

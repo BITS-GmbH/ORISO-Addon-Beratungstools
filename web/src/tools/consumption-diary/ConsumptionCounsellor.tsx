@@ -19,7 +19,7 @@ import {
 	type DiaryData
 } from '../../../../shared/tools/consumption-diary.ts';
 import { PlannedActivities } from '../../core/PlannedActivities.tsx';
-import { Pill, WeekNav } from '../../ui.tsx';
+import { Pill, useReveal, WeekNav } from '../../ui.tsx';
 import type { CounsellorViewProps } from '../types.ts';
 import { PhaseSnippet } from './parts.tsx';
 
@@ -119,8 +119,14 @@ function DayDetails({
 	day: string;
 	isNew: (entry: Entry) => boolean;
 }) {
+	const ref = useReveal<HTMLElement>(day);
 	return (
-		<section className="bt-entry bt-stack" aria-label={`Einträge vom ${formatDayLong(day)}`}>
+		<section
+			ref={ref}
+			tabIndex={-1}
+			className="bt-entry bt-stack"
+			aria-label={`Einträge vom ${formatDayLong(day)}`}
+		>
 			<h3 className="bt-title">{formatDayLong(day)}</h3>
 			{diary.topics.map((topic) => {
 				const consumed = consumedOn(diary, day, topic);

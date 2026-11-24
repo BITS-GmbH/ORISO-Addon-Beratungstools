@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { formatDayShort, localToday, weekStart } from '../../shared/days.ts';
 import { ToolPage } from '../src/core/ToolPage.tsx';
 import { ConsumptionCounsellor } from '../src/tools/consumption-diary/ConsumptionCounsellor.tsx';
@@ -193,6 +193,8 @@ describe('Konsumtagebuch', () => {
 	});
 
 	it('shows counsellors the week with sums per topic and the details of a day', () => {
+		const scrolled = vi.fn();
+		Element.prototype.scrollIntoView = scrolled;
 		const monday = weekStart(today);
 		render(
 			<div className="bt">
@@ -230,6 +232,8 @@ describe('Konsumtagebuch', () => {
 		expect(within(tile).getByText('Kein Konsum eingetragen')).toBeTruthy();
 		expect(within(tile).getByText('Neu')).toBeTruthy();
 		fireEvent.click(tile);
+		expect(scrolled).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
+		expect(document.activeElement).toBe(screen.getByRole('region', { name: /^Einträge vom / }));
 		expect(screen.getByText('Stress')).toBeTruthy();
 		expect(screen.getByText('Weniger')).toBeTruthy();
 		expect(screen.queryByText('neue Konsumphase eintragen')).toBeNull();
