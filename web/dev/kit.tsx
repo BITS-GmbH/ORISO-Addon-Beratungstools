@@ -119,6 +119,7 @@ export const TextField = ({
 			<input
 				id={inputId}
 				type={type}
+				className="MuiInputBase-input"
 				style={field}
 				value={value}
 				disabled={disabled}
@@ -150,6 +151,7 @@ export const Textarea = ({
 			<textarea
 				id={inputId}
 				rows={minRows}
+				className="MuiInputBase-input"
 				style={{ ...field, resize: 'vertical' }}
 				value={value}
 				disabled={disabled}
@@ -190,6 +192,7 @@ export const Select = ({
 		<Labelled id={inputId} text={text} helperText={helperText} error={error}>
 			<select
 				id={inputId}
+				className="MuiInputBase-input"
 				style={field}
 				value={value}
 				disabled={disabled}
@@ -259,6 +262,7 @@ export const DatePicker = ({
 			<input
 				id={inputId}
 				type="date"
+				className="MuiInputBase-input"
 				style={field}
 				value={value}
 				min={min}
@@ -290,6 +294,7 @@ export const NumberField = ({
 			<input
 				id={inputId}
 				type="number"
+				className="MuiInputBase-input"
 				style={field}
 				value={value ?? ''}
 				min={min}
