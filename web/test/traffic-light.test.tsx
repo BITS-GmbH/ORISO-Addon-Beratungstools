@@ -26,6 +26,29 @@ describe('Ampelmodell', () => {
 		expect(await screen.findByText('Trage eine Medienaktivität ein.')).toBeTruthy();
 		expect(within(field(/Rot: große Gefahr/)).getByText('Keine Aktivitäten.')).toBeTruthy();
 		expect(screen.getByText('Grün:').parentElement?.textContent).toContain('kannst du ohne Probleme');
+		fireEvent.click(screen.getByText('+ Neue Aktivität eintragen'));
+		expect(screen.getByText('Gib eine neue Medienaktivität ein')).toBeTruthy();
+		fireEvent.click(screen.getByText('Speichern'));
+		expect(screen.getByRole('alert').textContent).toBe('Bitte trage eine Medienaktivität ein.');
+	});
+
+	it('shows the tool in English', async () => {
+		const activity = entry('activity', { text: 'Instagram', level: 2 });
+		const { host } = fakeHost({ 'GET /me/tools/traffic-light': () => tool([activity]) }, { locale: 'en' });
+		renderWith(host, page());
+		expect(await screen.findByText('Enter a media activity.')).toBeTruthy();
+		expect(screen.getByText('How to fill it in:')).toBeTruthy();
+		expect(within(field(/Red: great danger/)).getByText('No activities.')).toBeTruthy();
+		expect(within(field(/Yellow: possible danger/)).getByText('1 activity')).toBeTruthy();
+		expect(screen.getByRole('list', { name: 'Legend' }).textContent).toContain('Green = no danger');
+		fireEvent.click(screen.getByLabelText('Instagram, possible danger: edit or delete'));
+		expect(screen.getByText('Edit activity')).toBeTruthy();
+		expect((screen.getByLabelText('possible danger (Yellow)') as HTMLInputElement).checked).toBe(true);
+		expect(screen.getByText('Playing a computer game')).toBeTruthy();
+		fireEvent.click(screen.getByText('Delete'));
+		expect(screen.getByRole('group', { name: 'Confirm deletion' }).textContent).toContain(
+			'Delete this activity?'
+		);
 	});
 
 	it('adds an activity with a danger level and shows it in the matching field', async () => {

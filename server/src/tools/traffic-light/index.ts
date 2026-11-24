@@ -2,8 +2,8 @@ import { z } from 'zod';
 import type { Activity } from '../../../../shared/tools/traffic-light.ts';
 import {
 	ACTIVITY_KIND,
+	LEVEL_COLOURS,
 	LEVEL_VALUES,
-	LEVELS,
 	MAX_ACTIVITIES,
 	MAX_ACTIVITY_LENGTH
 } from '../../../../shared/tools/traffic-light.ts';
@@ -31,25 +31,28 @@ export const trafficLight: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const texts = i18n.m.trafficLight;
 		const activities = entries.filter((e) => e.kind === ACTIVITY_KIND).map((e) => e.data as Activity);
 		if (activities.length === 0) {
-			pdf.paragraph('Noch keine Aktivitäten eingetragen.', { muted: true });
+			pdf.paragraph(texts.empty, { muted: true });
 			return;
 		}
 		for (const level of LEVEL_VALUES) {
-			const { colour, colourName, danger } = LEVELS[level];
+			const colour = LEVEL_COLOURS[level];
+			const { colourName, danger } = texts.levels[colour];
+			const heading = i18n.t(texts.pdfLevelHeading, { colour: colourName, danger, level });
 			pdf.drawing(20, (doc, { x, y }) => {
 				doc.circle(x + 7, y + 8, 7).fill(PDF_COLOURS[colour]);
 				doc
 					.font('bold')
 					.fontSize(11)
 					.fillColor('#1a1c1e')
-					.text(`${colourName}: ${danger} (${level})`, x + 22, y + 2);
+					.text(heading, x + 22, y + 2);
 			});
 			const items = activities.filter((activity) => activity.level === level);
 			if (items.length === 0) {
-				pdf.paragraph('Keine Aktivitäten.', { muted: true });
+				pdf.paragraph(texts.noActivities, { muted: true });
 			}
 			for (const item of items) {
 				pdf.item(item.text);
@@ -57,9 +60,9 @@ export const trafficLight: ServerTool = {
 			pdf.spacer(6);
 		}
 	},
-	demo: () => [
-		{ kind: ACTIVITY_KIND, data: { text: 'Ein Computerspiel spielen', level: 3 } },
-		{ kind: ACTIVITY_KIND, data: { text: 'Instagram', level: 2 } },
-		{ kind: ACTIVITY_KIND, data: { text: 'E-Mails schreiben', level: 1 } }
-	]
+	demo: ({ m }) =>
+		LEVEL_VALUES.map((level) => ({
+			kind: ACTIVITY_KIND,
+			data: { text: m.trafficLight.demo[LEVEL_COLOURS[level]], level }
+		}))
 };

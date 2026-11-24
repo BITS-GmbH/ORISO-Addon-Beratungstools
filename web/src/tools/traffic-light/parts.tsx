@@ -2,11 +2,13 @@ import { useId, type ReactNode } from 'react';
 import type { Entry } from '../../../../shared/api.ts';
 import {
 	ACTIVITY_KIND,
+	LEVEL_COLOURS,
 	LEVEL_VALUES,
-	LEVELS,
+	levelLabel,
 	type Activity,
 	type Level
 } from '../../../../shared/tools/traffic-light.ts';
+import { useI18n } from '../../host.ts';
 
 export type Item = Activity & { id: string; entry: Entry };
 
@@ -16,16 +18,21 @@ export const activitiesOf = (entries: Entry[]): Item[] =>
 		.map((e) => ({ ...(e.data as Activity), id: e.id, entry: e }));
 
 export function Legend() {
+	const { m } = useI18n();
+	const texts = m.trafficLight;
 	return (
-		<ul className="bt-legend" aria-label="Legende">
-			{LEVEL_VALUES.map((level) => (
-				<li key={level}>
-					<span className={`bt-lamp bt-lamp--${LEVELS[level].colour}`} aria-hidden />
-					<span>
-						<strong>{LEVELS[level].colourName}</strong> = {LEVELS[level].danger}
-					</span>
-				</li>
-			))}
+		<ul className="bt-legend" aria-label={texts.legendLabel}>
+			{LEVEL_VALUES.map((level) => {
+				const colour = LEVEL_COLOURS[level];
+				return (
+					<li key={level}>
+						<span className={`bt-lamp bt-lamp--${colour}`} aria-hidden />
+						<span>
+							<strong>{texts.levels[colour].colourName}</strong> = {texts.levels[colour].danger}
+						</span>
+					</li>
+				);
+			})}
 		</ul>
 	);
 }
@@ -38,14 +45,16 @@ export function TrafficLight({
 	items: Item[];
 	renderItem: (item: Item) => ReactNode;
 }) {
+	const i18n = useI18n();
+	const texts = i18n.m.trafficLight;
 	const idPrefix = useId();
 	return (
 		<div className="bt-light-wrap">
 			<Legend />
-			<div className="bt-light" role="group" aria-label="Ampel">
+			<div className="bt-light" role="group" aria-label={texts.lightLabel}>
 				{LEVEL_VALUES.map((level: Level) => {
 					const list = items.filter((item) => item.level === level);
-					const { colour, colourName, danger } = LEVELS[level];
+					const colour = LEVEL_COLOURS[level];
 					const headingId = `${idPrefix}-${colour}`;
 					return (
 						<section
@@ -55,13 +64,11 @@ export function TrafficLight({
 						>
 							<h3 id={headingId} className="bt-light__head">
 								<span className={`bt-lamp bt-lamp--${colour}`} aria-hidden />
-								{colourName}: {danger}
-								<span className="bt-light__count">
-									{list.length === 1 ? '1 Aktivität' : `${list.length} Aktivitäten`}
-								</span>
+								{levelLabel(i18n, level)}
+								<span className="bt-light__count">{i18n.t(texts.activityCount, { count: list.length })}</span>
 							</h3>
 							{list.length === 0 ? (
-								<p className="bt-muted bt-small">Keine Aktivitäten.</p>
+								<p className="bt-muted bt-small">{texts.noActivities}</p>
 							) : (
 								<ul className="bt-light__list">
 									{list.map((item) => (
