@@ -25,7 +25,7 @@ const counsellor = {
 };
 
 describe('tool overview', () => {
-	it('shows released and not released tools in two groups with the right actions', async () => {
+	it('lists the tools compactly and shows status and actions in the detail view', async () => {
 		const { host } = fakeHost(
 			{
 				'GET /case/tools': () => ({
@@ -39,12 +39,20 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
-		expect(await screen.findByText('Freigeschaltete Tools')).toBeTruthy();
-		expect(screen.queryByText('Noch nicht freigeschaltete Tools')).toBeNull();
-		expect(screen.getByText('Einträge vorhanden, keine Einsicht')).toBeTruthy();
+		expect(await screen.findByText('Freigeschaltet')).toBeTruthy();
+		expect(screen.queryByText('Noch nicht freigeschaltet')).toBeNull();
 		expect(screen.getByText('2 neue Einträge')).toBeTruthy();
-		expect(screen.getAllByText('Einträge ansehen')).toHaveLength(1);
-		expect(screen.getAllByText('User-Vorschau')).toHaveLength(2);
+		expect(screen.queryByText('User-Vorschau')).toBeNull();
+		expect(screen.queryByText(/Fall:/)).toBeNull();
+
+		fireEvent.click(screen.getByText('Ausgangssituation und Ziele'));
+		expect(await screen.findByText('Einträge vorhanden, keine Einsicht')).toBeTruthy();
+		expect(screen.queryByText('Einträge ansehen')).toBeNull();
+		expect(screen.getByText('User-Vorschau')).toBeTruthy();
+
+		fireEvent.click(screen.getByText('‹ Alle Tools'));
+		fireEvent.click(await screen.findByText('Motivationswaage'));
+		expect(await screen.findByText('Einträge ansehen')).toBeTruthy();
 	});
 
 	it('releases a tool and explains a closed DPA gate', async () => {
@@ -63,10 +71,13 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
-		fireEvent.click((await screen.findAllByText('Freischalten'))[0]!);
-		expect(await screen.findByText('Freigeschaltete Tools')).toBeTruthy();
+		fireEvent.click(await screen.findByText('Ausgangssituation und Ziele'));
+		fireEvent.click(await screen.findByText('Freischalten'));
+		expect(await screen.findByText('Freischaltung aufheben')).toBeTruthy();
 		expect(calls.some((c) => c.method === 'POST' && c.path === '/case/tools/goals/release')).toBe(true);
-		fireEvent.click(screen.getByText('Freischalten'));
+		fireEvent.click(screen.getByText('‹ Alle Tools'));
+		fireEvent.click(await screen.findByText('Motivationswaage'));
+		fireEvent.click(await screen.findByText('Freischalten'));
 		await waitFor(() =>
 			expect(host.notify).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -86,6 +97,7 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
+		fireEvent.click(await screen.findByText('Ausgangssituation und Ziele'));
 		fireEvent.click(await screen.findByText('Freischaltung aufheben'));
 		expect(calls.some((c) => c.method === 'DELETE')).toBe(false);
 		fireEvent.click(screen.getByText('Aufheben'));
@@ -125,6 +137,7 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
+		fireEvent.click(await screen.findByText('Motivationswaage'));
 		fireEvent.click(await screen.findByText('Einträge ansehen'));
 		expect(await screen.findByText('neu dazu')).toBeTruthy();
 		expect(screen.getAllByText('Neu')).toHaveLength(1);
@@ -154,6 +167,7 @@ describe('tool overview', () => {
 			counsellor
 		);
 		renderWith(host, <CounsellorApp />);
+		fireEvent.click(await screen.findByText('Ausgangssituation und Ziele'));
 		fireEvent.click(await screen.findByText('User-Vorschau'));
 		expect(await screen.findByText('User-Vorschau / Demo: keine Speicherung im realen Fall')).toBeTruthy();
 		fireEvent.click(screen.getByText('Demo zurücksetzen'));
