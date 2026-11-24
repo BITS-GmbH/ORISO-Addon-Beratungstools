@@ -165,6 +165,24 @@ const createWriter = (doc: PDFKit.PDFDocument): PdfWriter => {
 const formatDateTime = (date: Date, timeZone: string, { locales }: I18n) =>
 	new Intl.DateTimeFormat(locales, { dateStyle: 'medium', timeStyle: 'short', timeZone }).format(date);
 
+const PAGE_NUMBER_WIDTH = 90;
+
+/** The note on the left, wrapped upwards if it is long, and the page number on the right of the last line. */
+const writeFooter = (doc: PDFKit.PDFDocument, note: string, pageNumber: string) => {
+	const noteWidth = doc.page.width - 2 * MARGIN - PAGE_NUMBER_WIDTH - 10;
+	const bottom = doc.page.height - MARGIN + 10;
+	doc.page.margins.bottom = 0;
+	doc.font('regular').fontSize(8).fillColor(COLORS.muted);
+	const lineHeight = doc.currentLineHeight(true);
+	const noteHeight = doc.heightOfString(note, { width: noteWidth });
+	doc.text(note, MARGIN, bottom + lineHeight - noteHeight, { width: noteWidth });
+	doc.text(pageNumber, doc.page.width - MARGIN - PAGE_NUMBER_WIDTH, bottom, {
+		width: PAGE_NUMBER_WIDTH,
+		align: 'right',
+		lineBreak: false
+	});
+};
+
 const writeHeader = (doc: PDFKit.PDFDocument, header: ExportHeader, timeZone: string, i18n: I18n) => {
 	const { m } = i18n;
 	doc.font('regular').fontSize(9).fillColor(COLORS.muted).text(m.pdf.brand, MARGIN, MARGIN);
@@ -236,22 +254,11 @@ export const renderPdf = (
 		const range = doc.bufferedPageRange();
 		for (let index = range.start; index < range.start + range.count; index++) {
 			doc.switchToPage(index);
-			const bottom = doc.page.height - MARGIN + 10;
-			doc.page.margins.bottom = 0;
-			doc
-				.font('regular')
-				.fontSize(8)
-				.fillColor(COLORS.muted)
-				.text(
-					`${header.footer ?? i18n.m.pdf.confidential} ${i18n.t(i18n.m.pdf.page, { page: index + 1, pages: range.count })}`,
-					MARGIN,
-					bottom,
-					{
-						width: doc.page.width - 2 * MARGIN,
-						align: 'center',
-						lineBreak: false
-					}
-				);
+			writeFooter(
+				doc,
+				header.footer ?? i18n.m.pdf.confidential,
+				i18n.t(i18n.m.pdf.page, { page: index + 1, pages: range.count })
+			);
 		}
 		doc.end();
 	});

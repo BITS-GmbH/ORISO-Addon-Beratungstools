@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { i18n } from '../../shared/i18n/index.ts';
+import PDFDocument from 'pdfkit';
+import { describe, expect, it, vi } from 'vitest';
+import { i18n, LANGS } from '../../shared/i18n/index.ts';
 import type { Entry } from '../../shared/api.ts';
 import { renderPdf } from '../src/core/pdf.ts';
 import { TOOLS } from '../src/tools/index.ts';
@@ -115,5 +116,33 @@ describe('export', () => {
 			tool.exportPdf(writer, { entries: many, options: {}, linked: {}, counsellors: [], i18n: i18n('de') })
 		);
 		expect((pdf.toString('latin1').match(/\/Type \/Page\b/g) ?? []).length).toBeGreaterThan(3);
+	});
+
+	it.each(LANGS)('keeps the page number on one line next to the note in the footer (%s)', async (lang) => {
+		const language = i18n(lang);
+		const drawn: Array<{ text: string; x: number; y: number; width: number; fits: boolean }> = [];
+		const original = PDFDocument.prototype.text;
+		const spy = vi.spyOn(PDFDocument.prototype, 'text').mockImplementation(function (
+			this: PDFKit.PDFDocument,
+			...args: any[]
+		) {
+			const [text, x, y, options] = args;
+			if (typeof x === 'number' && options?.width) {
+				drawn.push({ text, x, y, width: options.width, fits: this.widthOfString(text) <= options.width });
+			}
+			return original.apply(this, args as never);
+		});
+		try {
+			await renderPdf(header, 'Europe/Berlin', language, () => undefined);
+		} finally {
+			spy.mockRestore();
+		}
+		const pageNumber = drawn.find(
+			(call) => call.text === language.t(language.m.pdf.page, { page: 1, pages: 1 })
+		);
+		const note = drawn.find((call) => call.text === language.m.pdf.confidential);
+		expect(pageNumber?.fits).toBe(true);
+		expect(note && pageNumber && note.x + note.width).toBeLessThan(pageNumber!.x);
+		expect(note!.y).toBeLessThanOrEqual(pageNumber!.y);
 	});
 });
