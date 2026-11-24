@@ -1,1625 +1,1636 @@
 import type { Catalogue } from './types.ts';
 
-// TODO translate: still a copy of en.ts. Replace every English text with Russian; keep the keys,
-// the {placeholders} and the length of lists, and fill in the plural forms one, few, many and other.
-// `npm test` (server/test/i18n.test.ts) lists what is missing; missing texts show in English.
 export const ru: Catalogue = {
 	common: {
-		saving: 'Saving …',
-		saved: 'Saved automatically',
-		notSaved: 'Not saved',
-		weekBack: 'Previous week',
-		weekForward: 'Next week',
-		tryLater: 'Please try again later.',
-		tryAgain: 'That did not work. Please try again.',
-		cancel: 'Cancel'
+		saving: 'Сохранение …',
+		saved: 'Сохранено автоматически',
+		notSaved: 'Не сохранено',
+		weekBack: 'Предыдущая неделя',
+		weekForward: 'Следующая неделя',
+		tryLater: 'Пожалуйста, попробуйте ещё раз позже.',
+		tryAgain: 'Не получилось. Пожалуйста, попробуйте ещё раз.',
+		cancel: 'Отмена'
 	},
 	days: {
-		period: '{from} to {to}',
-		minutes: '{minutes} min',
-		hours: '{hours} h',
-		hoursMinutes: '{hours} h {minutes} min',
+		period: 'с {from} по {to}',
+		minutes: '{minutes} мин.',
+		hours: '{hours} ч',
+		hoursMinutes: '{hours} ч {minutes} мин.',
 		time: '{time}'
 	},
 	catalog: {
 		goals: {
-			title: 'Starting point and goals',
-			summary: 'Describe the situation and set a goal for the counselling',
+			title: 'Исходная ситуация и цели',
+			summary: 'Описать ситуацию и поставить цель консультирования',
 			description:
-				'This tool lets you describe the current situation in your own words and name a clear goal for the counselling. Naming a personal goal precisely helps people work on improving their situation. At the same time, it gives the counsellor more options and starting points to shape the counselling well. The personal goal can be adjusted during the counselling.'
+				'Этот инструмент позволяет описать текущую ситуацию своими словами и назвать конкретную цель консультирования. Точно сформулированная личная цель помогает людям работать над улучшением своей ситуации. Кроме того, у консультанта появляется больше возможностей и отправных точек, чтобы выстроить консультирование наилучшим образом. Личную цель можно скорректировать в ходе консультирования.'
 		},
 		'consumption-diary': {
-			title: 'Consumption diary',
-			summary: 'Record use or gambling day by day',
+			title: 'Дневник употребления',
+			summary: 'Записывать употребление или азартные игры день за днём',
 			description:
-				'In the consumption diary, people can record their substance use and/or gambling. This includes how often, how much and how long they use or gamble, but also the thoughts and feelings connected with the addictive behaviour. If they decide to share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'В дневнике употребления можно записывать, как Вы употребляете психоактивные вещества и/или играете в азартные игры. Сюда относятся частота, количество и продолжительность употребления или игры, а также мысли и чувства, связанные с зависимым поведением. Если человек решит открыть дневник своему консультанту, консультант сможет давать отзывы на записи.'
 		},
 		'relatives-diary': {
-			title: 'Diary for relatives',
-			summary: 'Reflect on the day with three questions and a mood',
+			title: 'Дневник для близких',
+			summary: 'Осмыслить день с помощью трёх вопросов и оценки настроения',
 			description:
-				'With this diary, relatives can reflect on the events of the day with the help of three questions. The questions help them sort out and write down their own thoughts and feelings about their family member’s addictive behaviour. If relatives share the diary with their counsellor, the counsellor can give feedback on the entries.'
+				'С помощью этого дневника близкие могут осмыслить события дня, опираясь на три вопроса. Вопросы помогают разобраться в своих мыслях и чувствах, связанных с зависимым поведением близкого человека, и записать их. Если близкие откроют дневник своему консультанту, консультант сможет давать отзывы на записи.'
 		},
 		balance: {
-			title: 'Decisional balance',
-			summary: 'Weigh up the pros and cons of a change',
+			title: 'Весы мотивации',
+			summary: 'Взвесить плюсы и минусы перемен',
 			description:
-				'The decisional balance helps people weigh up the pros and cons of overcoming their addictive behaviour. This can bring doubts and worries to light and make decisions clearer. If they want to, they can let their counsellor see their notes, so the counsellor can respond to their personal considerations.'
+				'Весы мотивации помогают взвесить и оценить плюсы и минусы отказа от зависимого поведения. Так можно выявить сомнения и опасения и принимать более ясные решения. По желанию можно открыть свои записи консультанту, чтобы он мог целенаправленно обсудить именно Ваши соображения.'
 		},
 		'emergency-kit': {
-			title: 'Emergency kit',
-			summary: 'Strategies and contacts for difficult situations',
+			title: 'Тревожный чемоданчик',
+			summary: 'Стратегии и контакты для трудных ситуаций',
 			description:
-				'With this tool, people can put together their personal emergency kit, which helps them avoid a relapse in especially difficult situations. The emergency kit can hold contact details of counsellors or family members as well as concrete steps to take and sayings to remember.'
+				'С помощью этого инструмента можно собрать свой личный «тревожный чемоданчик», который поможет избежать срыва в особенно трудных ситуациях. В нём можно сохранить контакты консультантов или близких, а также конкретные указания к действию и памятные фразы.'
 		},
 		active: {
-			title: 'Being active',
-			summary: 'Plan pleasant activities, also regularly',
+			title: 'Будьте активны',
+			summary: 'Планировать приятные занятия, в том числе регулярные',
 			description:
-				'This tool helps people make their everyday life more positive with pleasant activities, to improve their quality of life and reduce cravings. Activities can be entered freely or chosen from a list of suggestions, and planned once or on a regular basis.'
+				'Этот инструмент помогает сделать повседневную жизнь более позитивной с помощью приятных занятий, чтобы улучшить качество жизни и ослабить тягу. Занятия можно вписать самостоятельно или выбрать из списка предложений и запланировать как один раз, так и регулярно.'
 		},
 		'risk-situations': {
-			title: 'Risk situations and control strategies',
-			summary: 'Record risk situations, strategies and relapses',
+			title: 'Ситуации риска и стратегии контроля',
+			summary: 'Записывать ситуации риска, стратегии и срывы',
 			description:
-				'With this tool, people can look closely at their personal risk situations and work out suitable control strategies. If relapses happen, they can be recorded and the strategies revised. If they want to, they can make their notes available to their counsellor, so the counsellor can respond to the risk situations and control strategies.'
+				'С помощью этого инструмента можно внимательно рассмотреть свои личные ситуации риска и выработать подходящие стратегии контроля. Если случаются срывы, их можно записать и пересмотреть стратегии. По желанию можно открыть свои записи консультанту, чтобы он мог целенаправленно обсудить ситуации риска и стратегии контроля.'
 		},
 		'traffic-light': {
-			title: 'Traffic light model',
-			summary: 'Sort media activities by their risk',
+			title: 'Модель светофора',
+			summary: 'Распределить занятия с медиа по степени опасности',
 			description:
-				'The traffic light model helps people assess the personal risk of individual media activities and strengthen their ability to use media in a healthy way. Like a traffic light, media activities can be sorted into “green” (safe), “yellow” (risky) and “red” (very risky) activities.'
+				'Модель светофора помогает оценить, насколько опасны лично для Вас отдельные занятия с медиа, и научиться пользоваться медиа более осознанно. Как на светофоре, занятия с медиа можно разделить на «зелёные» (безопасные), «жёлтые» (рискованные) и «красные» (очень рискованные).'
 		},
 		'positive-perception': {
-			title: 'Seeing the positive',
-			summary: 'For parents: see the positive in the child’s behaviour',
+			title: 'Замечать хорошее',
+			summary: 'Для родителей: видеть хорошее в поведении ребёнка',
 			description:
-				'This tool helps parents notice the positive sides of their child’s behaviour more consciously, to improve how they interact and talk with their child. It explains the risks of negative communication and how positive reinforcement affects the child’s feelings and behaviour. Parents can reflect on how they use praise and plan positive communication.'
+				'Этот инструмент помогает родителям осознаннее замечать хорошее в поведении своего ребёнка, чтобы улучшить общение и взаимодействие с ним. Он рассказывает о рисках негативного общения и о том, как положительное подкрепление влияет на чувства и поведение ребёнка. Родители могут поразмышлять о том, как они используют похвалу, и спланировать позитивное общение.'
 		}
 	},
 	client: {
-		myTools: 'My tools',
+		myTools: 'Мои инструменты',
 		intro:
-			'Your counsellor has unlocked these exercises for you. Your counsellor only sees what you enter if you share it.',
-		loadError: 'Your tools could not be loaded.',
-		noneTitle: 'No tools unlocked yet',
-		noneText: 'Your counsellor can unlock tools for you. Feel free to ask them about it.',
-		new: 'New',
-		shared: 'Shared with your counsellor',
-		continue: 'Continue',
-		open: 'Open'
+			'Эти упражнения для Вас открыл Ваш консультант. То, что Вы вписываете, консультант увидит, только если Вы этим поделитесь.',
+		loadError: 'Не удалось загрузить Ваши инструменты.',
+		noneTitle: 'Пока нет открытых инструментов',
+		noneText: 'Ваш консультант может открыть для Вас инструменты. Не стесняйтесь спросить его об этом.',
+		new: 'Новое',
+		shared: 'Доступно консультанту',
+		continue: 'Продолжить',
+		open: 'Открыть'
 	},
 	toolPage: {
-		loadError: '“{title}” could not be loaded.',
-		notReleased: 'This tool is no longer unlocked.',
-		notReleasedNotSaved: 'This tool is no longer unlocked. Your input was not saved.',
-		saveFailed: 'Saving did not work. Please try again.',
-		pdfFailed: 'The PDF could not be created. Please try again.',
-		sharedNow: 'Your counsellor can now see this content.',
-		privateAgain: 'The content is now only visible to you again.',
-		shareOverline: 'Visible to your counsellor',
-		shareLabel: 'Share with my counsellor',
-		shareOn: 'Your counsellor can see your entries and is told about new entries.',
-		shareOff: 'Your entries are only visible to you.',
-		notAvailable: 'This tool is not available yet.'
+		loadError: 'Не удалось загрузить «{title}».',
+		notReleased: 'Этот инструмент больше не открыт.',
+		notReleasedNotSaved: 'Этот инструмент больше не открыт. Ваши данные не были сохранены.',
+		saveFailed: 'Сохранить не получилось. Пожалуйста, попробуйте ещё раз.',
+		pdfFailed: 'Не удалось создать PDF. Пожалуйста, попробуйте ещё раз.',
+		sharedNow: 'Теперь Ваш консультант может видеть эти записи.',
+		privateAgain: 'Теперь записи снова видны только Вам.',
+		shareOverline: 'Видимость для консультанта',
+		shareLabel: 'Поделиться с моим консультантом',
+		shareOn: 'Ваш консультант видит Ваши записи и получает уведомления о новых записях.',
+		shareOff: 'Ваши записи видны только Вам.',
+		notAvailable: 'Этот инструмент пока недоступен.'
 	},
 	counsellor: {
-		loadError: 'The tools of this case could not be loaded.',
-		openFromCase: 'Please open the tools from within a case.',
-		tools: 'Tools',
-		released: 'Unlocked',
-		releasedTools: 'Unlocked tools',
-		notReleasedYet: 'Not unlocked yet',
-		notReleasedTools: 'Tools not unlocked yet',
-		noTools: 'No tools are switched on for this counselling centre.',
-		shared: 'Shared with you',
-		entriesNotShared: 'Has entries, not shared',
-		noEntries: 'No entries yet',
+		loadError: 'Не удалось загрузить инструменты этого случая.',
+		openFromCase: 'Пожалуйста, откройте инструменты из карточки случая.',
+		tools: 'Инструменты',
+		released: 'Открыт',
+		releasedTools: 'Открытые инструменты',
+		notReleasedYet: 'Ещё не открыт',
+		notReleasedTools: 'Ещё не открытые инструменты',
+		noTools: 'Для этой консультационной службы инструменты не включены.',
+		shared: 'Доступ предоставлен',
+		entriesNotShared: 'Есть записи, доступа нет',
+		noEntries: 'Записей пока нет',
 		newEntries: {
-			one: '{count} new entry',
-			few: '{count} new entries',
-			many: '{count} new entries',
-			other: '{count} new entries'
+			one: '{count} новая запись',
+			few: '{count} новые записи',
+			many: '{count} новых записей',
+			other: '{count} новой записи'
 		},
-		dpa: 'Unlocking is not possible right now: the organisation has not yet confirmed the current data processing agreement.',
-		releasedOn: 'Unlocked on {date}',
-		lastChangedOn: 'last edited on {date}',
-		allTools: 'All tools',
-		notReleased: 'Not unlocked',
-		release: 'Unlock',
-		releasedNotice: '“{title}” is unlocked. The client will be notified.',
-		viewEntries: 'View entries',
-		preview: 'User preview',
-		withdraw: 'Lock again',
-		previewHint: 'The user preview shows the tool as the client sees it, with test data.',
+		dpa: 'Открыть доступ сейчас невозможно: организация ещё не подтвердила действующий договор об обработке данных.',
+		releasedOn: 'Открыт {date}',
+		lastChangedOn: 'последнее изменение {date}',
+		allTools: 'Все инструменты',
+		notReleased: 'Не открыт',
+		release: 'Открыть',
+		releasedNotice: '«{title}» открыт. Клиент получит уведомление.',
+		viewEntries: 'Посмотреть записи',
+		preview: 'Просмотр глазами клиента',
+		withdraw: 'Закрыть доступ',
+		previewHint: 'В режиме просмотра инструмент выглядит так, как его видит клиент, с тестовыми данными.',
 		withdrawConfirm:
-			'Lock this tool again? The tool disappears for the client and you no longer see any content. The entries stay saved.',
-		withdrawButton: 'Lock',
-		withdrawn: 'The tool is locked again. The entries stay saved.'
+			'Закрыть доступ? Инструмент исчезнет у клиента, и Вы больше не будете видеть его содержимое. Записи останутся сохранёнными.',
+		withdrawButton: 'Закрыть',
+		withdrawn: 'Доступ закрыт. Записи остаются сохранёнными.'
 	},
 	entries: {
-		back: 'Back to overview',
-		noAccess: 'Not shared',
-		loadError: 'The entries could not be loaded.',
-		revoked: 'The client has stopped sharing, or the tool is no longer unlocked.',
-		exportRevoked: 'The client has stopped sharing. Exporting is not possible.',
-		exportFailed: 'The export did not work. Please try again.',
-		readOnly: 'Entries, read only',
-		lastChangedOn: 'Last edited on {date}',
-		noEntries: 'No entries yet',
-		sharedSince: 'shared since {date}',
-		exporting: 'Creating export …',
-		createExport: 'Create export',
-		exportPdf: 'Export as PDF',
-		noView: 'There is no view for this tool yet.'
+		back: 'К обзору',
+		noAccess: 'Нет доступа',
+		loadError: 'Не удалось загрузить записи.',
+		revoked: 'Клиент отозвал доступ, или инструмент больше не открыт.',
+		exportRevoked: 'Клиент отозвал доступ. Экспорт невозможен.',
+		exportFailed: 'Экспорт не удался. Пожалуйста, попробуйте ещё раз.',
+		readOnly: 'Записи, только для чтения',
+		lastChangedOn: 'Последнее изменение {date}',
+		noEntries: 'Записей пока нет',
+		sharedSince: 'Доступ предоставлен с {date}',
+		exporting: 'Создаётся экспорт …',
+		createExport: 'Создать экспорт',
+		exportPdf: 'Экспортировать в PDF',
+		noView: 'Для этого инструмента пока нет представления.'
 	},
 	demo: {
-		resetFailed: 'The demo could not be reset.',
-		banner: 'User preview / demo: nothing is saved in a real case',
+		resetFailed: 'Не удалось сбросить демо.',
+		banner: 'Просмотр глазами клиента / демо: в реальном случае ничего не сохраняется',
 		bannerText:
-			'This is how clients see the tool. What you enter here is test data, separate from all cases, and stays for you until you reset the demo.',
-		reset: 'Reset demo',
-		end: 'End preview'
+			'Так клиенты видят инструмент. Всё, что Вы здесь вводите, это тестовые данные, отделённые от всех случаев; они сохраняются для Вас, пока Вы не сбросите демо.',
+		reset: 'Сбросить демо',
+		end: 'Завершить просмотр'
 	},
 	prefs: {
-		button: 'Notifications',
-		saved: 'Your notification settings have been saved.',
-		saveFailed: 'The settings could not be saved.',
-		title: 'Notification settings',
+		button: 'Уведомления',
+		saved: 'Ваши настройки уведомлений сохранены.',
+		saveFailed: 'Не удалось сохранить настройки.',
+		title: 'Настройки уведомлений',
 		intro:
-			'What would you like to be told about when clients share their tools with you? This applies to all your cases. Several changes made shortly after one another are combined.',
-		firstShare: 'Tool content shared for the first time',
-		newEntry: 'New entries in shared tools',
-		changedEntry: 'Changes to existing entries',
-		save: 'Save settings'
+			'О чём Вы хотите получать уведомления, когда клиенты делятся с Вами своими инструментами? Это относится ко всем Вашим случаям. Несколько изменений, сделанных одно за другим, объединяются.',
+		firstShare: 'Первое предоставление доступа к содержимому инструмента',
+		newEntry: 'Новые записи в открытых для Вас инструментах',
+		changedEntry: 'Изменения в существующих записях',
+		save: 'Сохранить настройки'
 	},
 	profile: {
-		loadError: 'The tools could not be loaded.',
-		none: 'No tools unlocked yet.',
-		newCount: '{count} new',
-		shared: 'Shared with you',
-		notShared: 'Not shared',
-		open: 'Open tools in the case'
+		loadError: 'Не удалось загрузить инструменты.',
+		none: 'Пока нет открытых инструментов.',
+		newCount: 'Новых: {count}',
+		shared: 'Доступ предоставлен',
+		notShared: 'Нет доступа',
+		open: 'Открыть инструменты в случае'
 	},
 	rangePicker: {
-		label: 'Period',
-		all: 'All entries',
-		from: 'from {day}',
-		until: 'until {day}',
-		choose: 'Choose {label}',
-		quick: 'Quick choice',
-		thisWeek: 'This week',
-		lastFourWeeks: 'Last 4 weeks',
-		previousMonth: 'Previous month',
-		nextMonth: 'Next month',
-		pickFirst: 'Choose the first day of the period.',
-		pickLast: 'From {day}: now choose the last day.'
+		label: 'Период',
+		all: 'Все записи',
+		from: 'с {day}',
+		until: 'по {day}',
+		choose: 'Выбрать: {label}',
+		quick: 'Быстрый выбор',
+		thisWeek: 'Эта неделя',
+		lastFourWeeks: 'Последние 4 недели',
+		previousMonth: 'Предыдущий месяц',
+		nextMonth: 'Следующий месяц',
+		pickFirst: 'Выберите первый день периода.',
+		pickLast: 'С {day}: теперь выберите последний день.'
 	},
 	planned: {
-		title: 'Planned activities this week',
-		none: 'No activities are planned for this week.',
-		plan: 'Plan activities in “Being active”',
-		with: 'with {name}'
+		title: 'Запланированные занятия на этой неделе',
+		none: 'На эту неделю занятий не запланировано.',
+		plan: 'Запланировать занятия в разделе «Будьте активны»',
+		with: 'с: {name}'
 	},
 	pdf: {
-		brand: 'Counselling tools',
-		case: 'Case',
-		createdAt: 'Export created on',
-		period: 'Period of the entries',
+		brand: 'Инструменты консультирования',
+		case: 'Случай',
+		createdAt: 'Экспорт создан',
+		period: 'Период записей',
 		confidential:
-			'Confidential. Content the client has chosen to share, for use in the counselling context only.',
-		personal: 'Personal document from the counselling tools.',
-		page: 'Page {page} of {pages}',
-		caseLabel: 'Case {id}',
-		caseWithoutId: 'Case without ID',
-		noEntries: 'No entries',
-		fileCase: 'case'
+			'Конфиденциально. Содержимое, к которому клиент предоставил доступ; только для использования в рамках консультирования.',
+		personal: 'Личный документ из инструментов консультирования.',
+		page: 'Страница {page} из {pages}',
+		caseLabel: 'Случай {id}',
+		caseWithoutId: 'Случай без идентификатора',
+		noEntries: 'Нет записей',
+		fileCase: 'sluchai'
 	},
 	notifications: {
-		someone: 'A client',
-		sharedTitle: 'Tool shared with you',
-		entriesTitle: 'New entries in a tool',
-		shared: '{who} shared “{tool}” with you.',
-		sharedAnd: '{who} shared “{tool}” with you and {what}.',
-		changes: '{who} {what} in “{tool}”.',
-		added: 'added entries',
-		changed: 'changed entries',
-		addedAndChanged: 'added and changed entries',
-		releasedTitle: 'New tool unlocked',
-		released: '“{tool}” is now available in “My tools”.'
+		someone: 'Клиент',
+		sharedTitle: 'Предоставлен доступ к инструменту',
+		entriesTitle: 'Новые записи в инструменте',
+		shared: '{who} предоставляет Вам доступ к инструменту «{tool}».',
+		sharedAnd: '{who} предоставляет Вам доступ к инструменту «{tool}» и {what}.',
+		changes: '{who} {what} в инструменте «{tool}».',
+		added: 'добавляет новые записи',
+		changed: 'изменяет записи',
+		addedAndChanged: 'добавляет новые и изменяет существующие записи',
+		releasedTitle: 'Открыт новый инструмент',
+		released: '«{tool}» теперь доступен в разделе «Мои инструменты».'
 	},
 	audit: {
-		released: 'Released tool “{tool}”',
-		withdrawn: 'Withdrew tool “{tool}”',
-		exported: 'Exported “{tool}” as PDF',
-		shared: 'Shared “{tool}” with the counsellor',
-		unshared: 'Stopped sharing “{tool}”'
+		released: 'Открыт инструмент «{tool}»',
+		withdrawn: 'Закрыт доступ к инструменту «{tool}»',
+		exported: 'Записи из «{tool}» экспортированы в PDF',
+		shared: 'Предоставлен доступ к «{tool}»',
+		unshared: 'Отозван доступ к «{tool}»'
 	},
 	manifest: {
-		title: 'Tools',
+		title: 'Инструменты',
 		description:
-			'Digital counselling tools: counsellors release exercises, clients work on them and may share them with their counsellor.',
-		screenshotOverview: 'Tools of a case',
-		screenshotEntries: 'Shared entries, read only',
-		screenshotBalance: 'The client’s decisional balance',
-		statReleased: '{tool}: released',
-		statStarted: '{tool}: started',
-		statShared: '{tool}: shared'
+			'Цифровые инструменты консультирования: консультанты открывают упражнения, клиенты выполняют их и по желанию делятся ими с консультантом.',
+		screenshotOverview: 'Обзор инструментов в случае',
+		screenshotEntries: 'Открытые записи, только для чтения',
+		screenshotBalance: 'Весы мотивации клиента',
+		statReleased: '{tool}: открыт',
+		statStarted: '{tool}: начат',
+		statShared: '{tool}: доступ предоставлен'
 	},
 	goals: {
 		steps: {
 			situation: {
-				section: 'Current situation',
-				title: 'Question 1 of 4: What is your current situation?',
+				section: 'Текущая ситуация',
+				title: 'Вопрос 1 из 4: Какова Ваша текущая ситуация?',
 				hint: [
-					'Please briefly describe',
-					'• your own substance use or gambling, or',
-					'• the main issues or conflicts in dealing with a family member who uses substances or gambles.'
+					'Пожалуйста, кратко опишите',
+					'• Ваше собственное употребление психоактивных веществ или участие в азартных играх, или',
+					'• главные темы или конфликты в отношениях с близким человеком, который употребляет вещества или играет.'
 				],
-				summary: 'Your current situation',
-				counsellorLabel: 'Current situation'
+				summary: 'Ваша текущая ситуация',
+				counsellorLabel: 'Текущая ситуация'
 			},
 			factors: {
-				section: 'What keeps things as they are',
-				title: 'Question 2 of 4: What are the positive sides of the current situation?',
+				section: 'Что поддерживает ситуацию',
+				title: 'Вопрос 2 из 4: Какие положительные стороны есть у текущей ситуации?',
 				hint: [
-					'What positive effects does substance use, gambling or media use have for you? What do you think: which reasons play a part for you when you use or gamble? What reasons might there be to leave the current situation as it is?'
+					'Какое положительное действие оказывает на Вас употребление веществ, азартные игры или использование медиа? Как Вы думаете, какие мотивы играют для Вас роль, когда Вы употребляете или играете? Какие могут быть причины ничего не менять в текущей ситуации?'
 				],
-				summary: 'Things that make a change difficult',
-				counsellorLabel: 'Things that make a change difficult'
+				summary: 'Что мешает переменам',
+				counsellorLabel: 'Что мешает переменам'
 			},
 			motivation: {
-				section: 'Motivation to change',
-				title: 'Question 3 of 4: Why do you want to change something about the current situation?',
-				hint: ['What bothers you or weighs on you? Which things are not going the way you would like?'],
-				summary: 'Reasons for changing the situation',
-				counsellorLabel: 'Reasons for changing the situation'
+				section: 'Мотивация к переменам',
+				title: 'Вопрос 3 из 4: Почему Вы хотите что-то изменить в текущей ситуации?',
+				hint: ['Что Вам мешает или тяготит Вас? Что идёт не так, как Вам хотелось бы?'],
+				summary: 'Причины и мотивы для изменения ситуации',
+				counsellorLabel: 'Причины и мотивы для изменения ситуации'
 			},
 			resources: {
-				section: 'Personal strengths',
-				title: 'Question 4 of 4: Who or what could help you with your plan?',
+				section: 'Личные ресурсы',
+				title: 'Вопрос 4 из 4: Кто или что могло бы помочь Вам в Вашем намерении?',
 				hint: [
-					'Do you have hobbies that take your mind off things, or friends or family who can support you?'
+					'Есть ли у Вас хобби, которые помогают отвлечься, или друзья и близкие, которые могут Вас поддержать?'
 				],
-				summary: 'Your personal strengths',
-				counsellorLabel: 'Personal strengths'
+				summary: 'Ваши личные ресурсы',
+				counsellorLabel: 'Личные ресурсы'
 			},
 			goal: {
-				section: 'Setting a goal',
-				title: 'Before you start: set your goal',
+				section: 'Формулировка цели',
+				title: 'Прежде чем начать: сформулируйте цель',
 				hint: [
-					'To work steadily on improving your situation over the coming weeks, it is important to name your personal goal as precisely as possible. What would you like to achieve in the coming weeks? What should the counselling help you with?',
-					'What concrete goal are you aiming for? (You can change your answer later.)'
+					'Чтобы в ближайшие недели целенаправленно работать над улучшением своей ситуации, важно как можно точнее назвать свою личную цель. Чего Вы хотели бы достичь в ближайшие недели? В чём консультирование должно Вас поддержать?',
+					'К какой конкретной цели Вы стремитесь? (Свой ответ Вы сможете изменить и позже.)'
 				],
-				summary: 'Your personal goal',
-				counsellorLabel: 'Personal goal'
+				summary: 'Ваша личная цель',
+				counsellorLabel: 'Личная цель'
 			}
 		},
 		start:
-			'Please use the following questions to describe your current situation. Think about the reason you came to counselling. Your answers help to judge which exercises will be most helpful for you. Your counsellor’s feedback can then also respond better to your actual situation.',
-		startButton: 'Let’s start',
-		summaryTitle: 'Summary',
+			'Пожалуйста, опишите свою текущую ситуацию с помощью следующих вопросов. Подумайте при этом о том, почему Вы обратились за консультацией. Ваши ответы помогут понять, какие упражнения будут для Вас особенно полезны. Тогда и отзывы Вашего консультанта смогут ещё лучше учитывать Вашу реальную ситуацию.',
+		startButton: 'Начнём',
+		summaryTitle: 'Итог',
 		summaryText:
-			'You have looked closely at your current situation and set a concrete goal. This is an important first step towards improving the situation. You can revise your answers at any time if you need to. I am happy to support you with this.',
-		overview: 'Your answers at a glance:',
-		edit: 'Edit',
-		editLabel: 'Edit: {label}',
-		empty: 'No answer yet',
-		restart: 'Go through it again',
-		home: 'My start page',
-		autosave: 'Your answers are saved automatically.',
-		back: 'Back',
-		toSummary: 'Go to summary',
-		next: 'Next',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		noAnswer: 'No answer',
-		noAnswers: 'No answers yet.',
-		reminder: 'Fill in starting point and goals',
-		demoSituation: 'For a few months I have been drinking almost every evening, usually two or three beers.'
+			'Вы подробно разобрали свою текущую ситуацию и сформулировали конкретную цель. Это первый важный шаг к улучшению ситуации. При необходимости Вы можете в любой момент изменить свои ответы. Я с радостью Вас в этом поддержу.',
+		overview: 'Ваши ответы кратко:',
+		edit: 'Изменить',
+		editLabel: 'Изменить: {label}',
+		empty: 'Ответа пока нет',
+		restart: 'Пройти заново',
+		home: 'Моя главная страница',
+		autosave: 'Ваши ответы сохраняются автоматически.',
+		back: 'Назад',
+		toSummary: 'К итогу',
+		next: 'Далее',
+		new: 'Новое',
+		lastChanged: 'Последнее изменение {date}',
+		noAnswer: 'Нет ответа',
+		noAnswers: 'Ответов пока нет.',
+		reminder: 'Заполнить «Исходная ситуация и цели»',
+		demoSituation: 'Уже несколько месяцев я пью почти каждый вечер, обычно две или три бутылки пива.'
 	},
 	consumptionDiary: {
 		intro:
-			'The diary is for writing down every day everything connected with the change you are aiming for. It is important to keep at it and to record all relevant thoughts and feelings in detail. This helps you reach your goal! The clearer the picture your counsellor has of your situation, the better the counselling can support you. That is why we recommend sharing your entries with your counsellor.',
-		about: 'About the consumption diary',
+			'Дневник нужен для того, чтобы ежедневно записывать всё, что связано с изменением поведения, к которому Вы стремитесь. Важно делать это постоянно и подробно записывать в дневник все значимые мысли и чувства. Это поможет Вам достичь своей цели! Чем точнее Ваш консультант сможет представить себе Вашу ситуацию, тем лучше он сможет Вам помочь. Поэтому мы рекомендуем сделать Ваши записи видимыми для Вашего консультанта.',
+		about: 'О дневнике употребления',
 		nav: {
-			label: 'Consumption diary',
-			week: 'My week',
-			entry: 'Diary entry',
-			settings: 'Settings'
+			label: 'Дневник употребления',
+			week: 'Моя неделя',
+			entry: 'Запись в дневнике',
+			settings: 'Настройки'
 		},
 		settings: {
-			title: 'Record these topics:',
-			addTopic: 'Add another topic',
-			pickTopic: 'Please choose at least one topic.',
-			save: 'Save',
-			start: 'Start diary'
+			title: 'Записывать эти темы:',
+			addTopic: 'Добавить ещё одну тему',
+			pickTopic: 'Пожалуйста, выберите хотя бы одну тему.',
+			save: 'Сохранить',
+			start: 'Начать дневник'
 		},
 		newEntry: {
-			title: 'Diary entry',
-			date: 'Date',
-			add: 'Add entry: {topic}'
+			title: 'Запись в дневнике',
+			date: 'Дата',
+			add: 'Добавить запись: {topic}'
 		},
 		week: {
-			title: 'My week',
+			title: 'Моя неделя',
 			cell: '{day}: {question}'
 		},
-		yes: 'yes',
-		no: 'no',
+		yes: 'да',
+		no: 'нет',
 		day: {
-			back: 'Back to the week',
-			overline: 'Diary | {topic}',
-			deleteAll: 'Delete entries',
-			cancel: 'Cancel',
-			moreAfterYes: 'More info',
-			moreAfterNo: 'More info',
-			logged: 'Recorded for this day:',
-			noPhase: 'No entry yet',
-			delete: 'Delete',
-			editTitle: 'Edit',
-			deleteTitle: 'Delete',
-			summary: 'Review of the day',
-			ratingHint: 'What went well for you today? What did not go so well? Think about your personal goal.',
-			planQuestion: 'What do you plan for tomorrow?',
-			done: 'Done',
-			save: 'Save'
+			back: 'К обзору недели',
+			overline: 'Дневник | {topic}',
+			deleteAll: 'Удалить записи',
+			cancel: 'Отмена',
+			moreAfterYes: 'Подробнее',
+			moreAfterNo: 'Подробнее',
+			logged: 'Записано за этот день:',
+			noPhase: 'Записей пока нет',
+			delete: 'Удалить',
+			editTitle: 'Изменить',
+			deleteTitle: 'Удалить',
+			summary: 'Итог дня',
+			ratingHint:
+				'Что Вам сегодня удалось? Что получилось не так хорошо? Вспомните при этом о своей личной цели.',
+			planQuestion: 'Что Вы планируете на завтра?',
+			done: 'Готово',
+			save: 'Сохранить'
 		},
 		phase: {
-			back: 'Back to the day',
-			date: 'Date',
-			start: 'Time (start)',
-			end: 'Time (end)',
-			nothingYet: 'Nothing added yet.',
-			deleteItem: 'Delete item',
-			deleteItemLabel: 'Delete item: {item}',
+			back: 'Назад к обзору дня',
+			date: 'Дата',
+			start: 'Время (начало)',
+			end: 'Время (конец)',
+			nothingYet: 'Пока ничего не внесено.',
+			deleteItem: 'Удалить пункт',
+			deleteItemLabel: 'Удалить пункт: {item}',
 			deviceQuestion:
-				'Which device did you use? (for example computer, smartphone, games console or handheld games device)',
-			missingItem: 'Please fill in at least one item and click “Add”.',
-			choose: 'Please choose',
+				'Каким устройством Вы пользовались? (например, компьютер, смартфон, игровая приставка или портативная игровая консоль)',
+			missingItem: 'Пожалуйста, заполните хотя бы один пункт и нажмите «Внести».',
+			choose: 'Пожалуйста, выберите',
 			group: '{group}:',
-			drink: 'Drink',
-			size: 'Size',
-			count: 'Number',
-			joints: 'Joints',
-			bongs: 'Bongs',
-			otherKind: 'Other',
-			gambling: 'Gambling',
-			media: 'Media',
-			hours: 'Duration: hours',
-			minutes: 'Minutes',
-			add: 'Add',
-			cancel: 'Cancel',
-			timeRange: '{start} to {end}',
+			drink: 'Напиток',
+			size: 'Объём',
+			count: 'Количество',
+			joints: 'Джойнты',
+			bongs: 'Бонги',
+			otherKind: 'Другое',
+			gambling: 'Азартные игры',
+			media: 'Медиа',
+			hours: 'Продолжительность: часы',
+			minutes: 'Минуты',
+			add: 'Внести',
+			cancel: 'Отмена',
+			timeRange: 'с {start} до {end}',
 			time: '{time}',
 			when: '{time}:',
-			noItems: 'No details about use'
+			noItems: 'Нет данных об употреблении'
 		},
 		topics: {
 			alcohol: {
-				label: 'Alcohol',
-				weekQuestion: 'Did you drink alcohol?',
-				dayQuestion: 'Did you drink alcohol today?',
-				pastDayQuestion: 'Did you drink alcohol on this day?',
-				ratingQuestion: 'How would you rate today with regard to your drinking?',
-				pastRatingQuestion: 'How would you rate this day with regard to your drinking?',
+				label: 'Алкоголь',
+				weekQuestion: 'Вы пили алкоголь?',
+				dayQuestion: 'Вы сегодня пили алкоголь?',
+				pastDayQuestion: 'Вы пили алкоголь в этот день?',
+				ratingQuestion: 'Как Вы оцениваете сегодняшний день с точки зрения употребления алкоголя?',
+				pastRatingQuestion: 'Как Вы оцениваете этот день с точки зрения употребления алкоголя?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not drinking, getting a task done, doing something nice, etc.)',
+					'Поставите ли Вы себе задачу или небольшую цель на следующий день? (Например: не пить, выполнить какое-то дело, сделать что-то приятное и т. д.)',
 				yesIntro:
-					'Record your drinking here. Please make a new entry for each situation or phase in which you drank.',
+					'Записывайте здесь, как Вы употребляли алкоголь. Пожалуйста, делайте новую запись для каждой ситуации или периода употребления.',
 				yesMore:
-					'For example, if you drank at lunchtime and in the evening, make two entries. If you had several drinks within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your drinking as precisely as possible, so that you can change it successfully.',
+					'Если Вы, например, пили днём и вечером, сделайте две записи. Если за один промежуток времени Вы выпили несколько напитков, это можно записать как один период употребления. Цель дневника в том, чтобы Вы вместе с Вашим консультантом как можно точнее поняли, как Вы употребляете алкоголь, и смогли успешно это изменить.',
 				noIntro:
-					'You didn’t drink any alcohol today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Сегодня Вы не пили алкоголь? Замечательно! Обязательно запишите, что помогло Вам сохранить трезвость и как Вы себя при этом чувствовали.',
 				pastNoIntro:
-					'You didn’t drink any alcohol on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'В этот день Вы не пили алкоголь? Замечательно! Обязательно запишите, что помогло Вам сохранить трезвость и как Вы себя при этом чувствовали.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you drink?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Alcohol: add a phase of drinking',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Drinks recorded:'
+					'Возможно, Вам удалось успешно применить свои стратегии контроля? Ваши записи в дневнике помогают Вам и Вашему консультанту распознать особенно удачные стратегии для устойчивого изменения поведения и трезвой жизни. Если Вы не хотите ничего записывать, просто нажмите «Сохранить».',
+				contextQuestion: 'С кем и где Вы пили?',
+				triggerQuestion: 'Почему? Что было причиной или поводом для употребления?',
+				phaseTitle: 'Алкоголь: внести период употребления',
+				newPhase: 'Внести новый период употребления',
+				editPhase: 'Изменить период употребления',
+				deletePhase: 'Удалить период употребления',
+				deletePhaseQuestion: 'Удалить этот период употребления?',
+				deleteAllQuestion:
+					'Все периоды употребления, внесённые за этот день, будут удалены. Всё равно продолжить?',
+				saveLabel: 'Сохранить период употребления',
+				loggedLabel: 'Записанные напитки:'
 			},
 			cannabis: {
-				label: 'Cannabis',
-				weekQuestion: 'Did you use cannabis?',
-				dayQuestion: 'Did you use cannabis today?',
-				pastDayQuestion: 'Did you use cannabis on this day?',
-				ratingQuestion: 'How would you rate today with regard to your cannabis use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your cannabis use?',
+				label: 'Каннабис',
+				weekQuestion: 'Вы употребляли каннабис?',
+				dayQuestion: 'Вы сегодня употребляли каннабис?',
+				pastDayQuestion: 'Вы употребляли каннабис в этот день?',
+				ratingQuestion: 'Как Вы оцениваете сегодняшний день с точки зрения употребления каннабиса?',
+				pastRatingQuestion: 'Как Вы оцениваете этот день с точки зрения употребления каннабиса?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not smoking weed, getting a task done, doing something nice, etc.)',
+					'Поставите ли Вы себе задачу или небольшую цель на следующий день? (Например: не курить травку, выполнить какое-то дело, сделать что-то приятное и т. д.)',
 				yesIntro:
-					'Record your cannabis use here. Please make a new entry for each situation or phase in which you used.',
+					'Записывайте здесь, как Вы употребляли каннабис. Пожалуйста, делайте новую запись для каждой ситуации или периода употребления.',
 				yesMore:
-					'For example, if you smoked at lunchtime and in the evening, make two entries. If you used several times within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your use as precisely as possible, so that you can change it successfully.',
+					'Если Вы, например, курили днём и вечером, сделайте две записи. Если за один промежуток времени Вы употребляли несколько раз, это можно записать как один период употребления. Цель дневника в том, чтобы Вы вместе с Вашим консультантом как можно точнее поняли, как Вы употребляете каннабис, и смогли успешно это изменить.',
 				noIntro:
-					'You didn’t use today? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'Сегодня Вы не употребляли? Замечательно! Обязательно запишите, что помогло Вам сохранить трезвость и как Вы себя при этом чувствовали.',
 				pastNoIntro:
-					'You didn’t use on this day? Wonderful! Be sure to write down what helped you stay sober and how you felt about it.',
+					'В этот день Вы не употребляли? Замечательно! Обязательно запишите, что помогло Вам сохранить трезвость и как Вы себя при этом чувствовали.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a sober life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Who were you with and where did you smoke?',
-				triggerQuestion: 'Why? What was the reason or trigger for using?',
-				phaseTitle: 'Cannabis: add your use',
-				newPhase: 'Add a new phase',
-				editPhase: 'Edit phase',
-				deletePhase: 'Delete phase',
-				deletePhaseQuestion: 'Delete this phase?',
-				deleteAllQuestion: 'All phases entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save phase',
-				loggedLabel: 'Use recorded:'
+					'Возможно, Вам удалось успешно применить свои стратегии контроля? Ваши записи в дневнике помогают Вам и Вашему консультанту распознать особенно удачные стратегии для устойчивого изменения поведения и трезвой жизни. Если Вы не хотите ничего записывать, просто нажмите «Сохранить».',
+				contextQuestion: 'С кем и где Вы курили?',
+				triggerQuestion: 'Почему? Что было причиной или поводом для употребления?',
+				phaseTitle: 'Каннабис: внести употребление',
+				newPhase: 'Внести новый период употребления',
+				editPhase: 'Изменить период употребления',
+				deletePhase: 'Удалить период употребления',
+				deletePhaseQuestion: 'Удалить этот период употребления?',
+				deleteAllQuestion:
+					'Все периоды употребления, внесённые за этот день, будут удалены. Всё равно продолжить?',
+				saveLabel: 'Сохранить период употребления',
+				loggedLabel: 'Записанное употребление:'
 			},
 			gambling: {
-				label: 'Gambling',
-				weekQuestion: 'Did you gamble?',
-				dayQuestion: 'Did you gamble today?',
-				pastDayQuestion: 'Did you gamble on this day?',
-				ratingQuestion: 'How would you rate today with regard to your gambling?',
-				pastRatingQuestion: 'How would you rate this day with regard to your gambling?',
+				label: 'Азартные игры',
+				weekQuestion: 'Вы играли в азартные игры?',
+				dayQuestion: 'Вы сегодня играли?',
+				pastDayQuestion: 'Вы играли в этот день?',
+				ratingQuestion: 'Как Вы оцениваете сегодняшний день с точки зрения азартных игр?',
+				pastRatingQuestion: 'Как Вы оцениваете этот день с точки зрения азартных игр?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gambling, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your gambling here. Please make a new entry for each period in which you gambled.',
+					'Поставите ли Вы себе задачу или небольшую цель на следующий день? (Например: не играть, выполнить какое-то дело, сделать что-то приятное и т. д.)',
+				yesIntro:
+					'Записывайте здесь, как Вы играли в азартные игры. Пожалуйста, делайте новую запись для каждого периода, когда Вы играли.',
 				yesMore:
-					'For example, if you gambled at lunchtime and in the evening, make two entries. If you played several kinds of games within one period of time, you can enter them as one gambling session. The aim of the diary is for you and your counsellor to understand your behaviour as precisely as possible, so that you can change it successfully.',
+					'Если Вы, например, играли днём и вечером, сделайте две записи. Если за один промежуток времени Вы играли в несколько видов азартных игр, их можно записать как один игровой период. Цель дневника в том, чтобы Вы вместе с Вашим консультантом как можно точнее поняли своё поведение и смогли успешно его изменить.',
 				noIntro:
-					'You didn’t gamble today? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'Сегодня Вы не играли в азартные игры? Замечательно! Обязательно запишите, что помогло Вам не играть и как Вы себя при этом чувствовали.',
 				pastNoIntro:
-					'You didn’t gamble on this day? Wonderful! Be sure to write down what helped you stay gambling-free and how you felt about it.',
+					'В этот день Вы не играли в азартные игры? Замечательно! Обязательно запишите, что помогло Вам не играть и как Вы себя при этом чувствовали.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour and a gambling-free life. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you gamble?',
-				triggerQuestion: 'Why? What was the reason or trigger for gambling?',
-				phaseTitle: 'Add gambling',
-				newPhase: 'Add a new gambling session',
-				editPhase: 'Edit gambling session',
-				deletePhase: 'Delete gambling session',
-				deletePhaseQuestion: 'Delete this gambling session?',
-				deleteAllQuestion: 'All gambling sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Gambling recorded:'
+					'Возможно, Вам удалось успешно применить свои стратегии контроля? Ваши записи в дневнике помогают Вам и Вашему консультанту распознать особенно удачные стратегии для устойчивого изменения поведения и жизни без азартных игр. Если Вы не хотите ничего записывать, просто нажмите «Сохранить».',
+				contextQuestion: 'Где и с кем Вы играли?',
+				triggerQuestion: 'Почему? Что было причиной или поводом для игры?',
+				phaseTitle: 'Внести азартную игру',
+				newPhase: 'Внести новый игровой период',
+				editPhase: 'Изменить игровой период',
+				deletePhase: 'Удалить игровой период',
+				deletePhaseQuestion: 'Удалить этот игровой период?',
+				deleteAllQuestion:
+					'Все игровые периоды, внесённые за этот день, будут удалены. Всё равно продолжить?',
+				saveLabel: 'Сохранить запись',
+				loggedLabel: 'Записанные азартные игры:'
 			},
 			media: {
-				label: 'Media',
-				weekQuestion: 'Did you use media?',
-				dayQuestion: 'Did you use media today?',
-				pastDayQuestion: 'Did you use media on this day?',
-				ratingQuestion: 'How would you rate today with regard to your media use?',
-				pastRatingQuestion: 'How would you rate this day with regard to your media use?',
+				label: 'Медиа',
+				weekQuestion: 'Вы пользовались медиа?',
+				dayQuestion: 'Вы сегодня пользовались медиа?',
+				pastDayQuestion: 'Вы пользовались медиа в этот день?',
+				ratingQuestion: 'Как Вы оцениваете сегодняшний день с точки зрения использования медиа?',
+				pastRatingQuestion: 'Как Вы оцениваете этот день с точки зрения использования медиа?',
 				planHint:
-					'Will you set yourself a task or a small goal for the next day? (For example: not gaming, getting a task done, doing something nice, etc.)',
-				yesIntro: 'Record your media use here. Please make a new entry for each situation or phase of use.',
+					'Поставите ли Вы себе задачу или небольшую цель на следующий день? (Например: не играть в компьютерные игры, выполнить какое-то дело, сделать что-то приятное и т. д.)',
+				yesIntro:
+					'Записывайте здесь, как Вы пользовались медиа. Пожалуйста, делайте новую запись для каждой ситуации или периода использования.',
 				yesMore:
-					'For example, if you used media at lunchtime and in the evening, make two entries. If you used several media within one period of time, you can enter this as one phase. The aim of the diary is for you and your counsellor to understand your media use as precisely as possible, so that you can change it successfully.',
+					'Если Вы, например, пользовались медиа днём и вечером, сделайте две записи. Если за один промежуток времени Вы пользовались несколькими медиа, это можно записать как один период. Цель дневника в том, чтобы Вы вместе с Вашим консультантом как можно точнее поняли, как Вы пользуетесь медиа, и смогли успешно это изменить.',
 				noIntro:
-					'You didn’t use any media today? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'Сегодня Вы не пользовались медиа? Замечательно! Обязательно запишите, что Вам помогло и как Вы себя при этом чувствовали.',
 				pastNoIntro:
-					'You didn’t use any media on this day? Wonderful! Be sure to write down what helped you and how you felt about it.',
+					'В этот день Вы не пользовались медиа? Замечательно! Обязательно запишите, что Вам помогло и как Вы себя при этом чувствовали.',
 				noMore:
-					'Maybe you were able to use your control strategies successfully? Your notes in the diary help you and your counsellor to recognise strategies that work especially well for a lasting change in behaviour. If you don’t want to write anything, just click save.',
-				contextQuestion: 'Where and with whom did you use media?',
-				triggerQuestion: 'Why? What was the reason or trigger for using media?',
-				phaseTitle: 'Add media use',
-				newPhase: 'Add a new media session',
-				editPhase: 'Edit media session',
-				deletePhase: 'Delete media session',
-				deletePhaseQuestion: 'Delete this media session?',
-				deleteAllQuestion: 'All media sessions entered for this day will be deleted. Continue anyway?',
-				saveLabel: 'Save entry',
-				loggedLabel: 'Media use recorded:'
+					'Возможно, Вам удалось успешно применить свои стратегии контроля? Ваши записи в дневнике помогают Вам и Вашему консультанту распознать особенно удачные стратегии для устойчивого изменения поведения. Если Вы не хотите ничего записывать, просто нажмите «Сохранить».',
+				contextQuestion: 'Где и с кем Вы пользовались медиа?',
+				triggerQuestion: 'Почему? Что было причиной или поводом для использования медиа?',
+				phaseTitle: 'Внести использование медиа',
+				newPhase: 'Внести новый период использования медиа',
+				editPhase: 'Изменить период использования медиа',
+				deletePhase: 'Удалить период использования медиа',
+				deletePhaseQuestion: 'Удалить этот период использования медиа?',
+				deleteAllQuestion:
+					'Все периоды использования медиа, внесённые за этот день, будут удалены. Всё равно продолжить?',
+				saveLabel: 'Сохранить запись',
+				loggedLabel: 'Записанное использование медиа:'
 			}
 		},
 		drinks: {
-			beer: 'Beer',
-			wine: 'Wine / sparkling wine',
-			spirits: 'Spirits',
-			liqueur: 'Liqueur',
-			'beer-mix': 'Beer mixed drinks',
-			alcopop: 'Alcopops'
+			beer: 'Пиво',
+			wine: 'Вино / игристое вино',
+			spirits: 'Крепкий алкоголь',
+			liqueur: 'Ликёр',
+			'beer-mix': 'Пивные коктейли',
+			alcopop: 'Алкопопы'
 		},
 		cannabisUnits: {
-			joint: 'joint',
-			bong: 'bong'
+			joint: 'джойнт',
+			bong: 'бонг'
 		},
 		gameGroups: {
-			local: 'Gambling in person',
-			online: 'Online / on the internet'
+			local: 'Азартные игры на месте',
+			online: 'Онлайн / в интернете'
 		},
 		games: {
-			'slot-arcade': 'Slot machines in amusement arcades',
-			'slot-gastro': 'Slot machines in bars and restaurants',
-			'casino-small': 'Slot machines in a casino',
-			'casino-large': 'Table games in a casino',
-			sports: 'Sports betting',
-			horses: 'Horse race betting',
-			lottery: 'Lotteries',
-			'other-local': 'Other gambling in person',
-			'online-slots': 'Online slot machines',
-			'online-casino': 'Online casino games (casino table games, except poker)',
-			'online-poker': 'Online poker',
-			'online-sports': 'Online sports betting',
-			'online-horses': 'Online horse race betting',
-			'online-lottery': 'Online lotteries',
-			'online-other': 'Other online gambling'
+			'slot-arcade': 'Игровые автоматы в игровых залах',
+			'slot-gastro': 'Игровые автоматы в барах и ресторанах',
+			'casino-small': 'Игровые автоматы в казино',
+			'casino-large': 'Настольные игры в казино',
+			sports: 'Ставки на спорт',
+			horses: 'Ставки на скачки',
+			lottery: 'Лотереи',
+			'other-local': 'Другие азартные игры на месте',
+			'online-slots': 'Онлайн-автоматы (игровые автоматы на деньги)',
+			'online-casino': 'Онлайн-казино (настольные игры казино, кроме покера)',
+			'online-poker': 'Онлайн-покер',
+			'online-sports': 'Ставки на спорт онлайн',
+			'online-horses': 'Ставки на скачки онлайн',
+			'online-lottery': 'Онлайн-лотереи',
+			'online-other': 'Другие азартные игры онлайн'
 		},
 		mediaGroups: {
-			games: 'Online games',
-			communication: 'Communicating over the internet',
-			social: 'Social networks (for example TikTok, Instagram, WhatsApp, Telegram, Facebook)',
-			surfing: 'Surfing the internet',
-			more: 'Other media activities'
+			games: 'Онлайн-игры',
+			communication: 'Общение через интернет',
+			social: 'Социальные сети (например, TikTok, Instagram, WhatsApp, Telegram, Facebook)',
+			surfing: 'Сёрфинг в интернете',
+			more: 'Другие занятия с медиа'
 		},
 		media: {
-			action: 'Action games (for example jump ’n’ run, beat ’em ups, action adventures)',
-			shooter: 'First-person shooters',
-			rpg: 'Role-playing games (for example MMORPGs, online and offline role-playing games)',
-			strategy: 'Strategy games (for example real-time strategy, building games)',
-			'sports-games': 'Sports games (for example manager games, sports simulations)',
-			simulation: 'Simulation games (for example flight, racing or life simulations)',
-			'music-games': 'Music and dance games (for example Just Dance Now, SingStar, Let’s Sing)',
-			skill: 'Skill games (for example Tetris)',
-			chat: 'Chatting',
-			mail: 'Writing emails',
-			'social-watch': 'Watching videos / looking at pictures',
-			'social-talk': 'Talking with other people',
-			research: 'Research',
-			shopping: 'Shopping',
-			magazines: 'Online magazines',
-			streaming: 'Online streaming (for example Netflix, TV channel apps, Amazon Prime)',
-			porn: 'Porn websites',
-			device: 'Optimising a computer / device',
-			'other-media': 'Other use of electronic media'
+			action: 'Экшен-игры (например, платформеры, файтинги, приключенческие экшены)',
+			shooter: 'Шутеры от первого лица',
+			rpg: 'Ролевые игры (например, MMORPG, онлайн- и офлайн-ролевые игры)',
+			strategy: 'Стратегии (например, стратегии в реальном времени, градостроительные игры)',
+			'sports-games': 'Спортивные игры (например, менеджеры, спортивные симуляторы)',
+			simulation: 'Симуляторы (например, авиасимуляторы, гоночные симуляторы, симуляторы жизни)',
+			'music-games': 'Музыкальные и танцевальные игры (например, Just Dance Now, SingStar, Let’s Sing)',
+			skill: 'Игры на ловкость (например, Тетрис)',
+			chat: 'Чаты',
+			mail: 'Написание электронных писем',
+			'social-watch': 'Просмотр видео / картинок',
+			'social-talk': 'Общение с другими людьми',
+			research: 'Поиск информации',
+			shopping: 'Покупки',
+			magazines: 'Онлайн-журналы',
+			streaming: 'Онлайн-стриминг (например, Netflix, медиатеки телеканалов, Amazon Prime)',
+			porn: 'Порносайты',
+			device: 'Настройка компьютера / устройства',
+			'other-media': 'Другое использование электронных медиа'
 		},
 		items: {
-			alcohol: '{count}x {size} {drink}',
+			alcohol: '{count}x {drink} {size}',
 			cannabis: '{count}x {unit}',
-			otherKind: 'Other: {text}',
-			otherKindCount: 'Other: {count}x {text}',
+			otherKind: 'Другое: {text}',
+			otherKindCount: 'Другое: {count}x {text}',
 			duration: '{activity}, {duration}'
 		},
 		sums: {
 			phases: {
-				one: '{count} phase',
-				few: '{count} phases',
-				many: '{count} phases',
-				other: '{count} phases'
+				one: '{count} период',
+				few: '{count} периода',
+				many: '{count} периодов',
+				other: '{count} периода'
 			},
 			drinks: {
-				one: '{count} drink',
-				few: '{count} drinks',
-				many: '{count} drinks',
-				other: '{count} drinks'
+				one: '{count} напиток',
+				few: '{count} напитка',
+				many: '{count} напитков',
+				other: '{count} напитка'
 			},
-			alcohol: '{drinks}, about {grams} g of alcohol',
+			alcohol: '{drinks}, около {grams} г алкоголя',
 			joints: {
-				one: '{count} joint',
-				few: '{count} joints',
-				many: '{count} joints',
-				other: '{count} joints'
+				one: '{count} джойнт',
+				few: '{count} джойнта',
+				many: '{count} джойнтов',
+				other: '{count} джойнта'
 			},
-			bongs: { one: '{count} bong', few: '{count} bongs', many: '{count} bongs', other: '{count} bongs' },
-			otherKind: '{count}x other'
+			bongs: { one: '{count} бонг', few: '{count} бонга', many: '{count} бонгов', other: '{count} бонга' },
+			otherKind: 'другое: {count}x'
 		},
 		counsellor: {
-			noEntries: 'No entries yet.',
-			topics: 'Topics recorded: {topics}',
-			new: 'New',
-			noDayEntries: 'No entries',
+			noEntries: 'Записей пока нет.',
+			topics: 'Записываемые темы: {topics}',
+			new: 'Новое',
+			noDayEntries: 'Нет записей',
 			tileTopic: '{topic}:',
-			noConsumption: 'No use recorded',
-			entriesOf: 'Entries from {day}',
-			answerYes: '{topic}: yes',
-			answerNo: '{topic}: no',
-			device: 'Device',
-			context: 'Where and with whom',
-			trigger: 'Reason or trigger',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow',
-			summaryNew: 'Review new'
+			noConsumption: 'Употребление не записано',
+			entriesOf: 'Записи за {day}',
+			answerYes: '{topic}: да',
+			answerNo: '{topic}: нет',
+			device: 'Устройство',
+			context: 'Где и с кем',
+			trigger: 'Причина или повод',
+			rating: 'Оценка дня',
+			plan: 'План на завтра',
+			summaryNew: 'Новый итог дня'
 		},
 		pdf: {
-			noEntries: 'No entries in this period.',
-			topics: 'Topics recorded: {topics}',
-			answerYes: '{topic}: yes ({sum})',
-			answerNo: '{topic}: no',
-			device: 'Device: {device}',
-			context: 'Where and with whom: {context}',
-			trigger: 'Reason or trigger: {trigger}',
-			rating: 'Rating of the day',
-			plan: 'Plan for tomorrow'
+			noEntries: 'Нет записей за этот период.',
+			topics: 'Записываемые темы: {topics}',
+			answerYes: '{topic}: да ({sum})',
+			answerNo: '{topic}: нет',
+			device: 'Устройство: {device}',
+			context: 'Где и с кем: {context}',
+			trigger: 'Причина или повод: {trigger}',
+			rating: 'Оценка дня',
+			plan: 'План на завтра'
 		},
 		demo: {
-			alcoholRating: 'After the argument I drank more than I had planned.',
-			alcoholPlan: 'Go straight home after work.',
-			alcoholContext: 'At home, alone',
-			alcoholTrigger: 'Argument on the phone',
-			gamblingRating: 'I didn’t take any money with me, that helped.',
-			soberRating: 'Did sport in the evening instead of having a beer.',
-			soberPlan: 'Go to sport again.',
-			gamblingContext: 'On the bus and at home',
-			gamblingTrigger: 'Boredom'
+			alcoholRating: 'После ссоры выпивки было больше, чем планировалось.',
+			alcoholPlan: 'После работы сразу пойти домой.',
+			alcoholContext: 'Дома, в одиночестве',
+			alcoholTrigger: 'Ссора по телефону',
+			gamblingRating: 'Денег с собой не было, это помогло.',
+			soberRating: 'Вечером спорт вместо пива.',
+			soberPlan: 'Снова пойти на тренировку.',
+			gamblingContext: 'В автобусе и дома',
+			gamblingTrigger: 'Скука'
 		}
 	},
 	relativesDiary: {
-		title: 'My diary',
+		title: 'Мой дневник',
 		intro: [
-			'The diary is a place to write down the moving, difficult or happy events and thoughts of your day. For your entries, you can use the three questions shown in the day view as a guide. For example, click on today to make an entry.',
-			'Writing down experiences and thoughts, sorting them and “getting them off your chest” is often a relief in itself. Your diary entries are also important for your personal counselling: the better your counsellor understands your situation, the better they can support you. That is why we recommend making your entries visible to your counsellor.'
+			'Дневник нужен для того, чтобы записывать волнующие, тяжёлые или радостные события и мысли дня. В своих записях Вы можете опираться на три вопроса, которые показаны в обзоре дня. Например, нажмите на сегодняшний день, чтобы сделать запись.',
+			'Часто уже само по себе приносит облегчение записать свои переживания и мысли, разобраться в них и «выговориться». Но Ваши записи в дневнике важны и для Вашего личного консультирования: чем точнее Ваш консультант сможет представить себе Вашу ситуацию, тем лучше он сможет Вам помочь. Поэтому мы рекомендуем сделать Ваши записи видимыми для Вашего консультанта.'
 		],
 		questionsToday: [
-			'What was important to you today?',
-			'How did communication with your relative go today?',
-			'How do you feel about it?'
+			'Что было для Вас важным сегодня?',
+			'Как сегодня прошло общение с Вашим близким человеком?',
+			'Как Вы себя с этим чувствуете?'
 		],
 		questionsOtherDay: [
-			'What was important to you on this day?',
-			'How did communication with your relative go on this day?',
-			'How do you feel about it?'
+			'Что было для Вас важным в этот день?',
+			'Как в этот день прошло общение с Вашим близким человеком?',
+			'Как Вы себя с этим чувствуете?'
 		],
-		moodQuestionToday: 'How would you rate today?',
-		moodQuestionOtherDay: 'How would you rate this day?',
+		moodQuestionToday: 'Как Вы оцениваете сегодняшний день?',
+		moodQuestionOtherDay: 'Как Вы оцениваете этот день?',
 		moods: {
-			'very-bad': 'very bad',
-			'rather-bad': 'quite bad',
-			average: 'okay',
-			'rather-good': 'quite good',
-			'very-good': 'very good'
+			'very-bad': 'очень плохо',
+			'rather-bad': 'скорее плохо',
+			average: 'средне',
+			'rather-good': 'скорее хорошо',
+			'very-good': 'очень хорошо'
 		},
-		noMood: 'not given',
-		weekEntriesHeading: 'Diary entries',
-		weekMoodHeading: 'Mood',
-		openEntry: 'Open',
-		openEntryLabel: 'Open entry: {day}',
-		createEntry: 'Create entry',
-		createEntryLabel: 'Create entry: {day}',
-		backToOverview: 'back to the overview',
-		entryLabel: 'Diary entry',
-		emptyEntry: 'Please write something down or rate the day.',
-		saveEntry: 'Save entry',
-		deleteEntry: 'Delete entry',
-		deleteConfirm: 'Delete this diary entry?',
-		deleteButton: 'Delete',
-		weekView: 'Week view',
-		allEntries: 'All entries',
-		new: 'New',
-		noEntryForDay: 'No entry',
-		noEntries: 'No entries yet.',
-		pdfNoEntries: 'No entries in this period.',
-		pdfMood: 'Rating of the day: {mood}',
-		pdfNoText: 'No text entered.',
+		noMood: 'нет оценки',
+		weekEntriesHeading: 'Записи в дневнике',
+		weekMoodHeading: 'Настроение',
+		openEntry: 'Открыть',
+		openEntryLabel: 'Открыть запись: {day}',
+		createEntry: 'Создать запись',
+		createEntryLabel: 'Создать запись: {day}',
+		backToOverview: 'назад к обзору',
+		entryLabel: 'Запись в дневнике',
+		emptyEntry: 'Пожалуйста, напишите что-нибудь или оцените день.',
+		saveEntry: 'Сохранить запись',
+		deleteEntry: 'Удалить запись',
+		deleteConfirm: 'Удалить эту запись в дневнике?',
+		deleteButton: 'Удалить',
+		weekView: 'Обзор недели',
+		allEntries: 'Все записи',
+		new: 'Новое',
+		noEntryForDay: 'Нет записи',
+		noEntries: 'Записей пока нет.',
+		pdfNoEntries: 'Нет записей за этот период.',
+		pdfMood: 'Оценка дня: {mood}',
+		pdfNoText: 'Текст не внесён.',
 		demoEntries: [
-			'Tonight there was another argument when he came home late. I tried to stay calm and not to blame him. Afterwards I was exhausted, but also a little proud.',
-			'A quiet day. We went for a walk together and talked about our holiday.'
+			'Сегодня вечером снова была ссора, когда он поздно пришёл домой. Мне хотелось сохранить спокойствие и ни в чём его не упрекать. Потом сил совсем не осталось, но было и немного гордости за себя.',
+			'Спокойный день. Мы вместе гуляли и говорили об отпуске.'
 		]
 	},
 	balance: {
 		intro:
-			'Changing your own habits is always a challenge. Every change takes effort, costs energy and needs staying power. The decisional balance helps you to get clear about the advantages and disadvantages of overcoming your addictive behaviour.',
-		howItWorks: 'How the decisional balance works',
+			'Менять свои привычки всегда непросто. Любые перемены требуют усилий, сил и выдержки. Весы мотивации помогают Вам ясно увидеть плюсы и минусы отказа от зависимого поведения.',
+		howItWorks: 'Как работают весы мотивации',
 		howItWorksStep: '{title}:',
 		howItWorksSteps: [
 			{
-				title: 'Collect arguments',
-				text: 'Think about it for yourself: what will happen if I change my behaviour, for example if I stop drinking, gambling or smoking cannabis? What will happen if I carry on as before? Be honest with yourself!'
+				title: 'Соберите аргументы',
+				text: 'Подумайте сами: что будет, если я изменю своё поведение, например перестану пить, играть или курить каннабис? Что будет, если я продолжу как раньше? Будьте честны с собой!'
 			},
 			{
-				title: 'Rate them',
-				text: 'In both cases, the effects of a change can be positive or negative for you. Also think about whether these effects are especially important to you or less important.'
+				title: 'Оцените их',
+				text: 'В обоих случаях последствия перемен могут быть для Вас как положительными, так и отрицательными. Подумайте также, насколько эти последствия для Вас важны: особенно важны или менее важны.'
 			},
 			{
-				title: 'Look at the result',
-				text: 'Once you have entered and rated all the advantages and disadvantages, the decisional balance shows you your current inner attitude towards the chosen topic.'
+				title: 'Посмотрите на результат',
+				text: 'Когда Вы внесёте и оцените все плюсы и минусы, весы мотивации покажут Ваше нынешнее внутреннее отношение к выбранной теме.'
 			},
 			{
-				title: 'Draw a conclusion',
-				text: 'What is your conclusion? How would you rate your current motivation? Are you ready inside to change your behaviour? Or do you need more arguments?'
+				title: 'Сделайте вывод',
+				text: 'Какой вывод Вы делаете? Как Вы оцениваете свою нынешнюю мотивацию? Внутренне Вы готовы изменить своё поведение? Или Вам нужно больше аргументов?'
 			}
 		],
 		howItWorksNote:
-			'You can work on the exercise again and add to it at any time when you think of new advantages and disadvantages. If you like, your counsellor can see your answers and so support you as well as possible with your plan.',
-		workOnExerciseFirst: 'Please work through the exercise first.',
-		sides: { pro: 'PRO', contra: 'CON' },
+			'Вы можете в любой момент снова вернуться к упражнению и дополнить его, если Вам придут в голову новые плюсы и минусы. По желанию Ваш консультант может посмотреть Ваши ответы и так наилучшим образом поддержать Вас в Вашем намерении.',
+		workOnExerciseFirst: 'Пожалуйста, сначала выполните упражнение.',
+		sides: { pro: 'ЗА', contra: 'ПРОТИВ' },
 		poles: [
-			{ contra: 'Against change', pro: 'For change' },
-			{ contra: 'No change', pro: 'I want to change something!' },
-			{ contra: 'Fine the way it is', pro: 'Something has to change!' }
+			{ contra: 'Против перемен', pro: 'За перемены' },
+			{ contra: 'Без перемен', pro: 'Я хочу что-то изменить!' },
+			{ contra: 'Пусть всё остаётся как есть', pro: 'Что-то должно измениться!' }
 		],
 		ratings: {
-			very: 'very important',
-			quite: 'quite important',
-			some: 'a little important',
-			none: 'not important at all'
+			very: 'очень важно',
+			quite: 'довольно важно',
+			some: 'немного важно',
+			none: 'совсем не важно'
 		},
-		notImportant: 'not important',
+		notImportant: 'не важно',
 		ratingOption: '{label} ({stars})',
-		ratingQuestion: 'How important is this to you?',
+		ratingQuestion: 'Насколько это для Вас важно?',
 		halves: {
-			change: 'If I reach my goal / change my behaviour, I will have the following …',
-			keep: 'If I do not change my behaviour / do not reach my goal, I will have the following …'
+			change: 'Если я достигну своей цели / изменю своё поведение, у меня будут следующие …',
+			keep: 'Если я не изменю своё поведение / не достигну своей цели, у меня будут следующие …'
 		},
 		categoryInHalf: '… {title}',
 		categoryWithSide: '{category} ({side})',
 		categories: {
 			A: {
-				title: 'advantages',
-				long: 'Advantages of changing my behaviour',
-				listTitle: 'The advantages you entered if you reach your goal:'
+				title: 'плюсы',
+				long: 'Плюсы изменения моего поведения',
+				listTitle: 'Плюсы, которые Вы внесли, если Вы достигнете своей цели:'
 			},
 			B: {
-				title: 'disadvantages',
-				long: 'Disadvantages of changing my behaviour',
-				listTitle: 'The disadvantages you entered if you reach your goal:'
+				title: 'минусы',
+				long: 'Минусы изменения моего поведения',
+				listTitle: 'Минусы, которые Вы внесли, если Вы достигнете своей цели:'
 			},
 			C: {
-				title: 'advantages',
-				long: 'Advantages if nothing changes',
-				listTitle: 'The advantages you entered if you do not change your behaviour:'
+				title: 'плюсы',
+				long: 'Плюсы, если ничего не изменится',
+				listTitle: 'Плюсы, которые Вы внесли, если Вы не измените своё поведение:'
 			},
 			D: {
-				title: 'disadvantages',
-				long: 'Disadvantages if nothing changes',
-				listTitle: 'The disadvantages you entered if you do not change your behaviour:'
+				title: 'минусы',
+				long: 'Минусы, если ничего не изменится',
+				listTitle: 'Минусы, которые Вы внесли, если Вы не измените своё поведение:'
 			}
 		},
 		argumentKinds: {
 			advantage: {
-				missing: 'Please enter an advantage.',
-				add: 'New advantage',
-				edit: 'Edit advantage',
-				placeholder: 'Enter an advantage here. Use a new entry for each advantage.'
+				missing: 'Пожалуйста, введите плюс.',
+				add: 'Новый плюс',
+				edit: 'Изменить плюс',
+				placeholder: 'Введите здесь плюс. Для каждого плюса используйте отдельную запись.'
 			},
 			disadvantage: {
-				missing: 'Please enter a disadvantage.',
-				add: 'New disadvantage',
-				edit: 'Edit disadvantage',
-				placeholder: 'Enter a disadvantage here. Use a new entry for each disadvantage.'
+				missing: 'Пожалуйста, введите минус.',
+				add: 'Новый минус',
+				edit: 'Изменить минус',
+				placeholder: 'Введите здесь минус. Для каждого минуса используйте отдельную запись.'
 			}
 		},
 		examples: {
 			A: [
-				'I get more done again.',
-				'I have time for hobbies again.',
-				'I can think clearly again.',
-				'More money / less debt.',
-				'My body is not under so much strain any more.',
-				'I feel better.',
-				'A good feeling because I am tackling the problem.',
-				'Less stress with friends / family.'
+				'Я снова больше успеваю.',
+				'У меня снова есть время на хобби.',
+				'Я снова могу ясно мыслить.',
+				'Больше денег / меньше долгов.',
+				'Мой организм больше не так перегружен.',
+				'Я чувствую себя лучше.',
+				'Хорошее чувство, потому что я решаю проблему.',
+				'Меньше стресса с друзьями / семьёй.'
 			],
 			B: [
-				'It will be difficult with my old group of friends.',
-				'I will miss the high.',
-				'It could get pretty boring.',
-				'A lot of things will be much less fun.',
-				'Withdrawal / going without will be hard.',
-				'The hope of a big win is gone.'
+				'Со старой компанией друзей будет трудно.',
+				'Мне будет не хватать кайфа.',
+				'Может стать довольно скучно.',
+				'Многое будет приносить гораздо меньше удовольствия.',
+				'Отказ / воздержание будет даваться тяжело.',
+				'Надежды на крупный выигрыш больше нет.'
 			],
 			C: [
-				'I can fall asleep more easily.',
-				'More fun when I am with friends.',
-				'When I drink / gamble / smoke cannabis, I get some peace.',
-				'I can really get “wasted” sometimes and forget everything around me.',
-				'The chance of a win remains.'
+				'Мне легче заснуть.',
+				'Больше веселья, когда я с друзьями.',
+				'Когда я пью / играю / курю каннабис, я обретаю покой.',
+				'Иногда можно как следует «отключиться» и забыть обо всём вокруг.',
+				'Шанс на выигрыш остаётся.'
 			],
 			D: [
-				'I hardly do anything else.',
-				'I let a lot of other things slide.',
-				'I get more and more annoyed with myself.',
-				'More trouble and arguments with my family.',
-				'I can hardly get out of bed in the morning.',
-				'My debts stay / keep growing.',
-				'My health keeps getting worse.',
-				'My life is still reduced to one problem.'
+				'Я почти ничем другим не занимаюсь.',
+				'Я многое другое запускаю.',
+				'Я всё больше злюсь на себя.',
+				'Больше проблем и ссор в семье.',
+				'Утром мне трудно встать с постели.',
+				'Мои долги остаются / продолжают расти.',
+				'Моё здоровье становится всё хуже.',
+				'Моя жизнь по-прежнему сводится к одной проблеме.'
 			]
 		},
 		tendency: {
-			pending: 'Cannot be calculated yet',
-			balanced: 'Balanced',
-			maximum: 'Maximum {side} tendency',
-			clear: '{side} tendency',
-			slight: 'Slight {side} tendency'
+			pending: 'Пока невозможно рассчитать',
+			balanced: 'В равновесии',
+			maximum: 'Максимальный перевес: {side}',
+			clear: 'Перевес: {side}',
+			slight: 'Небольшой перевес: {side}'
 		},
-		resultLabel: 'Result of the decisional balance',
-		scaleTitle: 'Decisional balance: {value}, {tendency}',
-		scaleInactiveTitle: 'Decisional balance: not active yet',
-		allRatedZero: 'All arguments are rated “not important at all”, so the scale is not active yet.',
+		resultLabel: 'Результат весов мотивации',
+		scaleTitle: 'Весы мотивации: {value}, {tendency}',
+		scaleInactiveTitle: 'Весы мотивации: пока не активны',
+		allRatedZero: 'Все аргументы оценены как «совсем не важно», поэтому весы пока не активны.',
 		sidePoints: {
-			one: '{side} {count} point',
-			few: '{side} {count} points',
-			many: '{side} {count} points',
-			other: '{side} {count} points'
+			one: '{side}: {count} балл',
+			few: '{side}: {count} балла',
+			many: '{side}: {count} баллов',
+			other: '{side}: {count} балла'
 		},
 		valueWithTendency: '{value}, {tendency}',
-		miniInactive: 'Scale not active yet',
-		conclusionTitle: 'My conclusion',
+		miniInactive: 'Весы пока не активны',
+		conclusionTitle: 'Мой вывод',
 		conclusionPrompt:
-			'What picture do you get after collecting all the arguments? What conclusions do you draw for yourself at the moment?',
-		saveConclusion: 'Save conclusion',
-		edit: 'Edit',
-		add: 'Add',
-		noEntriesYet: 'No entries yet.',
-		backToOverview: 'Back to the decisional balance overview',
-		argumentType: 'Type of argument',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		allExamplesUsed: 'All examples have already been entered.',
-		ratingMissing: 'Please rate how important this is to you.',
-		saveChange: 'Save change',
-		addEntry: 'Add entry',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		editItem: 'Edit: {text}',
-		deleteItem: 'Delete: {text}',
-		finish: 'Finish',
+			'Какая картина складывается у Вас после того, как Вы собрали все аргументы? Какие выводы Вы делаете для себя на данный момент?',
+		saveConclusion: 'Сохранить вывод',
+		edit: 'Изменить',
+		add: 'Добавить',
+		noEntriesYet: 'Записей пока нет.',
+		backToOverview: 'Назад к обзору весов мотивации',
+		argumentType: 'Вид аргумента',
+		showExamples: 'Показать примеры',
+		hideExamples: 'Скрыть примеры',
+		allExamplesUsed: 'Все примеры уже внесены.',
+		ratingMissing: 'Пожалуйста, оцените, насколько это для Вас важно.',
+		saveChange: 'Сохранить изменение',
+		addEntry: 'Добавить запись',
+		confirmDelete: 'Удалить эту запись?',
+		delete: 'Удалить',
+		editItem: 'Изменить: {text}',
+		deleteItem: 'Удалить: {text}',
+		finish: 'Завершить',
 		counsellor: {
-			noArguments: 'No arguments entered yet.',
-			conclusion: 'Conclusion',
-			new: 'New',
-			noConclusion: 'No conclusion entered yet.',
-			noEntries: 'No entries.',
-			open: 'Open',
-			close: 'Close',
-			category: 'Category',
-			relevance: 'Importance',
+			noArguments: 'Аргументы пока не внесены.',
+			conclusion: 'Вывод',
+			new: 'Новое',
+			noConclusion: 'Вывод пока не внесён.',
+			noEntries: 'Нет записей.',
+			open: 'Открыть',
+			close: 'Закрыть',
+			category: 'Категория',
+			relevance: 'Важность',
 			relevanceValue: {
-				one: '{label} ({count} point)',
-				few: '{label} ({count} points)',
-				many: '{label} ({count} points)',
-				other: '{label} ({count} points)'
+				one: '{label} ({count} балл)',
+				few: '{label} ({count} балла)',
+				many: '{label} ({count} баллов)',
+				other: '{label} ({count} балла)'
 			},
-			lastChanged: 'Last changed'
+			lastChanged: 'Последнее изменение'
 		},
 		pdf: {
-			result: 'Result',
-			inactive: 'The scale is not active yet (no importance points).',
-			summary: 'Motivation score {value} ({tendency}), {pro}, {contra}, on a scale from −10 to +10.',
-			conclusion: 'Conclusion',
-			noConclusion: 'No conclusion entered.',
-			arguments: 'Arguments',
-			noEntries: 'No entries.',
+			result: 'Результат',
+			inactive: 'Весы пока не активны (нет баллов важности).',
+			summary: 'Показатель мотивации {value} ({tendency}), {pro}, {contra}, по шкале от −10 до +10.',
+			conclusion: 'Вывод',
+			noConclusion: 'Вывод не внесён.',
+			arguments: 'Аргументы',
+			noEntries: 'Нет записей.',
 			rating: '{label} ({count})'
 		}
 	},
 	emergencyKit: {
 		sections: {
 			motivation: {
-				title: 'My motivation: why I am sticking with it',
-				listLabel: 'This is why I want to change my behaviour / reach my goal:',
-				fieldLabel: 'This is why I want to change my behaviour / reach my goal',
-				cardTitle: 'Why I am sticking with it',
+				title: 'Моя мотивация: почему я держусь',
+				listLabel: 'Вот почему я хочу изменить своё поведение / достичь своей цели:',
+				fieldLabel: 'Вот почему я хочу изменить своё поведение / достичь своей цели',
+				cardTitle: 'Почему я держусь',
 				intro:
-					'There are many good reasons why you are working towards your personal goal. Write down the reasons that matter most to you personally. This helps you to make your decision even firmer. Read your reasons again and again so that you always keep them in mind. We have collected some examples for you that you can use as a guide.',
+					'Есть много веских причин, по которым Вы работаете над своей личной целью. Запишите причины, которые лично для Вас важнее всего. Это поможет Вам ещё больше укрепиться в своём решении. Перечитывайте свои причины снова и снова, чтобы всегда помнить о них. Мы собрали для Вас несколько примеров, на которые Вы можете опираться.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Примеры',
 						items: [
-							'I have time for other things again',
-							'Finally no more feelings of guilt',
-							'I want my partner to be able to trust me again',
-							'I want to feel myself again',
-							'I don’t want to have to think about it all the time',
-							'If I carry on like this, my relationship will be over',
-							'Finally being free again',
-							'I no longer have to lie to my family, my friends or my employer',
-							'No more secrets, no more double life',
-							'I can look my children in the eye again',
-							'Finally time and energy for other things again',
-							'No more criminal activities to get money',
-							'I can look myself in the eye again',
-							'Finally no more new debts',
-							'If I carry on like this, I will get deeper and deeper into trouble'
+							'У меня снова есть время на другие дела',
+							'Наконец больше никакого чувства вины',
+							'Я хочу, чтобы мой партнёр или моя партнёрша снова могли мне доверять',
+							'Я хочу снова чувствовать себя',
+							'Я не хочу постоянно об этом думать',
+							'Если так пойдёт дальше, мои отношения закончатся',
+							'Наконец снова быть свободным человеком',
+							'Мне больше не нужно лгать семье, друзьям или работодателю',
+							'Больше никаких тайн, никакой двойной жизни',
+							'Я снова могу смотреть в глаза своим детям',
+							'Наконец снова есть время и силы на другие дела',
+							'Больше никаких преступлений ради денег',
+							'Я снова могу смотреть себе в глаза',
+							'Наконец больше никаких новых долгов',
+							'Если так пойдёт дальше, я буду всё глубже увязать в проблемах'
 						]
 					}
 				]
 			},
 			strategy: {
-				title: 'My strategies for everyday life',
-				listLabel: 'This helps me reach my goal:',
-				fieldLabel: 'This helps me in everyday life',
-				cardTitle: 'This helps me in everyday life',
+				title: 'Мои стратегии на каждый день',
+				listLabel: 'Это помогает мне достичь своей цели:',
+				fieldLabel: 'Это помогает мне в повседневной жизни',
+				cardTitle: 'Это помогает мне в повседневной жизни',
 				intro:
-					'Write down everything that helps you reach your goal in everyday life. Simple rules of behaviour that you set for yourself are especially helpful. But hobbies and activities that you do regularly also help to take your mind off cravings, reduce stress and reach your goal in the long term. Below are some examples that you can use.',
+					'Запишите всё, что помогает Вам достигать своей цели в повседневной жизни. Особенно полезны простые правила поведения, которые Вы устанавливаете для себя сами. Но и хобби и занятия, которыми Вы регулярно занимаетесь, помогают отвлечься от тяги, снизить стресс и достичь цели в долгосрочной перспективе. Ниже приведены примеры, которыми Вы можете воспользоваться.',
 				examples: [
 					{
-						label: 'General',
+						label: 'Общее',
 						items: [
-							'I keep getting help',
-							'I go to my self-help group regularly',
-							'I look after my friendships',
-							'I make sure I do active things in my free time',
-							'I don’t bottle up anger and frustration',
-							'I play it safe',
-							'I avoid my gambling or drinking friends',
-							'I avoid friends who use substances',
-							'I do sport regularly',
-							'I pay attention to risk situations and early warning signs of a possible relapse',
-							'I keep working on my goal of staying abstinent',
-							'I stand up for my needs',
-							'I reward myself now and then',
-							'I treat myself to something nice',
-							'I face my problems',
-							'I take care of my debts'
+							'Я продолжаю обращаться за помощью',
+							'Я регулярно хожу в свою группу самопомощи',
+							'Я поддерживаю дружеские отношения',
+							'Я слежу за тем, чтобы в свободное время заниматься чем-то активным',
+							'Я не держу в себе гнев и разочарование',
+							'Я действую осторожно и не рискую',
+							'Я избегаю друзей, с которыми играю или пью',
+							'Я избегаю друзей, которые употребляют',
+							'Я регулярно занимаюсь спортом',
+							'Я обращаю внимание на ситуации риска и первые признаки возможного срыва',
+							'Я продолжаю работать над своей целью сохранять трезвость',
+							'Я отстаиваю свои потребности',
+							'Я время от времени себя вознаграждаю',
+							'Я позволяю себе что-то приятное',
+							'Я смотрю своим проблемам в лицо',
+							'Я занимаюсь своими долгами'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Азартные игры',
 						items: [
-							'I install a program that blocks access to online gambling sites',
-							'I stay away from places where people gamble',
-							'When I see an amusement arcade, I cross to the other side of the street',
-							'I set myself clear limits on how much money I spend each day / each week',
-							'I spend my money consciously on things I really need',
-							'I pay attention to how much cash I take with me'
+							'Я устанавливаю программу, которая блокирует доступ к сайтам азартных игр',
+							'Я держусь подальше от мест, где играют в азартные игры',
+							'Когда я вижу игровой зал, я перехожу на другую сторону улицы',
+							'Я устанавливаю себе чёткие ограничения, сколько денег трачу в день / в неделю',
+							'Я трачу деньги осознанно, на то, что мне действительно нужно',
+							'Я слежу за тем, сколько наличных беру с собой'
 						]
 					}
 				]
 			},
 			support: {
-				title: 'This is where I get support'
+				title: 'Здесь я получаю поддержку'
 			},
 			critical: {
-				title: 'Critical situations, moods and thoughts',
-				listLabel: '“Inner risk situations”: I have to be especially careful here!',
-				fieldLabel: 'Situations and moods in which I have to be careful',
-				cardTitle: 'I have to be careful here',
+				title: 'Критические ситуации, настроения и мысли',
+				listLabel: '«Внутренние ситуации риска»: здесь мне нужна особая осторожность!',
+				fieldLabel: 'Ситуации и настроения, в которых мне нужна осторожность',
+				cardTitle: 'Здесь мне нужна осторожность',
 				intro:
-					'In this exercise you learn to recognise the situations, moods and thoughts in which you are at risk of falling back into old patterns of behaviour. These are also called “inner risk situations”. Which thoughts and moods could put your decision and your goal at risk? So in which situations should you be especially careful? Have a look at our examples. At first glance, many moods or thoughts seem to have little to do with the actual problem behaviour. What are your very own “inner risk situations”?',
+					'В этом упражнении Вы учитесь распознавать ситуации, настроения и мысли, в которых есть опасность вернуться к прежним моделям поведения. Их также называют «внутренними ситуациями риска». Какие мысли и настроения могут поставить под угрозу Ваше решение и Вашу цель? То есть в каких ситуациях Вам нужна особая осторожность? Посмотрите наши примеры. На первый взгляд многие настроения или мысли кажутся мало связанными с самим проблемным поведением. Каковы Ваши собственные «внутренние ситуации риска»?',
 				examples: [
 					{
-						label: 'General',
+						label: 'Общее',
 						items: [
-							'When I think about the “good old days”',
-							'When I think that not everything was so bad',
-							'When I think “once doesn’t count”',
-							'When I am with old acquaintances again',
-							'When I am in a bad mood and need something to “calm down”',
-							'When I am frustrated at work or in my relationship',
-							'When things are not going the way I want them to',
-							'When I am bored',
-							'When I am stressed and want to relax',
-							'When I think “nothing matters anyway now”',
-							'When I get careless because I think I have made it',
-							'When I think that I am not addicted at all',
-							'When I am arguing a lot with my partner again'
+							'Когда я вспоминаю «старые добрые времена»',
+							'Когда я думаю, что не всё было так плохо',
+							'Когда я думаю: «Один раз не считается»',
+							'Когда я снова встречаюсь со старыми знакомыми',
+							'Когда у меня плохое настроение и мне нужно что-то, чтобы «успокоиться»',
+							'Когда у меня разочарование на работе или в отношениях',
+							'Когда всё идёт не так, как я хочу',
+							'Когда мне скучно',
+							'Когда у меня стресс и я хочу расслабиться',
+							'Когда я думаю: «Теперь уже всё равно»',
+							'Когда я теряю бдительность, потому что думаю, что проблема уже позади',
+							'Когда я думаю, что у меня вовсе нет зависимости',
+							'Когда я снова часто ссорюсь с партнёром или партнёршей'
 						]
 					},
 					{
-						label: 'Gambling',
+						label: 'Азартные игры',
 						items: [
-							'When I want to gamble again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by putting “just a few coins” into a slot machine',
-							'When I think I can solve my money problems that way',
-							'When I am carrying too much money',
-							'When I have been drinking alcohol',
-							'When I think about gambling more often again',
-							'When I think “one trip to the casino won’t hurt”'
+							'Когда мне хочется снова сыграть «просто из любопытства»',
+							'Когда мне хочется вознаградить себя за достигнутое, бросив в автомат «всего пару монет»',
+							'Когда я думаю, что так смогу решить свои денежные проблемы',
+							'Когда у меня с собой слишком много денег',
+							'Когда я под действием алкоголя',
+							'Когда я снова чаще думаю об азартных играх',
+							'Когда я думаю: «Один поход в казино не повредит»'
 						]
 					},
 					{
-						label: 'Alcohol',
+						label: 'Алкоголь',
 						items: [
-							'When I want to drink again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by drinking “just a small beer”'
+							'Когда мне хочется снова выпить «просто из любопытства»',
+							'Когда мне хочется вознаградить себя за достигнутое «всего одной кружкой пива»'
 						]
 					},
 					{
-						label: 'Cannabis',
+						label: 'Каннабис',
 						items: [
-							'When I want to smoke weed again “just out of curiosity”',
-							'When I want to reward myself for what I have achieved by taking “just one drag on a joint”'
+							'Когда мне хочется снова покурить травку «просто из любопытства»',
+							'Когда мне хочется вознаградить себя за достигнутое «всего одной затяжкой джойнта»'
 						]
 					}
 				]
 			},
 			craving: {
-				title: 'What helps me with cravings',
-				listLabel: 'This helps me when I have cravings:',
-				fieldLabel: 'This helps me when I have cravings',
-				cardTitle: 'When I have cravings',
+				title: 'Что помогает мне при тяге',
+				listLabel: 'Это помогает мне, когда у меня тяга:',
+				fieldLabel: 'Это помогает мне, когда у меня тяга',
+				cardTitle: 'Когда у меня тяга',
 				intro:
-					'People who give up an addictive behaviour often feel a strong urge to go back to the old behaviour again and again over a long period of time. This is called “craving”. An intense craving usually only lasts a short time. Short “emergency instructions” can help you to get through the craving in such situations. The instructions should be very direct and concrete, like an order to yourself. They help you to keep a cool head and resist the craving. Make sure you keep the sentences short and very clear.',
+					'Люди, которые отказываются от зависимого поведения, часто ещё долгое время снова и снова испытывают сильное желание вернуться к прежнему поведению. Это называют «тягой». Сильная тяга обычно длится недолго. Короткие «инструкции на экстренный случай» могут помочь Вам пережить тягу в таких ситуациях. Инструкции должны быть очень прямыми и конкретными, как приказ себе. Они помогают сохранить ясную голову и устоять перед тягой. Следите за тем, чтобы фразы были короткими и очень понятными.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Примеры',
 						items: [
-							'I take my mind off it straight away with other activities (do sport, go shopping, go to the cinema)',
-							'I call my trusted person straight away',
-							'I write an entry in my diary',
-							'I think about how much I have achieved so far',
-							'I send a message to my counsellor',
-							'I am proud of what I have achieved so far',
-							'I call an addiction counselling service',
-							'I go to a safe place and meet a trusted person',
-							'I won’t risk what I have achieved so far!',
-							'I think about how far I have come!',
-							'I think: “Don’t let your family down!”',
-							'I won’t put my relationship at risk!',
-							'I tell myself: “STOP! Get out of here! Now!”'
+							'Я сразу отвлекаюсь другими занятиями (занимаюсь спортом, иду за покупками, иду в кино)',
+							'Я сразу звоню человеку, которому доверяю',
+							'Я делаю запись в своём дневнике',
+							'Я думаю о том, как много мне уже удалось',
+							'Я пишу сообщение своему консультанту',
+							'Я горжусь своими успехами',
+							'Я звоню в службу помощи при зависимости',
+							'Я иду в безопасное место и встречаюсь с человеком, которому доверяю',
+							'Я не стану рисковать своими успехами!',
+							'Я думаю о том, какой путь уже позади!',
+							'Я думаю: «Не подведи свою семью!»',
+							'Я не стану ставить под угрозу свои отношения!',
+							'Я говорю себе: «СТОП! Уходи отсюда! Сейчас же!»'
 						]
 					}
 				]
 			},
 			risks: {
-				title: 'My most important risk situations and control strategies',
-				cardTitle: 'Risk situations and strategies'
+				title: 'Мои главные ситуации риска и стратегии контроля',
+				cardTitle: 'Ситуации риска и стратегии'
 			},
 			relapse: {
-				title: 'Relapse: what to do?',
-				listLabel: 'This is what I do if I relapse:',
-				fieldLabel: 'This is what I do if I relapse',
-				cardTitle: 'If I relapse',
+				title: 'Срыв: что делать?',
+				listLabel: 'Вот что я делаю, если у меня случился срыв:',
+				fieldLabel: 'Вот что я делаю, если у меня случился срыв',
+				cardTitle: 'Если у меня случился срыв',
 				intro:
-					'If you do relapse: don’t panic! Don’t give up on your plan. You can learn from relapses and improve your coping strategies later. But the most important command at first is STOP! Leave the situation as quickly as possible to avoid or limit further harm. How do you want to act if you relapse? What exactly can you do? Write down concrete instructions here that will help you personally in this case.',
+					'Если срыв всё же случился: без паники! Не отказывайтесь от своего намерения. На срывах можно учиться и потом улучшить свои стратегии преодоления. Но сначала самая важная команда: СТОП! Как можно быстрее выйдите из ситуации, чтобы избежать дальнейшего вреда или ограничить его. Как Вы хотите действовать в случае срыва? Что именно Вы можете сделать? Запишите здесь конкретные инструкции, которые помогут лично Вам в таком случае.',
 				examples: [
 					{
-						label: 'Examples',
+						label: 'Примеры',
 						items: [
-							'I stop gambling/drinking/smoking weed STRAIGHT AWAY and accept that I lost control!',
-							'I get out as fast as I can and leave!',
-							'I don’t hide the relapse, I confide in my family',
-							'Even if I feel ashamed, I call my trusted person straight away',
-							'I get support from …',
-							'I take my relapse seriously, but I don’t see it as a disaster',
-							'I use the situation as a reason to keep working on my goal',
-							'I use the relapse to improve my coping strategies',
-							'I won’t give up!'
+							'Я СРАЗУ прекращаю играть/пить/курить травку и признаю, что контроль был потерян!',
+							'Я как можно быстрее ухожу оттуда!',
+							'Я не скрываю срыв, а доверяюсь своей семье',
+							'Даже если мне стыдно, я сразу звоню человеку, которому доверяю',
+							'Я обращаюсь за поддержкой к …',
+							'Я отношусь к своему срыву серьёзно, но не считаю его катастрофой',
+							'Я использую эту ситуацию как повод продолжать работать над своей целью',
+							'Я использую срыв, чтобы улучшить свои стратегии преодоления',
+							'Я не сдамся!'
 						]
 					}
 				]
 			}
 		},
-		importance: { veryImportant: 'very important', important: 'important' },
+		importance: { veryImportant: 'очень важно', important: 'важно' },
 		start:
-			'Habits, routines and ways of thinking that have become fixed are hard to give up. This is especially true for addictions. It often takes a huge effort to resist cravings. In your personal “emergency kit” you collect important information that helps you to avoid relapses and be prepared for challenges.',
-		more: 'The risk of falling back into old habits is especially high in the first days, weeks and months. The aim of this exercise is to have helpful strategies ready for difficult situations and to be able to respond well to cravings. Use the questions and suggestions in this exercise to prepare your personal strategies and put together your “emergency kit”. If you like, your counsellor will support you with this.',
-		showInfo: 'Show more information',
-		hideInfo: 'Hide more information',
-		printTitle: 'Print your emergency kit',
-		confirmLabel: 'Continue anyway?',
-		confirmEmpty: 'At least one section has no entries. Continue anyway?',
-		proceed: 'Continue',
-		printKit: 'Download the whole emergency kit as a PDF',
-		printCard: 'Emergency kit in business card format',
+			'От устоявшихся привычек, распорядка и образа мыслей трудно отказаться. Особенно это касается зависимостей. Часто требуется огромное усилие, чтобы устоять перед тягой. В своём личном «тревожном чемоданчике» Вы собираете важную информацию, которая помогает избегать срывов и подготовиться к трудностям.',
+		more: 'Опасность вернуться к старым привычкам особенно велика в первые дни, недели и месяцы. Цель этого упражнения в том, чтобы заранее подготовить полезные стратегии для трудных ситуаций и уметь правильно реагировать на тягу. Используйте вопросы и подсказки в этом упражнении, чтобы подготовить свои личные стратегии и собрать свой «тревожный чемоданчик». По желанию Ваш консультант поддержит Вас в этом.',
+		showInfo: 'Показать подробную информацию',
+		hideInfo: 'Скрыть подробную информацию',
+		printTitle: 'Распечатать тревожный чемоданчик',
+		confirmLabel: 'Всё равно продолжить?',
+		confirmEmpty: 'Как минимум в одном разделе нет записей. Всё равно продолжить?',
+		proceed: 'Продолжить',
+		printKit: 'Скачать весь тревожный чемоданчик в PDF',
+		printCard: 'Тревожный чемоданчик в формате визитки',
 		cardHint:
-			'Cut out, the business card format fits into any wallet, so you always have your emergency kit with you.',
-		missingImportance: 'Please choose for each entry how important it is to you.',
-		backToKit: 'Back to the emergency kit',
-		back: 'Back',
-		part: 'Emergency kit, part {number}',
-		entryLabel: 'Entry {number}',
-		importanceQuestion: 'How important?',
-		choose: 'Please choose',
-		deleteLabel: 'Delete: {text}',
-		addEntry: '+ New entry',
-		save: 'Save',
-		showExamples: 'Show examples',
-		hideExamples: 'Hide examples',
-		examplesByTopic: 'Examples by topic',
-		allExamplesUsed: 'All examples have already been added.',
-		pickExample: 'Click on an example to add it as an entry.',
-		myTrusted: 'My trusted person(s)',
-		change: 'Change',
-		addTrusted: 'Add a trusted person',
-		myAgency: 'My counselling service',
-		showAgency: 'Show',
-		counsellorsLine: 'Counselling: {names}',
-		notStored: 'Not added yet',
-		mySelfHelp: 'My self-help group',
-		addSelfHelp: 'Add a self-help group',
-		requestedOn: 'Recommendation requested on {date}',
+			'Вырежьте карточку: формат визитки помещается в любой кошелёк, и тревожный чемоданчик всегда будет у Вас с собой.',
+		missingImportance: 'Пожалуйста, выберите для каждой записи, насколько она для Вас важна.',
+		backToKit: 'Назад к тревожному чемоданчику',
+		back: 'Назад',
+		part: 'Тревожный чемоданчик, часть {number}',
+		entryLabel: 'Запись {number}',
+		importanceQuestion: 'Насколько важно?',
+		choose: 'Пожалуйста, выберите',
+		deleteLabel: 'Удалить: {text}',
+		addEntry: '+ Новая запись',
+		save: 'Сохранить',
+		showExamples: 'Показать примеры',
+		hideExamples: 'Скрыть примеры',
+		examplesByTopic: 'Примеры по темам',
+		allExamplesUsed: 'Все примеры уже добавлены.',
+		pickExample: 'Нажмите на пример, чтобы добавить его как запись.',
+		myTrusted: 'Мои доверенные люди',
+		change: 'Изменить',
+		addTrusted: 'Добавить доверенного человека',
+		myAgency: 'Моя консультационная служба',
+		showAgency: 'Показать',
+		counsellorsLine: 'Консультирование: {names}',
+		notStored: 'Пока не добавлено',
+		mySelfHelp: 'Моя группа самопомощи',
+		addSelfHelp: 'Добавить группу самопомощи',
+		requestedOn: 'Рекомендация запрошена {date}',
 		trustedIntro: [
-			'Involving people who are close to you in your private life can take a lot of weight off your shoulders. Have you already told anyone about the problem? Then add their first names and/or their role (for example friend, brother, mother, grandad) to your support list.',
-			'If you have not told anyone so far, think about who you could involve as a trusted person in the future. Think of your friends, your family, your neighbours or other people close to you in your private life. Who could support you with your plan and help you in difficult situations?'
+			'Если вовлечь близких людей из Вашей личной жизни, это может очень облегчить Вам задачу. Вы уже рассказали кому-нибудь о проблеме? Тогда добавьте имя и/или роль этого человека (например, друг, брат, мама, дедушка) в свой список поддержки.',
+			'Если Вы пока никому не рассказывали, подумайте, кого Вы могли бы в будущем привлечь как доверенного человека. Подумайте о друзьях, семье, соседях или других близких людях. Кто мог бы поддержать Вас в Вашем намерении и помочь в трудных ситуациях?'
 		],
-		trustedField: 'Name / role of trusted person {number}',
-		trustedPlaceholder: 'Enter a name',
-		rowLabel: 'Row {number}',
-		addRow: '+ Add a row',
-		saveEntries: 'Save entries',
+		trustedField: 'Имя / роль доверенного человека {number}',
+		trustedPlaceholder: 'Введите имя',
+		rowLabel: 'Строка {number}',
+		addRow: '+ Добавить строку',
+		saveEntries: 'Сохранить записи',
 		agencyIntro:
-			'Your counsellor is there for you not only online, but also in person. Give them a call, make an appointment for counselling in person or go to the open consultation hours.',
-		yourAgency: 'Your counselling service:',
+			'Ваш консультант доступен для Вас не только онлайн, но и лично. Позвоните, договоритесь о личной консультации или приходите в часы открытого приёма.',
+		yourAgency: 'Ваша консультационная служба:',
 		agencyMissing:
-			'The contact details of your counselling service have not been added here yet. Your counsellor will be happy to give them to you.',
-		yourCounsellor: 'Your counsellor:',
+			'Контактные данные Вашей консультационной службы здесь пока не указаны. Ваш консультант с радостью их Вам сообщит.',
+		yourCounsellor: 'Ваш консультант:',
 		selfHelpIntro: [
-			'Self-help groups make it possible for people affected and their family members to talk with each other. This does not only bring emotional relief. Members of the group also benefit from the experiences of the other participants. Self-help groups are organised through counselling services or self-help organisations.',
-			'Your counsellor will help you look for suitable groups near you or online.'
+			'Группы самопомощи дают людям с зависимостью и их близким возможность общаться друг с другом. Это приносит не только эмоциональное облегчение. Участники группы также получают пользу от опыта других участников. Группы самопомощи организуются через консультационные службы или организации самопомощи.',
+			'Ваш консультант поможет Вам найти подходящие группы рядом с Вами или онлайн.'
 		],
-		requestButton: 'I would like a self-help group to be recommended to me.',
-		requestDone: 'I would like a self-help group to be recommended to me. (requested on {date})',
-		requestHint: 'Your counsellor will then get a message.',
-		nakosText:
-			'You can also use the following link to look for information about self-help groups near you yourself:',
+		requestButton: 'Мне хотелось бы получить рекомендацию группы самопомощи.',
+		requestDone: 'Мне хотелось бы получить рекомендацию группы самопомощи. (запрошено {date})',
+		requestHint: 'Ваш консультант получит сообщение об этом.',
+		nakosText: 'По следующей ссылке Вы также можете сами найти информацию о группах самопомощи рядом с Вами:',
 		nakosLink:
-			'NAKOS (National Contact and Information Centre for the Encouragement and Support of Self-Help Groups, in German)',
-		selfHelpField: 'My self-help group:',
-		selfHelpPlaceholder: 'Enter the name of the group, date(s), contact person and phone number here',
+			'NAKOS (Национальный центр контактов и информации для поддержки групп самопомощи, на немецком языке)',
+		selfHelpField: 'Моя группа самопомощи:',
+		selfHelpPlaceholder:
+			'Введите здесь название группы, дату (даты) встреч, контактное лицо и номер телефона',
 		risksIntro:
-			'Here you can find all the risk situations and control strategies that you worked out in the exercise “Risk situations and control strategies”. If you have learned other tips and strategies during counselling for dealing well with risk situations, you can write them in the text field below.',
+			'Здесь собраны все ситуации риска и стратегии контроля, которые Вы проработали в упражнении «Ситуации риска и стратегии контроля». Если в ходе консультирования Вы узнали другие советы и стратегии, помогающие справляться с ситуациями риска, Вы можете записать их в текстовом поле ниже.',
 		noRisks:
-			'You have not added any risk situations in the exercise “Risk situations and control strategies” yet.',
-		riskSituation: 'Risk situation',
-		rating: 'Rating',
-		controlStrategy: 'Control strategy',
-		noStrategy: 'No control strategy yet',
-		printRisk: 'Include in the printout?',
-		otherStrategies: 'Other strategies that I have learned and want to use consciously in the future:',
-		previewEmpty: 'No entries yet',
-		previewMore: 'and {count} more',
-		selfHelpLine: 'Self-help group: {text}',
-		new: 'New',
-		noEntries: 'No entries.',
-		trusted: 'Trusted person(s)',
-		selfHelp: 'Self-help group',
-		requestWanted: 'Recommendation wanted',
-		requestSince: 'since {date}',
-		noPrintedRisks: 'No risk situations selected for the printout.',
+			'Вы пока не добавили ни одной ситуации риска в упражнении «Ситуации риска и стратегии контроля».',
+		riskSituation: 'Ситуация риска',
+		rating: 'Оценка',
+		controlStrategy: 'Стратегия контроля',
+		noStrategy: 'Стратегии контроля пока нет',
+		printRisk: 'Включить в распечатку?',
+		otherStrategies: 'Другие освоенные мной стратегии, которые я хочу в будущем осознанно применять:',
+		previewEmpty: 'Записей пока нет',
+		previewMore: 'и ещё {count}',
+		selfHelpLine: 'Группа самопомощи: {text}',
+		new: 'Новое',
+		noEntries: 'Нет записей.',
+		trusted: 'Доверенные люди',
+		selfHelp: 'Группа самопомощи',
+		requestWanted: 'Нужна рекомендация',
+		requestSince: 'с {date}',
+		noPrintedRisks: 'Для распечатки не выбрано ни одной ситуации риска.',
 		risksOnlyShared:
-			'The risk situations are only visible as long as “Risk situations and control strategies” is shared too.',
+			'Ситуации риска видны, только пока доступ к «Ситуациям риска и стратегиям контроля» тоже предоставлен.',
 		pdf: {
-			title: 'My emergency kit',
-			noAnswer: 'Not given',
-			agencyMissing: 'The contact details of your counselling service have not been added here yet.',
-			myCounsellor: 'My counsellor',
-			requested: 'Recommendation of a self-help group requested on {date}.',
-			cardsTitle: 'My emergency kit in business card format',
-			cardsHint: 'Cut out along the dashed lines and take with you.',
-			cardsEmpty: 'No entries yet.',
-			cardRiskRated: '{situation} (rating: {rating})',
+			title: 'Мой тревожный чемоданчик',
+			noAnswer: 'Не указано',
+			agencyMissing: 'Контактные данные Вашей консультационной службы здесь пока не указаны.',
+			myCounsellor: 'Мой консультант',
+			requested: 'Рекомендация группы самопомощи запрошена {date}.',
+			cardsTitle: 'Мой тревожный чемоданчик в формате визитки',
+			cardsHint: 'Вырежьте по пунктирным линиям и носите с собой.',
+			cardsEmpty: 'Записей пока нет.',
+			cardRiskRated: '{situation} (оценка: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'
 		},
 		request: {
-			title: 'Self-help group requested',
-			text: '{name} would like a self-help group to be recommended to them. Please give {name} suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.',
+			title: 'Запрошена группа самопомощи',
+			text: '{name} просит порекомендовать группу самопомощи. Пожалуйста, сообщите подходящие данные (название группы, дату (даты) встреч, контактное лицо, номер телефона), чтобы их можно было внести в упражнение «Тревожный чемоданчик» в разделе «Моя группа самопомощи», и при необходимости свяжитесь через сообщения, чтобы договориться о дальнейшем. Это автоматически созданное сообщение из инструментов консультирования.',
 			textUnnamed:
-				'A client would like a self-help group to be recommended to them. Please give the client suitable details (name of the group, date(s), contact person, phone number) to add to the exercise “Emergency kit” under “My self-help group”, and get in touch through the messages if you need to arrange anything further. This is an automatically generated message from the counselling tools.'
+				'Клиент просит порекомендовать группу самопомощи. Пожалуйста, сообщите подходящие данные (название группы, дату (даты) встреч, контактное лицо, номер телефона), чтобы их можно было внести в упражнение «Тревожный чемоданчик» в разделе «Моя группа самопомощи», и при необходимости свяжитесь через сообщения, чтобы договориться о дальнейшем. Это автоматически созданное сообщение из инструментов консультирования.'
 		},
 		demo: {
-			motivations: ['Finally being free again', 'I can look my children in the eye again'],
-			strategy: 'I do sport regularly',
-			trusted: 'Anna (sister)',
-			craving: 'I call my trusted person straight away',
-			relapse: 'I won’t give up!'
+			motivations: ['Наконец снова быть свободным человеком', 'Я снова могу смотреть в глаза своим детям'],
+			strategy: 'Я регулярно занимаюсь спортом',
+			trusted: 'Анна (сестра)',
+			craving: 'Я сразу звоню человеку, которому доверяю',
+			relapse: 'Я не сдамся!'
 		}
 	},
 	active: {
 		intro: [
-			'Taking care of yourself plays a big part in a good quality of life. A good quality of life helps to reduce stress, to lessen cravings and to prevent relapses.',
-			'Sports, creative and social activities in particular can clearly lift your mood or ease withdrawal symptoms. Other positive activities that you plan firmly also help you to leave old habits and patterns behind, especially if you make them a regular part of your everyday life. What matters is that you feel good doing them. This exercise helps you to make your everyday life active and pleasant. Use our suggestions or enter your own ideas for activities.'
+			'Забота о себе играет большую роль для хорошего качества жизни. Хорошее качество жизни помогает снизить стресс, ослабить тягу и предотвратить срывы.',
+			'Особенно спортивные, творческие и общественные занятия могут заметно улучшить настроение или облегчить симптомы отмены. Другие приятные занятия, которые Вы твёрдо планируете, тоже помогают оставить позади старые привычки и модели поведения, особенно если они становятся регулярной частью Вашей повседневной жизни. Главное, чтобы Вам при этом было хорошо. Это упражнение помогает сделать Вашу повседневную жизнь активной и приятной. Воспользуйтесь нашими предложениями или впишите свои идеи для занятий.'
 		],
-		howToToggle: 'How does it work?',
+		howToToggle: 'Как это работает?',
 		howTo: [
-			'Enter your planned activities below. Click “Add activity” to save the entry.',
-			'Make sure your plans are doable. Think as precisely as you can about which activities you can realistically do and when.',
-			'If you like, use our suggestions to find an activity that suits you.',
-			'Planned activities are shown in your diary automatically. If you like, you can also add your entries to your personal calendar.'
+			'Впишите ниже запланированные занятия. Нажмите «Добавить занятие», чтобы сохранить запись.',
+			'Следите за тем, чтобы Ваши планы были выполнимы. Подумайте как можно точнее, какие занятия и когда Вы реально сможете осуществить.',
+			'По желанию воспользуйтесь нашими предложениями, чтобы найти подходящее для Вас занятие.',
+			'Запланированные занятия автоматически показываются в Вашем дневнике. По желанию Вы также можете добавить свои записи в личный календарь.'
 		],
-		newTitle: 'Plan a new activity',
-		editTitle: 'Edit activity',
-		suggestionsButton: 'Ideas for activities',
-		titleLabel: 'Enter an activity',
-		titlePlaceholder: 'Name or description of the activity',
-		dateLabel: 'Choose a date (optional)',
-		timeLabel: 'Choose a time (optional)',
-		repeatLabel: 'Repeat the activity?',
+		newTitle: 'Запланировать новое занятие',
+		editTitle: 'Изменить занятие',
+		suggestionsButton: 'Идеи для занятий',
+		titleLabel: 'Впишите занятие',
+		titlePlaceholder: 'Название или описание занятия',
+		dateLabel: 'Выберите дату (по желанию)',
+		timeLabel: 'Выберите время (по желанию)',
+		repeatLabel: 'Повторять занятие?',
 		repeatOptions: {
-			none: 'never',
-			daily: 'daily',
-			weekly: 'weekly',
-			custom: 'on chosen dates'
+			none: 'никогда',
+			daily: 'ежедневно',
+			weekly: 'еженедельно',
+			custom: 'в выбранные дни'
 		},
-		furtherDateLabel: 'Another date',
-		addDate: 'Add date',
-		furtherDatesLabel: 'Other dates',
-		removeDate: 'remove',
-		removeDateLabel: 'Remove date: {day}',
-		companionLabel: 'Company (optional)',
-		companionPlaceholder: 'Name of a person who joins you',
-		missingTitle: 'Please enter an activity.',
-		missingDate: 'Please also choose a date if you want to set a time or a repetition.',
-		add: 'Add activity',
-		saveChange: 'Save changes',
-		listTitle: 'Your activities',
-		addToCalendar: 'Add to my calendar',
-		calendarFileName: 'being-active.ics',
-		empty: 'No activities entered yet.',
-		editLabel: 'Edit: {title}',
-		deleteTitle: 'Delete activity',
-		deleteLabel: 'Delete: {title}',
-		confirmDelete: 'Delete this activity?',
-		delete: 'Delete',
-		noDate: 'no date',
-		noFurtherDate: 'no more dates',
+		furtherDateLabel: 'Ещё одна дата',
+		addDate: 'Добавить дату',
+		furtherDatesLabel: 'Другие даты',
+		removeDate: 'убрать',
+		removeDateLabel: 'Убрать дату: {day}',
+		companionLabel: 'Компания (по желанию)',
+		companionPlaceholder: 'Имя человека, который присоединится',
+		missingTitle: 'Пожалуйста, впишите занятие.',
+		missingDate: 'Пожалуйста, выберите также дату, если хотите указать время или повторение.',
+		add: 'Добавить занятие',
+		saveChange: 'Сохранить изменения',
+		listTitle: 'Ваши занятия',
+		addToCalendar: 'Добавить в мой календарь',
+		calendarFileName: 'bud-aktivny.ics',
+		empty: 'Занятия пока не внесены.',
+		editLabel: 'Изменить: {title}',
+		deleteTitle: 'Удалить занятие',
+		deleteLabel: 'Удалить: {title}',
+		confirmDelete: 'Удалить это занятие?',
+		delete: 'Удалить',
+		noDate: 'без даты',
+		noFurtherDate: 'больше нет дат',
 		dayAndTime: '{day}, {time}',
-		nextLine: 'Next date: {next}',
-		nextLineWithRepeat: 'Next date: {next} ({repeat})',
-		repeatLine: 'Repeats: {repeat}',
-		furtherDatesLine: 'Other dates: {dates}',
-		companionLine: 'Company: {companion}',
-		noCompanion: 'not given',
+		nextLine: 'Следующая дата: {next}',
+		nextLineWithRepeat: 'Следующая дата: {next} ({repeat})',
+		repeatLine: 'Повторение: {repeat}',
+		furtherDatesLine: 'Другие даты: {dates}',
+		companionLine: 'Компания: {companion}',
+		noCompanion: 'не указано',
 		counsellor: {
-			next: 'Next date',
-			repeat: 'Repeats',
+			next: 'Следующая дата',
+			repeat: 'Повторение',
 			repeatWithDates: '{repeat}: {dates}',
-			companion: 'Company',
-			lastChanged: 'Last changed',
-			new: 'New'
+			companion: 'Компания',
+			lastChanged: 'Последнее изменение',
+			new: 'Новое'
 		},
-		backToPlanning: 'Back to planning',
-		suggestionsTitle: 'Ideas for activities',
+		backToPlanning: 'Назад к планированию',
+		suggestionsTitle: 'Идеи для занятий',
 		suggestionsHint:
-			'Use our suggestions as ideas for your own planning. It helps to describe your plan in even more detail.',
+			'Используйте наши предложения как идеи для собственного планирования. Полезно описать свой план ещё подробнее.',
 		suggestions: {
 			sport: {
-				title: 'Active and sporty',
+				title: 'Активно и спортивно',
 				items: [
-					'Go for a walk',
-					'Go jogging',
-					'Play football',
-					'Play badminton',
-					'Play table tennis',
-					'Go to the gym',
-					'Dance',
-					'Cycle or go on a bike tour',
-					'Go on a day trip',
-					'Go hiking',
-					'Go to a climbing gym',
-					'Boxing',
-					'Go swimming',
-					'Play mini golf',
-					'Go bowling'
+					'Погулять',
+					'Пойти на пробежку',
+					'Поиграть в футбол',
+					'Поиграть в бадминтон',
+					'Поиграть в настольный теннис',
+					'Сходить в спортзал',
+					'Потанцевать',
+					'Покататься на велосипеде или совершить велопрогулку',
+					'Съездить куда-нибудь на день',
+					'Пойти в поход',
+					'Сходить на скалодром',
+					'Заняться боксом',
+					'Сходить в бассейн',
+					'Поиграть в мини-гольф',
+					'Сходить в боулинг'
 				]
 			},
 			relaxation: {
-				title: 'Relaxation',
+				title: 'Расслабление',
 				items: [
-					'Go to the sauna',
-					'Take a bath or a shower',
-					'Get a massage',
-					'Listen to music',
-					'Light some candles',
-					'Learn a relaxation technique',
-					'Meditate or do yoga',
-					'Kiss',
-					'Flirt',
-					'Cuddle',
-					'Listen to an audio drama'
+					'Сходить в сауну',
+					'Принять ванну или душ',
+					'Сходить на массаж',
+					'Послушать музыку',
+					'Зажечь свечи',
+					'Освоить технику расслабления',
+					'Помедитировать или позаниматься йогой',
+					'Целоваться',
+					'Флиртовать',
+					'Обниматься',
+					'Послушать аудиоспектакль'
 				]
 			},
 			inspiration: {
-				title: 'Inspiration',
+				title: 'Вдохновение',
 				items: [
-					'Read a book',
-					'Read a newspaper or magazine',
-					'Read cartoons or comics',
-					'Make a phone call',
-					'Write emails or letters',
-					'Go to the cinema',
-					'Have a film night',
-					'Go to the theatre',
-					'Go to a talk',
-					'Go to a club or disco',
-					'Go to a concert',
-					'Go away for the weekend',
-					'Go to an amusement park',
-					'Visit a museum or an exhibition',
-					'Stroll through shops and buy yourself a little treat',
-					'Go exploring somewhere you do not know yet'
+					'Почитать книгу',
+					'Почитать газету или журнал',
+					'Почитать карикатуры или комиксы',
+					'Позвонить кому-нибудь',
+					'Написать электронные письма или письма',
+					'Сходить в кино',
+					'Устроить вечер кино',
+					'Сходить в театр',
+					'Сходить на лекцию',
+					'Сходить в клуб или на дискотеку',
+					'Сходить на концерт',
+					'Уехать на выходные',
+					'Сходить в парк развлечений',
+					'Посетить музей или выставку',
+					'Пройтись по магазинам и купить себе маленький подарок',
+					'Исследовать незнакомое место'
 				]
 			},
 			treats: {
-				title: 'Treats',
+				title: 'Приятное',
 				items: [
-					'Have an ice cream',
-					'Have a piece of cake',
-					'Order a pizza',
-					'Cook or bake',
-					'Try new recipes',
-					'Take a cooking class',
-					'Cook for friends',
-					'Organise a barbecue or a picnic'
+					'Съесть мороженое',
+					'Съесть кусочек торта',
+					'Заказать пиццу',
+					'Приготовить что-нибудь или испечь',
+					'Попробовать новые рецепты',
+					'Сходить на кулинарный курс',
+					'Приготовить ужин для друзей',
+					'Устроить барбекю или пикник'
 				]
 			},
 			creative: {
-				title: 'Creative',
+				title: 'Творчество',
 				items: [
-					'Paint or draw',
-					'Do pottery',
-					'Sew or knit',
-					'Do crafts',
-					'Do a puzzle or a crossword',
-					'Learn a new language',
-					'Take photos',
-					'Take an adult education class',
-					'Read',
-					'Write a poem',
-					'Make music'
+					'Рисовать',
+					'Заняться керамикой',
+					'Шить или вязать',
+					'Мастерить',
+					'Собрать пазл или разгадать кроссворд',
+					'Учить новый язык',
+					'Фотографировать',
+					'Пойти на курсы для взрослых',
+					'Читать',
+					'Написать стихотворение',
+					'Музицировать'
 				]
 			}
 		},
 		demo: {
-			walk: 'Walk by the river',
-			cinema: 'Go to the cinema',
-			book: 'Read a book'
+			walk: 'Прогулка у реки',
+			cinema: 'Сходить в кино',
+			book: 'Почитать книгу'
 		}
 	},
 	riskSituations: {
 		start:
-			'In this exercise you take a close look at your risk situations and develop suitable control strategies.',
-		guideShow: 'How to fill this in',
-		guideHide: 'Hide instructions',
+			'В этом упражнении Вы внимательно рассматриваете свои ситуации риска и вырабатываете подходящие стратегии контроля.',
+		guideShow: 'Как заполнять',
+		guideHide: 'Скрыть инструкцию',
 		guideIntro:
-			'If you share your entries, your counsellor can read them and support you better. Of course you can change or delete your entries whenever you like. Go through it step by step like this:',
+			'Если Вы поделитесь своими записями, Ваш консультант сможет их прочитать и лучше Вас поддержать. Конечно, Вы можете в любой момент изменить или удалить свои записи. Действуйте шаг за шагом:',
 		guideSteps: {
 			situation: {
-				title: 'Enter risk situations',
-				text: '{title} in which you have used substances or shown the problematic behaviour so far.'
+				title: 'Внесите ситуации риска',
+				text: '{title}: ситуации, в которых Вы до сих пор употребляли вещества или проявляли проблемное поведение.'
 			},
 			rating: {
-				title: 'Rate them',
-				text: '{title}: Some risk situations are harder to cope with than others. Rate each situation by how hard you think it will be for you to stay strong in it.'
+				title: 'Оцените их',
+				text: '{title}: с одними ситуациями риска справиться труднее, чем с другими. Оцените каждую ситуацию по тому, насколько трудно, по-Вашему, Вам будет в ней устоять.'
 			},
 			strategies: {
-				title: 'Develop control strategies',
-				text: '{title}: Think about what you can do to stay in control in these situations and not fall back into old patterns. These can be certain actions or thoughts that take your mind off things.'
+				title: 'Выработайте стратегии контроля',
+				text: '{title}: подумайте, что Вы можете сделать, чтобы в этих ситуациях сохранить контроль и не вернуться к старым моделям поведения. Это могут быть определённые действия или мысли, которые Вас отвлекают.'
 			},
 			relapse: {
-				title: 'Improve after a relapse',
-				text: '{title}: If you fall back into old patterns and habits, use what you learn from it as an important lesson! Edit your control strategy to make it better. Your counsellor can support you with this.'
+				title: 'Улучшение после срыва',
+				text: '{title}: если Вы снова вернётесь к старым моделям поведения и привычкам, используйте этот опыт как важный урок! Доработайте свою стратегию контроля, чтобы улучшить её. Ваш консультант может поддержать Вас в этом.'
 			}
 		},
-		heading: 'My risk situations and control strategies',
-		empty: 'You have not entered a risk situation yet.',
-		noSituations: 'No risk situations entered yet.',
-		deleteQuestion: 'Delete this risk situation with all its relapse analyses?',
-		delete: 'Delete',
+		heading: 'Мои ситуации риска и стратегии контроля',
+		empty: 'Вы пока не внесли ни одной ситуации риска.',
+		noSituations: 'Ситуации риска пока не внесены.',
+		deleteQuestion: 'Удалить эту ситуацию риска вместе со всеми анализами срывов?',
+		delete: 'Удалить',
 		columns: {
-			situation: 'Risk situation',
-			difficulty: 'Rating',
-			strategy: 'Control strategy',
-			relapse: 'Relapse'
+			situation: 'Ситуация риска',
+			difficulty: 'Оценка',
+			strategy: 'Стратегия контроля',
+			relapse: 'Срыв'
 		},
-		difficulty: { easy: 'easy', medium: 'medium', hard: 'hard', 'very-hard': 'very hard' },
-		analyseRelapse: 'Analyse a relapse',
-		relapseState: 'As of {date}',
-		notEdited: 'not done yet',
-		editLabel: 'Edit: {situation}',
-		deleteLabel: 'Delete: {situation}',
-		add: 'Enter a new risk situation',
-		tablePdf: 'Save table as PDF',
-		noStrategy: 'No strategy yet',
-		showMore: 'show more',
-		showLess: 'show less',
-		toOverview: 'Back to overview',
-		createTitle: 'Create a risk situation',
-		editTitle: 'Edit risk situation',
+		difficulty: { easy: 'легко', medium: 'средне', hard: 'трудно', 'very-hard': 'очень трудно' },
+		analyseRelapse: 'Проанализировать срыв',
+		relapseState: 'По состоянию на {date}',
+		notEdited: 'пока не заполнено',
+		editLabel: 'Изменить: {situation}',
+		deleteLabel: 'Удалить: {situation}',
+		add: 'Внести новую ситуацию риска',
+		tablePdf: 'Сохранить таблицу в PDF',
+		noStrategy: 'Стратегии пока нет',
+		showMore: 'показать больше',
+		showLess: 'показать меньше',
+		toOverview: 'Назад к обзору',
+		createTitle: 'Создать ситуацию риска',
+		editTitle: 'Изменить ситуацию риска',
 		situationHint:
-			'Describe a typical situation in which you use substances or show the problematic behaviour, or in which it would be hard for you to do without.',
-		difficultyQuestion: 'How difficult is it for you to stay strong in this situation?',
-		choose: 'Please choose',
-		strategyLabel: 'Control or coping strategy',
-		strategyQuestion: 'How can you avoid falling back into old habits in this situation?',
-		missingSituation: 'Please describe the risk situation.',
-		missingDifficulty: 'Please choose a rating.',
-		save: 'Save',
-		relapseOverline: 'Analyse relapses',
-		relapseTitle: 'Improve your coping strategies',
+			'Опишите типичную ситуацию, в которой Вы употребляете вещества или проявляете проблемное поведение, или в которой Вам было бы трудно от этого отказаться.',
+		difficultyQuestion: 'Насколько трудно Вам устоять в этой ситуации?',
+		choose: 'Пожалуйста, выберите',
+		strategyLabel: 'Стратегия контроля или преодоления',
+		strategyQuestion: 'Как Вы можете избежать возврата к старым привычкам в этой ситуации?',
+		missingSituation: 'Пожалуйста, опишите ситуацию риска.',
+		missingDifficulty: 'Пожалуйста, выберите оценку.',
+		save: 'Сохранить',
+		relapseOverline: 'Анализ срывов',
+		relapseTitle: 'Улучшите свои стратегии преодоления',
 		relapseIntro:
-			'Changing habits often takes a huge effort and rarely works without setbacks. If you have fallen back into old patterns, for example by drinking, smoking cannabis or gambling although you did not really want to, do not let this discourage you! Instead, use this concrete experience to prepare better for future challenges. Use the following questions to analyse the situation and learn for the future. Your counsellor can support you in analysing setbacks and working out coping strategies.',
-		mySituation: 'My risk situation',
-		editingAnalysis: 'You are editing the analysis from {date}.',
+			'Изменение привычек часто требует огромных усилий и редко обходится без неудач. Если Вы вернулись к старым моделям поведения, например выпили, покурили каннабис или сыграли, хотя на самом деле не хотели этого, не позволяйте этому Вас обескуражить! Лучше используйте этот конкретный опыт, чтобы лучше подготовиться к будущим трудностям. С помощью следующих вопросов проанализируйте ситуацию и извлеките уроки на будущее. Ваш консультант может поддержать Вас в анализе неудач и в выработке стратегий преодоления.',
+		mySituation: 'Моя ситуация риска',
+		editingAnalysis: 'Вы редактируете анализ от {date}.',
 		questions: {
 			circumstances:
-				'1. What circumstances and surroundings (place, event, people present) were part of the relapse?',
-			feelings: '2. What feelings or thoughts influenced your decision and triggered the relapse?',
-			mainReason: '3. What do you think was the main reason that led to the relapse?',
+				'1. Какие обстоятельства и обстановка (место, событие, присутствующие люди) сопровождали срыв?',
+			feelings: '2. Какие чувства или мысли повлияли на Ваше решение и вызвали срыв?',
+			mainReason: '3. Что, по-Вашему, было главной причиной срыва?',
 			alternatives:
-				'4. What alternatives were there in this situation? (What exactly could you have done differently? Which thoughts could have helped? Who or what could have supported you?)',
+				'4. Какие были альтернативы в этой ситуации? (Что именно Вы могли бы сделать иначе? Какие мысли могли бы помочь? Кто или что могли бы Вас поддержать?)',
 			newStrategy:
-				'5. How could you master the situation in the future? (Your answer is automatically used as the new control strategy for this risk situation.)'
+				'5. Как Вы могли бы справиться с этой ситуацией в будущем? (Ваш ответ автоматически станет новой стратегией контроля для этой ситуации риска.)'
 		},
-		previousStrategyOverline: 'My previous control strategy:',
-		noPreviousStrategy: 'No strategy entered yet.',
-		newStrategyPlaceholder: 'Describe your new control strategy as precisely as you can',
-		missingAnswer: 'Please answer at least one of the questions.',
-		pagePdf: 'Save page as PDF',
-		allRelapses: 'All relapses',
-		analysisOf: 'Analysis from {date}',
-		open: 'Open',
-		close: 'Close',
-		edit: 'Edit',
+		previousStrategyOverline: 'Моя прежняя стратегия контроля:',
+		noPreviousStrategy: 'Стратегия пока не внесена.',
+		newStrategyPlaceholder: 'Опишите свою новую стратегию контроля как можно точнее',
+		missingAnswer: 'Пожалуйста, ответьте хотя бы на один из вопросов.',
+		pagePdf: 'Сохранить страницу в PDF',
+		allRelapses: 'Все срывы',
+		analysisOf: 'Анализ от {date}',
+		open: 'Открыть',
+		close: 'Закрыть',
+		edit: 'Изменить',
 		answers: {
-			circumstances: 'Circumstances and surroundings',
-			feelings: 'Feelings and thoughts',
-			mainReason: 'Main reason',
-			alternatives: 'Alternatives'
+			circumstances: 'Обстоятельства и обстановка',
+			feelings: 'Чувства и мысли',
+			mainReason: 'Главная причина',
+			alternatives: 'Альтернативы'
 		},
-		previousStrategy: 'Previous control strategy',
-		newStrategy: 'New control strategy',
-		noAnswer: 'No answer',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		pages: 'Pages',
-		previousPage: 'Back',
-		nextPage: 'Next',
-		pageOf: 'Page {page} of {pages}',
-		noRelapse: 'No relapse recorded.',
-		lastRelapse: 'Last relapse, analysed on {date}',
-		showAllRelapses: 'All relapses ({count})',
-		hideEarlierRelapses: 'Hide earlier relapses',
-		analysedOn: 'Analysed on {date}',
-		pdfRelapses: 'Relapses: {situation}',
-		analysisGone: 'This analysis no longer exists.',
-		deleted: 'Deleted',
+		previousStrategy: 'Прежняя стратегия контроля',
+		newStrategy: 'Новая стратегия контроля',
+		noAnswer: 'Нет ответа',
+		new: 'Новое',
+		lastChanged: 'Последнее изменение {date}',
+		pages: 'Страницы',
+		previousPage: 'Назад',
+		nextPage: 'Далее',
+		pageOf: 'Страница {page} из {pages}',
+		noRelapse: 'Срывов не записано.',
+		lastRelapse: 'Последний срыв, проанализирован {date}',
+		showAllRelapses: 'Все срывы ({count})',
+		hideEarlierRelapses: 'Скрыть более ранние срывы',
+		analysedOn: 'Проанализирован {date}',
+		pdfRelapses: 'Срывы: {situation}',
+		analysisGone: 'Этого анализа больше нет.',
+		deleted: 'Удалено',
 		demo: [
 			{
-				situation: 'Friday evening after work, when my colleagues go out for a drink.',
-				strategy: 'I arrange to do sport beforehand and go straight home.'
+				situation: 'Вечер пятницы после работы, когда коллеги идут выпить.',
+				strategy: 'Я договариваюсь заранее заняться спортом и иду сразу домой.'
 			},
 			{
-				situation: 'When I am home alone and bored.',
-				strategy: 'I call someone or go for a walk.'
+				situation: 'Когда я дома в одиночестве и мне скучно.',
+				strategy: 'Я кому-нибудь звоню или иду гулять.'
 			}
 		]
 	},
 	trafficLight: {
 		levels: {
 			red: {
-				colourName: 'Red',
-				danger: 'great danger',
+				colourName: 'Красный',
+				danger: 'высокая опасность',
 				explanation:
-					'Hands off, risk of addiction! With this media activity, it is extremely likely that you will lose yourself in addiction.'
+					'Руки прочь, риск зависимости! При этом занятии с медиа крайне вероятно, что Вы попадёте в зависимость.'
 			},
 			yellow: {
-				colourName: 'Yellow',
-				danger: 'possible danger',
+				colourName: 'Жёлтый',
+				danger: 'возможная опасность',
 				explanation:
-					'Be careful! This media activity could become dangerous. You should keep a close eye on your use to avoid addiction.'
+					'Осторожно! Это занятие с медиа может стать опасным. Внимательно следите за тем, как Вы им пользуетесь, чтобы избежать зависимости.'
 			},
 			green: {
-				colourName: 'Green',
-				danger: 'no danger',
-				explanation: 'You can use this media activity without any problems.'
+				colourName: 'Зелёный',
+				danger: 'нет опасности',
+				explanation: 'Этим занятием с медиа Вы можете пользоваться без проблем.'
 			}
 		},
 		levelLabel: '{colour}: {danger}',
 		levelOption: '{danger} ({colour})',
 		intro:
-			'This exercise helps you to judge how dangerous individual media activities are for you personally, and so to strengthen your ability to handle media use. With the traffic light model, you can sort media activities into the categories “harmless”, “risky” and “not to be used under any circumstances”. The traffic light is not fixed: it should be adjusted again and again during counselling. The aim is for you and your counsellor to understand as precisely as possible how addictive individual activities can be for you.',
-		instructionsTitle: 'How to fill it in:',
+			'Это упражнение помогает Вам оценить, насколько опасны лично для Вас отдельные занятия с медиа, и так научиться обращаться с медиа более осознанно. С помощью модели светофора Вы можете распределить занятия с медиа по категориям «безопасно», «рискованно» и «ни в коем случае не использовать». Светофор не застывший: его стоит снова и снова корректировать в ходе консультирования. Цель в том, чтобы Вы вместе с Вашим консультантом как можно точнее поняли, насколько сильную зависимость могут вызывать у Вас отдельные занятия.',
+		instructionsTitle: 'Как заполнять:',
 		instructions: [
-			'Enter a media activity.',
-			'Rate how likely it is to lead to addiction by giving it a colour.',
-			'Click an entry to edit or delete it.'
+			'Впишите занятие с медиа.',
+			'Оцените, насколько вероятно, что оно приведёт к зависимости, присвоив ему цвет.',
+			'Нажмите на запись, чтобы изменить или удалить её.'
 		],
-		explanationsTitle: 'What the colours mean:',
-		legendLabel: 'Legend',
-		lightLabel: 'Traffic light',
+		explanationsTitle: 'Что означают цвета:',
+		legendLabel: 'Легенда',
+		lightLabel: 'Светофор',
 		activityCount: {
-			one: '{count} activity',
-			few: '{count} activities',
-			many: '{count} activities',
-			other: '{count} activities'
+			one: '{count} занятие',
+			few: '{count} занятия',
+			many: '{count} занятий',
+			other: '{count} занятия'
 		},
-		noActivities: 'No activities.',
-		editActivityLabel: '{text}, {danger}: edit or delete',
-		add: '+ Add a new activity',
-		newTitle: 'Enter a new media activity',
-		editTitle: 'Edit activity',
-		activityLabel: 'Media activity',
-		examplesLabel: 'Examples:',
-		examples: ['Playing a computer game', 'Writing emails', 'Watching a film', 'Online banking', 'Instagram'],
-		dangerQuestion: 'How great is the danger that this activity leads to addiction?',
-		missingActivity: 'Please enter a media activity.',
-		missingLevel: 'Please choose how great the danger is.',
-		cancel: 'Cancel',
-		save: 'Save',
-		delete: 'Delete',
-		confirmDeleteLabel: 'Confirm deletion',
-		confirmDelete: 'Delete this activity?',
-		empty: 'No activities entered yet.',
-		new: 'New',
+		noActivities: 'Нет занятий.',
+		editActivityLabel: '{text}, {danger}: изменить или удалить',
+		add: '+ Добавить новое занятие',
+		newTitle: 'Внести новое занятие с медиа',
+		editTitle: 'Изменить занятие',
+		activityLabel: 'Занятие с медиа',
+		examplesLabel: 'Примеры:',
+		examples: [
+			'Играть в компьютерную игру',
+			'Писать электронные письма',
+			'Смотреть фильм',
+			'Онлайн-банкинг',
+			'Instagram'
+		],
+		dangerQuestion: 'Насколько велика опасность, что это занятие приведёт к зависимости?',
+		missingActivity: 'Пожалуйста, впишите занятие с медиа.',
+		missingLevel: 'Пожалуйста, выберите, насколько велика опасность.',
+		cancel: 'Отмена',
+		save: 'Сохранить',
+		delete: 'Удалить',
+		confirmDeleteLabel: 'Подтвердить удаление',
+		confirmDelete: 'Удалить это занятие?',
+		empty: 'Занятия пока не внесены.',
+		new: 'Новое',
 		pdfLevelHeading: '{colour}: {danger} ({level})',
 		demo: {
-			red: 'Playing a computer game',
+			red: 'Играть в компьютерную игру',
 			yellow: 'Instagram',
-			green: 'Writing emails'
+			green: 'Писать электронные письма'
 		}
 	},
 	positivePerception: {
-		pages: ['Introduction', 'Giving compliments', 'Giving compliments', 'Noticing the positive'],
-		pageOf: 'Page {page} of {count}',
-		back: 'Back',
-		next: 'Next',
+		pages: ['Введение', 'Говорить комплименты', 'Говорить комплименты', 'Замечать хорошее'],
+		pageOf: 'Страница {page} из {count}',
+		back: 'Назад',
+		next: 'Далее',
 		intro: [
-			'Conflicts and arguments are part of every healthy relationship. Still, constant disputes in a family can put a lot of strain on the relationship between parents and their children over time. This happens at the latest when little or no attention is paid to the good things any more. Often the family then only complains about what goes wrong, and positive moments hardly seem to exist at all.',
-			'This kind of “negative attention” can mean that we only notice the negative sides of our children’s behaviour. When something does not work, we criticise it straight away. What goes well, on the other hand, we often take for granted. We notice the negative things at once and react to them, while we may no longer notice the positive things at all.'
+			'Конфликты и ссоры есть в любых здоровых отношениях. И всё же постоянные споры в семье со временем могут сильно нагружать отношения между родителями и детьми. Самое позднее это происходит тогда, когда хорошему уделяется мало внимания или не уделяется совсем. Часто в семье тогда только жалуются на то, что идёт не так, а хороших моментов будто и вовсе нет.',
+			'Такое «негативное внимание» может привести к тому, что мы замечаем только негативные стороны поведения наших детей. Когда что-то не получается, мы сразу это критикуем. А то, что получается хорошо, мы часто принимаем как должное. Плохое мы замечаем сразу и реагируем на него, а хорошее, возможно, уже совсем не замечаем.'
 		],
 		schemeIntro: [
-			'That is why it helps to keep an eye on the things that go well. Paying attention to the positive builds self-confidence in children and young people and helps them protect themselves. Even small changes in how you treat each other can make a big difference to your relationship. Focusing on the positive can greatly improve the atmosphere in the family.',
-			'The diagram below shows what negative and positive comments can trigger in your child. Click on a comment to see how the child might react.'
+			'Поэтому полезно обращать внимание на то, что получается хорошо. Внимание к хорошему укрепляет уверенность в себе у детей и подростков и помогает им защищать себя. Даже небольшие изменения в том, как Вы общаетесь друг с другом, могут многое изменить в Ваших отношениях. Если сосредоточиться на хорошем, атмосфера в семье может заметно улучшиться.',
+			'На схеме ниже показано, что могут вызвать у Вашего ребёнка негативные и позитивные замечания. Нажмите на замечание, чтобы увидеть, как может отреагировать ребёнок.'
 		],
-		remarksLabel: 'What the parent says',
-		quotedRemark: '“{remark}”',
+		remarksLabel: 'Что говорят родители',
+		quotedRemark: '«{remark}»',
 		tones: {
-			negative: 'negative',
-			positive: 'positive'
+			negative: 'негативное',
+			positive: 'позитивное'
 		},
 		remarks: {
 			clumsy: {
-				remark: 'You’re being totally stupid again.',
-				selfImage: 'I am stupid',
-				feeling: 'negative, bad',
-				behaviour: 'angry, difficult'
+				remark: 'Ты опять ведёшь себя совсем глупо.',
+				selfImage: 'я глупый',
+				feeling: 'негативное, плохое',
+				behaviour: 'злой, несносный'
 			},
 			forgetful: {
-				remark: 'I knew you’d forget that again.',
-				selfImage: 'I am unreliable',
-				feeling: 'unhappy, ashamed',
-				behaviour: 'sad, still unreliable'
+				remark: 'Было ведь ясно, что ты опять это забудешь.',
+				selfImage: 'на меня нельзя положиться',
+				feeling: 'недовольство, стыд',
+				behaviour: 'грустный, по-прежнему ненадёжный'
 			},
 			kind: {
-				remark: 'How lovely that you did that.',
-				selfImage: 'I am kind',
-				feeling: 'content',
-				behaviour: 'kind, friendly'
+				remark: 'Как здорово, что ты это делаешь.',
+				selfImage: 'я хороший',
+				feeling: 'удовлетворение',
+				behaviour: 'добрый, приветливый'
 			},
 			skilful: {
-				remark: 'You’re so good at that.',
-				selfImage: 'I can do things',
-				feeling: 'content',
-				behaviour: 'friendly'
+				remark: 'Как ловко у тебя это получается.',
+				selfImage: 'я что-то умею',
+				feeling: 'удовлетворение',
+				behaviour: 'приветливый'
 			}
 		},
-		selfImageLabel: 'How the child sees themselves',
-		feelingLabel: 'How the child feels',
-		behaviourLabel: 'How the child might behave',
-		chooseRemark: 'Choose a comment on the left.',
+		selfImageLabel: 'Как ребёнок видит себя',
+		feelingLabel: 'Чувства ребёнка',
+		behaviourLabel: 'Возможное поведение ребёнка',
+		chooseRemark: 'Выберите замечание слева.',
 		explanationPoints: [
-			'“Negative attention” can put a heavy strain on the atmosphere in the family.',
-			'Negative comments can harm how your child sees themselves and how they behave.',
-			'Positive comments and praise, on the other hand, build your child’s self-confidence.'
+			'«Негативное внимание» может сильно отягощать атмосферу в семье.',
+			'Негативные замечания могут навредить тому, как Ваш ребёнок видит себя и как он себя ведёт.',
+			'Позитивные замечания и похвала, напротив, укрепляют уверенность Вашего ребёнка в себе.'
 		],
 		explanationClosing:
-			'This tool is here to bring these positive things back into focus. The aim is to improve your contact and your everyday life with your child through praise and appreciation.',
+			'Этот инструмент помогает снова вернуть хорошее в центр внимания. Цель в том, чтобы с помощью похвалы и признания улучшить Ваше общение и повседневную жизнь с ребёнком.',
 		aspectsIntro:
-			'The easiest way to give your child positive feedback is with praise or a compliment. Every time you praise your child or pay them a compliment, your own attention also turns to the good things your child does. So first, think about which of your child’s behaviours are pleasing and positive. What behaviour or activity of your child could you praise?',
-		hideHint: 'Hide tip',
-		showHint: 'Show tip',
+			'Проще всего дать ребёнку положительную обратную связь с помощью похвалы или комплимента. Каждый раз, когда Вы хвалите ребёнка или делаете ему комплимент, Ваше собственное внимание тоже обращается к хорошему, что делает Ваш ребёнок. Поэтому сначала подумайте, какое поведение Вашего ребёнка Вас радует и что в нём хорошего. За какое поведение или занятие Вы могли бы похвалить своего ребёнка?',
+		hideHint: 'Скрыть подсказку',
+		showHint: 'Показать подсказку',
 		aspectsHint:
-			'Keep in mind: a compliment is about something specific your child did, not about their whole personality. These may be simple, everyday things, or even things you take for granted. You can of course also praise a behaviour or an activity that your child enjoys. In fact, it is very worthwhile to encourage such activities so they can grow and become a possible alternative to the problem behaviour (for example gaming, smoking cannabis or drinking alcohol).',
-		examplesTitle: 'Positive behaviours could be:',
+			'Помните: комплимент касается чего-то конкретного, что сделал Ваш ребёнок, а не всей его личности. Это могут быть простые повседневные вещи или даже то, что кажется само собой разумеющимся. Конечно, Вы можете похвалить и поведение или занятие, которое нравится Вашему ребёнку. Более того, очень стоит поддерживать такие занятия, чтобы они могли развиваться и стать возможной альтернативой проблемному поведению (например, компьютерным играм, курению каннабиса или употреблению алкоголя).',
+		examplesTitle: 'Хорошим поведением может быть:',
 		examples: [
-			'Helping at home (for example doing the washing-up)',
-			'Taking care of small tasks (for example running an errand)',
-			'Doing sport (or doing sport regularly)',
-			'Coming home on time',
-			'Doing their homework',
-			'Getting a good mark (or not getting a bad mark)',
-			'Remembering someone’s birthday'
+			'Помощь по дому (например, мыть посуду)',
+			'Выполнение небольших поручений (например, сходить за покупками)',
+			'Занятия спортом (или регулярные занятия спортом)',
+			'Вовремя приходить домой',
+			'Делать домашние задания',
+			'Получить хорошую оценку (или не получить плохую)',
+			'Не забыть про чей-то день рождения'
 		],
-		inputLabel: 'Please write down behaviours and activities of your child that you would like to praise:',
-		emptyInput: 'Please write something first.',
+		inputLabel:
+			'Пожалуйста, запишите поведение и занятия Вашего ребёнка, за которые Вы хотели бы его похвалить:',
+		emptyInput: 'Пожалуйста, сначала напишите что-нибудь.',
 		characterCount: '{length} / {max}',
-		save: 'Save',
-		saveChange: 'Save changes',
-		cancel: 'Cancel',
-		savedTitle: 'Your saved behaviours',
-		noEntries: 'No entries yet.',
-		confirmDelete: 'Delete this entry?',
-		delete: 'Delete',
-		edit: 'Edit',
-		editLabel: 'Edit: {text}',
-		deleteLabel: 'Delete: {text}',
-		counsellorTitle: 'Behaviours and activities to praise',
-		new: 'New',
-		lastChanged: 'Last changed on {date}',
-		demoBehaviours: ['Cleared the table without being asked.', 'Went to football practice at the weekend.']
+		save: 'Сохранить',
+		saveChange: 'Сохранить изменения',
+		cancel: 'Отмена',
+		savedTitle: 'Сохранённые Вами примеры поведения',
+		noEntries: 'Записей пока нет.',
+		confirmDelete: 'Удалить эту запись?',
+		delete: 'Удалить',
+		edit: 'Изменить',
+		editLabel: 'Изменить: {text}',
+		deleteLabel: 'Удалить: {text}',
+		counsellorTitle: 'Поведение и занятия, за которые стоит похвалить',
+		new: 'Новое',
+		lastChanged: 'Последнее изменение {date}',
+		demoBehaviours: ['Без напоминаний убирает со стола.', 'В выходные ходит на футбольную тренировку.']
 	}
 };
