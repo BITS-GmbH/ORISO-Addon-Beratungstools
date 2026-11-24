@@ -264,8 +264,9 @@ export const CSS = `
 .bt-relweek__text:not(:empty), .bt-relweek__mood:not(:empty) { margin-top: 4px; }
 .bt-relweek__action { grid-area: action; justify-self: end; }
 @container (min-width: 600px) {
-	.bt-relweek__row { grid-template-columns: 7.5em minmax(0, 1fr) 10em 9em; grid-template-areas: 'day text mood action'; gap: 12px; }
-	.bt-relweek__row--head { display: grid; border-top: 0; font-size: 13px; font-weight: 700; color: var(--bt-muted); }
+	.bt-relweek__row { grid-template-columns: 6.5em minmax(0, 1fr) 8.5em 8em; grid-template-areas: 'day text mood action'; gap: 12px; }
+	.bt-relweek__row--head { display: grid; border-top: 0; font-weight: 700; color: var(--bt-muted); }
+	.bt-relweek__row--head > span { font-size: 13px; }
 	.bt-relweek__text:not(:empty), .bt-relweek__mood:not(:empty) { margin-top: 0; }
 }
 .bt-yesno { display: inline-flex; border: 1px solid var(--bt-outline); border-radius: 999px; overflow: hidden; flex: none; }
