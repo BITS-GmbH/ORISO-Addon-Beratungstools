@@ -22,6 +22,7 @@ COPY --from=deps /app/node_modules node_modules
 COPY package.json ./
 COPY shared shared
 COPY server/src server/src
+COPY server/fonts server/fonts
 COPY --from=build /app/dist/ui dist/ui
 USER node
 EXPOSE 8080

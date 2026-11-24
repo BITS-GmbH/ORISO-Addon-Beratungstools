@@ -1,9 +1,9 @@
-import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import PDFDocument from 'pdfkit';
 
-const require = createRequire(import.meta.url);
-const FONT = require.resolve('dejavu-fonts-ttf/ttf/DejaVuSans.ttf');
-const FONT_BOLD = require.resolve('dejavu-fonts-ttf/ttf/DejaVuSans-Bold.ttf');
+/** Noto Sans merged with Noto Sans Ethiopic (OFL): Latin, Cyrillic and Ge'ez in one font. */
+const FONT = fileURLToPath(new URL('../../fonts/BeratungstoolsSans-Regular.ttf', import.meta.url));
+const FONT_BOLD = fileURLToPath(new URL('../../fonts/BeratungstoolsSans-Bold.ttf', import.meta.url));
 
 const COLORS = { text: '#1a1c1e', muted: '#545f63', rule: '#d6dcde', accent: '#225e65' };
 const MARGIN = 50;
