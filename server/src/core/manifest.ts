@@ -3,6 +3,8 @@ import { toolInfo } from '../../../shared/catalog.ts';
 import type { ServerTool } from '../tools/types.ts';
 
 export const NAME = 'beratungstools';
+/** Set per image build; part of the bundle path, so every deploy gets a URL no cache has seen. */
+export const VERSION = (process.env.ADDON_VERSION || packageJson.version).replace(/[^A-Za-z0-9._-]/g, '-');
 const DOCS = 'https://raw.githubusercontent.com/BITS-GmbH/ORISO-Addon-Beratungstools/main/docs';
 export const APP_ID = 'tools';
 
@@ -16,11 +18,11 @@ export const SLOTS = {
 /** The manifest (contract `oriso-addon/v1`, ADR-034 section 1). */
 export const manifest = (tools: ServerTool[]) => ({
 	name: NAME,
-	version: packageJson.version,
+	version: VERSION,
 	contract: 'oriso-addon/v1',
 	react: '^19',
 	readme: `${DOCS}/README.md`,
-	ui: '/ui/entry.js',
+	ui: `/ui/${VERSION}/entry.js`,
 	settings: '/schema/settings.json',
 	calendar: '/calendar',
 	events: ['user.deleted'],

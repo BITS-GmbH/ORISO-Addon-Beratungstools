@@ -44,6 +44,7 @@ notifications and audit entries; "Beispieldaten" fills in a released, shared cas
 | `NOTIFY_WINDOW_MINUTES` | `15` | bundling window for notifications to counsellors |
 | `EXPORT_TIME_ZONE` | `Europe/Berlin` | dates in PDF exports |
 | `PORT` | `8080` | |
+| `ADDON_VERSION` | version from `package.json` | set per image build; manifest version and bundle path `/ui/<version>/entry.js` |
 
 Images: `harbor.mybits.dev/digisucht/addon-beratungstools:0.1.0-<sha7>`, built by
 `.github/workflows/build.yml` on pushes to main.

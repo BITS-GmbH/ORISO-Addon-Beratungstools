@@ -1,6 +1,10 @@
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import type { Pool } from 'mariadb';
 import { describe, expect, it } from 'vitest';
 import { buildApp } from '../src/app.ts';
+import { VERSION } from '../src/core/manifest.ts';
 import { Store } from '../src/store.ts';
 import { TOOLS } from '../src/tools/index.ts';
 import { FakeHost, testVerifier, tokens } from './helpers.ts';
@@ -50,5 +54,31 @@ describe('request bodies', () => {
 			payload: 'hello'
 		});
 		expect(response.statusCode).toBe(415);
+	});
+});
+
+describe('UI bundle', () => {
+	const uiDir = mkdtempSync(join(tmpdir(), 'bt-ui-'));
+	writeFileSync(join(uiDir, 'entry.js'), 'export const mount = () => {};');
+	const app = buildApp({
+		store: new Store({} as Pool),
+		verify: testVerifier(),
+		host: new FakeHost(),
+		tools: TOOLS,
+		uiDir
+	}).app;
+
+	it('serves the bundle under its version for good, so a new deploy is a new URL', async () => {
+		const response = await app.inject({ url: `/ui/${VERSION}/entry.js` });
+		expect(response.statusCode).toBe(200);
+		expect(response.headers['cache-control']).toBe('public, max-age=31536000, immutable');
+		expect(response.headers['content-type']).toContain('javascript');
+		expect(response.body).toContain('mount');
+	});
+
+	it('serves an outdated version path without caching it', async () => {
+		const response = await app.inject({ url: '/ui/0.0.0-old/entry.js' });
+		expect(response.statusCode).toBe(200);
+		expect(response.headers['cache-control']).toBe('no-cache');
 	});
 });

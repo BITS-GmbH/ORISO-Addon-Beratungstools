@@ -1,4 +1,6 @@
 import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import fastifyStatic from '@fastify/static';
 import Fastify, { type FastifyInstance, type FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
@@ -6,7 +8,7 @@ import { CATALOG } from '../../shared/catalog.ts';
 import type { Claims, Verify } from './auth.ts';
 import { isReadable } from './core/access.ts';
 import { createNotifier, type Notifier } from './core/notifications.ts';
-import { manifest } from './core/manifest.ts';
+import { manifest, VERSION } from './core/manifest.ts';
 import { settingsSchema, withDefaults, type Settings, type SettingsSchema } from './core/settings.ts';
 import type { Host } from './host.ts';
 import { registerCaseRoutes } from './routes/case.ts';
@@ -172,6 +174,16 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 			prefix: '/ui/',
 			setHeaders: (res) => res.header('Cache-Control', 'no-cache')
 		});
+		const entryFile = join(options.uiDir, 'entry.js');
+		app.get<{ Params: { version: string } }>('/ui/:version/entry.js', async (request, reply) =>
+			reply
+				.type('application/javascript; charset=utf-8')
+				.header(
+					'Cache-Control',
+					request.params.version === VERSION ? 'public, max-age=31536000, immutable' : 'no-cache'
+				)
+				.send(await readFile(entryFile))
+		);
 	}
 
 	app.register(async (secured) => {

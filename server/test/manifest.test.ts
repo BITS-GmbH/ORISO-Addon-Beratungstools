@@ -11,9 +11,10 @@ describe('manifest', () => {
 		expect(value).toMatchObject({
 			name: 'beratungstools',
 			contract: 'oriso-addon/v1',
-			ui: '/ui/entry.js',
 			events: ['user.deleted']
 		});
+		expect(value.ui).toMatch(/^\/ui\/[A-Za-z0-9._-]+\/entry\.js$/);
+		expect(value.ui).toBe(`/ui/${value.version}/entry.js`);
 		expect(value.apps).toHaveLength(1);
 		expect(value.apps[0]).toMatchObject({ id: 'tools', visibility: 'dynamic', icon: '/ui/icons/tools.svg' });
 		expect(value.apps[0]?.slots).toEqual([

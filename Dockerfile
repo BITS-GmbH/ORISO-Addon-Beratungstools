@@ -15,8 +15,9 @@ COPY tooling tooling
 RUN npm ci --omit=dev
 
 FROM node:24-alpine
+ARG ADDON_VERSION
 WORKDIR /app
-ENV NODE_ENV=production NODE_NO_WARNINGS=1 PORT=8080
+ENV NODE_ENV=production NODE_NO_WARNINGS=1 PORT=8080 ADDON_VERSION=${ADDON_VERSION}
 COPY --from=deps /app/node_modules node_modules
 COPY package.json ./
 COPY shared shared
