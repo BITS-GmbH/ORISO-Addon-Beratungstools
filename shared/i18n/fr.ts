@@ -1626,8 +1626,8 @@ export const fr: Catalogue = {
 			'Avoir une bonne note (ou ne pas avoir eu de mauvaise note)',
 			'Penser à un anniversaire'
 		],
-		inputLabel:
-			'Veuillez noter ici les comportements et les activités de votre enfant que vous souhaitez féliciter :',
+		inputLabel: 'Que souhaitez-vous féliciter ?',
+		inputHint: 'Un comportement ou une activité de votre enfant que vous souhaitez féliciter.',
 		emptyInput: 'Veuillez d’abord saisir quelque chose.',
 		characterCount: '{length} / {max}',
 		save: 'Enregistrer',

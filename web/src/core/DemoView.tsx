@@ -44,7 +44,7 @@ export function DemoView({
 					<Button variant="secondary" disabled={resetting} onClick={reset}>
 						{m.demo.reset}
 					</Button>
-					<Button variant="tertiary" onClick={onClose}>
+					<Button variant="secondary" onClick={onClose}>
 						{m.demo.end}
 					</Button>
 				</div>

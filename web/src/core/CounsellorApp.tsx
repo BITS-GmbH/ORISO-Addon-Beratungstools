@@ -228,7 +228,7 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 					{m.counsellor.preview}
 				</Button>
 				{tool.released && !confirmWithdraw && (
-					<Button variant="tertiary" disabled={busy} onClick={() => setConfirmWithdraw(true)}>
+					<Button variant="secondary" disabled={busy} onClick={() => setConfirmWithdraw(true)}>
 						{m.counsellor.withdraw}
 					</Button>
 				)}
@@ -240,7 +240,7 @@ function ToolDetail({ tool, onBack, onChanged, onEntries, onDemo }: DetailProps)
 					<Button disabled={busy} onClick={() => act(() => api.withdraw(tool.id), m.counsellor.withdrawn)}>
 						{m.counsellor.withdrawButton}
 					</Button>
-					<Button variant="tertiary" onClick={() => setConfirmWithdraw(false)}>
+					<Button variant="secondary" onClick={() => setConfirmWithdraw(false)}>
 						{m.common.cancel}
 					</Button>
 				</div>

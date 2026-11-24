@@ -206,16 +206,22 @@ function Aspects({ items, store }: { items: Item[]; store: ClientViewProps['stor
 						minRows={3}
 						error={problem && !text.trim()}
 						helperText={
-							problem && !text.trim()
-								? texts.emptyInput
-								: t(texts.characterCount, { length: text.length, max: MAX_BEHAVIOUR_LENGTH })
+							problem && !text.trim() ? (
+								texts.emptyInput
+							) : (
+								<>
+									{texts.inputHint}
+									<br />
+									{t(texts.characterCount, { length: text.length, max: MAX_BEHAVIOUR_LENGTH })}
+								</>
+							)
 						}
 						onChange={setText}
 					/>
 					<div className="bt-row">
 						<Button type="submit">{editingId ? texts.saveChange : texts.save}</Button>
 						{editingId && (
-							<Button variant="tertiary" onClick={reset}>
+							<Button variant="secondary" onClick={reset}>
 								{texts.cancel}
 							</Button>
 						)}
@@ -248,7 +254,7 @@ function Aspects({ items, store }: { items: Item[]; store: ClientViewProps['stor
 										>
 											{texts.delete}
 										</Button>
-										<Button variant="tertiary" onClick={() => setConfirming(null)}>
+										<Button variant="secondary" onClick={() => setConfirming(null)}>
 											{texts.cancel}
 										</Button>
 									</div>

@@ -178,7 +178,7 @@ function Editor({ item, store, onClose }: EditorProps) {
 						<Button type="submit">{texts.save}</Button>
 					</div>
 					{item && !confirming && (
-						<Button variant="tertiary" onClick={() => setConfirming(true)}>
+						<Button variant="secondary" onClick={() => setConfirming(true)}>
 							{texts.delete}
 						</Button>
 					)}
@@ -194,7 +194,7 @@ function Editor({ item, store, onClose }: EditorProps) {
 						>
 							{texts.delete}
 						</Button>
-						<Button variant="tertiary" onClick={() => setConfirming(false)}>
+						<Button variant="secondary" onClick={() => setConfirming(false)}>
 							{texts.cancel}
 						</Button>
 					</div>

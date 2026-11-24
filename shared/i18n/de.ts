@@ -2226,9 +2226,12 @@ export const de = {
 			'An einen Geburtstag gedacht'
 		],
 		inputLabel: {
-			formal:
-				'Bitte tragen Sie hier Verhaltensweisen und Aktivitäten Ihres Kindes ein, die Sie loben möchten:',
-			informal: 'Bitte trage hier Verhaltensweisen und Aktivitäten deines Kindes ein, die du loben möchtest:'
+			formal: 'Was möchten Sie loben?',
+			informal: 'Was möchtest du loben?'
+		},
+		inputHint: {
+			formal: 'Eine Verhaltensweise oder Aktivität Ihres Kindes, die Sie loben möchten.',
+			informal: 'Eine Verhaltensweise oder Aktivität deines Kindes, die du loben möchtest.'
 		},
 		emptyInput: {
 			formal: 'Bitte tragen Sie zuerst etwas ein.',

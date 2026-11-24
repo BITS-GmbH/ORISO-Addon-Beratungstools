@@ -160,7 +160,7 @@ export function ActiveClient({ tool, entries, store }: ClientViewProps) {
 					<div className="bt-row">
 						<Button onClick={submit}>{editingId ? texts.saveChange : texts.add}</Button>
 						{editingId && (
-							<Button variant="tertiary" onClick={reset}>
+							<Button variant="secondary" onClick={reset}>
 								{m.common.cancel}
 							</Button>
 						)}
@@ -213,7 +213,7 @@ export function ActiveClient({ tool, entries, store }: ClientViewProps) {
 											>
 												{texts.delete}
 											</Button>
-											<Button variant="tertiary" onClick={() => setConfirming(null)}>
+											<Button variant="secondary" onClick={() => setConfirming(null)}>
 												{m.common.cancel}
 											</Button>
 										</div>

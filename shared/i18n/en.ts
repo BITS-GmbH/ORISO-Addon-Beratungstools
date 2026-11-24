@@ -1591,7 +1591,8 @@ export const en: Complete = {
 			'Getting a good mark (or not getting a bad mark)',
 			'Remembering someone’s birthday'
 		],
-		inputLabel: 'Please write down behaviours and activities of your child that you would like to praise:',
+		inputLabel: 'What would you like to praise?',
+		inputHint: 'A behaviour or activity of your child that you would like to praise.',
 		emptyInput: 'Please write something first.',
 		characterCount: '{length} / {max}',
 		save: 'Save',

@@ -219,7 +219,10 @@ export const useReveal = <T extends HTMLElement>(key: unknown) => {
 	return ref;
 };
 
-/** A time of day (`HH:MM` or `''`); the web kit has no time field. */
+/**
+ * A time of day (`HH:MM` or `''`). The web kit has no time field, so this one copies the look of
+ * the kit's outlined fields: label in the notch of the outline, one focus border.
+ */
 export const TimeField = ({
 	label,
 	value,
@@ -231,9 +234,14 @@ export const TimeField = ({
 }) => {
 	const id = useId();
 	return (
-		<div className="bt-field">
-			<label htmlFor={id}>{label}</label>
+		<div className="bt-timefield">
 			<input id={id} type="time" value={value} onChange={(event) => onChange(event.target.value)} />
+			<label htmlFor={id}>{label}</label>
+			<fieldset aria-hidden="true">
+				<legend>
+					<span>{label}</span>
+				</legend>
+			</fieldset>
 		</div>
 	);
 };

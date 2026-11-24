@@ -1,6 +1,7 @@
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { ClientApp } from '../src/core/ClientApp.tsx';
+import { TimeField } from '../src/ui.tsx';
 import { entry, fakeHost, renderWith } from './fakeHost.tsx';
 
 const goalsTool = (entries: unknown[] = []) => ({
@@ -125,5 +126,20 @@ describe('switching from a diary to "Aktiv sein"', () => {
 			'PUT /me/tools/active/share'
 		]);
 		expect(host.notify).not.toHaveBeenCalledWith(expect.objectContaining({ type: 'error' }));
+	});
+});
+
+describe('time fields', () => {
+	it('show the label in the outline and keep the value', () => {
+		const changes: string[] = [];
+		renderWith(
+			fakeHost({}).host,
+			<TimeField label="Uhrzeit (Beginn)" value="" onChange={(v) => changes.push(v)} />
+		);
+		const input = screen.getByLabelText('Uhrzeit (Beginn)') as HTMLInputElement;
+		expect(input.type).toBe('time');
+		expect(input.closest('.bt-timefield')?.querySelector('legend')?.textContent).toBe('Uhrzeit (Beginn)');
+		fireEvent.change(input, { target: { value: '19:00' } });
+		expect(changes).toEqual(['19:00']);
 	});
 });

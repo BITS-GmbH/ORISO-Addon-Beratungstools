@@ -144,7 +144,7 @@ function Overview({
 												>
 													{texts.delete}
 												</Button>
-												<Button variant="tertiary" onClick={() => setConfirming(null)}>
+												<Button variant="secondary" onClick={() => setConfirming(null)}>
 													{i18n.m.common.cancel}
 												</Button>
 											</div>
@@ -300,7 +300,7 @@ function SituationEditor({
 					)}
 					<div className="bt-row">
 						<Button onClick={save}>{texts.save}</Button>
-						<Button variant="tertiary" onClick={onCancel}>
+						<Button variant="secondary" onClick={onCancel}>
 							{i18n.m.common.cancel}
 						</Button>
 					</div>
@@ -464,7 +464,7 @@ function RelapsePage({
 									{texts.pagePdf}
 								</Button>
 								{(editing || relapses.length > 0) && (
-									<Button variant="tertiary" onClick={closeForm}>
+									<Button variant="secondary" onClick={closeForm}>
 										{i18n.m.common.cancel}
 									</Button>
 								)}
@@ -491,7 +491,7 @@ function RelapsePage({
 										<li key={relapse.id} className="bt-confirm">
 											<span style={{ flex: 1 }}>{texts.deleteAnalysisQuestion}</span>
 											<Button onClick={() => remove(relapse)}>{texts.delete}</Button>
-											<Button variant="tertiary" onClick={() => setConfirming(null)}>
+											<Button variant="secondary" onClick={() => setConfirming(null)}>
 												{i18n.m.common.cancel}
 											</Button>
 										</li>

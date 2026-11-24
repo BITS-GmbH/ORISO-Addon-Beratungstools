@@ -178,7 +178,7 @@ function Conclusion({
 							>
 								{texts.saveConclusion}
 							</Button>
-							<Button variant="tertiary" onClick={() => setDraft(null)}>
+							<Button variant="secondary" onClick={() => setDraft(null)}>
 								{m.common.cancel}
 							</Button>
 						</div>
@@ -319,7 +319,7 @@ function Editor({ half, initialCategory, items, store, onClose }: EditorProps) {
 					<div className="bt-row">
 						<Button onClick={submit}>{editingId ? texts.saveChange : texts.addEntry}</Button>
 						{editingId && (
-							<Button variant="tertiary" onClick={reset}>
+							<Button variant="secondary" onClick={reset}>
 								{m.common.cancel}
 							</Button>
 						)}
@@ -362,7 +362,7 @@ function Editor({ half, initialCategory, items, store, onClose }: EditorProps) {
 													>
 														{texts.delete}
 													</Button>
-													<Button variant="tertiary" onClick={() => setConfirming(null)}>
+													<Button variant="secondary" onClick={() => setConfirming(null)}>
 														{m.common.cancel}
 													</Button>
 												</div>

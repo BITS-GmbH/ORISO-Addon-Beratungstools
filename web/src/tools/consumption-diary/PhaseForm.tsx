@@ -153,7 +153,7 @@ export function PhaseForm({
 					)}
 					<div className="bt-row">
 						<Button onClick={save}>{text.saveLabel}</Button>
-						<Button variant="tertiary" onClick={back}>
+						<Button variant="secondary" onClick={back}>
 							{texts.phase.cancel}
 						</Button>
 					</div>

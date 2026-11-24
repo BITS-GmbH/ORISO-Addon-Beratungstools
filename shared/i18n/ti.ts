@@ -1541,7 +1541,8 @@ export const ti: Catalogue = {
 			'ጽቡቕ ነጥቢ ምርካብ (ወይ ሕማቕ ነጥቢ ዘይምርካብ)',
 			'ልደት ሓደ ሰብ ምዝካር'
 		],
-		inputLabel: 'በጃኹም ክትንእድዎም እትደልዩ ጠባያትን ንጥፈታትን ቆልዕኹም ጽሓፉ፦',
+		inputLabel: 'እንታይ ክትንእዱ ትደልዩ?',
+		inputHint: 'ክትንእድዎ እትደልዩ ጠባይ ወይ ንጥፈት ቆልዕኹም።',
 		emptyInput: 'በጃኹም መጀመርታ ገለ ጽሓፉ።',
 		characterCount: '{length} / {max}',
 		save: 'ዓቅብ',

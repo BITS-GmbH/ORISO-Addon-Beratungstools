@@ -187,12 +187,12 @@ function DayEntry({
 					<div className="bt-row bt-row--between">
 						<div className="bt-row">
 							<Button onClick={save}>{texts.saveEntry}</Button>
-							<Button variant="tertiary" onClick={onClose}>
+							<Button variant="secondary" onClick={onClose}>
 								{texts.backToOverview}
 							</Button>
 						</div>
 						{entry && !confirming && (
-							<Button variant="tertiary" onClick={() => setConfirming(true)}>
+							<Button variant="secondary" onClick={() => setConfirming(true)}>
 								{texts.deleteEntry}
 							</Button>
 						)}
@@ -208,7 +208,7 @@ function DayEntry({
 							>
 								{texts.deleteButton}
 							</Button>
-							<Button variant="tertiary" onClick={() => setConfirming(false)}>
+							<Button variant="secondary" onClick={() => setConfirming(false)}>
 								{m.common.cancel}
 							</Button>
 						</div>

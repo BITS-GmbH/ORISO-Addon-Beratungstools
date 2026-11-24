@@ -77,7 +77,7 @@ export function NotificationPrefsPanel({ onClose }: { onClose: () => void }) {
 						<Button disabled={saving} onClick={save}>
 							{m.prefs.save}
 						</Button>
-						<Button variant="tertiary" onClick={onClose}>
+						<Button variant="secondary" onClick={onClose}>
 							{m.common.cancel}
 						</Button>
 					</div>

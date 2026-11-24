@@ -1600,7 +1600,8 @@ export const tr: Catalogue = {
 			'İyi bir not almak (veya kötü not almamak)',
 			'Birinin doğum gününü hatırlamak'
 		],
-		inputLabel: 'Lütfen çocuğunuzun övmek istediğiniz davranışlarını ve etkinliklerini buraya yazın:',
+		inputLabel: 'Neyi övmek istersiniz?',
+		inputHint: 'Çocuğunuzun övmek istediğiniz bir davranışı veya etkinliği.',
 		emptyInput: 'Lütfen önce bir şey yazın.',
 		characterCount: '{length} / {max}',
 		save: 'Kaydet',

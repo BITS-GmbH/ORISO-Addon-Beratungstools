@@ -138,7 +138,7 @@ function Overview({
 							>
 								{texts.proceed}
 							</Button>
-							<Button variant="tertiary" onClick={() => setConfirming(false)}>
+							<Button variant="secondary" onClick={() => setConfirming(false)}>
 								{m.common.cancel}
 							</Button>
 						</div>
@@ -321,7 +321,7 @@ function ListEditor({
 					)}
 					<div className="bt-row">
 						<Button onClick={save}>{texts.save}</Button>
-						<Button variant="tertiary" onClick={onClose}>
+						<Button variant="secondary" onClick={onClose}>
 							{m.common.cancel}
 						</Button>
 					</div>
@@ -547,7 +547,7 @@ function TrustedEditor({ entries, store, onClose }: { entries: Entry[]; store: S
 					</div>
 					<div className="bt-row">
 						<Button onClick={save}>{texts.saveEntries}</Button>
-						<Button variant="tertiary" onClick={onClose}>
+						<Button variant="secondary" onClick={onClose}>
 							{texts.back}
 						</Button>
 					</div>
@@ -664,7 +664,7 @@ function SelfHelpEditor({
 					/>
 					<div className="bt-row">
 						<Button onClick={save}>{texts.save}</Button>
-						<Button variant="tertiary" onClick={onClose}>
+						<Button variant="secondary" onClick={onClose}>
 							{m.common.cancel}
 						</Button>
 					</div>
@@ -767,7 +767,7 @@ function RisksEditor({
 					/>
 					<div className="bt-row">
 						<Button onClick={save}>{texts.save}</Button>
-						<Button variant="tertiary" onClick={onClose}>
+						<Button variant="secondary" onClick={onClose}>
 							{m.common.cancel}
 						</Button>
 					</div>

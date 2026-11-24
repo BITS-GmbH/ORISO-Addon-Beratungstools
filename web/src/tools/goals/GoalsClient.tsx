@@ -120,7 +120,7 @@ export function GoalsClient({ tool, entries, store, onDone }: ClientViewProps) {
 						<Button variant="secondary" onClick={() => go(0)}>
 							{texts.restart}
 						</Button>
-						<Button variant="tertiary" onClick={onDone}>
+						<Button variant="secondary" onClick={onDone}>
 							{texts.home}
 						</Button>
 					</div>

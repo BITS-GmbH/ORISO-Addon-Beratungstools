@@ -231,9 +231,15 @@ export const CSS = `
 .bt-level--3 .is-on { background: #c25e22; }
 .bt-level--4 .is-on { background: var(--bt-error); }
 /* Diaries and Aktiv sein */
-.bt-field { display: flex; flex-direction: column; gap: 6px; }
-.bt-field label { font-weight: 600; }
-.bt-field input { font: inherit; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--bt-outline); background: var(--bt-surface); color: inherit; max-width: 12em; }
+.bt-timefield { position: relative; min-width: 0; }
+.bt-timefield input { box-sizing: border-box; display: block; width: 100%; height: 56px; padding: 16px; border: 0; border-radius: 4px; background: var(--bt-surface); color: var(--bt-text); font: inherit; font-size: 16px; line-height: 24px; letter-spacing: .5px; }
+.bt .bt-timefield input:focus-visible { outline: none; }
+.bt-timefield label { position: absolute; top: -8px; left: 12px; max-width: calc(100% - 24px); padding: 0 4px; overflow: hidden; color: var(--bt-muted); font-size: 12px; line-height: 16px; letter-spacing: .4px; white-space: nowrap; text-overflow: ellipsis; pointer-events: none; }
+.bt-timefield fieldset { position: absolute; inset: -5px 0 0; margin: 0; padding: 0 8px; min-width: 0; border: 1px solid var(--bt-outline); border-radius: 4px; pointer-events: none; text-align: left; }
+.bt-timefield legend { float: unset; width: auto; max-width: 100%; height: 11px; padding: 0; overflow: hidden; visibility: hidden; font-size: 12px; letter-spacing: .4px; white-space: nowrap; }
+.bt-timefield legend span { display: inline-block; padding: 0 5px; }
+.bt-timefield:focus-within fieldset { border: 3px solid var(--bt-primary); padding: 0 6px; }
+.bt-timefield:focus-within label { color: var(--bt-primary); }
 .bt-fields { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: end; }
 @container (min-width: 560px) { .bt-fields { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); } }
 .bt-weeknav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }

@@ -76,7 +76,8 @@ describe('Positives Wahrnehmen', () => {
 		fireEvent.click(screen.getByText('Hinweis einblenden'));
 		expect(screen.getByText(/Bedenken Sie dabei/)).toBeTruthy();
 
-		const input = screen.getByLabelText(/Bitte tragen Sie hier Verhaltensweisen/);
+		const input = screen.getByLabelText('Was möchten Sie loben?');
+		expect(screen.getByText(/^Eine Verhaltensweise oder Aktivität Ihres Kindes/)).toBeTruthy();
 		fireEvent.click(screen.getByText('Speichern'));
 		expect(store.create).not.toHaveBeenCalled();
 		fireEvent.change(input, { target: { value: ' Pünktlich zu Hause ' } });
@@ -121,7 +122,7 @@ describe('Positives Wahrnehmen in English', () => {
 		fireEvent.click(screen.getByText('Next'));
 		expect(screen.getByText('Noticing the positive')).toBeTruthy();
 		expect(screen.getByText('Coming home on time')).toBeTruthy();
-		expect(screen.getByLabelText(/behaviours and activities of your child/)).toBeTruthy();
+		expect(screen.getByLabelText('What would you like to praise?')).toBeTruthy();
 		expect(screen.getByText('No entries yet.')).toBeTruthy();
 		expect(screen.getByText('Back')).toBeTruthy();
 	});
