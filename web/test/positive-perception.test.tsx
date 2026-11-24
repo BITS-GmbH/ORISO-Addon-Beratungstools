@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { describe, expect, it, vi } from 'vitest';
 import { PositivePerceptionClient } from '../src/tools/positive-perception/PositivePerceptionClient.tsx';
 import { PositivePerceptionCounsellor } from '../src/tools/positive-perception/PositivePerceptionCounsellor.tsx';
-import { entry } from './fakeHost.tsx';
+import { entry, fakeHost, renderWith } from './fakeHost.tsx';
 
 const tool = {
 	id: 'positive-perception',
@@ -24,7 +24,8 @@ const fakeStore = () => ({
 describe('Positives Wahrnehmen', () => {
 	it('leads through the pages and shows the reaction of the chosen remark', () => {
 		const onDone = vi.fn();
-		render(
+		renderWith(
+			fakeHost({}, { informal: true }).host,
 			<PositivePerceptionClient
 				tool={tool as never}
 				entries={[]}
@@ -91,6 +92,55 @@ describe('Positives Wahrnehmen', () => {
 		const item = screen.getByText('Diesen Eintrag löschen?').parentElement as HTMLElement;
 		fireEvent.click(within(item).getByText('Löschen'));
 		await waitFor(() => expect(store.remove).toHaveBeenCalledWith(saved.id));
+	});
+});
+
+describe('Positives Wahrnehmen in English', () => {
+	it('shows the pages, the scheme and the praise list in English', () => {
+		renderWith(
+			fakeHost({}, { locale: 'en' }).host,
+			<PositivePerceptionClient
+				tool={tool as never}
+				entries={[]}
+				store={fakeStore() as never}
+				informal={false}
+				locale="en"
+				download={async () => undefined}
+				onDone={() => undefined}
+			/>
+		);
+		expect(screen.getByText('Page 1 of 4')).toBeTruthy();
+		expect(screen.getByText(/Conflicts and arguments are part of every healthy relationship/)).toBeTruthy();
+		fireEvent.click(screen.getByText('Next'));
+		expect(screen.getByText('Choose a comment on the left.')).toBeTruthy();
+		fireEvent.click(screen.getByText('“I knew you’d forget that again.”'));
+		expect(screen.getByText('How the child sees themselves')).toBeTruthy();
+		expect(screen.getByText('I am unreliable')).toBeTruthy();
+		expect(screen.getAllByText('negative')).toHaveLength(2);
+		fireEvent.click(screen.getByText('Next'));
+		fireEvent.click(screen.getByText('Next'));
+		expect(screen.getByText('Noticing the positive')).toBeTruthy();
+		expect(screen.getByText('Coming home on time')).toBeTruthy();
+		expect(screen.getByLabelText(/behaviours and activities of your child/)).toBeTruthy();
+		expect(screen.getByText('No entries yet.')).toBeTruthy();
+		expect(screen.getByText('Back')).toBeTruthy();
+	});
+
+	it('lists the behaviours for counsellors in English', () => {
+		const saved = entry('behaviour', { text: 'Did the washing-up' });
+		renderWith(
+			fakeHost({}, { locale: 'en' }).host,
+			<PositivePerceptionCounsellor
+				entries={[saved]}
+				options={{}}
+				isNew={() => true}
+				locale="en"
+				linked={{}}
+			/>
+		);
+		expect(screen.getByText('Behaviours and activities to praise')).toBeTruthy();
+		expect(screen.getByText('New')).toBeTruthy();
+		expect(screen.getByText(/^Last changed on 20\/11\/2026/)).toBeTruthy();
 	});
 });
 

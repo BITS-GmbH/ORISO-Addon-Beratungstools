@@ -1,15 +1,18 @@
-import { formatDate, Pill } from '../../ui.tsx';
+import { useI18n } from '../../host.ts';
+import { Pill } from '../../ui.tsx';
 import type { CounsellorViewProps } from '../types.ts';
 import { behavioursOf } from './parts.tsx';
 
 /** The tool description has no counsellor view; this lists the saved behaviours, read only. */
-export function PositivePerceptionCounsellor({ entries, isNew, locale }: CounsellorViewProps) {
+export function PositivePerceptionCounsellor({ entries, isNew }: CounsellorViewProps) {
+	const { m, t, date } = useI18n();
+	const texts = m.positivePerception;
 	const items = behavioursOf(entries);
 	return (
 		<div className="bt-stack bt-stack--tight">
-			<p className="bt-title">Verhaltensweisen und Aktivitäten, die gelobt werden sollen</p>
+			<p className="bt-title">{texts.counsellorTitle}</p>
 			{items.length === 0 ? (
-				<p className="bt-muted">Noch keine Einträge.</p>
+				<p className="bt-muted">{texts.noEntries}</p>
 			) : (
 				<ul className="bt-list">
 					{items.map((item) => (
@@ -19,10 +22,10 @@ export function PositivePerceptionCounsellor({ entries, isNew, locale }: Counsel
 								style={{ flexWrap: 'nowrap', alignItems: 'flex-start' }}
 							>
 								<span className="bt-item__text">{item.text}</span>
-								{isNew(item.entry) && <Pill tone="new">Neu</Pill>}
+								{isNew(item.entry) && <Pill tone="new">{texts.new}</Pill>}
 							</div>
 							<p className="bt-muted bt-small">
-								Zuletzt geändert am {formatDate(item.entry.updatedAt, locale, true)}
+								{t(texts.lastChanged, { date: date(item.entry.updatedAt, { withTime: true }) })}
 							</p>
 						</li>
 					))}

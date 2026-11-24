@@ -24,18 +24,17 @@ export const positivePerception: ServerTool = {
 			default: ''
 		}
 	},
-	exportPdf(pdf, { entries }) {
+	exportPdf(pdf, { entries, i18n }) {
+		const texts = i18n.m.positivePerception;
 		const behaviours = entries.filter((e) => e.kind === BEHAVIOUR_KIND).map((e) => e.data as Behaviour);
-		pdf.heading('Verhaltensweisen und Aktivitäten, die gelobt werden sollen');
+		pdf.heading(texts.counsellorTitle);
 		if (behaviours.length === 0) {
-			pdf.paragraph('Noch keine Einträge.', { muted: true });
+			pdf.paragraph(texts.noEntries, { muted: true });
 		}
 		for (const behaviour of behaviours) {
 			pdf.item(behaviour.text);
 		}
 	},
-	demo: () => [
-		{ kind: BEHAVIOUR_KIND, data: { text: 'Hat ohne Aufforderung den Tisch abgeräumt.' } },
-		{ kind: BEHAVIOUR_KIND, data: { text: 'War am Wochenende beim Fußballtraining.' } }
-	]
+	demo: ({ m }) =>
+		m.positivePerception.demoBehaviours.map((text) => ({ kind: BEHAVIOUR_KIND, data: { text } }))
 };
