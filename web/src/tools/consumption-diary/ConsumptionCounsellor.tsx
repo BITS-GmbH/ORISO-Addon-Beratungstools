@@ -175,17 +175,19 @@ function DayDetails({
 							</div>
 						))}
 						{summary && (summary.data.rating || summary.data.plan) && (
-							<dl className="bt-details">
-								<dt>{texts.counsellor.rating}</dt>
-								<dd className="bt-pre">{summary.data.rating ?? '–'}</dd>
-								<dt>{texts.counsellor.plan}</dt>
-								<dd className="bt-pre">{summary.data.plan ?? '–'}</dd>
-							</dl>
-						)}
-						{summary && isNew(summary) && (
-							<div>
-								<Pill tone="new">{texts.counsellor.summaryNew}</Pill>
-							</div>
+							<>
+								<dl className="bt-details">
+									<dt>{texts.counsellor.rating}</dt>
+									<dd className="bt-pre">{summary.data.rating ?? '–'}</dd>
+									<dt>{texts.counsellor.plan}</dt>
+									<dd className="bt-pre">{summary.data.plan ?? '–'}</dd>
+								</dl>
+								{isNew(summary) && (
+									<div>
+										<Pill tone="new">{texts.counsellor.summaryNew}</Pill>
+									</div>
+								)}
+							</>
 						)}
 					</div>
 				);

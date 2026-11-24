@@ -237,6 +237,29 @@ describe('Konsumtagebuch', () => {
 		expect(screen.getByText('Stress')).toBeTruthy();
 		expect(screen.getByText('Weniger')).toBeTruthy();
 		expect(screen.queryByText('neue Konsumphase eintragen')).toBeNull();
+		expect(screen.getAllByText('Resümee neu')).toHaveLength(1);
+	});
+
+	it('marks no summary as new for a topic answered without a summary', () => {
+		const monday = weekStart(today);
+		render(
+			<div className="bt">
+				<ConsumptionCounsellor
+					entries={[
+						topics(['cannabis']),
+						record('day-summary', { topic: 'cannabis', consumed: true }, monday, `${monday}_cannabis`),
+						record('phase', { topic: 'cannabis', items: [{ unit: 'joint', count: 2 }] }, monday)
+					]}
+					linked={{}}
+					options={{}}
+					locale="de"
+					isNew={() => true}
+				/>
+			</div>
+		);
+		fireEvent.click(screen.getByText(formatDayShort(monday)).closest('button') as HTMLElement);
+		expect(screen.getAllByText('Neu').length).toBeGreaterThan(0);
+		expect(screen.queryByText('Resümee neu')).toBeNull();
 	});
 
 	it('speaks English', async () => {
