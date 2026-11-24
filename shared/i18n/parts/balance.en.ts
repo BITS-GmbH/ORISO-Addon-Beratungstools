@@ -92,8 +92,7 @@ export const balance: Translation<Schema['balance']> = {
 			'My body is not under so much strain any more.',
 			'I feel better.',
 			'A good feeling because I am tackling the problem.',
-			'Less stress with friends / family.',
-			'I can fall asleep more easily.'
+			'Less stress with friends / family.'
 		],
 		B: [
 			'It will be difficult with my old group of friends.',
@@ -104,6 +103,7 @@ export const balance: Translation<Schema['balance']> = {
 			'The hope of a big win is gone.'
 		],
 		C: [
+			'I can fall asleep more easily.',
 			'More fun when I am with friends.',
 			'When I drink / gamble / smoke cannabis, I get some peace.',
 			'I can really get “wasted” sometimes and forget everything around me.',

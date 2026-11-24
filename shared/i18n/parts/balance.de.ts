@@ -145,8 +145,7 @@ export const balance = {
 			'Mein Körper wird nicht mehr so stark belastet.',
 			'Ich fühle mich besser.',
 			'Gutes Gefühl, weil ich das Problem angehe.',
-			'Weniger Stress mit Freunden / Familie.',
-			'Ich kann besser einschlafen.'
+			'Weniger Stress mit Freunden / Familie.'
 		],
 		B: [
 			'Es wird schwierig mit dem alten Freundeskreis.',
@@ -157,6 +156,7 @@ export const balance = {
 			'Die Hoffnung auf den großen Gewinn fällt weg.'
 		],
 		C: [
+			'Ich kann besser einschlafen.',
 			'Lustigeres Beisammensein mit Freunden.',
 			'Beim Trinken / Spielen / Kiffen habe ich meine Ruhe.',
 			'Ich kann mich auch mal richtig „wegschießen“ und alles um mich rum vergessen.',
