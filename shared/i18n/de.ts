@@ -1677,7 +1677,10 @@ export const de = {
 			myCounsellor: 'Meine Beraterin / mein Berater',
 			requested: 'Empfehlung einer Selbsthilfegruppe angefragt am {date}.',
 			cardsTitle: 'Mein Notfallkoffer im Visitenkartenformat',
-			cardsHint: 'Zum Ausschneiden an den gestrichelten Linien und zum Mitnehmen.',
+			cardsHint:
+				'An der durchgezogenen Linie ausschneiden und an der gestrichelten Linie falten: So entsteht je eine Karte mit Vorder- und Rückseite.',
+			cardContinued: '{title} (Fortsetzung)',
+			cardNumber: 'Karte {n} von {total}',
 			cardsEmpty: 'Noch keine Einträge.',
 			cardRiskRated: '{situation} (Bewertung: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'

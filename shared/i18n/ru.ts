@@ -1213,7 +1213,10 @@ export const ru: Catalogue = {
 			myCounsellor: 'Мой консультант',
 			requested: 'Рекомендация группы самопомощи запрошена {date}.',
 			cardsTitle: 'Мой тревожный чемоданчик в формате визитки',
-			cardsHint: 'Вырежьте по пунктирным линиям и носите с собой.',
+			cardsHint:
+				'Вырежьте по сплошной линии и сложите по пунктирной: из каждой полосы получится карточка с двумя сторонами.',
+			cardContinued: '{title} (продолжение)',
+			cardNumber: 'Карточка {n} из {total}',
 			cardsEmpty: 'Записей пока нет.',
 			cardRiskRated: '{situation} (оценка: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'

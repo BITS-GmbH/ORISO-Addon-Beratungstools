@@ -1179,7 +1179,9 @@ export const tr: Catalogue = {
 			myCounsellor: 'Danışmanım',
 			requested: 'Kendine yardım grubu önerisi talep tarihi: {date}.',
 			cardsTitle: 'Kartvizit boyutunda acil durum çantam',
-			cardsHint: 'Kesikli çizgilerden kesip yanınızda taşıyabilirsiniz.',
+			cardsHint: 'Düz çizgiden kesin ve kesikli çizgiden katlayın: her şerit önlü arkalı bir kart olur.',
+			cardContinued: '{title} (devamı)',
+			cardNumber: 'Kart {n} / {total}',
 			cardsEmpty: 'Henüz kayıt yok.',
 			cardRiskRated: '{situation} (değerlendirme: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'

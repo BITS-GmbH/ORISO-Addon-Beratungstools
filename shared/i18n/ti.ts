@@ -1129,7 +1129,9 @@ export const ti: Catalogue = {
 			myCounsellor: 'ኣማኻሪየይ',
 			requested: 'ዕለት {date} ለበዋ ጉጅለ ርእሰ-ሓገዝ ተሓቲቱ።',
 			cardsTitle: 'ሳንዱቕ ህጹጽ እዋነይ ብዓቐን ቢዝነስ ካርድ',
-			cardsHint: 'ብነጠብጣብ መስመራት ቆሪጽኩም ምሳኹም ውሰድዎ።',
+			cardsHint: 'ብቐጻሊ መስመር ቁረጹ፣ ብነጠብጣብ መስመር ድማ ዕጸፉ፤ ነፍሲ ወከፍ ቁራጽ ቅድምን ድሕሪትን ዘለዎ ካርድ ይኸውን።',
+			cardContinued: '{title} (ቀጻሊ)',
+			cardNumber: 'ካርድ {n} ካብ {total}',
 			cardsEmpty: 'ገና ምዝገባ የለን።',
 			cardRiskRated: '{situation} (ገምጋም፦ {rating})',
 			cardRiskStrategy: '{situation}፦ {strategy}'

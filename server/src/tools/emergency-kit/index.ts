@@ -127,13 +127,23 @@ const writeKit = (pdf: PdfWriter, input: ExportInput) => {
 	listSection('relapse');
 };
 
-const CARD = { width: 241, height: 153, gap: 12 };
+const CARD = { width: 241, height: 153, gap: 12, padding: 10, footer: 14 };
+const CARD_TEXT = { title: 9, line: 7.5, lineGap: 1, footer: 6.5 };
+const CARD_WIDTH = CARD.width - 2 * CARD.padding;
+const CARD_HEIGHT = CARD.height - 2 * CARD.padding - CARD.footer;
 
 interface Card {
 	title: string;
 	lines: string[];
 }
 
+/** What a card side holds: section titles and their lines, in order. */
+export type CardSide = Array<{ title: string; lines: string[] }>;
+
+/**
+ * The business cards: the sections for the critical moment first (craving, relapse), then whom to
+ * call, the reasons to hold on and the risk situations picked for the printout.
+ */
 export const cardsOf = (input: ExportInput): Card[] => {
 	const { entries, i18n } = input;
 	const { m, t } = i18n;
@@ -170,55 +180,130 @@ export const cardsOf = (input: ExportInput): Card[] => {
 			...(keyedText(entries, OTHER_STRATEGIES_KIND) ? [keyedText(entries, OTHER_STRATEGIES_KIND)] : [])
 		]
 	};
-	return [
-		list('motivation'),
-		list('craving'),
-		support,
-		list('relapse'),
-		list('critical'),
-		list('strategy'),
-		risks
-	].filter((card) => card.lines.length > 0);
+	return [list('craving'), list('relapse'), support, list('motivation'), risks].filter(
+		(card) => card.lines.length > 0
+	);
 };
 
-/** Cards of 85 × 54 mm on A4 with dashed cut lines, one per section with entries. */
+/**
+ * Flows the sections over as many card sides as they need. A section that does not fit goes on with
+ * its title marked as continued; a single line taller than a side is cut by the drawing.
+ */
+export const layoutCards = (
+	cards: Card[],
+	measure: (text: string, kind: 'title' | 'line') => number,
+	continued: (title: string) => string,
+	height = CARD_HEIGHT
+): CardSide[] => {
+	const sides: CardSide[] = [];
+	let side: CardSide = [];
+	let used = 0;
+	for (const card of cards) {
+		let section: CardSide[number] | null = null;
+		let started = false;
+		for (const line of card.lines) {
+			const lineHeight = measure(`• ${line}`, 'line');
+			const title = started ? continued(card.title) : card.title;
+			const titleHeight = section ? 0 : measure(title, 'title');
+			if (used > 0 && used + titleHeight + lineHeight > height) {
+				sides.push(side);
+				side = [];
+				used = 0;
+				section = null;
+			}
+			if (!section) {
+				const sectionTitle = started ? continued(card.title) : card.title;
+				section = { title: sectionTitle, lines: [] };
+				side.push(section);
+				used += measure(sectionTitle, 'title');
+				started = true;
+			}
+			section.lines.push(line);
+			used += lineHeight;
+		}
+	}
+	if (side.length > 0) {
+		sides.push(side);
+	}
+	return sides;
+};
+
+/** Strips of front and back (85 × 54 mm each) on A4: cut along the outline, fold at the dashed line. */
 const writeCards = (pdf: PdfWriter, input: ExportInput) => {
 	const cards = cardsOf(input);
-	const texts = input.i18n.m.emergencyKit.pdf;
+	const { m, t } = input.i18n;
+	const texts = m.emergencyKit.pdf;
 	pdf.subheading(texts.cardsTitle);
 	pdf.paragraph(texts.cardsHint, { muted: true });
 	if (cards.length === 0) {
 		pdf.paragraph(texts.cardsEmpty, { muted: true });
 		return;
 	}
-	for (let index = 0; index < cards.length; index += 2) {
-		const row = cards.slice(index, index + 2);
+	let sides: CardSide[] = [];
+	pdf.drawing(0, (doc) => {
+		sides = layoutCards(
+			cards,
+			(text, kind) =>
+				kind === 'title'
+					? doc.font('bold').fontSize(CARD_TEXT.title).heightOfString(text, { width: CARD_WIDTH }) + 3
+					: doc
+							.font('regular')
+							.fontSize(CARD_TEXT.line)
+							.heightOfString(text, { width: CARD_WIDTH, lineGap: CARD_TEXT.lineGap }) + 1,
+			(title) => t(texts.cardContinued, { title })
+		);
+	});
+	const total = Math.ceil(sides.length / 2);
+	for (let index = 0; index < total; index += 1) {
+		const pair = [sides[2 * index], sides[2 * index + 1]];
 		pdf.drawing(CARD.height + CARD.gap, (doc, box) => {
-			row.forEach((card, column) => {
-				const x = box.x + column * (CARD.width + CARD.gap);
-				const y = box.y;
-				doc.save();
-				doc
-					.roundedRect(x, y, CARD.width, CARD.height, 6)
-					.dash(3, { space: 3 })
-					.lineWidth(0.6)
-					.strokeColor('#8a9599')
-					.stroke();
-				doc.restore();
-				doc
-					.font('bold')
-					.fontSize(9)
-					.fillColor('#225e65')
-					.text(card.title, x + 10, y + 9, { width: CARD.width - 20, lineBreak: false, ellipsis: true });
+			const x0 = box.x;
+			const y0 = box.y;
+			doc.save();
+			doc
+				.roundedRect(x0, y0, 2 * CARD.width, CARD.height, 6)
+				.lineWidth(0.6)
+				.strokeColor('#8a9599')
+				.stroke();
+			doc
+				.moveTo(x0 + CARD.width, y0 + 4)
+				.lineTo(x0 + CARD.width, y0 + CARD.height - 4)
+				.dash(3, { space: 3 })
+				.lineWidth(0.6)
+				.strokeColor('#8a9599')
+				.stroke();
+			doc.restore();
+			pair.forEach((side, column) => {
+				if (!side) {
+					return;
+				}
+				const x = x0 + column * CARD.width + CARD.padding;
+				let y = y0 + CARD.padding;
+				const bottom = y0 + CARD.padding + CARD_HEIGHT;
+				for (const part of side) {
+					doc.font('bold').fontSize(CARD_TEXT.title).fillColor('#225e65');
+					doc.text(part.title, x, y, { width: CARD_WIDTH });
+					y = doc.y + 2;
+					doc.font('regular').fontSize(CARD_TEXT.line).fillColor('#1a1c1e');
+					for (const line of part.lines) {
+						doc.text(`• ${line}`, x, y, {
+							width: CARD_WIDTH,
+							height: Math.max(bottom - y, CARD_TEXT.line),
+							ellipsis: true,
+							lineGap: CARD_TEXT.lineGap
+						});
+						y = doc.y + 1;
+					}
+					y += 2;
+				}
 				doc
 					.font('regular')
-					.fontSize(7.5)
-					.fillColor('#1a1c1e')
-					.text(card.lines.map((line) => `• ${line}`).join('\n'), x + 10, y + 24, {
-						width: CARD.width - 20,
-						height: CARD.height - 32,
-						ellipsis: true,
-						lineGap: 1
+					.fontSize(CARD_TEXT.footer)
+					.fillColor('#8a9599')
+					.text(t(texts.cardNumber, { n: index + 1, total }), x, y0 + CARD.height - CARD.padding - 8, {
+						width: CARD_WIDTH,
+						align: 'right',
+						lineBreak: false
 					});
 			});
 		});

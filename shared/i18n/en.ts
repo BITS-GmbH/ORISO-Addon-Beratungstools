@@ -1176,7 +1176,10 @@ export const en: Complete = {
 			myCounsellor: 'My counsellor',
 			requested: 'Recommendation of a self-help group requested on {date}.',
 			cardsTitle: 'My emergency kit in business card format',
-			cardsHint: 'Cut out along the dashed lines and take with you.',
+			cardsHint:
+				'Cut along the solid line and fold along the dashed line: each strip becomes one card with a front and a back.',
+			cardContinued: '{title} (continued)',
+			cardNumber: 'Card {n} of {total}',
 			cardsEmpty: 'No entries yet.',
 			cardRiskRated: '{situation} (rating: {rating})',
 			cardRiskStrategy: '{situation}: {strategy}'

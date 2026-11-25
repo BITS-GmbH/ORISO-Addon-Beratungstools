@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Entry } from '../../shared/api.ts';
 import { i18n } from '../../shared/i18n/index.ts';
 import { selfHelpRequest } from '../../shared/tools/emergency-kit.ts';
-import { cardsOf, emergencyKit } from '../src/tools/emergency-kit/index.ts';
+import { cardsOf, emergencyKit, layoutCards } from '../src/tools/emergency-kit/index.ts';
 import { createWriter } from './pdfWriter.ts';
 
 let counter = 0;
@@ -63,11 +63,11 @@ describe('Notfallkoffer in other languages', () => {
 	it('titles the business cards in English', () => {
 		const cards = cardsOf(input('en'));
 		expect(cards.map((card) => card.title)).toEqual([
-			'Why I am sticking with it',
 			'This is where I get support',
+			'Why I am sticking with it',
 			'Risk situations and strategies'
 		]);
-		expect(cards[1]?.lines).toEqual(['Anna', 'Counselling: Maria Beispiel', 'Self-help group: Monday group']);
+		expect(cards[0]?.lines).toEqual(['Anna', 'Counselling: Maria Beispiel', 'Self-help group: Monday group']);
 		expect(cards[2]?.lines).toEqual(['Party (rating: very hard): Leave early']);
 		const { writer, text } = createWriter();
 		emergencyKit.clientExports?.card?.write(writer, {
@@ -77,7 +77,7 @@ describe('Notfallkoffer in other languages', () => {
 			counsellors: []
 		});
 		expect(text()).toBe(
-			'## My emergency kit in business card format\nCut out along the dashed lines and take with you.\nNo entries yet.'
+			'## My emergency kit in business card format\nCut along the solid line and fold along the dashed line: each strip becomes one card with a front and a back.\nNo entries yet.'
 		);
 	});
 
@@ -102,5 +102,23 @@ describe('Notfallkoffer in other languages', () => {
 			kind: 'relapse',
 			data: { text: 'Ich gebe nicht auf!' }
 		});
+	});
+
+	it('continues a section on further card sides instead of cutting it', () => {
+		const lines = (n: number, word: string) => Array.from({ length: n }, (_, i) => `${word} ${i + 1}`);
+		const sides = layoutCards(
+			[
+				{ title: 'Bei Suchtdruck', lines: lines(5, 'Befehl') },
+				{ title: 'Bei einem Rückfall', lines: lines(2, 'Schritt') }
+			],
+			(_, kind) => (kind === 'title' ? 12 : 10),
+			(title) => `${title} (Fortsetzung)`,
+			50
+		);
+		expect(sides).toEqual([
+			[{ title: 'Bei Suchtdruck', lines: ['Befehl 1', 'Befehl 2', 'Befehl 3'] }],
+			[{ title: 'Bei Suchtdruck (Fortsetzung)', lines: ['Befehl 4', 'Befehl 5'] }],
+			[{ title: 'Bei einem Rückfall', lines: ['Schritt 1', 'Schritt 2'] }]
+		]);
 	});
 });

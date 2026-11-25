@@ -1197,7 +1197,10 @@ export const fr: Catalogue = {
 			myCounsellor: 'Ma conseillère ou mon conseiller',
 			requested: 'Recommandation d’un groupe d’entraide demandée le {date}.',
 			cardsTitle: 'Ma trousse d’urgence au format carte de visite',
-			cardsHint: 'À découper le long des pointillés et à emporter avec soi.',
+			cardsHint:
+				'Découpez le long du trait plein et pliez le long des pointillés : chaque bande devient une carte recto verso.',
+			cardContinued: '{title} (suite)',
+			cardNumber: 'Carte {n} sur {total}',
 			cardsEmpty: 'Pas encore d’entrées.',
 			cardRiskRated: '{situation} (évaluation : {rating})',
 			cardRiskStrategy: '{situation} : {strategy}'
