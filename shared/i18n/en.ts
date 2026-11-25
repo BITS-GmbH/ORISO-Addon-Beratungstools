@@ -368,7 +368,11 @@ export const en: Complete = {
 		newEntry: {
 			title: 'Diary entry',
 			date: 'Date',
-			add: 'Add entry: {topic}'
+			add: 'Add entry: {topic}',
+			dayEntries: 'Entries on {date}',
+			none: 'There are no entries for this day yet.',
+			openDay: 'Open the day overview',
+			noConsumption: 'No consumption recorded'
 		},
 		week: {
 			title: 'My week',

@@ -373,7 +373,11 @@ export const ru: Catalogue = {
 		newEntry: {
 			title: 'Запись в дневнике',
 			date: 'Дата',
-			add: 'Добавить запись: {topic}'
+			add: 'Добавить запись: {topic}',
+			dayEntries: 'Записи за {date}',
+			none: 'За этот день пока нет записей.',
+			openDay: 'Открыть обзор дня',
+			noConsumption: 'Употребление не отмечено'
 		},
 		week: {
 			title: 'Моя неделя',

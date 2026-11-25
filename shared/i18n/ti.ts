@@ -346,7 +346,11 @@ export const ti: Catalogue = {
 		newEntry: {
 			title: 'ምዝገባ ማስታወሻ',
 			date: 'ዕለት',
-			add: 'ምዝገባ ወስኽ፦ {topic}'
+			add: 'ምዝገባ ወስኽ፦ {topic}',
+			dayEntries: 'ምዝገባታት ናይ {date}',
+			none: 'ንዚ መዓልቲ እዚ ገና ምዝገባ የለን።',
+			openDay: 'ናብ ጠቕላላ ትሕዝቶ መዓልቲ ኺድ',
+			noConsumption: 'ዝተመዝገበ ኣጠቓቕማ የለን'
 		},
 		week: {
 			title: 'ሰሙነይ',

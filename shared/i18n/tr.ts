@@ -369,7 +369,11 @@ export const tr: Catalogue = {
 		newEntry: {
 			title: 'Günlük kaydı',
 			date: 'Tarih',
-			add: 'Kayıt ekle: {topic}'
+			add: 'Kayıt ekle: {topic}',
+			dayEntries: 'Kayıtlar: {date}',
+			none: 'Bu gün için henüz kayıt yok.',
+			openDay: 'Günün özetine git',
+			noConsumption: 'Kullanım kaydedilmedi'
 		},
 		week: {
 			title: 'Haftam',

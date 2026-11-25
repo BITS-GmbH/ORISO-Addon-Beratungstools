@@ -83,6 +83,49 @@ describe('Konsumtagebuch', () => {
 		expect(screen.queryByText('weiteres Thema hinzufügen')).toBeNull();
 	});
 
+	it('saves the topics as soon as one is switched, without a save button', async () => {
+		const saved: any[] = [];
+		const { host } = fakeHost({
+			'GET /me/tools/consumption-diary': () => tool([topics(['alcohol'])]),
+			'PUT /me/tools/consumption-diary/keyed/topics/main': (body) => {
+				saved.push(body);
+				return record('topics', body.data, null, 'main');
+			}
+		});
+		open(host);
+		fireEvent.click(await screen.findByText('Einstellungen'));
+		expect(screen.queryByText('Speichern')).toBeNull();
+		fireEvent.click(screen.getByText('weiteres Thema hinzufügen'));
+		fireEvent.click(screen.getByLabelText('Cannabis'));
+		await waitFor(() => expect(saved.at(-1)).toEqual({ data: { topics: ['alcohol', 'cannabis'] } }));
+		fireEvent.click(screen.getByLabelText('Alkohol'));
+		await waitFor(() => expect(saved.at(-1)).toEqual({ data: { topics: ['cannabis'] } }));
+		fireEvent.click(screen.getByLabelText('Cannabis'));
+		expect(screen.getByRole('alert').textContent).toBe('Bitte wählen Sie mindestens ein Thema.');
+		expect(saved).toHaveLength(2);
+	});
+
+	it('lists the entries of the chosen day under "Tagebucheintrag"', async () => {
+		const { host } = fakeHost({
+			'GET /me/tools/consumption-diary': () =>
+				tool([
+					topics(['alcohol', 'gambling']),
+					record('day-summary', { topic: 'alcohol', consumed: true }, today, `${today}_alcohol`),
+					record('phase', { topic: 'alcohol', start: '20:00', end: '22:00', items: [] }, today),
+					record('day-summary', { topic: 'gambling', consumed: false }, today, `${today}_gambling`)
+				])
+		});
+		open(host);
+		fireEvent.click(await screen.findByText('Tagebucheintrag'));
+		expect(await screen.findByText(/^Einträge am /)).toBeTruthy();
+		expect(screen.getByText('Kein Konsum eingetragen')).toBeTruthy();
+		expect(screen.getAllByText('Zur Tagesübersicht')).toHaveLength(2);
+		fireEvent.click(screen.getByLabelText('bearbeiten'));
+		expect((await screen.findAllByRole('button', { name: /eintragen|speichern/i })).length).toBeGreaterThan(
+			0
+		);
+	});
+
 	it('answers a day with "nein" from the week and shows the motivating text', async () => {
 		let saved: any = null;
 		const { host } = fakeHost({

@@ -2,6 +2,7 @@ import { Button, Card, DatePicker, Headline } from '@oriso/web-kit';
 import { useState } from 'react';
 import {
 	addDays,
+	formatDayLong,
 	formatDayShort,
 	formatWeek,
 	localToday,
@@ -23,10 +24,10 @@ import {
 } from '../../../../shared/tools/consumption-diary.ts';
 import { PlannedActivities } from '../../core/PlannedActivities.tsx';
 import { useI18n } from '../../host.ts';
-import { Switch, WeekNav } from '../../ui.tsx';
+import { Icon, Switch, WeekNav } from '../../ui.tsx';
 import type { ClientViewProps } from '../types.ts';
 import { DayView } from './DayView.tsx';
-import { YesNo } from './parts.tsx';
+import { PhaseSnippet, YesNo } from './parts.tsx';
 import { PhaseForm } from './PhaseForm.tsx';
 
 export type Screen =
@@ -53,6 +54,7 @@ export function ConsumptionClient({ tool, entries, store, openTool }: ClientView
 	const today = localToday();
 	const [screen, setScreen] = useState<Screen>(() => ({ name: diary.chosen.length ? 'week' : 'settings' }));
 	const [monday, setMonday] = useState(() => weekStart(today));
+	const [entryDay, setEntryDay] = useState(today);
 	const intro =
 		typeof tool.options.intro === 'string' && tool.options.intro ? tool.options.intro : texts.intro;
 
@@ -119,19 +121,22 @@ export function ConsumptionClient({ tool, entries, store, openTool }: ClientView
 			)}
 			{screen.name === 'settings' || firstUse ? (
 				<TopicSettings
-					key={diary.chosen.join()}
 					chosen={diary.chosen}
 					intro={firstUse ? intro : null}
-					onSave={(topics) => {
+					onChange={(topics) => void store.putKeyed(TOPICS_KIND, TOPICS_KEY, { topics })}
+					onStart={(topics) => {
 						void store.putKeyed(TOPICS_KIND, TOPICS_KEY, { topics });
 						setScreen({ name: 'week' });
 					}}
 				/>
 			) : screen.name === 'entry' ? (
 				<NewEntry
-					topics={diary.chosen}
+					diary={diary}
 					today={today}
+					day={entryDay}
+					onDay={setEntryDay}
 					onOpen={(day, topic) => setScreen({ name: 'day', day, topic })}
+					onEdit={(day, topic, id) => setScreen({ name: 'phase', day, topic, id })}
 				/>
 			) : (
 				<Week
@@ -152,18 +157,23 @@ export function ConsumptionClient({ tool, entries, store, openTool }: ClientView
 function TopicSettings({
 	chosen,
 	intro,
-	onSave
+	onChange,
+	onStart
 }: {
 	chosen: TopicId[];
 	intro: string | null;
-	onSave: (topics: TopicId[]) => void;
+	/** Saves right away; the diary is already in use. */
+	onChange: (topics: TopicId[]) => void;
+	/** First use: starts the diary with the chosen topics. */
+	onStart: (topics: TopicId[]) => void;
 }) {
 	const { m } = useI18n();
 	const texts = m.consumptionDiary;
 	const [selected, setSelected] = useState<TopicId[]>(chosen);
-	const [showAll, setShowAll] = useState(chosen.length === 0);
+	const firstUse = chosen.length === 0;
+	const [showAll, setShowAll] = useState(firstUse);
 	const [problem, setProblem] = useState(false);
-	const visible = TOPIC_IDS.filter((id) => showAll || chosen.includes(id));
+	const visible = TOPIC_IDS.filter((id) => showAll || chosen.includes(id) || selected.includes(id));
 	const moreTopics = visible.length < TOPIC_IDS.length;
 	return (
 		<>
@@ -185,8 +195,12 @@ function TopicSettings({
 									label={texts.topics[id].label}
 									checked={selected.includes(id)}
 									onChange={(on) => {
-										setProblem(false);
-										setSelected(on ? [...selected, id] : selected.filter((topic) => topic !== id));
+										const next = on ? [...selected, id] : selected.filter((topic) => topic !== id);
+										setSelected(next);
+										setProblem(next.length === 0);
+										if (!firstUse && next.length > 0) {
+											onChange(TOPIC_IDS.filter((topic) => next.includes(topic)));
+										}
 									}}
 								/>
 							</div>
@@ -204,11 +218,13 @@ function TopicSettings({
 							{texts.settings.pickTopic}
 						</p>
 					)}
-					<div>
-						<Button onClick={() => (selected.length ? onSave(selected) : setProblem(true))}>
-							{chosen.length ? texts.settings.save : texts.settings.start}
-						</Button>
-					</div>
+					{firstUse && (
+						<div>
+							<Button onClick={() => (selected.length ? onStart(selected) : setProblem(true))}>
+								{texts.settings.start}
+							</Button>
+						</div>
+					)}
 				</div>
 			</Card>
 		</>
@@ -216,36 +232,94 @@ function TopicSettings({
 }
 
 function NewEntry({
-	topics,
+	diary,
 	today,
-	onOpen
+	day,
+	onDay,
+	onOpen,
+	onEdit
 }: {
-	topics: TopicId[];
+	diary: DiaryData;
 	today: string;
+	day: string;
+	onDay: (day: string) => void;
 	onOpen: (day: string, topic: TopicId) => void;
+	onEdit: (day: string, topic: TopicId, id: string) => void;
 }) {
-	const { m, t } = useI18n();
+	const i18n = useI18n();
+	const { m, t } = i18n;
 	const texts = m.consumptionDiary;
-	const [day, setDay] = useState(today);
+	const shown = day > today ? today : day;
+	const logged = diary.chosen.filter((topic) => consumedOn(diary, shown, topic) !== null);
 	return (
-		<Card>
-			<div className="bt-stack">
-				<Headline level={3}>{texts.newEntry.title}</Headline>
-				<DatePicker
-					label={texts.newEntry.date}
-					value={day}
-					max={today}
-					onChange={(value) => setDay(value || today)}
-				/>
-				<div className="bt-row">
-					{topics.map((topic) => (
-						<Button key={topic} variant="secondary" onClick={() => onOpen(day > today ? today : day, topic)}>
-							{t(texts.newEntry.add, { topic: texts.topics[topic].label })}
-						</Button>
-					))}
+		<>
+			<Card>
+				<div className="bt-stack">
+					<Headline level={3}>{texts.newEntry.title}</Headline>
+					<DatePicker
+						label={texts.newEntry.date}
+						value={day}
+						max={today}
+						onChange={(value) => onDay(value || today)}
+					/>
+					<div className="bt-row">
+						{diary.chosen.map((topic) => (
+							<Button key={topic} variant="secondary" onClick={() => onOpen(shown, topic)}>
+								{t(texts.newEntry.add, { topic: texts.topics[topic].label })}
+							</Button>
+						))}
+					</div>
 				</div>
-			</div>
-		</Card>
+			</Card>
+			<Card>
+				<div className="bt-stack bt-stack--tight">
+					<h3 className="bt-title">
+						{t(texts.newEntry.dayEntries, { date: formatDayLong(shown, i18n.lang) })}
+					</h3>
+					{logged.length === 0 ? (
+						<p className="bt-muted">{texts.newEntry.none}</p>
+					) : (
+						logged.map((topic) => {
+							const phases = phasesOn(diary, shown, topic);
+							return (
+								<div key={topic} className="bt-stack bt-stack--tight">
+									<div className="bt-row bt-row--between">
+										<strong>{texts.topics[topic].label}</strong>
+										<button
+											type="button"
+											className="bt-linkbtn bt-small"
+											onClick={() => onOpen(shown, topic)}
+										>
+											{texts.newEntry.openDay}
+										</button>
+									</div>
+									{phases.length === 0 ? (
+										<p className="bt-muted bt-small">{texts.newEntry.noConsumption}</p>
+									) : (
+										<ul className="bt-list">
+											{phases.map((phase) => (
+												<li key={phase.id} className="bt-item">
+													<PhaseSnippet phase={phase} />
+													<button
+														type="button"
+														className="bt-iconbtn"
+														title={texts.day.editTitle}
+														aria-label={texts.day.editTitle}
+														onClick={() => onEdit(shown, topic, phase.id)}
+													>
+														<Icon name="edit" />
+													</button>
+												</li>
+											))}
+										</ul>
+									)}
+								</div>
+							);
+						})
+					)}
+				</div>
+			</Card>
+		</>
 	);
 }
 

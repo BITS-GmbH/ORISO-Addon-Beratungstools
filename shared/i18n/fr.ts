@@ -374,7 +374,11 @@ export const fr: Catalogue = {
 		newEntry: {
 			title: 'Entrée du journal',
 			date: 'Date',
-			add: 'Ajouter une entrée : {topic}'
+			add: 'Ajouter une entrée : {topic}',
+			dayEntries: 'Entrées du {date}',
+			none: 'Il n’y a pas encore d’entrée pour ce jour.',
+			openDay: 'Voir la journée',
+			noConsumption: 'Aucune consommation enregistrée'
 		},
 		week: {
 			title: 'Ma semaine',

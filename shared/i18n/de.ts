@@ -497,7 +497,11 @@ export const de = {
 		newEntry: {
 			title: 'Tagebucheintrag',
 			date: 'Datum',
-			add: '{topic} Eintrag hinzufügen'
+			add: '{topic} Eintrag hinzufügen',
+			dayEntries: 'Einträge am {date}',
+			none: 'Für diesen Tag gibt es noch keine Einträge.',
+			openDay: 'Zur Tagesübersicht',
+			noConsumption: 'Kein Konsum eingetragen'
 		},
 		week: {
 			title: 'Meine Woche',
