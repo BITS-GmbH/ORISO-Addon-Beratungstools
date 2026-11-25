@@ -27,11 +27,12 @@ export const signToken = (claims: Record<string, unknown>, header: Record<string
 
 export const jwksFetch: typeof fetch = async () => new Response(JSON.stringify(jwks));
 
-export const testVerifier = () =>
+export const testVerifier = (trustedReaders: string[] = []) =>
 	createVerifier({
 		jwksUrl: 'http://addonservice/addons/.well-known/jwks.json',
 		issuer: 'oriso-addonservice',
 		audience: NAME,
+		trustedReaders,
 		fetchImpl: jwksFetch
 	});
 
@@ -119,7 +120,7 @@ export interface TestContext {
 	close(): Promise<void>;
 }
 
-export const startApp = async (): Promise<TestContext> => {
+export const startApp = async (trustedReaders: string[] = []): Promise<TestContext> => {
 	const pool = await freshDatabase();
 	const host = new FakeHost();
 	const clock = {
@@ -130,10 +131,11 @@ export const startApp = async (): Promise<TestContext> => {
 	};
 	const { app, core } = buildApp({
 		store: new Store(pool),
-		verify: testVerifier(),
+		verify: testVerifier(trustedReaders),
 		host,
 		tools: TOOLS,
-		now: () => new Date(clock.now)
+		now: () => new Date(clock.now),
+		trustedReaders
 	});
 	await app.ready();
 	return {

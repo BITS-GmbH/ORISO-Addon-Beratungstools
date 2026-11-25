@@ -9,6 +9,8 @@ export interface Claims {
 	agencyId?: number;
 	sessionId?: number;
 	askerId?: string;
+	/** The audience the token was accepted for: this add-on, or a trusted reader (`TRUSTED_READERS`). */
+	audience: string;
 	token: string;
 }
 
@@ -20,17 +22,22 @@ const decodePart = (part: string): Record<string, unknown> =>
 const optionalNumber = (value: unknown): number | undefined =>
 	typeof value === 'number' ? value : undefined;
 
-/** Verifies AddonService tokens (RS256) against its JWKS; keys are cached and reloaded for unknown ids. */
+/**
+ * Verifies AddonService tokens (RS256) against its JWKS; keys are cached and reloaded for unknown ids.
+ * Accepts this add-on's audience and the audiences of trusted readers; which one matched is in the claims.
+ */
 export const createVerifier = ({
 	jwksUrl,
 	issuer,
 	audience,
+	trustedReaders = [],
 	fetchImpl = fetch,
 	now = Date.now
 }: {
 	jwksUrl: string;
 	issuer: string;
 	audience: string;
+	trustedReaders?: string[];
 	fetchImpl?: typeof fetch;
 	now?: () => number;
 }): Verify => {
@@ -77,8 +84,9 @@ export const createVerifier = ({
 			return null;
 		}
 		const audiences = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+		const matched = [audience, ...trustedReaders].find((candidate) => audiences.includes(candidate));
 		const exp = optionalNumber(claims.exp) ?? 0;
-		if (claims.iss !== issuer || !audiences.includes(audience) || exp <= Math.floor(now() / 1000)) {
+		if (claims.iss !== issuer || !matched || exp <= Math.floor(now() / 1000)) {
 			return null;
 		}
 		const tenantId = optionalNumber(claims.tenantId);
@@ -95,6 +103,7 @@ export const createVerifier = ({
 			agencyId: optionalNumber(claims.agencyId),
 			sessionId: optionalNumber(claims.sessionId),
 			askerId: typeof claims.askerId === 'string' && claims.askerId ? claims.askerId : undefined,
+			audience: matched,
 			token
 		};
 	};

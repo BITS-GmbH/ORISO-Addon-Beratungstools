@@ -9,7 +9,7 @@ import { isCounsellor, type Claims } from '../auth.ts';
 import { isActive, isReadable } from '../core/access.ts';
 import { counsellorNames, readLinked } from '../core/links.ts';
 import { APP_ID, SLOTS } from '../core/manifest.ts';
-import { renderPdf } from '../core/pdf.ts';
+import { renderPdf, type PdfWriter } from '../core/pdf.ts';
 import { isOffered, optionsOf, type Settings } from '../core/settings.ts';
 import type { ServerTool } from '../tools/types.ts';
 
@@ -22,11 +22,8 @@ const exportQuery = z.object({
 	lang: z.string().max(20).optional()
 });
 
-/**
- * The counsellor's side of a case. The client comes from the token's `askerId`, which the
- * AddonService only sets for a counsellor with access to the session.
- */
-export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
+/** Access to a case for the counsellor in the token; shared by the case routes and the internal reads. */
+export const caseReader = (core: Core) => {
 	const { store, host } = core;
 
 	const counsellor = (claims: Claims) => {
@@ -45,11 +42,11 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 	};
 
 	/** The tool and the client, after checking right now that the counsellor may read its entries. */
-	const readable = async (request: FastifyRequest) => {
-		const target = inCase(request.claims);
-		const tool = core.tool((request.params as { tool: string }).tool);
+	const readable = async (claims: Claims, toolId: string) => {
+		const target = inCase(claims);
+		const tool = core.tool(toolId);
 		const [settings, release, share] = await Promise.all([
-			core.settings(request.claims),
+			core.settings(claims),
 			store.releaseOf(target.tenantId, target.askerId, tool.id),
 			store.shareOf(target.tenantId, target.askerId, tool.id)
 		]);
@@ -74,6 +71,50 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 			},
 			(other) => store.entries(tenantId, askerId, other.id)
 		);
+
+	/** The counsellor export of a readable tool: its language, the period of the entries and the content. */
+	const exportOf = async (claims: Claims, toolId: string, query: unknown) => {
+		const { tenantId, askerId, tool, settings } = await readable(claims, toolId);
+		const { lang, ...dates } = exportQuery.parse(query);
+		const range = tool.exportRange ? dates : {};
+		const language = i18n(langOf(lang));
+		const [entries, linked, context] = await Promise.all([
+			store.entries(tenantId, askerId, tool.id, range),
+			linkedOf(tenantId, askerId, tool, settings),
+			tool.counsellorNames ? host.context(claims, 'asker') : null
+		]);
+		const days = entries.map((entry) => entry.day ?? entry.updatedAt.slice(0, 10)).sort();
+		const first = range.from ?? days[0];
+		const last = range.to ?? days[days.length - 1];
+		return {
+			tool,
+			language,
+			title: toolTexts(language.m, tool.id).title,
+			period: !first || !last ? language.m.pdf.noEntries : formatPeriod(first, last, language.lang),
+			write: (writer: PdfWriter) =>
+				tool.exportPdf(writer, {
+					entries,
+					options: optionsOf(settings, tool),
+					linked,
+					counsellors: counsellorNames(context, claims.agencyId),
+					i18n: language
+				})
+		};
+	};
+
+	return { counsellor, inCase, readable, linkedOf, exportOf };
+};
+
+/**
+ * The counsellor's side of a case. The client comes from the token's `askerId`, which the
+ * AddonService only sets for a counsellor with access to the session.
+ */
+export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
+	const { store, host } = core;
+	const reader = caseReader(core);
+	const { counsellor, inCase, linkedOf, exportOf } = reader;
+	const readable = (request: FastifyRequest) =>
+		reader.readable(request.claims, (request.params as { tool: string }).tool);
 
 	const offeredTool = async (request: FastifyRequest) => {
 		const tool = core.tool((request.params as { tool: string }).tool);
@@ -190,39 +231,24 @@ export const registerCaseRoutes = (app: FastifyInstance, core: Core): void => {
 	});
 
 	app.get('/api/case/tools/:tool/export', async (request, reply) => {
-		const { tenantId, askerId, tool, settings } = await readable(request);
-		const { lang, ...query } = exportQuery.parse(request.query);
-		const range = tool.exportRange ? query : {};
-		const language = i18n(langOf(lang));
+		const { tool, language, title, period, write } = await exportOf(
+			request.claims,
+			(request.params as { tool: string }).tool,
+			request.query
+		);
 		const { m, t } = language;
-		const [entries, linked, context] = await Promise.all([
-			store.entries(tenantId, askerId, tool.id, range),
-			linkedOf(tenantId, askerId, tool, settings),
-			tool.counsellorNames ? host.context(request.claims, 'asker') : null
-		]);
-		const days = entries.map((entry) => entry.day ?? entry.updatedAt.slice(0, 10)).sort();
-		const first = range.from ?? days[0];
-		const last = range.to ?? days[days.length - 1];
-		const period = !first || !last ? m.pdf.noEntries : formatPeriod(first, last, language.lang);
 		const sessionId = request.claims.sessionId;
 		const createdAt = core.now();
 		const pdf = await renderPdf(
 			{
-				toolTitle: toolTexts(m, tool.id).title,
+				toolTitle: title,
 				caseLabel: sessionId ? t(m.pdf.caseLabel, { id: String(sessionId) }) : m.pdf.caseWithoutId,
 				createdAt,
 				period
 			},
 			core.timeZone,
 			language,
-			(writer) =>
-				tool.exportPdf(writer, {
-					entries,
-					options: optionsOf(settings, tool),
-					linked,
-					counsellors: counsellorNames(context, request.claims.agencyId),
-					i18n: language
-				})
+			write
 		);
 		await host.audit(request.claims, {
 			action: 'tool.exported',

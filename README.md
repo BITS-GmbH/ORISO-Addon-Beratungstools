@@ -43,6 +43,7 @@ notifications and audit entries; "Beispieldaten" fills in a released, shared cas
 | `ADDONSERVICE_ISSUER` | `oriso-addonservice` | |
 | `NOTIFY_WINDOW_MINUTES` | `15` | bundling window for notifications to counsellors |
 | `EXPORT_TIME_ZONE` | `Europe/Berlin` | dates in PDF exports |
+| `TRUSTED_READERS` | (empty) | add-ons whose tokens may call `/internal/**`, comma-separated (see ARCHITECTURE.md) |
 | `PORT` | `8080` | |
 | `ADDON_VERSION` | version from `package.json` | set per image build; manifest version and bundle path `/ui/<version>/entry.js` |
 

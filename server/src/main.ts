@@ -17,12 +17,14 @@ const { app } = buildApp({
 	verify: createVerifier({
 		jwksUrl: `${config.addonServiceUrl}/addons/.well-known/jwks.json`,
 		issuer: config.issuer,
-		audience: NAME
+		audience: NAME,
+		trustedReaders: config.trustedReaders
 	}),
 	host: createHost({ url: `${config.addonServiceUrl}/addons/host` }),
 	tools: TOOLS,
 	notifyWindowMs: config.notifyWindowMs,
 	timeZone: config.timeZone,
+	trustedReaders: config.trustedReaders,
 	uiDir: config.uiDir,
 	logger: true
 });

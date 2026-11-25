@@ -7,6 +7,7 @@ const claims = (tenantId = 1, agencyId?: number): Claims => ({
 	roles: ['user'],
 	tenantId,
 	agencyId,
+	audience: 'beratungstools',
 	token: 'tok'
 });
 const quiet = { warn: () => undefined };

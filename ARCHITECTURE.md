@@ -116,6 +116,9 @@ AddonService). The service applies numbered SQL migrations at start.
 - `notification_prefs (counsellor_id, first_share, new_entry, changed_entry, updated_at)`
 - `notification_outbox (tenant_id, asker_id, tool, pending, version, due_at, last_sent_at,
   claim_id, claimed_at)`: one row per client and tool; `pending` is a bit set of event kinds.
+- `settings_snapshots (tenant_id, agency_id, value JSON, updated_at)`: the last settings the host
+  API returned for a Träger and agency (agency 0 for requests without one), for the internal API
+  below.
 
 ## Notifications
 
@@ -220,6 +223,34 @@ Generic API used by the modules through the core (`/api` behind the AddonService
 
 Besides the API: `/.well-known/oriso-addon.json`, `/schema/settings.json`, `/health`, `/ui/**`,
 and for the AddonService `/visibility`, `/stats`, `/events`, `/calendar`.
+
+## Internal API for other add-ons
+
+Other add-ons in the cluster can read what a client shares, server to server, without the
+AddonService gateway (decided for `dokumentation`, the counsellors' documentation). The caller
+forwards the add-on token the AddonService issued to it for the counsellor's request: same JWKS
+and issuer, `aud` is the caller's name, and `askerId` is set only after the AddonService checked
+the counsellor's access to the session.
+
+- `TRUSTED_READERS` (comma-separated add-on names, default empty) lists the audiences accepted
+  besides `beratungstools`. Tokens of a trusted reader get 403 on every other route; tokens of
+  this add-on get 403 on `/internal/**`.
+- Every route needs the role `consultant` (else 403) and `askerId` (else 400), and checks
+  release, share and settings like the case routes. Reads neither mark entries as seen nor notify
+  nor write audit entries.
+- `GET /internal/case/tools?lang=`: `{ tools: [{ id, title, lastChangedAt }] }`, the tools the
+  counsellor may read now, in catalogue order.
+- `GET /internal/case/tools/<tool>/text?lang=&from=&to=`: `{ id, title, text }`, the counsellor PDF
+  export of the tool as plain text (first line the period of the entries; headings with `#`,
+  list items with `- `, table rows with ` | ` between cells; drawings left out). 403 when not
+  readable.
+
+The host API answers `/settings` for the add-on the token was issued for, so a reader's token
+would get the reader's settings. Therefore every regular request that gets settings from the host
+keeps a snapshot per Träger and agency (written in the background when changed or older than five
+minutes; a failure only logs). Internal reads use the snapshot of the token's agency, else of the
+Träger, else the schema defaults. A change in ORISO-Admin reaches internal reads with the next
+regular request of that agency.
 
 ## Languages
 

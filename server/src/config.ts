@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url';
+import { NAME } from './core/manifest.ts';
 
 export interface Config {
 	port: number;
@@ -8,6 +9,8 @@ export interface Config {
 	uiDir: string;
 	notifyWindowMs: number;
 	timeZone: string;
+	/** Other add-ons whose tokens may call `/internal/**`. */
+	trustedReaders: string[];
 }
 
 const number = (value: string | undefined, fallback: number): number => {
@@ -27,6 +30,10 @@ export const loadConfig = (env: NodeJS.ProcessEnv = process.env): Config => {
 		issuer: env.ADDONSERVICE_ISSUER ?? 'oriso-addonservice',
 		uiDir: env.UI_DIR ?? fileURLToPath(new URL('../../dist/ui', import.meta.url)),
 		notifyWindowMs: number(env.NOTIFY_WINDOW_MINUTES, 15) * 60_000,
-		timeZone: env.EXPORT_TIME_ZONE ?? 'Europe/Berlin'
+		timeZone: env.EXPORT_TIME_ZONE ?? 'Europe/Berlin',
+		trustedReaders: (env.TRUSTED_READERS ?? '')
+			.split(',')
+			.map((name) => name.trim())
+			.filter((name) => name && name !== NAME)
 	};
 };

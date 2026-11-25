@@ -35,6 +35,16 @@ describe('token verification', () => {
 		expect(await verify(header)).toBeNull();
 	});
 
+	it('accepts trusted readers and tells which audience matched', async () => {
+		const trusting = testVerifier(['dokumentation']);
+		const reader = signToken({ sub: 'c1', roles: ['consultant'], aud: ['dokumentation'] });
+		expect(await trusting(`Bearer ${reader}`)).toMatchObject({ audience: 'dokumentation' });
+		expect(await trusting(`Bearer ${signToken({ sub: 'c1', roles: [] })}`)).toMatchObject({
+			audience: 'beratungstools'
+		});
+		expect(await verify(`Bearer ${reader}`)).toBeNull();
+	});
+
 	it('rejects a changed payload', async () => {
 		const [head, , signature] = signToken({ sub: 'x', roles: ['user'] }).split('.');
 		const forged = Buffer.from(JSON.stringify({ sub: 'y', roles: ['consultant'], tenantId: 1 })).toString(

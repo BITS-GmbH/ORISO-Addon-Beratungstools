@@ -553,6 +553,33 @@ export class Store {
 		return stats;
 	}
 
+	// Settings snapshots
+
+	async saveSettingsSnapshot(
+		tenantId: number,
+		agencyId: number,
+		value: Record<string, unknown>,
+		now: Date
+	): Promise<void> {
+		await this.execute(
+			`INSERT INTO settings_snapshots (tenant_id, agency_id, value, updated_at) VALUES (?, ?, ?, ?)
+			ON DUPLICATE KEY UPDATE value = VALUES(value), updated_at = VALUES(updated_at)`,
+			[tenantId, agencyId, JSON.stringify(value), now]
+		);
+	}
+
+	/** The snapshot of the agency, else the Träger's (agency 0). */
+	async settingsSnapshot(tenantId: number, agencyId = 0): Promise<Record<string, unknown> | null> {
+		const [row] = await this.rows(
+			'SELECT value FROM settings_snapshots WHERE tenant_id = ? AND agency_id IN (?, 0) ORDER BY agency_id DESC LIMIT 1',
+			[tenantId, agencyId]
+		);
+		if (!row) {
+			return null;
+		}
+		return (typeof row.value === 'string' ? JSON.parse(row.value) : row.value) as Record<string, unknown>;
+	}
+
 	/**
 	 * `user.deleted`: everything of a client, and a counsellor's own data (demo, seen markers,
 	 * preferences). Releases a deleted counsellor made stay with the client, without the name.

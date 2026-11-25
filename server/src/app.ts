@@ -8,10 +8,11 @@ import { CATALOG } from '../../shared/catalog.ts';
 import type { Claims, Verify } from './auth.ts';
 import { isReadable } from './core/access.ts';
 import { createNotifier, type Notifier } from './core/notifications.ts';
-import { manifest, VERSION } from './core/manifest.ts';
+import { manifest, NAME, VERSION } from './core/manifest.ts';
 import { settingsSchema, withDefaults, type Settings, type SettingsSchema } from './core/settings.ts';
 import type { Host } from './host.ts';
 import { registerCaseRoutes } from './routes/case.ts';
+import { registerInternalRoutes } from './routes/internal.ts';
 import { registerOwnerRoutes } from './routes/owner.ts';
 import { registerPlatformRoutes } from './routes/platform.ts';
 import type { Store } from './store.ts';
@@ -42,6 +43,8 @@ export interface AppOptions {
 	timeZone?: string;
 	uiDir?: string;
 	logger?: boolean;
+	/** Add-ons whose tokens may call `/internal/**`, and only that. */
+	trustedReaders?: string[];
 }
 
 /** What the route modules share. */
@@ -54,8 +57,15 @@ export interface Core {
 	timeZone: string;
 	now: () => Date;
 	tool(id: string): ServerTool;
+	/**
+	 * The effective settings for the token's Träger and agency. The host API answers with the
+	 * settings of the add-on the token was issued for, so a trusted reader's token gets the snapshot
+	 * that this add-on's own requests keep.
+	 */
 	settings(claims: Claims): Promise<Settings>;
 }
+
+const SNAPSHOT_REFRESH_MS = 5 * 60_000;
 
 const catalogIndex = (id: string) => CATALOG.findIndex((tool) => tool.id === id);
 
@@ -65,6 +75,25 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 	const tools = [...options.tools].sort((a, b) => catalogIndex(a.id) - catalogIndex(b.id));
 	const schema = settingsSchema(tools);
 	const app = Fastify({ logger: options.logger ?? false, bodyLimit: 256 * 1024 });
+	const trustedReaders = new Set(options.trustedReaders ?? []);
+
+	const snapshots = new Map<string, { json: string; at: number }>();
+	const keepSnapshot = (tenantId: number, agencyId: number, values: Settings) => {
+		const key = `${tenantId}:${agencyId}`;
+		const json = JSON.stringify(values);
+		const at = now().getTime();
+		const known = snapshots.get(key);
+		if (known && known.json === json && at - known.at < SNAPSHOT_REFRESH_MS) {
+			return;
+		}
+		snapshots.set(key, { json, at });
+		void Promise.resolve()
+			.then(() => store.saveSettingsSnapshot(tenantId, agencyId, values, new Date(at)))
+			.catch((error: Error) => {
+				snapshots.delete(key);
+				app.log.warn(`settings snapshot not saved: ${error.message}`);
+			});
+	};
 
 	const core: Core = {
 		store,
@@ -82,7 +111,14 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 			return tool;
 		},
 		async settings(claims) {
-			return withDefaults(schema, await host.settings(claims));
+			if (claims.audience !== NAME) {
+				return withDefaults(schema, await store.settingsSnapshot(claims.tenantId, claims.agencyId));
+			}
+			const values = await host.settings(claims);
+			if (values) {
+				keepSnapshot(claims.tenantId, claims.agencyId ?? 0, values);
+			}
+			return withDefaults(schema, values);
 		}
 	};
 	core.notifier = createNotifier({
@@ -164,6 +200,13 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 		request.claims = claims;
 	};
 
+	const forAudience = (allowed: (audience: string) => boolean) => async (request: FastifyRequest) => {
+		await authenticate(request);
+		if (!allowed(request.claims.audience)) {
+			throw new HttpError(403, 'audience not allowed');
+		}
+	};
+
 	app.get('/.well-known/oriso-addon.json', async () => manifest(tools));
 	app.get('/schema/settings.json', async () => schema);
 	app.get('/health', async () => ({ status: 'UP' }));
@@ -187,11 +230,22 @@ export const buildApp = (options: AppOptions): { app: FastifyInstance; core: Cor
 	}
 
 	app.register(async (secured) => {
-		secured.addHook('onRequest', authenticate);
+		secured.addHook(
+			'onRequest',
+			forAudience((audience) => audience === NAME)
+		);
 		registerPlatformRoutes(secured, core);
 		registerOwnerRoutes(secured, core, 'client');
 		registerOwnerRoutes(secured, core, 'demo');
 		registerCaseRoutes(secured, core);
+	});
+
+	app.register(async (internal) => {
+		internal.addHook(
+			'onRequest',
+			forAudience((audience) => audience !== NAME && trustedReaders.has(audience))
+		);
+		registerInternalRoutes(internal, core);
 	});
 
 	return { app, core };
