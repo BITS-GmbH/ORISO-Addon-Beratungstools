@@ -1,12 +1,10 @@
-import { Button, Card, Headline, Notice, Spinner } from '@oriso/web-kit';
+import { Headline, Notice, Spinner } from '@oriso/web-kit';
 import { useState } from 'react';
-import { toolTexts } from '../../../shared/catalog.ts';
 import { clientTools } from '../api.ts';
 import { useHost, useI18n } from '../host.ts';
-import { webTool } from '../tools/index.ts';
 import { Pill, useLoad } from '../ui.tsx';
-import { ToolIcon } from './ToolIcon.tsx';
 import { ToolPage } from './ToolPage.tsx';
+import { ToolRow } from './ToolRow.tsx';
 
 /** "Meine Tools": the tools a counsellor released for the client. */
 export function ClientApp() {
@@ -49,33 +47,22 @@ export function ClientApp() {
 					{m.client.noneText}
 				</Notice>
 			) : (
-				<div className="bt-grid">
-					{data.tools.map((tool) => {
-						const info = toolTexts(m, tool.id);
-						return (
-							<Card key={tool.id}>
-								<div className="bt-tile">
-									<div className="bt-tile__head">
-										<ToolIcon icon={webTool(tool.id)?.icon} />
-										<div className="bt-stack bt-stack--tight">
-											<span className="bt-title">{info.title}</span>
-											<div className="bt-row">
-												{!tool.opened && <Pill tone="new">{m.client.new}</Pill>}
-												{tool.shared && <Pill tone="shared">{m.client.shared}</Pill>}
-											</div>
-										</div>
-									</div>
-									<p className="bt-muted bt-small">{info.clientDescription}</p>
-									<div className="bt-tile__actions">
-										<Button onClick={() => setOpen(tool.id)}>
-											{tool.hasEntries ? m.client.continue : m.client.open}
-										</Button>
-									</div>
-								</div>
-							</Card>
-						);
-					})}
-				</div>
+				<ul className="bt-toollist bt-toollist--wide">
+					{data.tools.map((tool) => (
+						<li key={tool.id}>
+							<ToolRow
+								toolId={tool.id}
+								badges={
+									<>
+										{!tool.opened && <Pill tone="new">{m.client.new}</Pill>}
+										{tool.shared && <Pill tone="shared">{m.client.shared}</Pill>}
+									</>
+								}
+								onOpen={() => setOpen(tool.id)}
+							/>
+						</li>
+					))}
+				</ul>
 			)}
 		</div>
 	);

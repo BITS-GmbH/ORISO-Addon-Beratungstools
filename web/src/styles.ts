@@ -52,7 +52,9 @@ export const CSS = `
 @container (min-width: 560px) { .bt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @container (min-width: 900px) { .bt-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .bt-toollist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-.bt-toolrow { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; font: inherit; color: inherit; background: var(--bt-surface, #fff); border: 1px solid var(--bt-outline, #d8dcdc); border-radius: 12px; cursor: pointer; }
+.bt-toollist--wide { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@container (min-width: 760px) { .bt-toollist--wide { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bt-toolrow { width: 100%; height: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; font: inherit; color: inherit; background: var(--bt-surface, #fff); border: 1px solid var(--bt-outline, #d8dcdc); border-radius: 12px; cursor: pointer; }
 .bt-toolrow:hover { border-color: var(--bt-primary); }
 .bt-toolrow:focus-visible { outline: 2px solid var(--bt-primary); outline-offset: 2px; }
 .bt-toolrow__text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
@@ -189,6 +191,9 @@ export const CSS = `
 .bt-details--stacked dt { font-weight: 600; }
 .bt-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
 .bt-tab { font: inherit; font-size: 13px; font-weight: 600; border: 1px solid var(--bt-outline-soft); background: var(--bt-surface); color: var(--bt-muted); border-radius: 999px; padding: 3px 12px; cursor: pointer; }
+.bt-tab { display: inline-flex; align-items: center; gap: 6px; }
+.bt-tab__dot { width: 7px; height: 7px; border-radius: 999px; background: var(--bt-new, #c0392b); }
+.bt-profile-entries { padding-top: 4px; border-top: 1px solid var(--bt-outline-soft); }
 .bt-tab[aria-pressed='true'] { background: var(--bt-primary); border-color: var(--bt-primary); color: var(--bt-on-primary); }
 
 /* Notfallkoffer */

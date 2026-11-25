@@ -32,9 +32,9 @@ describe('Meine Tools', () => {
 		});
 		renderWith(host, <ClientApp />);
 		expect(await screen.findByText('Neu')).toBeTruthy();
-		expect(screen.getByText(/^Beschreiben Sie Ihre aktuelle Situation in eigenen Worten/)).toBeTruthy();
+		expect(screen.getByText('Situation beschreiben und ein Ziel für die Beratung festlegen')).toBeTruthy();
 		expect(screen.queryByText(/Betroffene/)).toBeNull();
-		fireEvent.click(screen.getByText('Öffnen'));
+		fireEvent.click(screen.getByText('Ausgangssituation und Ziele'));
 		expect(await screen.findByText(/Bitte beschreiben Sie anhand der folgenden Fragen/)).toBeTruthy();
 		fireEvent.click(screen.getByRole('switch'));
 		await waitFor(() => expect(calls.some((c) => c.method === 'PUT' && c.body?.shared === true)).toBe(true));
@@ -53,7 +53,7 @@ describe('Ausgangssituation und Ziele', () => {
 			'PUT /me/tools/goals/keyed/answer/situation': (body) => entry('answer', body.data, 'situation')
 		});
 		renderWith(host, <ClientApp />);
-		fireEvent.click(await screen.findByText('Öffnen'));
+		fireEvent.click(await screen.findByText('Ausgangssituation und Ziele'));
 		fireEvent.click(await screen.findByText('Los geht’s'));
 		expect(screen.getByText('Frage 1 von 4: Wie ist Ihre aktuelle Situation?')).toBeTruthy();
 		fireEvent.change(screen.getByLabelText('Ihre aktuelle Situation'), { target: { value: 'Viel Stress' } });
@@ -83,7 +83,7 @@ describe('Ausgangssituation und Ziele', () => {
 			'DELETE /me/tools/goals/keyed/answer/situation': () => undefined
 		});
 		renderWith(host, <ClientApp />);
-		fireEvent.click(await screen.findByText('Weiter bearbeiten'));
+		fireEvent.click(await screen.findByText('Ausgangssituation und Ziele'));
 		fireEvent.click(await screen.findByLabelText('Bearbeiten: Ihre aktuelle Situation'));
 		fireEvent.change(screen.getByLabelText('Ihre aktuelle Situation'), { target: { value: '' } });
 		fireEvent.click(screen.getByText('Weiter'));
@@ -114,7 +114,7 @@ describe('switching from a diary to "Aktiv sein"', () => {
 			'PUT /me/tools/active/share': (body) => body
 		});
 		renderWith(host, <ClientApp />);
-		fireEvent.click(await screen.findByText('Öffnen'));
+		fireEvent.click(await screen.findByText('Tagebuch für Angehörige'));
 		fireEvent.click(await screen.findByText('Aktivitäten in „Aktiv sein“ planen'));
 		fireEvent.change(await screen.findByLabelText('Aktivität eintragen'), { target: { value: 'Joggen' } });
 		expect(screen.queryByText('Mein Tagebuch')).toBeNull();

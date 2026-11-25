@@ -11,6 +11,7 @@ import { DemoView } from './DemoView.tsx';
 import { EntriesView } from './EntriesView.tsx';
 import { NotificationPrefsButton, NotificationPrefsPanel } from './NotificationPrefs.tsx';
 import { ToolIcon } from './ToolIcon.tsx';
+import { ToolRow } from './ToolRow.tsx';
 
 type View =
 	| { type: 'overview' }
@@ -21,7 +22,8 @@ type View =
 /** The tools of a case (slot `consultant.session`): release, read shared entries, try the demo. */
 export function CounsellorApp() {
 	const host = useHost();
-	const { m } = useI18n();
+	const i18n = useI18n();
+	const { m } = i18n;
 	const api = useMemo(() => caseApi(host.api), [host.api]);
 	const [view, setView] = useState<View>({ type: 'overview' });
 	const [prefsOpen, setPrefsOpen] = useState(false);
@@ -79,7 +81,11 @@ export function CounsellorApp() {
 	const notReleased = tools.filter((tool) => !tool.released);
 	const row = (tool: CaseTool) => (
 		<li key={tool.id}>
-			<ToolRow tool={tool} onOpen={() => show({ type: 'detail', tool: tool.id })} />
+			<ToolRow
+				toolId={tool.id}
+				badges={newEntries(tool, i18n)}
+				onOpen={() => show({ type: 'detail', tool: tool.id })}
+			/>
 		</li>
 	);
 
@@ -124,26 +130,6 @@ function newEntries(tool: CaseTool, { m, t }: I18n) {
 		return null;
 	}
 	return <Pill tone="new">{t(m.counsellor.newEntries, { count: tool.newCount })}</Pill>;
-}
-
-function ToolRow({ tool, onOpen }: { tool: CaseTool; onOpen: () => void }) {
-	const i18n = useI18n();
-	const info = toolTexts(i18n.m, tool.id);
-	return (
-		<button type="button" className="bt-toolrow" onClick={onOpen}>
-			<ToolIcon icon={webTool(tool.id)?.icon} />
-			<span className="bt-toolrow__text">
-				<span className="bt-toolrow__title">
-					<span className="bt-title">{info.title}</span>
-					{newEntries(tool, i18n)}
-				</span>
-				<span className="bt-muted bt-small">{info.summary}</span>
-			</span>
-			<span className="bt-toolrow__chevron" aria-hidden="true">
-				›
-			</span>
-		</button>
-	);
 }
 
 interface DetailProps {

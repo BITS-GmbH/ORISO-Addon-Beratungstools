@@ -238,12 +238,23 @@ describe('tool overview', () => {
 });
 
 describe('profile tile', () => {
-	it('shows the state per released tool and links into the case', async () => {
-		const { host } = fakeHost(
+	it('shows a tab per released tool with the shared entries and links into the case', async () => {
+		const { host, calls } = fakeHost(
 			{
 				'GET /case/tools': () => ({
 					sessionId: 4711,
-					tools: [tile('goals', { released: true, shared: true, newCount: 3 }), tile('balance')]
+					tools: [
+						tile('goals', { released: true, shared: true, newCount: 3 }),
+						tile('active', { released: true, hasEntries: true }),
+						tile('balance')
+					]
+				}),
+				'GET /case/tools/goals/entries': () => ({
+					id: 'goals',
+					entries: [],
+					options: {},
+					seenAt: null,
+					sharedSince: '2026-11-20T09:00:00Z'
 				})
 			},
 			{ ...counsellor, slot: 'consultant.asker-profile' }
@@ -251,6 +262,9 @@ describe('profile tile', () => {
 		renderWith(host, <ProfileTile />);
 		expect(await screen.findByText('3 neu')).toBeTruthy();
 		expect(screen.queryByText('Motivationswaage')).toBeNull();
+		await waitFor(() => expect(calls.some((c) => c.path === '/case/tools/goals/entries')).toBe(true));
+		fireEvent.click(screen.getByText('Aktiv sein'));
+		expect(await screen.findByText('Einträge vorhanden, keine Einsicht')).toBeTruthy();
 		fireEvent.click(screen.getByText('Tools im Fall öffnen'));
 		expect(host.navigate).toHaveBeenCalledWith(
 			'/sessions/consultant/sessionView/session/4711?addon=beratungstools%2Ftools%2Fconsultant.session'
